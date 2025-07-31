@@ -261,6 +261,8 @@ class Order:
     order_edit_history: List[OrderEditHistory] = None
     is_raise_exact: bool = None
     display_size: str = None
+    display_quote_size: str = None
+    display_base_size: str = None
     edit_history: List[OrderEditHistory] = None
 
 
@@ -451,7 +453,7 @@ class RequestedAmount:
 
 
 @dataclass
-class Sweeps:
+class Sweep:
     id: str
     requested_amount: RequestedAmount
     should_sweep_all: bool
@@ -472,7 +474,7 @@ class InvoiceItem:
 
 
 @dataclass
-class Invoices:
+class Invoice:
     id: str
     billing_month: int
     billing_year: int
@@ -529,7 +531,7 @@ class Product:
 
 
 @dataclass
-class DefiBalances:
+class DefiBalance:
     network: str
     protocol: str
     net_usd_value: str
