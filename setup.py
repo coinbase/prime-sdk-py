@@ -16,7 +16,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="prime-sdk-py",
-    version="0.4.2",
+    version="1.0.0",
     packages=find_packages(),
     install_requires=[
         'requests',

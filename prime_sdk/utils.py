@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass, asdict
-from typing import Optional, List, Union, Dict
+from typing import Optional, List, Union, Dict, Any
 
 
 @dataclass
@@ -52,3 +52,19 @@ class Pagination:
 
     def to_dict(self) -> Dict[str, str]:
         return asdict(self)
+
+
+def to_body_dict(obj: Any) -> Dict[str, Any]:
+    """
+    Convert a dataclass to a dictionary, converting enum values to their string representation.
+    This is used for request objects that need to be serialized for API calls.
+    """
+    result = {}
+    for k, v in asdict(obj).items():
+        if v is not None:
+            # Convert enums to their string values
+            if hasattr(v, 'value'):
+                result[k] = v.value
+            else:
+                result[k] = v
+    return result

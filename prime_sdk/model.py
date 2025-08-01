@@ -205,10 +205,20 @@ class Details:
     name: str
     account_number: str
     bank_code: str
+
+
+@dataclass
+class EntityPaymentMethod:
+    id: str
+    symbol: str
+    payment_method_time: str
+    bank_name: str
+    account_number: str
+    bank_name_2: str
     
 
 @dataclass
-class Position:
+class FuturesPosition:
     product_id: str
     side: str
     number_of_contracts: str
@@ -228,6 +238,19 @@ class OrderEditHistory:
     stop_limit_price: str
     end_time: str
     accept_time: str
+
+
+@dataclass
+class EditHistory:
+    price: str
+    base_quantity: str
+    quote_value: str
+    display_quote_size: str
+    display_base_size: str
+    stop_price: str
+    expiry_time: str
+    accept_time: str
+    client_order_id: str
 
 
 @dataclass
@@ -261,7 +284,9 @@ class Order:
     order_edit_history: List[OrderEditHistory] = None
     is_raise_exact: bool = None
     display_size: str = None
-    edit_history: List[OrderEditHistory] = None
+    display_quote_size: str = None
+    display_base_size: str = None
+    edit_history: List[EditHistory] = None
 
 
 @dataclass
@@ -451,7 +476,7 @@ class RequestedAmount:
 
 
 @dataclass
-class Sweeps:
+class Sweep:
     id: str
     requested_amount: RequestedAmount
     should_sweep_all: bool
@@ -472,7 +497,7 @@ class InvoiceItem:
 
 
 @dataclass
-class Invoices:
+class Invoice:
     id: str
     billing_month: int
     billing_year: int
@@ -512,6 +537,10 @@ class RfqProductDetails:
     tradable: bool
     min_notional_size: str
     max_notional_size: str
+    min_base_size: str
+    max_base_size: str
+    min_quote_size: str
+    max_quote_size: str
 
 
 @dataclass
@@ -529,7 +558,7 @@ class Product:
 
 
 @dataclass
-class DefiBalances:
+class DefiBalance:
     network: str
     protocol: str
     net_usd_value: str
@@ -716,7 +745,7 @@ class Accrual:
     rate_type: str
     loan_amount_notional: str
     nominal_open_borrow_sod: str
-    notional_open_bnorrow_sod: str
+    notional_open_borrow_sod: str
 
 
 @dataclass
@@ -730,7 +759,7 @@ class Position:
     symbol: str
     long: str
     short: str
-    reference: Reference
+    position_reference: Reference
 
 
 @dataclass
@@ -819,3 +848,18 @@ class BlockchainAddress:
     address: str
     account_identifier: str
     network: Network
+
+
+@dataclass
+class Candle:
+    timestamp: str
+    open: str
+    high: str
+    low: str
+    close: str
+    volume: str
+
+
+@dataclass
+class Counterparty:
+    counterparty_id: str
