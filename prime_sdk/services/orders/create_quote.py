@@ -24,9 +24,10 @@ class CreateQuoteRequest:
     product_id: str
     side: OrderSide
     client_quote_id: str
-    base_quantity: str
+    limit_price: str
+    base_quantity: Optional[str] = None
     quote_value: Optional[str] = None
-    limit_price: Optional[str] = None
+    settl_currency: Optional[str] = None
     allowed_status_codes: Optional[List[int]] = None
 
 

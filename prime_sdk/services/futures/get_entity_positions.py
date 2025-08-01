@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 from typing import List, Optional
 from ...base_response import BaseResponse
-from ...model import Position
+from ...model import FuturesPosition
 
 
 @dataclass
@@ -27,5 +27,5 @@ class GetEntityPositionsRequest:
 
 @dataclass
 class GetEntityPositionsResponse(BaseResponse):
-    positions: List[Position] = None
+    positions: List[FuturesPosition] = None
     clearing_account_id: str = None

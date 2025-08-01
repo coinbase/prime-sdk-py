@@ -24,10 +24,21 @@ class PaymentMethod:
 
 
 @dataclass
+class Network:
+    id: str
+    type: str
+
+
+@dataclass
 class BlockchainAddress:
     address: str
     account_identifier: Optional[str] = None
-    allowed_status_codes: Optional[List[int]] = None
+    network: Optional[Network] = None
+
+
+@dataclass
+class Counterparty:
+    counterparty_id: str
 
 
 @dataclass
@@ -40,6 +51,7 @@ class CreateWithdrawalRequest:
     currency_symbol: str
     payment_method: Optional[PaymentMethod] = None
     blockchain_address: Optional[BlockchainAddress] = None
+    counterparty: Optional[Counterparty] = None
     allowed_status_codes: Optional[List[int]] = None
 
 
