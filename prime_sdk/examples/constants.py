@@ -14,14 +14,14 @@
 
 from prime_sdk.enums import WalletType, OrderSide, OrderType
 
-PORTFOLIO_ID = "314dbd76-4459-41cd-ba9a-dccdd86b44e2"
+PORTFOLIO_ID = "PORTFOLIO_ID_HERE"
 
 PRODUCT_ID = "SOL-USD"
 SIDE = OrderSide.BUY
 QUANTITY = "0.01"
 TYPE = OrderType.MARKET
 
-WALLET_NAME = "SDK_TEST_WALLET_1"
+WALLET_NAME = "WALLET_NAME_HERE"
 WALLET_SYMBOL = "SOL"
 WALLET_TYPE = WalletType.VAULT
 

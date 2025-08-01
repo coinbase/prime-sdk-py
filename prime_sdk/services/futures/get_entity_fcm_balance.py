@@ -35,4 +35,3 @@ class GetEntityFcmBalanceResponse(BaseResponse):
     maintenance_margin: str = None
     clearing_account_id: str = None
     cfm_unsettled_accrued_funding_pnl: str = None
-
