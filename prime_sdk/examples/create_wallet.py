@@ -11,29 +11,32 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import os
+import argparse
 import uuid
-
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
 from prime_sdk.enums import WalletType
 from prime_sdk.services.wallets import WalletsService, CreateWalletRequest
-from prime_sdk.examples.constants import PORTFOLIO_ID, WALLET_SYMBOL, WALLET_TYPE, WALLET_NAME as DEFAULT_WALLET_NAME
 
 def main():
-    credentials = Credentials.from_env("PRIME_CREDENTIALS")
+    parser = argparse.ArgumentParser(description="Create a wallet")
+    parser.add_argument("--name", required=True, help="Wallet name")
+    parser.add_argument("--symbol", required=True, help="Currency symbol (e.g., SOL, BTC)")
+    parser.add_argument("--wallet-type", default="VAULT", help="Wallet type (default: VAULT)")
+    parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
+                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
+    args = parser.parse_args()
+
+    credentials = Credentials.from_env(args.credentials)
     client = Client(credentials)
     wallets_service = WalletsService(client)
 
-    wallet_name = os.getenv("WALLET_NAME", DEFAULT_WALLET_NAME)
-
     request = CreateWalletRequest(
-        portfolio_id=PORTFOLIO_ID,
-        name="testname12344",
+        portfolio_id=credentials.portfolio_id,
+        name=args.name,
         idempotency_key=str(uuid.uuid4()),
-        symbol="SOL",
-        wallet_type=WalletType.VAULT
-
+        symbol=args.symbol,
+        wallet_type=WalletType.VAULT if args.wallet_type == "VAULT" else WalletType.TRADING
     )
     try:
         response = wallets_service.create_wallet(request)

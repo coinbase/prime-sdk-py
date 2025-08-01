@@ -11,39 +11,45 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 import argparse
-import uuid
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
-from prime_sdk.services.orders import OrdersService, CreateOrderRequest
+from prime_sdk.services.products import ProductsService, GetProductCandlesRequest
+
 
 def main():
-    parser = argparse.ArgumentParser(description="Create an order")
+    parser = argparse.ArgumentParser(description="Get product candles data")
     parser.add_argument("--product-id", required=True, help="Product ID (e.g., SOL-USD)")
-    parser.add_argument("--side", required=True, choices=["BUY", "SELL"], help="Order side")
-    parser.add_argument("--type", default="MARKET", help="Order type")
-    parser.add_argument("--quantity", required=True, help="Base quantity")
+    parser.add_argument("--granularity", default="ONE_HOUR", 
+                       choices=["ONE_MINUTE", "FIVE_MINUTES", "FIFTEEN_MINUTES", "ONE_HOUR", "SIX_HOURS", "ONE_DAY"],
+                       help="Granularity for candles (default: ONE_HOUR)")
+    parser.add_argument("--start-time", type=int, default=1735768092, help="Start time as Unix timestamp (default: 1735768092)")
+    parser.add_argument("--end-time", type=int, default=1736891292, help="End time as Unix timestamp (default: 1736891292)")
     parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
                        help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
     args = parser.parse_args()
 
     credentials = Credentials.from_env(args.credentials)
     client = Client(credentials)
-    orders_service = OrdersService(client)
+    products_service = ProductsService(client)
 
-    request = CreateOrderRequest(
+    start_time = args.start_time
+    end_time = args.end_time
+
+    request = GetProductCandlesRequest(
         portfolio_id=credentials.portfolio_id,
         product_id=args.product_id,
-        client_order_id=str(uuid.uuid4()),
-        side=args.side,
-        type=args.type,
-        base_quantity=args.quantity
+        granularity=args.granularity,
+        start_time=start_time,
+        end_time=end_time
     )
+    
     try:
-        response = orders_service.create_order(request)
+        response = products_service.get_product_candles(request)
         print(response)
     except Exception as e:
-        print(f"failed to create order: {e}")
+        print(f"failed to get product candles: {e}")
 
 
 if __name__ == "__main__":

@@ -848,3 +848,18 @@ class BlockchainAddress:
     address: str
     account_identifier: str
     network: Network
+
+
+@dataclass
+class Candle:
+    timestamp: str
+    open: str
+    high: str
+    low: str
+    close: str
+    volume: str
+
+
+@dataclass
+class Counterparty:
+    counterparty_id: str

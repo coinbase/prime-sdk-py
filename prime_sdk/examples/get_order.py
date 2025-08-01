@@ -11,23 +11,26 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import os
-
+import argparse
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
 from prime_sdk.services.orders import OrdersService, GetOrderRequest
-from prime_sdk.examples.constants import PORTFOLIO_ID, ORDER_ID
 
 
 def main():
-    credentials = Credentials.from_env("PRIME_CREDENTIALS")
+    parser = argparse.ArgumentParser(description="Get order details")
+    parser.add_argument("--order-id", required=True, help="Order ID")
+    parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
+                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
+    args = parser.parse_args()
+
+    credentials = Credentials.from_env(args.credentials)
     client = Client(credentials)
     orders_service = OrdersService(client)
 
-    order_id = os.getenv("NEW_ORDER_ID", ORDER_ID)
     request = GetOrderRequest(
-        portfolio_id=PORTFOLIO_ID,
-        order_id=order_id
+        portfolio_id=credentials.portfolio_id,
+        order_id=args.order_id
     )
     try:
         response = orders_service.get_order(request)

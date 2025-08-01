@@ -21,11 +21,17 @@ from .get_portfolio import (
     GetPortfolioRequest,
     GetPortfolioResponse
 )
+from .get_counterparty_id import (
+    GetCounterpartyIdRequest,
+    GetCounterpartyIdResponse,
+)
 
 __all__ = [
     "PortfoliosService",
     "ListPortfoliosRequest",
     "ListPortfoliosResponse", 
     "GetPortfolioRequest",
-    "GetPortfolioResponse"
+    "GetPortfolioResponse",
+    "GetCounterpartyIdRequest",
+    "GetCounterpartyIdResponse",
 ]

@@ -11,18 +11,23 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import argparse
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
 from prime_sdk.services.portfolios import PortfoliosService, GetPortfolioRequest
-from prime_sdk.examples.constants import PORTFOLIO_ID
 
 def main():
-    credentials = Credentials.from_env("PRIME_CREDENTIALS")
+    parser = argparse.ArgumentParser(description="Get portfolio details")
+    parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
+                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
+    args = parser.parse_args()
+
+    credentials = Credentials.from_env(args.credentials)
     client = Client(credentials)
     portfolios_service = PortfoliosService(client)
 
     request = GetPortfolioRequest(
-        portfolio_id=PORTFOLIO_ID
+        portfolio_id=credentials.portfolio_id
     )
     try:
         response = portfolios_service.get_portfolio(request)

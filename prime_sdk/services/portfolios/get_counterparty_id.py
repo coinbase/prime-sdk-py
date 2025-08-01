@@ -1,4 +1,4 @@
-# Copyright 2024-present Coinbase Global, Inc.
+# Copyright 2025-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,20 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .service import ProductsService
-from .list_products import (
-    ListProductsRequest,
-    ListProductsResponse
-)
-from .get_product_candles import (
-    GetProductCandlesRequest,
-    GetProductCandlesResponse
-)
+from dataclasses import dataclass
+from typing import Optional, List
+from ...base_response import BaseResponse
+from ...model import Counterparty
 
-__all__ = [
-    "ProductsService",
-    "ListProductsRequest",
-    "ListProductsResponse",
-    "GetProductCandlesRequest",
-    "GetProductCandlesResponse"
-]
+
+@dataclass
+class GetCounterpartyIdRequest:
+    portfolio_id: str
+    allowed_status_codes: Optional[List[int]] = None
+
+
+@dataclass
+class GetCounterpartyIdResponse(BaseResponse):
+    counterparty: Counterparty = None

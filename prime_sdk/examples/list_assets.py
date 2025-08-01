@@ -14,32 +14,25 @@
 import argparse
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
-from prime_sdk.services.orders import OrdersService, ListOrdersRequest
-from prime_sdk.utils import PaginationParams
+from prime_sdk.services.assets import AssetsService, ListAssetsRequest
 
 
 def main():
-    parser = argparse.ArgumentParser(description="List orders")
-    parser.add_argument("--limit", type=int, default=10, help="Limit number of results (default: 10)")
+    parser = argparse.ArgumentParser(description="List assets")
     parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
                        help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
     args = parser.parse_args()
 
     credentials = Credentials.from_env(args.credentials)
     client = Client(credentials)
-    orders_service = OrdersService(client)
+    assets_service = AssetsService(client)
 
-    request = ListOrdersRequest(
-        portfolio_id=credentials.portfolio_id,
-        pagination=PaginationParams(
-            limit=str(args.limit)
-        )
-    )
+    request = ListAssetsRequest(entity_id=credentials.entity_id)
     try:
-        response = orders_service.list_orders(request)
+        response = assets_service.list_assets(request)
         print(response)
     except Exception as e:
-        print(f"failed to list orders: {e}")
+        print(f"failed to list assets: {e}")
 
 
 if __name__ == "__main__":

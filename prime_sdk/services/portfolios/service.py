@@ -15,6 +15,7 @@
 from ...client import Client
 from .list_portfolios import ListPortfoliosRequest, ListPortfoliosResponse
 from .get_portfolio import GetPortfolioRequest, GetPortfolioResponse
+from .get_counterparty_id import GetCounterpartyIdRequest, GetCounterpartyIdResponse
 
 
 class PortfoliosService:
@@ -30,3 +31,8 @@ class PortfoliosService:
         path = f"/portfolios/{request.portfolio_id}"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
         return GetPortfolioResponse(**response.json())
+
+    def get_counterparty_id(self, request: GetCounterpartyIdRequest) -> GetCounterpartyIdResponse:
+        path = f"/portfolios/{request.portfolio_id}/counterparty"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return GetCounterpartyIdResponse(**response.json())

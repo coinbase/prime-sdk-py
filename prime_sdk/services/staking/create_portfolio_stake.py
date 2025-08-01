@@ -12,18 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from prime_sdk.enums import WalletType, OrderSide, OrderType
+from dataclasses import dataclass
+from typing import List, Optional
+from ...base_response import BaseResponse
 
-PORTFOLIO_ID = "PORTFOLIO_ID_HERE"
 
-PRODUCT_ID = "SOL-USD"
-SIDE = OrderSide.BUY
-QUANTITY = "0.01"
-TYPE = OrderType.MARKET
+@dataclass
+class StakeMetadata:
+    external_id: Optional[str] = None
 
-WALLET_NAME = "WALLET_NAME_HERE"
-WALLET_SYMBOL = "SOL"
-WALLET_TYPE = WalletType.VAULT
 
-ORDER_ID = "WALLET_ID_HERE"
+@dataclass
+class CreatePortfolioStakeRequest:
+    portfolio_id: str
+    idempotency_key: str
+    currency_symbol: str
+    amount: str
+    metadata: Optional[StakeMetadata] = None
+    allowed_status_codes: Optional[List[int]] = None
 
+
+@dataclass
+class CreatePortfolioStakeResponse(BaseResponse):
+    activity_id: str = None
+    transaction_id: str = None

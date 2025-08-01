@@ -22,6 +22,14 @@ from .create_unstake import (
     CreateUnstakeRequest,
     CreateUnstakeResponse
 )
+from .create_portfolio_stake import (
+    CreatePortfolioStakeRequest,
+    CreatePortfolioStakeResponse
+)
+from .create_portfolio_unstake import (
+    CreatePortfolioUnstakeRequest,
+    CreatePortfolioUnstakeResponse
+)
 
 
 class StakingService:
@@ -39,3 +47,15 @@ class StakingService:
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
         return CreateUnstakeResponse(**response.json())
+
+    def create_portfolio_stake(self, request: CreatePortfolioStakeRequest) -> CreatePortfolioStakeResponse:
+        path = f"/portfolios/{request.portfolio_id}/staking/initiate"
+        body = to_body_dict(request)
+        response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
+        return CreatePortfolioStakeResponse(**response.json())
+
+    def create_portfolio_unstake(self, request: CreatePortfolioUnstakeRequest) -> CreatePortfolioUnstakeResponse:
+        path = f"/portfolios/{request.portfolio_id}/staking/unstake"
+        body = to_body_dict(request)
+        response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
+        return CreatePortfolioUnstakeResponse(**response.json())

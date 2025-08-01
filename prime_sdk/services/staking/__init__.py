@@ -22,6 +22,16 @@ from .create_unstake import (
     CreateUnstakeRequest,
     CreateUnstakeResponse
 )
+from .create_portfolio_stake import (
+    StakeMetadata,
+    CreatePortfolioStakeRequest,
+    CreatePortfolioStakeResponse
+)
+from .create_portfolio_unstake import (
+    UnstakeMetadata,
+    CreatePortfolioUnstakeRequest,
+    CreatePortfolioUnstakeResponse
+)
 
 __all__ = [
     "StakingService",
@@ -29,5 +39,11 @@ __all__ = [
     "CreateStakeRequest",
     "CreateStakeResponse",
     "CreateUnstakeRequest",
-    "CreateUnstakeResponse"
+    "CreateUnstakeResponse",
+    "StakeMetadata",
+    "CreatePortfolioStakeRequest",
+    "CreatePortfolioStakeResponse",
+    "UnstakeMetadata",
+    "CreatePortfolioUnstakeRequest",
+    "CreatePortfolioUnstakeResponse"
 ]
