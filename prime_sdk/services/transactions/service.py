@@ -49,7 +49,7 @@ class TransactionsService:
         self.client = client
 
     def create_conversion(self, request: CreateConversionRequest) -> CreateConversionResponse:
-        path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/conversions"
+        path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/conversion"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
         return CreateConversionResponse(**response.json())
