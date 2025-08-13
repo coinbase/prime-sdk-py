@@ -25,11 +25,9 @@ def main():
     parser.add_argument("--destination", required=True, help="Destination Wallet ID")
     parser.add_argument("--source-symbol", required=True, help="Source asset symbol")
     parser.add_argument("--destination-symbol", required=True, help="Destination asset symbol")
-    parser.add_argument("--credentials", default="PRIME_CREDENTIALS",
-                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
     args = parser.parse_args()
 
-    credentials = Credentials.from_env(args.credentials)
+    credentials = Credentials.from_env()
     client = Client(credentials)
     transactions_service = TransactionsService(client)
 

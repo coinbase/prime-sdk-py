@@ -20,11 +20,9 @@ from prime_sdk.services.orders import OrdersService, GetOrderRequest
 def main():
     parser = argparse.ArgumentParser(description="Get order details")
     parser.add_argument("--order-id", required=True, help="Order ID")
-    parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
-                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
     args = parser.parse_args()
 
-    credentials = Credentials.from_env(args.credentials)
+    credentials = Credentials.from_env()
     client = Client(credentials)
     orders_service = OrdersService(client)
 

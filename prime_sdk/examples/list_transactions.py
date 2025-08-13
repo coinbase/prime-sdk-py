@@ -22,11 +22,9 @@ def main():
     parser = argparse.ArgumentParser(description="List portfolio transactions")
     parser.add_argument("--types", help="Transaction types (e.g., DEPOSIT, WITHDRAWAL)")
     parser.add_argument("--symbols", help="Symbols to filter (e.g., USDC, BTC)")
-    parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
-                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
     args = parser.parse_args()
 
-    credentials = Credentials.from_env(args.credentials)
+    credentials = Credentials.from_env()
     client = Client(credentials)
     transactions_service = TransactionsService(client)
 

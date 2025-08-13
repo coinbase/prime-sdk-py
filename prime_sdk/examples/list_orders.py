@@ -11,29 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import argparse
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
 from prime_sdk.services.orders import OrdersService, ListOrdersRequest
-from prime_sdk.utils import PaginationParams
 
 
 def main():
-    parser = argparse.ArgumentParser(description="List orders")
-    parser.add_argument("--limit", type=int, default=10, help="Limit number of results (default: 10)")
-    parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
-                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
-    args = parser.parse_args()
-
-    credentials = Credentials.from_env(args.credentials)
+    credentials = Credentials.from_env()
     client = Client(credentials)
     orders_service = OrdersService(client)
 
     request = ListOrdersRequest(
         portfolio_id=credentials.portfolio_id,
-        pagination=PaginationParams(
-            limit=str(args.limit)
-        )
     )
     try:
         response = orders_service.list_orders(request)

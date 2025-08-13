@@ -79,11 +79,9 @@ def calculate_24h_change(products_service, portfolio_id, product_id):
 def main():
     parser = argparse.ArgumentParser(description="Calculate 24-hour price change for a product")
     parser.add_argument("--product-id", nargs='+', required=True, help="Product ID(s) (e.g., BTC-USD or BTC-USD ETH-USD SOL-USD)")
-    parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
-                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
     args = parser.parse_args()
 
-    credentials = Credentials.from_env(args.credentials)
+    credentials = Credentials.from_env()
     client = Client(credentials)
     products_service = ProductsService(client)
 

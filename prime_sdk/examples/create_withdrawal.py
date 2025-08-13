@@ -22,8 +22,7 @@ from prime_sdk.services.transactions import (
     CreateWithdrawalRequest,
     PaymentMethod,
     BlockchainAddress,
-    Network,
-    Counterparty
+    Network
 )
 
 
@@ -33,26 +32,18 @@ def main():
     parser.add_argument("--amount", required=True, help="Amount to withdraw")
     parser.add_argument("--currency-symbol", required=True, help="Currency symbol (e.g., USDC)")
     parser.add_argument("--destination-type", required=True, 
-                       choices=["PAYMENT_METHOD", "BLOCKCHAIN_ADDRESS", "COUNTERPARTY"],
+                       choices=["PAYMENT_METHOD", "BLOCKCHAIN_ADDRESS"],
                        help="Destination type")
 
-    # Payment method options
     parser.add_argument("--payment-method-id", help="Payment method ID (for PAYMENT_METHOD destination)")
     
-    # Blockchain address options
     parser.add_argument("--blockchain-address", help="Blockchain address (for BLOCKCHAIN_ADDRESS destination)")
     parser.add_argument("--account-identifier", help="Account identifier (optional for blockchain)")
     parser.add_argument("--network-id", help="Network ID (e.g., ethereum-mainnet)")
     parser.add_argument("--network-type", help="Network type (e.g., NETWORK_TYPE_EVM)")
     
-    # Counterparty options
-    parser.add_argument("--counterparty-id", help="Counterparty ID (for COUNTERPARTY destination)")
-    
-    parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
-                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
     args = parser.parse_args()
 
-    # Validate destination-specific arguments
     if args.destination_type == "PAYMENT_METHOD" and not args.payment_method_id:
         print("Error: --payment-method-id is required for PAYMENT_METHOD destination")
         return
@@ -60,19 +51,13 @@ def main():
     if args.destination_type == "BLOCKCHAIN_ADDRESS" and not args.blockchain_address:
         print("Error: --blockchain-address is required for BLOCKCHAIN_ADDRESS destination")
         return
-        
-    if args.destination_type == "COUNTERPARTY" and not args.counterparty_id:
-        print("Error: --counterparty-id is required for COUNTERPARTY destination")
-        return
 
-    credentials = Credentials.from_env(args.credentials)
+    credentials = Credentials.from_env()
     client = Client(credentials)
     transactions_service = TransactionsService(client)
 
-    # Build request based on destination type
     payment_method = None
     blockchain_address = None
-    counterparty = None
     
     if args.destination_type == "PAYMENT_METHOD":
         payment_method = PaymentMethod(payment_method_id=args.payment_method_id)
@@ -85,8 +70,6 @@ def main():
             account_identifier=args.account_identifier,
             network=network
         )
-    elif args.destination_type == "COUNTERPARTY":
-        counterparty = Counterparty(counterparty_id=args.counterparty_id)
 
     request = CreateWithdrawalRequest(
         portfolio_id=credentials.portfolio_id,
@@ -96,8 +79,7 @@ def main():
         idempotency_key=str(uuid.uuid4()),
         currency_symbol=args.currency_symbol,
         payment_method=payment_method,
-        blockchain_address=blockchain_address,
-        counterparty=counterparty
+        blockchain_address=blockchain_address
     )
     
     try:

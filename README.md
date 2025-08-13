@@ -38,23 +38,45 @@ Ensure that your API credentials are stored securely and are not hard-coded dire
 ```python
 from prime_sdk.credentials import Credentials
 
-credentials = Credentials.from_env("PRIME_CREDENTIALS")
+credentials = Credentials.from_env()
 ```
 
-#### Environment Variable Format: 
+#### Environment Variable Format
 
-The JSON format expected for `PRIME_CREDENTIALS` is:
+The SDK supports two formats for credentials configuration:
 
+##### New Format
+
+Set separate environment variables for better security separation:
+
+```bash
+export PRIME_CREDENTIALS='{
+  "accessKey": "your-access-key",
+  "passphrase": "your-passphrase", 
+  "signingKey": "your-signing-key",
+  "svcAccountId": "your-service-account-id"
+}'
+
+export PRIME_PORTFOLIO_ID="your-portfolio-id"
+export PRIME_ENTITY_ID="your-entity-id"
 ```
-{
-  "accessKey": "",
-  "passphrase": "",
-  "signingKey": "",
-  "portfolioId": "",
-  "svcAccountId": "",
-  "entityId": ""
-}
+
+##### Legacy Format (Backwards Compatible)
+
+All credentials in a single environment variable:
+
+```bash
+export PRIME_CREDENTIALS='{
+  "accessKey": "your-access-key",
+  "passphrase": "your-passphrase",
+  "signingKey": "your-signing-key", 
+  "portfolioId": "your-portfolio-id",
+  "svcAccountId": "your-service-account-id",
+  "entityId": "your-entity-id"
+}'
 ```
+
+The SDK will automatically detect which format you're using. If `PRIME_PORTFOLIO_ID` and `PRIME_ENTITY_ID` are set, it will use the new format; otherwise, it falls back to the legacy format.
 
 ### Obtaining API Credentials 
 

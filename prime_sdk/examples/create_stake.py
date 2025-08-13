@@ -24,11 +24,9 @@ def main():
     parser.add_argument("--wallet-id", required=True, help="Wallet ID")
     parser.add_argument("--amount", required=True, help="Amount to stake")
     parser.add_argument("--validator-address", help="Validator address (optional)")
-    parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
-                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
     args = parser.parse_args()
 
-    credentials = Credentials.from_env(args.credentials)
+    credentials = Credentials.from_env()
     client = Client(credentials)
     staking_service = StakingService(client)
 

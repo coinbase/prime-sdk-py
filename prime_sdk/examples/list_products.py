@@ -11,26 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import argparse
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
 from prime_sdk.services.products import ProductsService, ListProductsRequest
 
 def main():
-    parser = argparse.ArgumentParser(description="List products")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (defaults to credentials)")
-    parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
-                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
-    args = parser.parse_args()
-
-    credentials = Credentials.from_env(args.credentials)
+    credentials = Credentials.from_env()
     client = Client(credentials)
     products_service = ProductsService(client)
 
-    portfolio_id = args.portfolio_id or credentials.portfolio_id
     
     request = ListProductsRequest(
-        portfolio_id=portfolio_id
+        portfolio_id=credentials.portfolio_id
     )
     try:
         response = products_service.list_products(request)

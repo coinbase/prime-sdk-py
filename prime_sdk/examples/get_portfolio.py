@@ -17,17 +17,17 @@ from prime_sdk.client import Client
 from prime_sdk.services.portfolios import PortfoliosService, GetPortfolioRequest
 
 def main():
+    credentials = Credentials.from_env()
+    
     parser = argparse.ArgumentParser(description="Get portfolio details")
-    parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
-                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
+    parser.add_argument("--portfolio-id", default=credentials.portfolio_id)
     args = parser.parse_args()
 
-    credentials = Credentials.from_env(args.credentials)
     client = Client(credentials)
     portfolios_service = PortfoliosService(client)
 
     request = GetPortfolioRequest(
-        portfolio_id=credentials.portfolio_id
+        portfolio_id=args.portfolio_id
     )
     try:
         response = portfolios_service.get_portfolio(request)

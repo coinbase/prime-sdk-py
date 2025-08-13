@@ -22,11 +22,9 @@ def main():
     parser = argparse.ArgumentParser(description="List wallet addresses")
     parser.add_argument("--wallet-id", required=True, help="Wallet ID")
     parser.add_argument("--network-id", required=True, help="Network ID (e.g., ethereum-mainnet)")
-    parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
-                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
     args = parser.parse_args()
 
-    credentials = Credentials.from_env(args.credentials)
+    credentials = Credentials.from_env()
     client = Client(credentials)
     wallets_service = WalletsService(client)
 

@@ -18,22 +18,18 @@ from prime_sdk.services.activities import ActivitiesService, ListActivitiesReque
 
 def main():
     parser = argparse.ArgumentParser(description="List activities")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (defaults to credentials)")
     parser.add_argument("--symbols", help="Comma-separated list of symbols to filter")
     parser.add_argument("--categories", help="Comma-separated list of categories to filter")
     parser.add_argument("--statuses", help="Comma-separated list of statuses to filter")
-    parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
-                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
     args = parser.parse_args()
 
-    credentials = Credentials.from_env(args.credentials)
+    credentials = Credentials.from_env()
     client = Client(credentials)
     activities_service = ActivitiesService(client)
 
-    portfolio_id = args.portfolio_id or credentials.portfolio_id
     
     request = ListActivitiesRequest(
-        portfolio_id=portfolio_id,
+        portfolio_id=credentials.portfolio_id,
         symbols=args.symbols,
         categories=args.categories,
         statuses=args.statuses

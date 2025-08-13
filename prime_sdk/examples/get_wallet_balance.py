@@ -19,19 +19,15 @@ from prime_sdk.services.balances import BalancesService, GetWalletBalanceRequest
 def main():
     parser = argparse.ArgumentParser(description="Get wallet balance")
     parser.add_argument("--wallet-id", required=True, help="Wallet ID")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (defaults to credentials)")
-    parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
-                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
     args = parser.parse_args()
 
-    credentials = Credentials.from_env(args.credentials)
+    credentials = Credentials.from_env()
     client = Client(credentials)
     balances_service = BalancesService(client)
 
-    portfolio_id = args.portfolio_id or credentials.portfolio_id
     
     request = GetWalletBalanceRequest(
-        portfolio_id=portfolio_id,
+        portfolio_id=credentials.portfolio_id,
         wallet_id=args.wallet_id
     )
     try:

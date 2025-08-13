@@ -18,18 +18,14 @@ from prime_sdk.services.balances import BalancesService, ListPortfolioBalancesRe
 
 def main():
     parser = argparse.ArgumentParser(description="List portfolio balances")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (defaults to credentials)")
-    parser.add_argument("--symbols", help="Comma-separated list of symbols to filter")
+    parser.add_argument("--symbols", help="Asset symbols, e.g. BTC")
     parser.add_argument("--balance-type", choices=["TRADING_BALANCES", "VAULT_BALANCES", "TOTAL_BALANCES", "PRIME_CUSTODY_BALANCES"], help="Balance type filter")
-    parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
-                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
     args = parser.parse_args()
 
-    credentials = Credentials.from_env(args.credentials)
+    credentials = Credentials.from_env()
     client = Client(credentials)
     balances_service = BalancesService(client)
 
-    portfolio_id = args.portfolio_id or credentials.portfolio_id
     
     from prime_sdk.enums import BalanceType
     balance_type = None
@@ -37,7 +33,7 @@ def main():
         balance_type = BalanceType(args.balance_type)
     
     request = ListPortfolioBalancesRequest(
-        portfolio_id=portfolio_id,
+        portfolio_id=credentials.portfolio_id,
         symbols=args.symbols,
         balance_type=balance_type
     )

@@ -26,26 +26,12 @@ def main():
     parser.add_argument("--side", required=True, choices=["BUY", "SELL"], help="Order side")
     parser.add_argument("--limit-price", required=True, help="Limit price for the quote")
     parser.add_argument("--base-quantity", help="Base quantity (e.g., amount of BTC)")
-    parser.add_argument("--quote-value", help="Quote value (e.g., USD amount)")
-    parser.add_argument("--settl-currency", help="Settlement currency (optional)")
-    parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
-                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
     args = parser.parse_args()
 
-    # Validate that either base_quantity or quote_value is provided
-    if not args.base_quantity and not args.quote_value:
-        print("Error: Either --base-quantity or --quote-value must be provided")
-        return
-    
-    if args.base_quantity and args.quote_value:
-        print("Error: Provide either --base-quantity or --quote-value, not both")
-        return
-
-    credentials = Credentials.from_env(args.credentials)
+    credentials = Credentials.from_env()
     client = Client(credentials)
     orders_service = OrdersService(client)
 
-    # Convert side string to enum
     side = OrderSide.BUY if args.side == "BUY" else OrderSide.SELL
 
     request = CreateQuoteRequest(
@@ -54,9 +40,7 @@ def main():
         side=side,
         client_quote_id=str(uuid.uuid4()),
         limit_price=args.limit_price,
-        base_quantity=args.base_quantity,
-        quote_value=args.quote_value,
-        settl_currency=args.settl_currency
+        base_quantity=args.base_quantity
     )
     
     try:

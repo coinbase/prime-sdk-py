@@ -26,11 +26,9 @@ def main():
     parser.add_argument("--side", required=True, choices=["BUY", "SELL"], help="Order side")
     parser.add_argument("--quote-id", required=True, help="Quote ID from create_quote response")
     parser.add_argument("--settl-currency", help="Settlement currency (optional)")
-    parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
-                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
     args = parser.parse_args()
 
-    credentials = Credentials.from_env(args.credentials)
+    credentials = Credentials.from_env()
     client = Client(credentials)
     orders_service = OrdersService(client)
 

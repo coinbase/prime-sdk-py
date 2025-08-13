@@ -22,21 +22,28 @@ def main():
     parser = argparse.ArgumentParser(description="Create a wallet")
     parser.add_argument("--name", required=True, help="Wallet name")
     parser.add_argument("--symbol", required=True, help="Currency symbol (e.g., SOL, BTC)")
-    parser.add_argument("--wallet-type", default="VAULT", help="Wallet type (default: VAULT)")
-    parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
-                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
+    parser.add_argument("--wallet-type", required=True, 
+                       choices=['VAULT', 'TRADING', 'ONCHAIN'],
+                       help="Wallet type (VAULT, TRADING, ONCHAIN)")
     args = parser.parse_args()
 
-    credentials = Credentials.from_env(args.credentials)
+    credentials = Credentials.from_env()
     client = Client(credentials)
     wallets_service = WalletsService(client)
+
+    # Convert string to WalletType enum
+    wallet_type_map = {
+        'VAULT': WalletType.VAULT,
+        'TRADING': WalletType.TRADING,
+        'ONCHAIN': WalletType.ONCHAIN
+    }
 
     request = CreateWalletRequest(
         portfolio_id=credentials.portfolio_id,
         name=args.name,
         idempotency_key=str(uuid.uuid4()),
         symbol=args.symbol,
-        wallet_type=WalletType.VAULT if args.wallet_type == "VAULT" else WalletType.TRADING
+        wallet_type=wallet_type_map[args.wallet_type]
     )
     try:
         response = wallets_service.create_wallet(request)

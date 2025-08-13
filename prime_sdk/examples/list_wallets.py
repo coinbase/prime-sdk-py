@@ -18,26 +18,21 @@ from prime_sdk.services.wallets import WalletsService, ListWalletsRequest
 
 def main():
     parser = argparse.ArgumentParser(description="List wallets")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (defaults to credentials)")
-    parser.add_argument("--type", choices=["VAULT", "TRADING", "ONCHAIN", "WALLET_TYPE_OTHER"], help="Wallet type filter")
-    parser.add_argument("--symbols", help="Comma-separated list of symbols to filter")
-    parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
-                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
+    parser.add_argument("--type", choices=["VAULT", "TRADING", "ONCHAIN", "WALLET_TYPE_OTHER"])
+    parser.add_argument("--symbols")
     args = parser.parse_args()
 
-    credentials = Credentials.from_env(args.credentials)
+    credentials = Credentials.from_env()
     client = Client(credentials)
     wallets_service = WalletsService(client)
 
-    portfolio_id = args.portfolio_id or credentials.portfolio_id
-    
     from prime_sdk.enums import WalletType
     wallet_type = None
     if args.type:
         wallet_type = WalletType(args.type)
     
     request = ListWalletsRequest(
-        portfolio_id=portfolio_id,
+        portfolio_id=credentials.portfolio_id,
         type=wallet_type,
         symbols=args.symbols
     )
