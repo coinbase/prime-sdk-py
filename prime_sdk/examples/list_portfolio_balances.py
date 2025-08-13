@@ -25,7 +25,6 @@ def main():
     credentials = Credentials.from_env()
     client = Client(credentials)
     balances_service = BalancesService(client)
-
     
     from prime_sdk.enums import BalanceType
     balance_type = None

@@ -31,7 +31,6 @@ def main():
     client = Client(credentials)
     wallets_service = WalletsService(client)
 
-    # Convert string to WalletType enum
     wallet_type_map = {
         'VAULT': WalletType.VAULT,
         'TRADING': WalletType.TRADING,

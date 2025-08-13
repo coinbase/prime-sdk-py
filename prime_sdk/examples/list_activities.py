@@ -26,7 +26,6 @@ def main():
     credentials = Credentials.from_env()
     client = Client(credentials)
     activities_service = ActivitiesService(client)
-
     
     request = ListActivitiesRequest(
         portfolio_id=credentials.portfolio_id,

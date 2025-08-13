@@ -19,7 +19,6 @@ def main():
     credentials = Credentials.from_env()
     client = Client(credentials)
     payment_methods_service = PaymentMethodsService(client)
-
     
     request = ListEntityPaymentMethodsRequest(
         entity_id=credentials.entity_id

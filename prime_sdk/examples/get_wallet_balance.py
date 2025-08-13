@@ -24,7 +24,6 @@ def main():
     credentials = Credentials.from_env()
     client = Client(credentials)
     balances_service = BalancesService(client)
-
     
     request = GetWalletBalanceRequest(
         portfolio_id=credentials.portfolio_id,

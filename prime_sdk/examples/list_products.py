@@ -19,7 +19,6 @@ def main():
     credentials = Credentials.from_env()
     client = Client(credentials)
     products_service = ProductsService(client)
-
     
     request = ListProductsRequest(
         portfolio_id=credentials.portfolio_id
