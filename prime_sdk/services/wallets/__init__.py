@@ -17,9 +17,9 @@ from .create_wallet import (
     CreateWalletRequest,
     CreateWalletResponse
 )
-from .create_wallet_address import (
-    CreateWalletAddressRequest,
-    CreateWalletAddressResponse
+from .create_wallet_deposit_address import (
+    CreateWalletDepositAddressRequest,
+    CreateWalletDepositAddressResponse
 )
 from .get_wallet import (
     GetWalletRequest,
@@ -42,8 +42,8 @@ __all__ = [
     "WalletsService",
     "CreateWalletRequest",
     "CreateWalletResponse",
-    "CreateWalletAddressRequest",
-    "CreateWalletAddressResponse",
+    "CreateWalletDepositAddressRequest",
+    "CreateWalletDepositAddressResponse",
     "GetWalletRequest",
     "GetWalletResponse",
     "GetWalletDepositInstructionsRequest",

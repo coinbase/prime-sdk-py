@@ -12,19 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import argparse
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
 from prime_sdk.services.portfolios import PortfoliosService, GetCounterpartyIdRequest
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Get counterparty ID for portfolio")
-    parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
-                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
-    args = parser.parse_args()
-
-    credentials = Credentials.from_env(args.credentials)
+    credentials = Credentials.from_env()
     client = Client(credentials)
     portfolios_service = PortfoliosService(client)
 

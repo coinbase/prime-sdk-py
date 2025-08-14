@@ -12,36 +12,35 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import argparse
-import uuid
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
-from prime_sdk.services.orders import OrdersService, CreateOrderRequest
+from prime_sdk.services.balances import BalancesService, ListPortfolioBalancesRequest
 
 def main():
-    parser = argparse.ArgumentParser(description="Create an order")
-    parser.add_argument("--product-id", required=True, help="Product ID (e.g., SOL-USD)")
-    parser.add_argument("--side", required=True, choices=["BUY", "SELL"], help="Order side")
-    parser.add_argument("--type", default="MARKET", help="Order type")
-    parser.add_argument("--quantity", required=True, help="Base quantity")
+    parser = argparse.ArgumentParser(description="List portfolio balances")
+    parser.add_argument("--symbols", help="Asset symbols, e.g. BTC")
+    parser.add_argument("--balance-type", choices=["TRADING_BALANCES", "VAULT_BALANCES", "TOTAL_BALANCES", "PRIME_CUSTODY_BALANCES"], help="Balance type filter")
     args = parser.parse_args()
 
     credentials = Credentials.from_env()
     client = Client(credentials)
-    orders_service = OrdersService(client)
-
-    request = CreateOrderRequest(
+    balances_service = BalancesService(client)
+    
+    from prime_sdk.enums import BalanceType
+    balance_type = None
+    if args.balance_type:
+        balance_type = BalanceType(args.balance_type)
+    
+    request = ListPortfolioBalancesRequest(
         portfolio_id=credentials.portfolio_id,
-        product_id=args.product_id,
-        client_order_id=str(uuid.uuid4()),
-        side=args.side,
-        type=args.type,
-        base_quantity=args.quantity
+        symbols=args.symbols,
+        balance_type=balance_type
     )
     try:
-        response = orders_service.create_order(request)
+        response = balances_service.list_portfolio_balances(request)
         print(response)
     except Exception as e:
-        print(f"failed to create order: {e}")
+        print(f"failed to list portfolio balances: {e}")
 
 
 if __name__ == "__main__":

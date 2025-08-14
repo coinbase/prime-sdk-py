@@ -11,44 +11,42 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 import argparse
 import uuid
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
-from prime_sdk.enums import WalletType
-from prime_sdk.services.wallets import WalletsService, CreateWalletRequest
+from prime_sdk.services.staking import StakingService, CreateStakeRequest, StakingInputs
+
 
 def main():
-    parser = argparse.ArgumentParser(description="Create a wallet")
-    parser.add_argument("--name", required=True, help="Wallet name")
-    parser.add_argument("--symbol", required=True, help="Currency symbol (e.g., SOL, BTC)")
-    parser.add_argument("--wallet-type", required=True, 
-                       choices=['VAULT', 'TRADING', 'ONCHAIN'],
-                       help="Wallet type (VAULT, TRADING, ONCHAIN)")
+    parser = argparse.ArgumentParser(description="Create a stake")
+    parser.add_argument("--wallet-id", required=True, help="Wallet ID")
+    parser.add_argument("--amount", required=True, help="Amount to stake")
+    parser.add_argument("--validator-address", help="Validator address (optional)")
     args = parser.parse_args()
 
     credentials = Credentials.from_env()
     client = Client(credentials)
-    wallets_service = WalletsService(client)
+    staking_service = StakingService(client)
 
-    wallet_type_map = {
-        'VAULT': WalletType.VAULT,
-        'TRADING': WalletType.TRADING,
-        'ONCHAIN': WalletType.ONCHAIN
-    }
-
-    request = CreateWalletRequest(
-        portfolio_id=credentials.portfolio_id,
-        name=args.name,
-        idempotency_key=str(uuid.uuid4()),
-        symbol=args.symbol,
-        wallet_type=wallet_type_map[args.wallet_type]
+    staking_inputs = StakingInputs(
+        amount=args.amount,
+        validator_address=args.validator_address
     )
+
+    request = CreateStakeRequest(
+        portfolio_id=credentials.portfolio_id,
+        wallet_id=args.wallet_id,
+        idempotency_key=str(uuid.uuid4()),
+        inputs=staking_inputs
+    )
+
     try:
-        response = wallets_service.create_wallet(request)
+        response = staking_service.create_stake(request)
         print(response)
     except Exception as e:
-        print(f"failed to create wallet: {e}")
+        print(f"failed to create stake: {e}")
 
 
 if __name__ == "__main__":

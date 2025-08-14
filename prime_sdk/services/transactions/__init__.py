@@ -29,6 +29,8 @@ from .create_transfer import (
 )
 from .create_withdrawal import (
     PaymentMethod,
+    Network,
+    Counterparty,
     BlockchainAddress,
     CreateWithdrawalRequest,
     CreateWithdrawalResponse
@@ -57,6 +59,8 @@ __all__ = [
     "CreateTransferRequest",
     "CreateTransferResponse",
     "PaymentMethod",
+    "Network",
+    "Counterparty",
     "BlockchainAddress",
     "CreateWithdrawalRequest",
     "CreateWithdrawalResponse",

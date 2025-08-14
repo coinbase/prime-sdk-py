@@ -11,22 +11,33 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import argparse
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
-from prime_sdk.services.assets import AssetsService, ListAssetsRequest
-
+from prime_sdk.services.activities import ActivitiesService, ListActivitiesRequest
 
 def main():
+    parser = argparse.ArgumentParser(description="List activities")
+    parser.add_argument("--symbols", help="Comma-separated list of symbols to filter")
+    parser.add_argument("--categories", help="Comma-separated list of categories to filter")
+    parser.add_argument("--statuses", help="Comma-separated list of statuses to filter")
+    args = parser.parse_args()
+
     credentials = Credentials.from_env()
     client = Client(credentials)
-    assets_service = AssetsService(client)
-
-    request = ListAssetsRequest(entity_id=credentials.entity_id)
+    activities_service = ActivitiesService(client)
+    
+    request = ListActivitiesRequest(
+        portfolio_id=credentials.portfolio_id,
+        symbols=args.symbols,
+        categories=args.categories,
+        statuses=args.statuses
+    )
     try:
-        response = assets_service.list_assets(request)
+        response = activities_service.list_activities(request)
         print(response)
     except Exception as e:
-        print(f"failed to list assets: {e}")
+        print(f"failed to list activities: {e}")
 
 
 if __name__ == "__main__":

@@ -11,37 +11,43 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 import argparse
 import uuid
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
-from prime_sdk.services.orders import OrdersService, CreateOrderRequest
+from prime_sdk.services.orders import OrdersService, AcceptQuoteRequest
+from prime_sdk.enums import OrderSide
+
 
 def main():
-    parser = argparse.ArgumentParser(description="Create an order")
-    parser.add_argument("--product-id", required=True, help="Product ID (e.g., SOL-USD)")
+    parser = argparse.ArgumentParser(description="Accept a quote to create an order")
+    parser.add_argument("--product-id", required=True, help="Product ID (e.g., BTC-USD)")
     parser.add_argument("--side", required=True, choices=["BUY", "SELL"], help="Order side")
-    parser.add_argument("--type", default="MARKET", help="Order type")
-    parser.add_argument("--quantity", required=True, help="Base quantity")
+    parser.add_argument("--quote-id", required=True, help="Quote ID from create_quote response")
+    parser.add_argument("--settl-currency", help="Settlement currency (optional)")
     args = parser.parse_args()
 
     credentials = Credentials.from_env()
     client = Client(credentials)
     orders_service = OrdersService(client)
 
-    request = CreateOrderRequest(
+    side = OrderSide.BUY if args.side == "BUY" else OrderSide.SELL
+
+    request = AcceptQuoteRequest(
         portfolio_id=credentials.portfolio_id,
         product_id=args.product_id,
+        side=side,
         client_order_id=str(uuid.uuid4()),
-        side=args.side,
-        type=args.type,
-        base_quantity=args.quantity
+        quote_id=args.quote_id,
+        settl_currency=args.settl_currency
     )
+    
     try:
-        response = orders_service.create_order(request)
+        response = orders_service.accept_quote(request)
         print(response)
     except Exception as e:
-        print(f"failed to create order: {e}")
+        print(f"failed to accept quote: {e}")
 
 
 if __name__ == "__main__":

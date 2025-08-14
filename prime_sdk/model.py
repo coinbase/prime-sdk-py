@@ -202,20 +202,10 @@ class Details:
     id: str
     symbol: str
     payment_method_type: str
-    name: str
-    account_number: str
-    bank_code: str
-
-
-@dataclass
-class EntityPaymentMethod:
-    id: str
-    symbol: str
-    payment_method_time: str
     bank_name: str
     account_number: str
     bank_name_2: str
-    
+
 
 @dataclass
 class FuturesPosition:

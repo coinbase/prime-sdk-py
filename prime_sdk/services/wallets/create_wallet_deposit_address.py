@@ -19,7 +19,7 @@ from ...model import Network
 
 
 @dataclass
-class CreateWalletAddressRequest:
+class CreateWalletDepositAddressRequest:
     portfolio_id: str
     wallet_id: str
     network_id: str
@@ -27,7 +27,7 @@ class CreateWalletAddressRequest:
 
 
 @dataclass
-class CreateWalletAddressResponse(BaseResponse):
+class CreateWalletDepositAddressResponse(BaseResponse):
     address: str = None
     account_identifier: str = None
     network: Network = None

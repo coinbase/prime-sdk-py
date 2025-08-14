@@ -13,20 +13,21 @@
 # limitations under the License.
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
-from prime_sdk.services.assets import AssetsService, ListAssetsRequest
-
+from prime_sdk.services.payment_methods import PaymentMethodsService, ListEntityPaymentMethodsRequest
 
 def main():
     credentials = Credentials.from_env()
     client = Client(credentials)
-    assets_service = AssetsService(client)
-
-    request = ListAssetsRequest(entity_id=credentials.entity_id)
+    payment_methods_service = PaymentMethodsService(client)
+    
+    request = ListEntityPaymentMethodsRequest(
+        entity_id=credentials.entity_id
+    )
     try:
-        response = assets_service.list_assets(request)
+        response = payment_methods_service.list_entity_payment_methods(request)
         print(response)
     except Exception as e:
-        print(f"failed to list assets: {e}")
+        print(f"failed to list payment methods: {e}")
 
 
 if __name__ == "__main__":

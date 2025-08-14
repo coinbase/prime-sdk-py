@@ -23,11 +23,9 @@ def main():
     parser.add_argument("--side", required=True, choices=["BUY", "SELL"], help="Order side")
     parser.add_argument("--type", default="MARKET", help="Order type")
     parser.add_argument("--quantity", required=True, help="Base quantity")
-    parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
-                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
     args = parser.parse_args()
 
-    credentials = Credentials.from_env(args.credentials)
+    credentials = Credentials.from_env()
     client = Client(credentials)
     orders_service = OrdersService(client)
 

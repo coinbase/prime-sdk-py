@@ -26,11 +26,9 @@ def main():
                        help="Granularity for candles (default: ONE_HOUR)")
     parser.add_argument("--start-time", type=int, default=1735768092, help="Start time as Unix timestamp (default: 1735768092)")
     parser.add_argument("--end-time", type=int, default=1736891292, help="End time as Unix timestamp (default: 1736891292)")
-    parser.add_argument("--credentials", default="PRIME_CREDENTIALS", 
-                       help="Environment variable name for credentials (default: PRIME_CREDENTIALS)")
     args = parser.parse_args()
 
-    credentials = Credentials.from_env(args.credentials)
+    credentials = Credentials.from_env()
     client = Client(credentials)
     products_service = ProductsService(client)
 

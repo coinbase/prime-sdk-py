@@ -13,20 +13,21 @@
 # limitations under the License.
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
-from prime_sdk.services.assets import AssetsService, ListAssetsRequest
-
+from prime_sdk.services.products import ProductsService, ListProductsRequest
 
 def main():
     credentials = Credentials.from_env()
     client = Client(credentials)
-    assets_service = AssetsService(client)
-
-    request = ListAssetsRequest(entity_id=credentials.entity_id)
+    products_service = ProductsService(client)
+    
+    request = ListProductsRequest(
+        portfolio_id=credentials.portfolio_id
+    )
     try:
-        response = assets_service.list_assets(request)
+        response = products_service.list_products(request)
         print(response)
     except Exception as e:
-        print(f"failed to list assets: {e}")
+        print(f"failed to list products: {e}")
 
 
 if __name__ == "__main__":

@@ -18,9 +18,9 @@ from .create_wallet import (
     CreateWalletRequest,
     CreateWalletResponse
 )
-from .create_wallet_address import (
-    CreateWalletAddressRequest,
-    CreateWalletAddressResponse
+from .create_wallet_deposit_address import (
+    CreateWalletDepositAddressRequest,
+    CreateWalletDepositAddressResponse
 )
 from .get_wallet import (
     GetWalletRequest,
@@ -50,11 +50,11 @@ class WalletsService:
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
         return CreateWalletResponse(**response.json())
 
-    def create_wallet_address(self, request: CreateWalletAddressRequest) -> CreateWalletAddressResponse:
+    def create_wallet_deposit_address(self, request: CreateWalletDepositAddressRequest) -> CreateWalletDepositAddressResponse:
         path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/addresses"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return CreateWalletAddressResponse(**response.json())
+        return CreateWalletDepositAddressResponse(**response.json())
 
     def get_wallet(self, request: GetWalletRequest) -> GetWalletResponse:
         path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}"
