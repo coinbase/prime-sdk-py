@@ -18,6 +18,7 @@ from datetime import datetime
 from ...base_response import BaseResponse
 from ...enums import OrderSide, OrderType
 from ...model import Order
+from ...utils import Pagination
 
 
 @dataclass
@@ -35,3 +36,4 @@ class ListOpenOrdersRequest:
 @dataclass
 class ListOpenOrdersResponse(BaseResponse):
     orders: List[Order] = None
+    pagination: Pagination = None
