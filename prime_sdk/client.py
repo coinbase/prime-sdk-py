@@ -30,6 +30,11 @@ class Client:
         self.credentials = credentials
         self.http_client = http_client if http_client else requests.Session()
 
+    @staticmethod
+    def from_env(variable_name: str = 'PRIME_CREDENTIALS', http_client: Optional[requests.Session] = None) -> 'Client':
+        credentials = Credentials.from_env(variable_name)
+        return Client(credentials, http_client)
+
     def generate_headers(self, method: str, path: str, body: Optional[Dict] = None) -> Dict[str, str]:
         timestamp = str(int(time.time()))
         body_string = json.dumps(body) if body else ""

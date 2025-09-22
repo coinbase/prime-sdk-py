@@ -14,6 +14,7 @@
 
 # Core classes
 from .client import Client
+from .client_services import CompactLazyPrimeClient
 from .credentials import Credentials
 
 # Service classes - primary interface
@@ -40,6 +41,7 @@ from .services.wallets import WalletsService
 __all__ = [
     # Core classes
     "Client",
+    "CompactLazyPrimeClient",
     "Credentials",
     
     # Service classes

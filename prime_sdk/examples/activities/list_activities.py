@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import argparse
-from prime_sdk.credentials import Credentials
-from prime_sdk.client import Client
-from prime_sdk.services.activities import ActivitiesService, ListActivitiesRequest
+import os
+from prime_sdk.client_services import CompactLazyPrimeClient
+from prime_sdk.services.activities import ListActivitiesRequest
 
 def main():
     parser = argparse.ArgumentParser(description="List activities")
@@ -23,18 +23,17 @@ def main():
     parser.add_argument("--statuses", help="Comma-separated list of statuses to filter")
     args = parser.parse_args()
 
-    credentials = Credentials.from_env()
-    client = Client(credentials)
-    activities_service = ActivitiesService(client)
+    client = CompactLazyPrimeClient.from_env()
+    portfolio_id = os.getenv("PRIME_PORTFOLIO_ID")
     
     request = ListActivitiesRequest(
-        portfolio_id=credentials.portfolio_id,
+        portfolio_id=portfolio_id,
         symbols=args.symbols,
         categories=args.categories,
         statuses=args.statuses
     )
     try:
-        response = activities_service.list_activities(request)
+        response = client.activities.list_activities(request)
         print(response)
     except Exception as e:
         print(f"failed to list activities: {e}")

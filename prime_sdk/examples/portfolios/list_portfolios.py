@@ -11,29 +11,27 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+# #docs operationId: PrimeRESTAPI_GetPortfolios
+# #docs operationName: List Portfolios
+
 import argparse
-from prime_sdk.credentials import Credentials
-from prime_sdk.client import Client
-from prime_sdk.services.balances import BalancesService, GetWalletBalanceRequest
+from prime_sdk.client_services import CompactLazyPrimeClient
+from prime_sdk.services.portfolios import ListPortfoliosRequest
 
 def main():
-    parser = argparse.ArgumentParser(description="Get wallet balance")
-    parser.add_argument("--wallet-id", required=True, help="Wallet ID")
+    parser = argparse.ArgumentParser(description="List all portfolios")
     args = parser.parse_args()
 
-    credentials = Credentials.from_env()
-    client = Client(credentials)
-    balances_service = BalancesService(client)
+    client = CompactLazyPrimeClient.from_env()
     
-    request = GetWalletBalanceRequest(
-        portfolio_id=credentials.portfolio_id,
-        wallet_id=args.wallet_id
-    )
+    request = ListPortfoliosRequest()
+    
     try:
-        response = balances_service.get_wallet_balance(request)
+        response = client.portfolios.list_portfolios(request)
         print(response)
     except Exception as e:
-        print(f"failed to get wallet balance: {e}")
+        print(f"failed to list portfolios: {e}")
 
 
 if __name__ == "__main__":
