@@ -51,11 +51,16 @@ def main():
     wallet_type = None
     if args.type:
         wallet_type = WalletType(args.type)
+
+    # Parse symbols list if provided
+    symbols = None
+    if args.symbols:
+        symbols = [symbol.strip() for symbol in args.symbols.split(',')]
     
     request = ListWalletsRequest(
         portfolio_id=portfolio_id,
         type=wallet_type,
-        symbols=args.symbols,
+        symbols=symbols,
         pagination=pagination
     )
     
