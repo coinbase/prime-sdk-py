@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_CreateOnchainAddressBookEntry
+# #docs operationId: PrimeRESTAPI_CreateOnchainAddressGroup
 # #docs operationName: Create Onchain Address Book Entry
 
 import argparse

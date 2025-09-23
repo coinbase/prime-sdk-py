@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_ListPortfolioWallets
+# #docs operationId: PrimeRESTAPI_GetWallets
 # #docs operationName: List Wallets
 
 import argparse
