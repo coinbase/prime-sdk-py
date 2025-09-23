@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#docs operationId: PrimeRESTAPI_CreateTransfer
+# #docs operationId: PrimeRESTAPI_CreateTransfer
+# #docs operationName: Create Transfer
 
 import argparse
 import os

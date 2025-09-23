@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#docs operationId: PrimeRESTAPI_GetAllocationById
+# #docs operationId: PrimeRESTAPI_GetAllocationById
+# #docs operationName: Get Allocation By ID
 
 import argparse
 import os

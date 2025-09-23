@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#docs operationId: PrimeRESTAPI_GetNetAllocationsByNettingId
+# #docs operationId: PrimeRESTAPI_GetNetAllocationsByNettingId
+# #docs operationName: Get Net Allocations By Netting ID
 
 import argparse
 import os

@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#docs operationId: PrimeRESTAPI_CreateWithdrawal
+# #docs operationId: PrimeRESTAPI_CreateWithdrawal  
+# #docs operationName: Create Withdrawal
 
 import argparse
 import os
