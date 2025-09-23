@@ -20,6 +20,7 @@ import os
 from datetime import datetime
 from prime_sdk.client_services import CompactLazyPrimeClient
 from prime_sdk.services.transactions import ListWalletTransactionsRequest
+from prime_sdk.utils import PaginationParams
 
 def main():
     parser = argparse.ArgumentParser(description="List transactions for a specific wallet")
@@ -66,7 +67,6 @@ def main():
     # Set up pagination if provided
     pagination = None
     if args.limit or args.cursor:
-        from prime_sdk.utils import PaginationParams
         pagination = PaginationParams(
             limit=args.limit,
             cursor=args.cursor

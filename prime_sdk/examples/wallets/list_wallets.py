@@ -20,6 +20,7 @@ import os
 from prime_sdk.client_services import CompactLazyPrimeClient
 from prime_sdk.services.wallets import ListWalletsRequest
 from prime_sdk.enums import WalletType
+from prime_sdk.utils import PaginationParams
 
 def main():
     parser = argparse.ArgumentParser(description="List wallets for a portfolio")
@@ -41,7 +42,6 @@ def main():
     # Set up pagination if provided
     pagination = None
     if args.limit or args.cursor:
-        from prime_sdk.utils import PaginationParams
         pagination = PaginationParams(
             limit=args.limit,
             cursor=args.cursor

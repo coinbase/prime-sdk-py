@@ -20,6 +20,7 @@ import os
 from datetime import datetime
 from prime_sdk.client_services import CompactLazyPrimeClient
 from prime_sdk.services.activities import ListEntityActivitiesRequest
+from prime_sdk.utils import PaginationParams
 from prime_sdk.enums import ActivityLevel
 
 def main():
@@ -63,7 +64,6 @@ def main():
     # Set up pagination if provided
     pagination = None
     if args.limit or args.cursor:
-        from prime_sdk.utils import PaginationParams
         pagination = PaginationParams(
             limit=args.limit,
             cursor=args.cursor

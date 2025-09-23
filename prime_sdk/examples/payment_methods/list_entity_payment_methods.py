@@ -19,6 +19,7 @@ import argparse
 import os
 from prime_sdk.client_services import CompactLazyPrimeClient
 from prime_sdk.services.payment_methods import ListEntityPaymentMethodsRequest
+from prime_sdk.utils import PaginationParams
 
 def main():
     parser = argparse.ArgumentParser(description="List payment methods for an entity")
@@ -39,7 +40,6 @@ def main():
     # Set up pagination if provided
     pagination = None
     if args.limit or args.cursor:
-        from prime_sdk.utils import PaginationParams
         pagination = PaginationParams(
             limit=args.limit,
             cursor=args.cursor
