@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_GetEntityBalances
+# #docs operationId: PrimeRESTAPI_ListEntityBalances
 # #docs operationName: List Entity Balances
 
 import argparse

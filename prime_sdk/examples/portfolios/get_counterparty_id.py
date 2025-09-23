@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_GetCounterpartyId
+# #docs operationId: PrimeRESTAPI_GetPortfolioCounterpartyID
 # #docs operationName: Get Counterparty ID
 
 import argparse

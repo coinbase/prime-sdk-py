@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_GetProductCandles
+# #docs operationId: PrimeRESTAPI_GetPortfolioProductCandles
 # #docs operationName: Get Product Candles
 
 # TODO: fix the granularity choices

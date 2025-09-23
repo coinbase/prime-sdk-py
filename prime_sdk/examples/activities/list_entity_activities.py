@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_ListEntityActivities
+# #docs operationId: PrimeRESTAPI_GetEntityActivities
 # #docs operationName: List Entity Activities
 
 import argparse

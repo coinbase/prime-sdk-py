@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_GetEntityInvoices
+# #docs operationId: PrimeRESTAPI_ListEntityInvoices
 # #docs operationName: List Invoices
 
 import argparse

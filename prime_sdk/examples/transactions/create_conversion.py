@@ -13,6 +13,7 @@
 # limitations under the License.
 
 # #docs operationId: PrimeRESTAPI_CreateConversion
+# #docs operationName: Create Conversion
 
 import argparse
 import os

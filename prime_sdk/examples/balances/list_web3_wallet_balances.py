@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_GetWeb3WalletBalances
+# #docs operationId: PrimeRESTAPI_ListWeb3WalletBalances
 # #docs operationName: List Web3 Wallet Balances
 
 import argparse

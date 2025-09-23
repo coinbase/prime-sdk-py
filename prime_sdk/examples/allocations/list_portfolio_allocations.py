@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#docs operationId: PrimeRESTAPI_ListPortfolioAllocations
+# docs operationId: PrimeRESTAPI_GetPortfolioAllocations
+# #docs operationName: List Portfolio Allocations
 
 import argparse
 import os
