@@ -148,10 +148,10 @@ def main():
     request = CreateTransferRequest(
         portfolio_id="your-portfolio-id",
         wallet_id="your-wallet-id",
-        amount="100.00",
-        destination="TRADING",
-        currency_symbol="USD",
-        idempotency_key="uuid"
+        amount="0.01",
+        destination="your-destination-wallet-id",
+        currency_symbol="ETH",
+        idempotency_key=str(uuid.uuid4())
     )
     
     try:
@@ -163,6 +163,68 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+
+## Services Client (Recommended)
+
+For most use cases, we recommend using the **PrimeServicesClient** which provides a more convenient way to access all Prime services through a single client interface. This approach eliminates the need to manually create individual service instances.
+
+### Quick Start with Services Client
+
+```python
+from prime_sdk.client_services import PrimeServicesClient
+
+# Create client from environment variables
+client = PrimeServicesClient.from_env()
+
+# Access any service directly
+portfolios = client.portfolios.list_portfolios(request)
+orders = client.orders.create_order(request)
+transactions = client.transactions.create_transfer(request)
+```
+
+### Complete Example with Services Client
+
+```python
+import os
+from prime_sdk.client_services import PrimeServicesClient
+from prime_sdk.services.transactions import CreateTransferRequest
+
+def main():
+    # Create client from environment
+    client = PrimeServicesClient.from_env()
+    
+    # Create transfer request
+    request = CreateTransferRequest(
+        portfolio_id="your-portfolio_id",
+        wallet_id="your-wallet-id", 
+        amount="0.01",
+        destination="your-destination-wallet-id",
+        currency_symbol="USD",
+        idempotency_key=str(uuid.uuid4())
+    )
+    
+    try:
+        # Use the services client - no need to create individual services
+        response = client.transactions.create_transfer(request)
+        print(f"Transfer created: {response}")
+    except Exception as e:
+        print(f"Failed to create transfer: {e}")
+
+if __name__ == "__main__":
+    main()
+```
+
+### Services Client vs Individual Services
+
+**Use Services Client when:**
+- Building applications that use multiple Prime services
+- You want a simple, unified interface
+- You prefer convenience over fine-grained control
+
+**Use Individual Services when:**
+- You only need one or two specific services
+- You want explicit control over service instantiation
+- You're building a minimal application with specific performance requirements
 
 ### Supported Versions
 The SDK is tested and confirmed to work with Python version 3.7 and newer.
