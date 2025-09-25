@@ -18,7 +18,7 @@
 import argparse
 import os
 import uuid
-from prime_sdk.client_services import CompactLazyPrimeClient
+from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.wallets import CreateWalletRequest
 from prime_sdk.enums import WalletType
 
@@ -32,7 +32,7 @@ def main():
     parser.add_argument("--idempotency-key", help="Idempotency key (auto-generated if not provided)")
     args = parser.parse_args()
 
-    client = CompactLazyPrimeClient.from_env()
+    client = PrimeServicesClient.from_env()
     
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
     if not portfolio_id:

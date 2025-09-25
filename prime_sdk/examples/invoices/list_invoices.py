@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_ListEntityInvoices
+# #docs operationId: PrimeRESTAPI_GetInvoices
 # #docs operationName: List Invoices
 
 import argparse
 import os
-from prime_sdk.client_services import CompactLazyPrimeClient
+from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.invoices import ListInvoicesRequest
 from prime_sdk.utils import PaginationParams
 
@@ -32,7 +32,7 @@ def main():
     parser.add_argument("--cursor", help="Pagination cursor")
     args = parser.parse_args()
 
-    client = CompactLazyPrimeClient.from_env()
+    client = PrimeServicesClient.from_env()
     
     # Accept entity ID from either positional or named argument
     entity_id = args.entity_id or args.entity_id_named or os.getenv("PRIME_ENTITY_ID")

@@ -16,7 +16,7 @@
 # #docs operationName: Get Activity
 
 import argparse
-from prime_sdk.client_services import CompactLazyPrimeClient
+from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.activities import GetEntityActivityRequest
 
 def main():
@@ -25,7 +25,7 @@ def main():
     parser.add_argument("--activity-id", required=True, help="Activity ID to retrieve")
     args = parser.parse_args()
 
-    client = CompactLazyPrimeClient.from_env()
+    client = PrimeServicesClient.from_env()
     
     activity_id = args.activity_id or getattr(args, 'activity_id_named', None)
     if not activity_id:

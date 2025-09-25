@@ -20,7 +20,7 @@
 import argparse
 import os
 from datetime import datetime, timedelta
-from prime_sdk.client_services import CompactLazyPrimeClient
+from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.products import GetProductCandlesRequest
 
 def main():
@@ -37,7 +37,7 @@ def main():
                        help="End time as Unix timestamp (defaults to yesterday 4pm)")
     args = parser.parse_args()
 
-    client = CompactLazyPrimeClient.from_env()
+    client = PrimeServicesClient.from_env()
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
     
     if not portfolio_id:

@@ -17,7 +17,7 @@
 
 import argparse
 import os
-from prime_sdk.client_services import CompactLazyPrimeClient
+from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.assets import ListAssetsRequest
 
 def main():
@@ -26,7 +26,7 @@ def main():
     parser.add_argument("--entity-id", dest="entity_id_named", help="Entity ID")
     args = parser.parse_args()
 
-    client = CompactLazyPrimeClient.from_env()
+    client = PrimeServicesClient.from_env()
     
     # Accept entity ID from either positional or named argument
     entity_id = args.entity_id or args.entity_id_named or os.getenv("PRIME_ENTITY_ID")

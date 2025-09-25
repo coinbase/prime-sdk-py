@@ -16,14 +16,14 @@
 # #docs operationName: List Portfolios
 
 import argparse
-from prime_sdk.client_services import CompactLazyPrimeClient
+from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.portfolios import ListPortfoliosRequest
 
 def main():
     parser = argparse.ArgumentParser(description="List all portfolios")
     args = parser.parse_args()
 
-    client = CompactLazyPrimeClient.from_env()
+    client = PrimeServicesClient.from_env()
     
     request = ListPortfoliosRequest()
     

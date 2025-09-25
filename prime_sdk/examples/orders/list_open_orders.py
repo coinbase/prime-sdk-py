@@ -18,7 +18,7 @@
 import argparse
 import os
 from datetime import datetime
-from prime_sdk.client_services import CompactLazyPrimeClient
+from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.orders import ListOpenOrdersRequest
 from prime_sdk.enums import OrderSide, OrderType
 
@@ -34,7 +34,7 @@ def main():
     parser.add_argument("--end-date", help="End date filter (ISO format: 2025-01-01T23:59:59)")
     args = parser.parse_args()
 
-    client = CompactLazyPrimeClient.from_env()
+    client = PrimeServicesClient.from_env()
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
     
     if not portfolio_id:

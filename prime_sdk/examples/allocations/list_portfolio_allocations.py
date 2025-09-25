@@ -18,7 +18,7 @@
 import argparse
 import os
 from datetime import datetime
-from prime_sdk import CompactLazyPrimeClient
+from prime_sdk import PrimeServicesClient
 from prime_sdk.services.allocations import ListPortfolioAllocationsRequest
 from prime_sdk.enums import OrderSide
 from prime_sdk.utils import PaginationParams
@@ -109,7 +109,7 @@ def main():
         )
     
     # Initialize the client
-    client = CompactLazyPrimeClient.from_env()
+    client = PrimeServicesClient.from_env()
     
     request = ListPortfolioAllocationsRequest(
         portfolio_id=portfolio_id,

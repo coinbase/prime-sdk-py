@@ -17,7 +17,7 @@
 
 import argparse
 import os
-from prime_sdk import CompactLazyPrimeClient
+from prime_sdk import PrimeServicesClient
 from prime_sdk.services.allocations import GetNetAllocationsByNettingIdRequest
 
 
@@ -53,7 +53,7 @@ def main():
         return
     
     # Initialize the client
-    client = CompactLazyPrimeClient.from_env()
+    client = PrimeServicesClient.from_env()
     
     request = GetNetAllocationsByNettingIdRequest(
         portfolio_id=portfolio_id,

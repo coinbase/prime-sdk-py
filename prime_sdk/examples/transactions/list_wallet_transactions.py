@@ -18,7 +18,7 @@
 import argparse
 import os
 from datetime import datetime
-from prime_sdk.client_services import CompactLazyPrimeClient
+from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.transactions import ListWalletTransactionsRequest
 from prime_sdk.utils import PaginationParams
 
@@ -34,7 +34,7 @@ def main():
     parser.add_argument("--cursor", help="Pagination cursor")
     args = parser.parse_args()
 
-    client = CompactLazyPrimeClient.from_env()
+    client = PrimeServicesClient.from_env()
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
     
     if not portfolio_id:

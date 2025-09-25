@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_GetEntityPaymentMethod
+# #docs operationId: PrimeRESTAPI_GetEntityPaymentMethodDetails
 # #docs operationName: Get Entity Payment Method
 
 import argparse
 import os
-from prime_sdk.client_services import CompactLazyPrimeClient
+from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.payment_methods import GetEntityPaymentMethodRequest
 
 def main():
@@ -27,7 +27,7 @@ def main():
     parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
     args = parser.parse_args()
 
-    client = CompactLazyPrimeClient.from_env()
+    client = PrimeServicesClient.from_env()
     entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
     
     if not entity_id:

@@ -18,7 +18,7 @@
 import argparse
 import os
 import uuid
-from prime_sdk import CompactLazyPrimeClient
+from prime_sdk import PrimeServicesClient
 from prime_sdk.services.transactions import (
     CreateWithdrawalRequest,
     PaymentMethod,
@@ -26,7 +26,6 @@ from prime_sdk.services.transactions import (
     Network,
     Counterparty
 )
-
 
 def main():
     parser = argparse.ArgumentParser(description="Create a withdrawal transaction")
@@ -126,7 +125,7 @@ def main():
         )
     
     # Initialize the client
-    client = CompactLazyPrimeClient.from_env()
+    client = PrimeServicesClient.from_env()
     
     request = CreateWithdrawalRequest(
         portfolio_id=portfolio_id,

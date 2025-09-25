@@ -15,14 +15,14 @@ class LazyProperty:
     This is a more elegant and reusable approach.
     """
     
-    def __init__(self, factory: Callable[['CompactLazyPrimeClient'], Any]):
+    def __init__(self, factory: Callable[['PrimeServicesClient'], Any]):
         self.factory = factory
         self.attr_name = None
     
     def __set_name__(self, owner: Type, name: str):
         self.attr_name = f'_lazy_{name}'
     
-    def __get__(self, instance: 'CompactLazyPrimeClient', owner: Type = None):
+    def __get__(self, instance: 'PrimeServicesClient', owner: Type = None):
         if instance is None:
             return self
         
@@ -41,7 +41,7 @@ def lazy_service(service_factory):
     Decorator factory for creating lazy service properties.
     Usage: @lazy_service(lambda: OrdersService) or @lazy_service(OrdersService)
     """
-    def factory(client_instance: 'CompactLazyPrimeClient'):
+    def factory(client_instance: 'PrimeServicesClient'):
         # Handle both lambda functions and direct class references
         if callable(service_factory) and getattr(service_factory, '__name__', None) == '<lambda>':
             # It's a lambda function that returns the class
@@ -54,7 +54,7 @@ def lazy_service(service_factory):
     return LazyProperty(factory)
 
 
-class CompactLazyPrimeClient:
+class PrimeServicesClient:
     """
     A very compact lazy-loading client using descriptors.
     This approach is the most concise and elegant.
@@ -65,8 +65,8 @@ class CompactLazyPrimeClient:
     
     @classmethod
     def from_env(cls, variable_name: str = 'PRIME_CREDENTIALS', 
-                 http_client: Optional[requests.Session] = None) -> 'CompactLazyPrimeClient':
-        """Create a CompactLazyPrimeClient with credentials from environment variables."""
+                 http_client: Optional[requests.Session] = None) -> 'PrimeServicesClient':
+        """Create a PrimeServicesClient with credentials from environment variables."""
         credentials = Credentials.from_env(variable_name)
         return cls(credentials, http_client)
     
@@ -98,7 +98,7 @@ class CompactLazyPrimeClient:
 
 
 # Even more advanced: Generic factory approach
-class FactoryLazyPrimeClient:
+class FactoryPrimeServicesClient:
     """
     Advanced approach using a generic factory pattern.
     This allows for the most flexibility and customization.
@@ -112,8 +112,8 @@ class FactoryLazyPrimeClient:
     
     @classmethod
     def from_env(cls, variable_name: str = 'PRIME_CREDENTIALS', 
-                 http_client: Optional[requests.Session] = None) -> 'FactoryLazyPrimeClient':
-        """Create a FactoryLazyPrimeClient with credentials from environment variables."""
+                 http_client: Optional[requests.Session] = None) -> 'FactoryPrimeServicesClient':
+        """Create a FactoryPrimeServicesClient with credentials from environment variables."""
         credentials = Credentials.from_env(variable_name)
         return cls(credentials, http_client)
     
@@ -182,7 +182,7 @@ class FactoryLazyPrimeClient:
 if __name__ == "__main__":
     print("=== Compact Lazy Client (Descriptor Pattern) ===")
     
-    compact_client = CompactLazyPrimeClient.from_env()
+    compact_client = PrimeServicesClient.from_env()
     
     # Services are created on first access
     orders = compact_client.orders
@@ -195,7 +195,7 @@ if __name__ == "__main__":
     
     print("\n=== Factory Lazy Client ===")
     
-    factory_client = FactoryLazyPrimeClient.from_env()
+    factory_client = FactoryPrimeServicesClient.from_env()
     
     print(f"Available services: {factory_client.list_available_services()}")
     

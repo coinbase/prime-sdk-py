@@ -17,7 +17,7 @@
 
 import argparse
 import os
-from prime_sdk.client_services import CompactLazyPrimeClient
+from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.onchain_address_book import CreateOnchainAddressBookEntryRequest, AddressGroup, Address
 from prime_sdk.enums import NetworkType
 
@@ -32,7 +32,7 @@ def main():
     parser.add_argument("--chain-ids", required=True, help="Comma-separated chain IDs (e.g., 1,137)")
     args = parser.parse_args()
 
-    client = CompactLazyPrimeClient.from_env()
+    client = PrimeServicesClient.from_env()
     
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
     if not portfolio_id:

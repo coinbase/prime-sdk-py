@@ -17,7 +17,7 @@
 
 import argparse
 import os
-from prime_sdk.client_services import CompactLazyPrimeClient
+from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.users import ListPortfolioUsersRequest
 from prime_sdk.utils import PaginationParams
 
@@ -29,7 +29,7 @@ def main():
     parser.add_argument("--cursor", help="Pagination cursor")
     args = parser.parse_args()
 
-    client = CompactLazyPrimeClient.from_env()
+    client = PrimeServicesClient.from_env()
     
     # Accept portfolio ID from either positional or named argument
     portfolio_id = args.portfolio_id or args.portfolio_id_named or os.getenv("PRIME_PORTFOLIO_ID")

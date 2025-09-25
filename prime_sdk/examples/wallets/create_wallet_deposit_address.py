@@ -17,7 +17,7 @@
 
 import argparse
 import os
-from prime_sdk.client_services import CompactLazyPrimeClient
+from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.wallets import CreateWalletDepositAddressRequest
 
 def main():
@@ -28,7 +28,7 @@ def main():
     parser.add_argument("--network-id", required=True, help="Network ID (e.g., ethereum-mainnet, bitcoin)")
     args = parser.parse_args()
 
-    client = CompactLazyPrimeClient.from_env()
+    client = PrimeServicesClient.from_env()
     
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
     if not portfolio_id:

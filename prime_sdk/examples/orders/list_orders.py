@@ -12,13 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_ListPortfolioOrders
+# #docs operationId: PrimeRESTAPI_GetOrders
 # #docs operationName: List Orders
 
 import argparse
 import os
 from datetime import datetime
-from prime_sdk.client_services import CompactLazyPrimeClient
+from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.orders import ListOrdersRequest
 from prime_sdk.enums import OrderSide, OrderType
 from prime_sdk.utils import PaginationParams
@@ -38,7 +38,7 @@ def main():
     parser.add_argument("--cursor", help="Pagination cursor")
     args = parser.parse_args()
 
-    client = CompactLazyPrimeClient.from_env()
+    client = PrimeServicesClient.from_env()
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
     
     if not portfolio_id:
