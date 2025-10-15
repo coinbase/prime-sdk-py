@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from prime_sdk.client import Client
-from prime_sdk.utils import append_pagination_params, to_body_dict
+from prime_sdk.utils import append_pagination_params, append_query_param, to_body_dict
 from .create_wallet import (
     CreateWalletRequest,
     CreateWalletResponse
@@ -77,9 +77,7 @@ class WalletsService:
     def list_wallets(self, request: ListWalletsRequest) -> ListWalletsResponse:
         path = f"/portfolios/{request.portfolio_id}/wallets"
         query_params = append_pagination_params("", request.pagination)
-        if request.type:
-            query_params = f"{query_params}&type={request.type.value}" if query_params else f"type={request.type.value}"
-        if request.symbols:
-            query_params = f"{query_params}&symbols={request.symbols}" if query_params else f"symbols={request.symbols}"
+        query_params = append_query_param(query_params, "type", request.type.value if request.type else None)
+        query_params = append_query_param(query_params, "symbols", request.symbols)
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
         return ListWalletsResponse(**response.json())

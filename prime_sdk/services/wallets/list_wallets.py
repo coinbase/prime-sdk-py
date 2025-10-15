@@ -24,7 +24,7 @@ from ...utils import PaginationParams, Pagination
 class ListWalletsRequest:
     portfolio_id: str
     type: Optional[WalletType] = None
-    symbols: Optional[str] = None
+    symbols: Optional[List[str]] = None
     pagination: Optional[PaginationParams] = None
     allowed_status_codes: Optional[List[int]] = None
 

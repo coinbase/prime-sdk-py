@@ -29,7 +29,7 @@ class PositionsService:
         self.client = client
 
     def list_aggregate_entity_positions(self, request: ListAggregateEntityPositionsRequest) -> ListAggregateEntityPositionsResponse:
-        path = f"/entities/{request.entity_id}/positions/aggregate"
+        path = f"/entities/{request.entity_id}/aggregate_positions"
         query_params = append_pagination_params("", request.pagination)
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
         return ListAggregateEntityPositionsResponse(**response.json())

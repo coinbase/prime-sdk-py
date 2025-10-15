@@ -30,6 +30,15 @@ from .update_onchain_address_book import (
     UpdateOnchainAddressBookResponse
 )
 
+# Import model classes used by onchain address book to avoid import conflicts
+from ...model import AddressGroup
+
+# TODO: A better fix may be to rename this model? its a breaking change maybe?
+# For the first Address class (onchain address book), we need to import it specifically
+import prime_sdk.model as _model
+# Get the first Address class definition for onchain address book
+Address = _model.Address
+
 __all__ = [
     "OnchainAddressBookService",
     "CreateOnchainAddressBookEntryRequest",
@@ -39,5 +48,7 @@ __all__ = [
     "ListOnchainAddressGroupsRequest",
     "ListOnchainAddressGroupsResponse",
     "UpdateOnchainAddressBookRequest",
-    "UpdateOnchainAddressBookResponse"
+    "UpdateOnchainAddressBookResponse",
+    "AddressGroup",
+    "Address"
 ]
