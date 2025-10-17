@@ -16,7 +16,6 @@ from dataclasses import dataclass
 from typing import Optional, List
 from ...model import Candle
 from ...base_response import BaseResponse
-from ...utils import PaginationParams, Pagination
 
 
 @dataclass
@@ -24,13 +23,11 @@ class GetProductCandlesRequest:
     portfolio_id: str
     product_id: str
     granularity: str
-    start_time: int
-    end_time: int
-    pagination: Optional[PaginationParams] = None
+    start_time: str
+    end_time: str
     allowed_status_codes: Optional[List[int]] = None
 
 
 @dataclass
 class GetProductCandlesResponse(BaseResponse):
     candles: List[Candle] = None
-    pagination: Pagination = None
