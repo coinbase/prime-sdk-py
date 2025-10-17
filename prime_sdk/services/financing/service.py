@@ -39,6 +39,10 @@ from .get_margin_information import (
     GetMarginInformationRequest,
     GetMarginInformationResponse
 )
+from .get_cross_margin_overview import (
+    GetCrossMarginOverviewRequest,
+    GetCrossMarginOverviewResponse
+)
 from .list_margin_call_summaries import (
     ListMarginCallSummariesRequest,
     ListMarginCallSummariesResponse
@@ -108,6 +112,11 @@ class FinancingService:
         path = f"/entities/{request.entity_id}/margin"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
         return GetMarginInformationResponse(**response.json())
+
+    def get_cross_margin_overview(self, request: GetCrossMarginOverviewRequest) -> GetCrossMarginOverviewResponse:
+        path = f"/entities/{request.entity_id}/cross_margin"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return GetCrossMarginOverviewResponse(**response.json())
 
     def list_margin_call_summaries(self, request: ListMarginCallSummariesRequest) -> ListMarginCallSummariesResponse:
         path = f"/entities/{request.entity_id}/margin_summaries"

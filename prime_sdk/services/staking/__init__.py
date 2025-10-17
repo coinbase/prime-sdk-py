@@ -32,6 +32,15 @@ from .create_portfolio_unstake import (
     CreatePortfolioUnstakeRequest,
     CreatePortfolioUnstakeResponse
 )
+from .claim_wallet_staking_rewards import (
+    ClaimRewardsInputs,
+    ClaimWalletStakingRewardsRequest,
+    ClaimWalletStakingRewardsResponse
+)
+from .query_transaction_validators import (
+    QueryTransactionValidatorsRequest,
+    QueryTransactionValidatorsResponse
+)
 
 __all__ = [
     "StakingService",
@@ -45,5 +54,10 @@ __all__ = [
     "CreatePortfolioStakeResponse",
     "UnstakeMetadata",
     "CreatePortfolioUnstakeRequest",
-    "CreatePortfolioUnstakeResponse"
+    "CreatePortfolioUnstakeResponse",
+    "ClaimRewardsInputs",
+    "ClaimWalletStakingRewardsRequest",
+    "ClaimWalletStakingRewardsResponse",
+    "QueryTransactionValidatorsRequest",
+    "QueryTransactionValidatorsResponse"
 ]

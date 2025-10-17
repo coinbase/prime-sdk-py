@@ -35,6 +35,10 @@ from .create_quote import (
     CreateQuoteRequest,
     CreateQuoteResponse
 )
+from .edit_order import (
+    EditOrderRequest,
+    EditOrderResponse
+)
 from .get_order import (
     GetOrderRequest,
     GetOrderResponse
@@ -89,6 +93,12 @@ class OrdersService:
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
         return CreateQuoteResponse(**response.json())
+
+    def edit_order(self, request: EditOrderRequest) -> EditOrderResponse:
+        path = f"/portfolios/{request.portfolio_id}/orders/{request.order_id}/edit"
+        body = to_body_dict(request)
+        response = self.client.request("PUT", path, body=body, allowed_status_codes=request.allowed_status_codes)
+        return EditOrderResponse(**response.json())
 
     def get_order(self, request: GetOrderRequest) -> GetOrderResponse:
         path = f"/portfolios/{request.portfolio_id}/orders/{request.order_id}"
