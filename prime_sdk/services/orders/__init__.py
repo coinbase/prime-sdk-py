@@ -33,6 +33,10 @@ from .create_quote import (
     CreateQuoteRequest,
     CreateQuoteResponse
 )
+from .edit_order import (
+    EditOrderRequest,
+    EditOrderResponse
+)
 from .get_order import (
     GetOrderRequest,
     GetOrderResponse
@@ -66,6 +70,8 @@ __all__ = [
     "CreateOrderPreviewResponse",
     "CreateQuoteRequest",
     "CreateQuoteResponse",
+    "EditOrderRequest",
+    "EditOrderResponse",
     "GetOrderRequest",
     "GetOrderResponse",
     "ListOpenOrdersRequest",

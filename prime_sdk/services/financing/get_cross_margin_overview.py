@@ -1,4 +1,4 @@
-# Copyright 2024-present Coinbase Global, Inc.
+# Copyright 2025-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,18 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from setuptools import setup, find_packages
+from dataclasses import dataclass
+from typing import List, Optional
+from ...base_response import BaseResponse
+from ...model import CrossMarginOverview
 
-setup(
-    name="prime-sdk-py",
-    version="1.2.1",
-    packages=find_packages(exclude=['prime_sdk.examples', 'prime_sdk.examples.*']),
-    install_requires=[
-        'requests',
-    ],
-    entry_points={
-        'console_scripts': [
-            'prime-sdk=prime_sdk.__main__:main',
-        ],
-    },
-)
+
+@dataclass
+class GetCrossMarginOverviewRequest:
+    entity_id: str
+    allowed_status_codes: Optional[List[int]] = None
+
+
+@dataclass
+class GetCrossMarginOverviewResponse(BaseResponse):
+    overview: CrossMarginOverview = None

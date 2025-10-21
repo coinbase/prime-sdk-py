@@ -13,21 +13,22 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import Optional, List
-from ...model import Candle
+from typing import List, Optional
 from ...base_response import BaseResponse
+from ...model import FcmRiskLimits
 
 
 @dataclass
-class GetProductCandlesRequest:
-    portfolio_id: str
-    product_id: str
-    granularity: str
-    start_time: str
-    end_time: str
+class GetFcmRiskLimitsRequest:
+    entity_id: str
     allowed_status_codes: Optional[List[int]] = None
 
 
 @dataclass
-class GetProductCandlesResponse(BaseResponse):
-    candles: List[Candle] = None
+class GetFcmRiskLimitsResponse(BaseResponse):
+    cfm_risk_limit: str = None
+    cfm_risk_limit_utilization: str = None
+    cfm_total_margin: str = None
+    cfm_delta_ote: str = None
+    cfm_unsettled_realized_pnl: str = None
+    cfm_unsettled_accrued_funding_pnl: str = None

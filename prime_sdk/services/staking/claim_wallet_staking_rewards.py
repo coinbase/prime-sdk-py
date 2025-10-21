@@ -13,21 +13,26 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import Optional, List
-from ...model import Candle
+from typing import List, Optional
 from ...base_response import BaseResponse
 
 
 @dataclass
-class GetProductCandlesRequest:
+class ClaimRewardsInputs:
+    amount: Optional[str] = None
+
+
+@dataclass
+class ClaimWalletStakingRewardsRequest:
     portfolio_id: str
-    product_id: str
-    granularity: str
-    start_time: str
-    end_time: str
+    wallet_id: str
+    idempotency_key: str
+    inputs: Optional[ClaimRewardsInputs] = None
     allowed_status_codes: Optional[List[int]] = None
 
 
 @dataclass
-class GetProductCandlesResponse(BaseResponse):
-    candles: List[Candle] = None
+class ClaimWalletStakingRewardsResponse(BaseResponse):
+    wallet_id: str = None
+    transaction_id: str = None
+    activity_id: str = None

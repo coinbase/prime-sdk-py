@@ -37,6 +37,10 @@ from .get_margin_information import (
     GetMarginInformationRequest,
     GetMarginInformationResponse
 )
+from .get_cross_margin_overview import (
+    GetCrossMarginOverviewRequest,
+    GetCrossMarginOverviewResponse
+)
 from .list_margin_call_summaries import (
     ListMarginCallSummariesRequest,
     ListMarginCallSummariesResponse
@@ -76,6 +80,8 @@ __all__ = [
     "GetPortfolioWithdrawalPowerResponse",
     "GetMarginInformationRequest",
     "GetMarginInformationResponse",
+    "GetCrossMarginOverviewRequest",
+    "GetCrossMarginOverviewResponse",
     "ListMarginCallSummariesRequest",
     "ListMarginCallSummariesResponse",
     "ListMarginConversionsRequest",

@@ -37,6 +37,14 @@ from .get_entity_positions import (
     GetEntityPositionsRequest,
     GetEntityPositionsResponse
 )
+from .get_fcm_margin_call_details import (
+    GetFcmMarginCallDetailsRequest,
+    GetFcmMarginCallDetailsResponse
+)
+from .get_fcm_risk_limits import (
+    GetFcmRiskLimitsRequest,
+    GetFcmRiskLimitsResponse
+)
 
 __all__ = [
     "FuturesService",
@@ -51,5 +59,9 @@ __all__ = [
     "GetEntityFcmBalanceRequest",
     "GetEntityFcmBalanceResponse",
     "GetEntityPositionsRequest",
-    "GetEntityPositionsResponse"
+    "GetEntityPositionsResponse",
+    "GetFcmMarginCallDetailsRequest",
+    "GetFcmMarginCallDetailsResponse",
+    "GetFcmRiskLimitsRequest",
+    "GetFcmRiskLimitsResponse"
 ]

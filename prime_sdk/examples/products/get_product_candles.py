@@ -15,8 +15,6 @@
 # #docs operationId: PrimeRESTAPI_GetPortfolioProductCandles
 # #docs operationName: Get Product Candles
 
-# TODO: fix the granularity choices
-
 import argparse
 import os
 from datetime import datetime, timedelta
@@ -28,13 +26,12 @@ def main():
     parser.add_argument("product_id", nargs="?", help="Product ID (e.g., BTC-USD)")
     parser.add_argument("--product-id", dest="product_id_named", help="Product ID (e.g., BTC-USD)")
     parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
-    parser.add_argument("--granularity", required=True, 
-                       choices=["1", "2", "3", "4", "5", "6", "7", "8", "9"], 
-                       help="Candle granularity (1=1m, 2=5m, 3=15m, 4=1h, 5=6h, 6=1d, 7=30m, 8=2h, 9=4h)")
-    parser.add_argument("--start-time", type=int, 
-                       help="Start time as Unix timestamp (defaults to yesterday 9am)")
-    parser.add_argument("--end-time", type=int, 
-                       help="End time as Unix timestamp (defaults to yesterday 4pm)")
+    parser.add_argument("--granularity", required=True,
+                       help="Candle granularity (e.g., ONE_MINUTE, FIVE_MINUTES, FIFTEEN_MINUTES, THIRTY_MINUTES, ONE_HOUR, TWO_HOURS, FOUR_HOURS, SIX_HOURS, ONE_DAY)")
+    parser.add_argument("--start-time",
+                       help="Start time as ISO8601 string (defaults to yesterday 9am)")
+    parser.add_argument("--end-time",
+                       help="End time as ISO8601 string (defaults to yesterday 4pm)")
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
@@ -54,15 +51,15 @@ def main():
     if args.start_time is None or args.end_time is None:
         # Get yesterday's date
         yesterday = datetime.now() - timedelta(days=1)
-        
+
         # Default start time: yesterday at 9:00 AM
         default_start = yesterday.replace(hour=9, minute=0, second=0, microsecond=0)
-        start_time = args.start_time if args.start_time is not None else int(default_start.timestamp())
-        
+        start_time = args.start_time if args.start_time is not None else default_start.strftime('%Y-%m-%dT%H:%M:%SZ')
+
         # Default end time: yesterday at 4:00 PM
         default_end = yesterday.replace(hour=16, minute=0, second=0, microsecond=0)
-        end_time = args.end_time if args.end_time is not None else int(default_end.timestamp())
-        
+        end_time = args.end_time if args.end_time is not None else default_end.strftime('%Y-%m-%dT%H:%M:%SZ')
+
         print(f"Using default times: {default_start.strftime('%Y-%m-%d %H:%M')} to {default_end.strftime('%Y-%m-%d %H:%M')}")
     else:
         start_time = args.start_time

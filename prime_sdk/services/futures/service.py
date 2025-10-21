@@ -37,6 +37,14 @@ from .get_entity_positions import (
     GetEntityPositionsRequest,
     GetEntityPositionsResponse
 )
+from .get_fcm_margin_call_details import (
+    GetFcmMarginCallDetailsRequest,
+    GetFcmMarginCallDetailsResponse
+)
+from .get_fcm_risk_limits import (
+    GetFcmRiskLimitsRequest,
+    GetFcmRiskLimitsResponse
+)
 from ...utils import to_body_dict
 
 
@@ -78,3 +86,13 @@ class FuturesService:
             query_params = f"product_id={request.product_id}"
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
         return GetEntityPositionsResponse(**response.json())
+
+    def get_fcm_margin_call_details(self, request: GetFcmMarginCallDetailsRequest) -> GetFcmMarginCallDetailsResponse:
+        path = f"/entities/{request.entity_id}/futures/margin_call_details"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return GetFcmMarginCallDetailsResponse(**response.json())
+
+    def get_fcm_risk_limits(self, request: GetFcmRiskLimitsRequest) -> GetFcmRiskLimitsResponse:
+        path = f"/entities/{request.entity_id}/futures/risk_limits"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return GetFcmRiskLimitsResponse(**response.json())

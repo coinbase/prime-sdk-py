@@ -220,6 +220,26 @@ class FuturesPosition:
 
 
 @dataclass
+class FcmMarginCall:
+    type: str = None
+    state: str = None
+    initial_amount: str = None
+    remaining_amount: str = None
+    business_date: str = None
+    cure_deadline: str = None
+
+
+@dataclass
+class FcmRiskLimits:
+    cfm_risk_limit: str = None
+    cfm_risk_limit_utilization: str = None
+    cfm_total_margin: str = None
+    cfm_delta_ote: str = None
+    cfm_unsettled_realized_pnl: str = None
+    cfm_unsettled_accrued_funding_pnl: str = None
+
+
+@dataclass
 class OrderEditHistory:
     price: str
     size: str
@@ -401,6 +421,13 @@ class Transaction:
     idempotency_key: str
     onchain_details: OnchainDetails
     network_info: Network
+
+
+@dataclass
+class TransactionValidator:
+    transaction_id: str = None
+    validator_address: str = None
+    validator_status: str = None
 
 
 @dataclass
@@ -803,6 +830,109 @@ class MarginCallRecord:
 class MarginInformation:
     margin_call_records: List[MarginCallRecord]
     margin_summary: MarginSummary
+
+
+@dataclass
+class ScenarioAddon:
+    amount: str = None
+    add_on_type: str = None
+
+
+@dataclass
+class XmPosition:
+    currency: str = None
+    market_price: str = None
+    margin_eligible: str = None
+    market_cap: str = None
+    adv30_days: str = None
+    hist5d_vol: str = None
+    hist30d_vol: str = None
+    hist90d_vol: str = None
+    margin_requirement: str = None
+    spot_balance: str = None
+    spot_balance_notional: str = None
+    spot_total_position_margin: str = None
+    futures_balance: str = None
+    futures_balance_notional: str = None
+    futures_total_position_margin: str = None
+    gmv_basis: str = None
+    base_requirement: str = None
+    liq_shorts_add_on: str = None
+    liq_longs_add_on: str = None
+    vol_shorts_add_on: str = None
+    vol_longs_add_on: str = None
+    vol5days_add_on: str = None
+    vol30days_add_on: str = None
+    vol90days_add_on: str = None
+    total_position_margin: str = None
+
+
+@dataclass
+class RiskNettingInfo:
+    nodal_margin_requirement: str = None
+    portfolio_margin_requirement: str = None
+    integrated_portfolio_margin_requirement: str = None
+    ineligible_futures_margin_requirement: str = None
+    position_margin_requirement: str = None
+    portfolio_margin_addon: str = None
+    integrated_position_margin_requirement: str = None
+    integrated_portfolio_margin_addon: str = None
+    netted_futures_notional: str = None
+    total_gmv_basis: str = None
+    ipm_cash_balance: str = None
+    integrated_scenario_addon: ScenarioAddon = None
+    all_integrated_scenario_addons: List[ScenarioAddon] = None
+    xm_positions: List[XmPosition] = None
+
+
+@dataclass
+class CrossMarginSummary:
+    margin_requirement: str = None
+    account_equity: str = None
+    margin_excess_shortfall: str = None
+    consumed_credit: str = None
+    xm_credit_limit: str = None
+    xm_margin_limit: str = None
+    spot_equity: str = None
+    futures_equity: str = None
+    risk_netting_info: RiskNettingInfo = None
+
+
+@dataclass
+class CrossMarginLoan:
+    loan_id: str = None
+    loan_party: str = None
+    principal_currency: str = None
+    principal_currency_market_price: str = None
+    initial_principal_amount: str = None
+    outstanding_principal_amount: str = None
+    created_at: str = None
+    updated_at: str = None
+
+
+@dataclass
+class CrossMarginCall:
+    margin_call_id: str = None
+    currency: str = None
+    initial_notional_amount: str = None
+    outstanding_notional_amount: str = None
+    margin_call_type: str = None
+    margin_call_status: str = None
+    called_with_margin_level: str = None
+    called_with_margin_summary: CrossMarginSummary = None
+    due_at: str = None
+    created_at: str = None
+    updated_at: str = None
+
+
+@dataclass
+class CrossMarginOverview:
+    control_status: str = None
+    call_status: str = None
+    margin_level: str = None
+    margin_summary: CrossMarginSummary = None
+    active_margin_calls: List[CrossMarginCall] = None
+    active_loans: List[CrossMarginLoan] = None
 
 
 @dataclass

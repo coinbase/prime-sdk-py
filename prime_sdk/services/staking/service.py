@@ -30,6 +30,14 @@ from .create_portfolio_unstake import (
     CreatePortfolioUnstakeRequest,
     CreatePortfolioUnstakeResponse
 )
+from .claim_wallet_staking_rewards import (
+    ClaimWalletStakingRewardsRequest,
+    ClaimWalletStakingRewardsResponse
+)
+from .query_transaction_validators import (
+    QueryTransactionValidatorsRequest,
+    QueryTransactionValidatorsResponse
+)
 
 
 class StakingService:
@@ -59,3 +67,15 @@ class StakingService:
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
         return CreatePortfolioUnstakeResponse(**response.json())
+
+    def claim_wallet_staking_rewards(self, request: ClaimWalletStakingRewardsRequest) -> ClaimWalletStakingRewardsResponse:
+        path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/claim_rewards"
+        body = to_body_dict(request)
+        response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
+        return ClaimWalletStakingRewardsResponse(**response.json())
+
+    def query_transaction_validators(self, request: QueryTransactionValidatorsRequest) -> QueryTransactionValidatorsResponse:
+        path = f"/portfolios/{request.portfolio_id}/staking/transaction-validators/query"
+        body = to_body_dict(request)
+        response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
+        return QueryTransactionValidatorsResponse(**response.json())

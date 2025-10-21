@@ -13,21 +13,23 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import Optional, List
-from ...model import Candle
+from typing import List, Optional
 from ...base_response import BaseResponse
+from ...model import TransactionValidator
+from ...utils import Pagination
 
 
 @dataclass
-class GetProductCandlesRequest:
+class QueryTransactionValidatorsRequest:
     portfolio_id: str
-    product_id: str
-    granularity: str
-    start_time: str
-    end_time: str
+    transaction_ids: List[str]
+    cursor: Optional[str] = None
+    limit: Optional[int] = None
+    sort_direction: Optional[str] = None
     allowed_status_codes: Optional[List[int]] = None
 
 
 @dataclass
-class GetProductCandlesResponse(BaseResponse):
-    candles: List[Candle] = None
+class QueryTransactionValidatorsResponse(BaseResponse):
+    transaction_validators: List[TransactionValidator] = None
+    pagination: Pagination = None

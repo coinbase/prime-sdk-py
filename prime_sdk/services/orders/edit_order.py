@@ -13,21 +13,26 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import Optional, List
-from ...model import Candle
+from typing import List, Optional
 from ...base_response import BaseResponse
 
 
 @dataclass
-class GetProductCandlesRequest:
+class EditOrderRequest:
     portfolio_id: str
-    product_id: str
-    granularity: str
-    start_time: str
-    end_time: str
+    order_id: str
+    orig_client_order_id: Optional[str] = None
+    client_order_id: Optional[str] = None
+    base_quantity: Optional[str] = None
+    quote_value: Optional[str] = None
+    limit_price: Optional[str] = None
+    expiry_time: Optional[str] = None
+    display_quote_size: Optional[str] = None
+    display_base_size: Optional[str] = None
+    stop_price: Optional[str] = None
     allowed_status_codes: Optional[List[int]] = None
 
 
 @dataclass
-class GetProductCandlesResponse(BaseResponse):
-    candles: List[Candle] = None
+class EditOrderResponse(BaseResponse):
+    order_id: str = None
