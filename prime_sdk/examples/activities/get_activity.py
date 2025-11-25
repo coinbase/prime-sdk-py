@@ -22,7 +22,7 @@ from prime_sdk.services.activities import GetActivityRequest
 
 def main():
     parser = argparse.ArgumentParser(description="Get a specific activity by ID")
-    parser.add_argument("--activity-id", required=True, help="Activity ID to retrieve")
+    parser.add_argument("activity_id", help="Activity ID to retrieve")
     parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
     args = parser.parse_args()
 
