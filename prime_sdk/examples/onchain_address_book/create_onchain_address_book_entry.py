@@ -18,7 +18,8 @@
 import argparse
 import os
 from prime_sdk.client_services import PrimeServicesClient
-from prime_sdk.services.onchain_address_book import CreateOnchainAddressBookEntryRequest, AddressGroup, Address
+from prime_sdk.services.onchain_address_book import CreateOnchainAddressBookEntryRequest
+from prime_sdk.model import AddressGroup, OnchainAddress
 from prime_sdk.enums import NetworkType
 
 def main():
@@ -41,9 +42,9 @@ def main():
 
     # Parse chain IDs
     chain_ids = [chain_id.strip() for chain_id in args.chain_ids.split(',')]
-    
-    # Create Address object (now imported from onchain_address_book service)
-    address = Address(
+
+    # Create OnchainAddress object
+    address = OnchainAddress(
         name=args.address_name,
         address=args.address,
         chain_ids=chain_ids

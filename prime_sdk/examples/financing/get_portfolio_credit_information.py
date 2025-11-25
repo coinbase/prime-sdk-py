@@ -12,29 +12,36 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_GetActivity
-# #docs operationName: Get Activity
+# #docs operationId: PrimeRESTAPI_GetPortfolioCreditInformation
+# #docs operationName: Get Portfolio Credit Information
 
 import argparse
+import os
 from prime_sdk.client_services import PrimeServicesClient
-from prime_sdk.services.activities import GetEntityActivityRequest
+from prime_sdk.services.financing import GetPortfolioCreditInformationRequest
+
 
 def main():
-    parser = argparse.ArgumentParser(description="Get a specific entity activity by ID")
-    parser.add_argument("--activity-id", required=True, help="Activity ID to retrieve")
+    parser = argparse.ArgumentParser(description="Get portfolio credit information")
+    parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
+    portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
 
-    request = GetEntityActivityRequest(
-        activity_id=args.activity_id
+    if not portfolio_id:
+        print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
+        return
+
+    request = GetPortfolioCreditInformationRequest(
+        portfolio_id=portfolio_id
     )
-    
+
     try:
-        response = client.activities.get_entity_activity(request)
+        response = client.financing.get_portfolio_credit_information(request)
         print(response)
     except Exception as e:
-        print(f"failed to get entity activity: {e}")
+        print(f"failed to get portfolio credit information: {e}")
 
 
 if __name__ == "__main__":

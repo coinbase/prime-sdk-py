@@ -1,0 +1,56 @@
+# Copyright 2025-present Coinbase Global, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# #docs operationId: PrimeRESTAPI_ListMarginCallSummaries
+# #docs operationName: List Margin Call Summaries
+
+import argparse
+import os
+from prime_sdk.client_services import PrimeServicesClient
+from prime_sdk.services.financing import ListMarginCallSummariesRequest
+
+
+def main():
+    parser = argparse.ArgumentParser(description="List margin call summaries for an entity")
+    parser.add_argument("entity_id", nargs="?", help="Entity ID")
+    parser.add_argument("--entity-id", dest="entity_id_named", help="Entity ID")
+    parser.add_argument("--start-date", help="Start date (ISO format)")
+    parser.add_argument("--end-date", help="End date (ISO format)")
+    args = parser.parse_args()
+
+    client = PrimeServicesClient.from_env()
+
+    # Accept entity ID from either positional or named argument
+    entity_id = args.entity_id or args.entity_id_named or os.getenv("PRIME_ENTITY_ID")
+    if not entity_id:
+        print("Error: Entity ID is required. Provide as positional argument, use --entity-id, or set PRIME_ENTITY_ID env var")
+        print("Example: python list_margin_call_summaries.py abc123")
+        print("Example: python list_margin_call_summaries.py --entity-id abc123")
+        return
+
+    request = ListMarginCallSummariesRequest(
+        entity_id=entity_id,
+        start_date=args.start_date,
+        end_date=args.end_date
+    )
+
+    try:
+        response = client.financing.list_margin_call_summaries(request)
+        print(response)
+    except Exception as e:
+        print(f"failed to list margin call summaries: {e}")
+
+
+if __name__ == "__main__":
+    main()

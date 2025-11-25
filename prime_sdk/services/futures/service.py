@@ -53,29 +53,29 @@ class FuturesService:
         self.client = client
 
     def cancel_entity_futures_sweep(self, request: CancelEntityFuturesSweepRequest) -> CancelEntityFuturesSweepResponse:
-        path = f"/entities/{request.entity_id}/futures_sweep"
+        path = f"/entities/{request.entity_id}/futures/sweeps"
         response = self.client.request("DELETE", path, allowed_status_codes=request.allowed_status_codes)
         return CancelEntityFuturesSweepResponse(**response.json())
 
     def schedule_entity_futures_sweep(self, request: ScheduleEntityFuturesSweepRequest) -> ScheduleEntityFuturesSweepResponse:
-        path = f"/entities/{request.entity_id}/futures_sweep"
+        path = f"/entities/{request.entity_id}/futures/sweeps"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
         return ScheduleEntityFuturesSweepResponse(**response.json())
 
     def list_entity_futures_sweeps(self, request: ListEntityFuturesSweepsRequest) -> ListEntityFuturesSweepsResponse:
-        path = f"/entities/{request.entity_id}/futures_sweeps"
+        path = f"/entities/{request.entity_id}/futures/sweeps"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
         return ListEntityFuturesSweepsResponse(**response.json())
 
     def set_auto_sweep(self, request: SetAutoSweepRequest) -> SetAutoSweepResponse:
-        path = f"/entities/{request.entity_id}/auto_sweep"
+        path = f"/entities/{request.entity_id}/futures/auto_sweep"
         body = to_body_dict(request)
-        response = self.client.request("PUT", path, body=body, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
         return SetAutoSweepResponse(**response.json())
 
     def get_entity_fcm_balance(self, request: GetEntityFcmBalanceRequest) -> GetEntityFcmBalanceResponse:
-        path = f"/entities/{request.entity_id}/fcm_balance"
+        path = f"/entities/{request.entity_id}/futures/balance_summary"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
         return GetEntityFcmBalanceResponse(**response.json())
 

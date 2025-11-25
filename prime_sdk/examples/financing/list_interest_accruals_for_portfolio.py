@@ -12,18 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_GetPortfolioActivity
-# #docs operationName: Get Portfolio Activity
+# #docs operationId: PrimeRESTAPI_ListInterestAccrualsForPortfolio
+# #docs operationName: List Interest Accruals For Portfolio
 
 import argparse
 import os
 from prime_sdk.client_services import PrimeServicesClient
-from prime_sdk.services.activities import GetActivityRequest
+from prime_sdk.services.financing import ListInterestAccrualsForPortfolioRequest
+
 
 def main():
-    parser = argparse.ArgumentParser(description="Get a specific activity by ID")
-    parser.add_argument("--activity-id", required=True, help="Activity ID to retrieve")
+    parser = argparse.ArgumentParser(description="List interest accruals for a portfolio")
     parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
+    parser.add_argument("--start-date", help="Start date (ISO format)")
+    parser.add_argument("--end-date", help="End date (ISO format)")
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
@@ -33,16 +35,17 @@ def main():
         print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
         return
 
-    request = GetActivityRequest(
+    request = ListInterestAccrualsForPortfolioRequest(
         portfolio_id=portfolio_id,
-        activity_id=args.activity_id
+        start_date=args.start_date,
+        end_date=args.end_date
     )
-    
+
     try:
-        response = client.activities.get_activity(request)
+        response = client.financing.list_interest_accruals_for_portfolio(request)
         print(response)
     except Exception as e:
-        print(f"failed to get activity: {e}")
+        print(f"failed to list interest accruals for portfolio: {e}")
 
 
 if __name__ == "__main__":

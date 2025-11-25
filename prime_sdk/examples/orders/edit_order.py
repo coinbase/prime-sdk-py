@@ -12,18 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_GetPortfolioActivity
-# #docs operationName: Get Portfolio Activity
-
 import argparse
 import os
+import uuid
 from prime_sdk.client_services import PrimeServicesClient
-from prime_sdk.services.activities import GetActivityRequest
+from prime_sdk.services.orders import EditOrderRequest
 
 def main():
-    parser = argparse.ArgumentParser(description="Get a specific activity by ID")
-    parser.add_argument("--activity-id", required=True, help="Activity ID to retrieve")
+    parser = argparse.ArgumentParser(description="Edit an existing order")
     parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
+    parser.add_argument("--order-id", required=True, help="Order ID to edit")
+    parser.add_argument("--orig-client-order-id", required=True, help="Original client order ID")
+    parser.add_argument("--base-quantity", help="New base quantity for the order")
+    parser.add_argument("--limit-price", help="New limit price")
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
@@ -33,17 +34,20 @@ def main():
         print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
         return
 
-    request = GetActivityRequest(
+    request = EditOrderRequest(
         portfolio_id=portfolio_id,
-        activity_id=args.activity_id
+        order_id=args.order_id,
+        orig_client_order_id=args.orig_client_order_id,
+        client_order_id=str(uuid.uuid4()),
+        base_quantity=args.base_quantity,
+        limit_price=args.limit_price,
     )
-    
+
     try:
-        response = client.activities.get_activity(request)
+        response = client.orders.edit_order(request)
         print(response)
     except Exception as e:
-        print(f"failed to get activity: {e}")
-
+        print(f"failed to edit order: {e}")
 
 if __name__ == "__main__":
     main()

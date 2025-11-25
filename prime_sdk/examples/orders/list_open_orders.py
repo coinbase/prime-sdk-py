@@ -45,17 +45,21 @@ def main():
     start_date = None
     end_date = None
     if args.start_date:
+        # Strip 'Z' suffix if present and create naive datetime
+        date_str = args.start_date.rstrip('Z')
         try:
-            start_date = datetime.fromisoformat(args.start_date.replace('Z', '+00:00'))
+            start_date = datetime.fromisoformat(date_str)
         except ValueError:
-            print(f"Error: Invalid start-date format. Use ISO format like '2025-01-01T00:00:00'")
+            print(f"Error: Invalid start-date format. Use ISO format like '2025-01-01T00:00:00Z'")
             return
-    
+
     if args.end_date:
+        # Strip 'Z' suffix if present and create naive datetime
+        date_str = args.end_date.rstrip('Z')
         try:
-            end_date = datetime.fromisoformat(args.end_date.replace('Z', '+00:00'))
+            end_date = datetime.fromisoformat(date_str)
         except ValueError:
-            print(f"Error: Invalid end-date format. Use ISO format like '2025-01-01T23:59:59'")
+            print(f"Error: Invalid end-date format. Use ISO format like '2025-01-01T23:59:59Z'")
             return
 
     # Parse enum values if provided

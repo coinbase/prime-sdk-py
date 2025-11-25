@@ -15,19 +15,37 @@
 from dataclasses import dataclass
 from typing import List, Optional
 from ...base_response import BaseResponse
-from ...model import FuturesPosition
-from ...utils import Pagination
+from ...enums import UnstakeEstimateType, UnstakeType
 
 
 @dataclass
-class GetEntityPositionsRequest:
-    entity_id: str
-    product_id: Optional[str] = None
+class UnstakeStatusDetail:
+    amount: str
+    estimate_type: UnstakeEstimateType
+    estimate_description: str
+    unstake_type: Optional[UnstakeType] = None
+    finishing_at: Optional[str] = None
+    remaining_hours: Optional[int] = None
+    requested_at: Optional[str] = None
+
+
+@dataclass
+class ValidatorUnstakeStatus:
+    validator_address: str
+    statuses: List[UnstakeStatusDetail]
+
+
+@dataclass
+class GetUnstakingStatusRequest:
+    portfolio_id: str
+    wallet_id: str
     allowed_status_codes: Optional[List[int]] = None
 
 
 @dataclass
-class GetEntityPositionsResponse(BaseResponse):
-    positions: List[FuturesPosition] = None
-    clearing_account_id: str = None
-    pagination: Pagination = None
+class GetUnstakingStatusResponse(BaseResponse):
+    portfolio_id: str = None
+    wallet_id: str = None
+    wallet_address: str = None
+    current_timestamp: str = None
+    validators: List[ValidatorUnstakeStatus] = None

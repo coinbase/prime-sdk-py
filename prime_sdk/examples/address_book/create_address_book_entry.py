@@ -12,18 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_GetPortfolioActivity
-# #docs operationName: Get Portfolio Activity
+# #docs operationId: PrimeRESTAPI_CreateAddressBookEntry
+# #docs operationName: Create Address Book Entry
 
 import argparse
 import os
 from prime_sdk.client_services import PrimeServicesClient
-from prime_sdk.services.activities import GetActivityRequest
+from prime_sdk.services.address_book import CreateAddressBookEntryRequest
+
 
 def main():
-    parser = argparse.ArgumentParser(description="Get a specific activity by ID")
-    parser.add_argument("--activity-id", required=True, help="Activity ID to retrieve")
+    parser = argparse.ArgumentParser(description="Create an address book entry")
     parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
+    parser.add_argument("--address", required=True, help="Blockchain address")
+    parser.add_argument("--currency-symbol", required=True, help="Currency symbol (e.g., BTC)")
+    parser.add_argument("--name", required=True, help="Name for this address")
+    parser.add_argument("--account-identifier", help="Account identifier (e.g., memo, destination tag)")
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
@@ -33,16 +37,19 @@ def main():
         print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
         return
 
-    request = GetActivityRequest(
+    request = CreateAddressBookEntryRequest(
         portfolio_id=portfolio_id,
-        activity_id=args.activity_id
+        address=args.address,
+        currency_symbol=args.currency_symbol,
+        name=args.name,
+        account_identifier=args.account_identifier
     )
-    
+
     try:
-        response = client.activities.get_activity(request)
+        response = client.address_book.create_address_book_entry(request)
         print(response)
     except Exception as e:
-        print(f"failed to get activity: {e}")
+        print(f"failed to create address book entry: {e}")
 
 
 if __name__ == "__main__":

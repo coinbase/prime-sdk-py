@@ -12,18 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_GetPortfolioActivity
-# #docs operationName: Get Portfolio Activity
+# #docs operationId: PrimeRESTAPI_CreateNewLocate
+# #docs operationName: Create New Locate
 
 import argparse
 import os
 from prime_sdk.client_services import PrimeServicesClient
-from prime_sdk.services.activities import GetActivityRequest
+from prime_sdk.services.financing import CreateNewLocateRequest
+
 
 def main():
-    parser = argparse.ArgumentParser(description="Get a specific activity by ID")
-    parser.add_argument("--activity-id", required=True, help="Activity ID to retrieve")
+    parser = argparse.ArgumentParser(description="Create a new locate request")
     parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
+    parser.add_argument("--symbol", required=True, help="Currency symbol (e.g., BTC)")
+    parser.add_argument("--amount", required=True, help="Amount to locate")
+    parser.add_argument("--locate-date", help="Locate date (ISO format)")
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
@@ -33,16 +36,18 @@ def main():
         print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
         return
 
-    request = GetActivityRequest(
+    request = CreateNewLocateRequest(
         portfolio_id=portfolio_id,
-        activity_id=args.activity_id
+        symbol=args.symbol,
+        amount=args.amount,
+        locate_date=args.locate_date
     )
-    
+
     try:
-        response = client.activities.get_activity(request)
+        response = client.financing.create_new_locate(request)
         print(response)
     except Exception as e:
-        print(f"failed to get activity: {e}")
+        print(f"failed to create new locate: {e}")
 
 
 if __name__ == "__main__":

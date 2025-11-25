@@ -1,4 +1,4 @@
-# Copyright 2024-present Coinbase Global, Inc.
+# Copyright 2025-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,16 +15,15 @@
 from dataclasses import dataclass
 from typing import List, Optional
 from ...base_response import BaseResponse
-from ...model import Fee
+from ...model import TFObligation
 
 
 @dataclass
-class GetTradeFinanceTieredPricingFeesRequest:
+class ListTradeFinanceObligationsRequest:
     entity_id: str
-    effective_at: Optional[str] = None
     allowed_status_codes: Optional[List[int]] = None
 
 
 @dataclass
-class GetTradeFinanceTieredPricingFeesResponse(BaseResponse):
-    fees: List[Fee] = None
+class ListTradeFinanceObligationsResponse(BaseResponse):
+    obligations: List[TFObligation] = None
