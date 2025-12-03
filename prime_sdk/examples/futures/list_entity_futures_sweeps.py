@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_ListEntityFuturesSweeps
+# #docs operationId: PrimeRESTAPI_GetFuturesSweeps
 # #docs operationName: List Entity Futures Sweeps
 
 import argparse
@@ -23,18 +23,14 @@ from prime_sdk.services.futures import ListEntityFuturesSweepsRequest
 
 def main():
     parser = argparse.ArgumentParser(description="List entity futures sweeps")
-    parser.add_argument("entity_id", nargs="?", help="Entity ID")
-    parser.add_argument("--entity-id", dest="entity_id_named", help="Entity ID")
+    parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
 
-    # Accept entity ID from either positional or named argument
-    entity_id = args.entity_id or args.entity_id_named or os.getenv("PRIME_ENTITY_ID")
+    entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
     if not entity_id:
-        print("Error: Entity ID is required. Provide as positional argument, use --entity-id, or set PRIME_ENTITY_ID env var")
-        print("Example: python list_entity_futures_sweeps.py abc123")
-        print("Example: python list_entity_futures_sweeps.py --entity-id abc123")
+        print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
         return
 
     request = ListEntityFuturesSweepsRequest(

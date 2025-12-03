@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_GetAddressBook
+# #docs operationId: PrimeRESTAPI_GetPortfolioAddressBook
 # #docs operationName: Get Address Book
 
 import argparse

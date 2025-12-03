@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_GetTradeFinanceTieredPricingFees
+# #docs operationId: PrimeRESTAPI_GetTFTieredPricingFees
 # #docs operationName: Get Trade Finance Tiered Pricing Fees
 
 import argparse

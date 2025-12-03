@@ -23,18 +23,16 @@ from prime_sdk.utils import PaginationParams
 
 def main():
     parser = argparse.ArgumentParser(description="List payment methods for an entity")
-    parser.add_argument("entity_id", nargs="?", help="Entity ID")
-    parser.add_argument("--entity-id", dest="entity_id_named", help="Entity ID")
+    parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
     parser.add_argument("--limit", type=int, help="Number of results to return")
     parser.add_argument("--cursor", help="Pagination cursor")
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
     
-    # Accept entity ID from either positional or named argument
-    entity_id = args.entity_id or args.entity_id_named or os.getenv("PRIME_ENTITY_ID")
+    entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
     if not entity_id:
-        print("Error: Entity ID is required. Provide as positional argument, use --entity-id, or set PRIME_ENTITY_ID env var")
+        print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
         return
 
     # Set up pagination if provided

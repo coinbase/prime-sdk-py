@@ -73,8 +73,9 @@ python prime_sdk/examples/onchain_address_book/update_onchain_address_book.py --
 python prime_sdk/examples/orders/cancel_order.py --order-id 7224d57e-ad27-450f-aaec-5f4c480e4a3d
 python prime_sdk/examples/orders/create_order.py --product-id BTC-USD --side BUY --type LIMIT --quote-value 10 --limit-price 50000
 python prime_sdk/examples/orders/create_order_preview.py --product-id BTC-USD --side BUY --type LIMIT --quote-value 10 --limit-price 50000
-jeff@GX0GP69FLW prime-sdk-py % python prime_sdk/examples/orders/edit_order.py --order-id 286d8530-662f-4546-ab4d-58fce106fcad --orig-client-order-id e11a1841-5019-48cf-9aeb-18637e99f7af --limit-price 50010
+python prime_sdk/examples/orders/edit_order.py --order-id 286d8530-662f-4546-ab4d-58fce106fcad --orig-client-order-id e11a1841-5019-48cf-9aeb-18637e99f7af --limit-price 50010
 python prime_sdk/examples/orders/get_order.py 286d8530-662f-4546-ab4d-58fce106fcad
+python prime_sdk/examples/orders/get_order_edit_history.py 286d8530-662f-4546-ab4d-58fce106fcad
 python prime_sdk/examples/orders/list_open_orders.py --start-date "2025-01-01T00:00:00Z"
 python prime_sdk/examples/orders/list_order_fills.py --order-id 7224d57e-ad27-450f-aaec-5f4c480e4a3d
 python prime_sdk/examples/orders/list_orders.py
@@ -98,13 +99,13 @@ python prime_sdk/examples/products/get_product_candles.py --product-id BTC-USD -
 python prime_sdk/examples/products/list_products.py
 
 # Staking
-python prime_sdk/examples/claim_wallet_staking_rewards.py --wallet-id abc123
-python prime_sdk/examples/create_portfolio_stake.py --currency-symbol ETH --amount 32
-python prime_sdk/examples/create_portfolio_unstake.py --currency-symbol ETH --amount 1.5
-python prime_sdk/examples/create_stake.py --wallet-id abc123
-python prime_sdk/examples/create_unstake.py --wallet-id abc123
-python prime_sdk/examples/get_unstaking_status.py --wallet-id abc123
-python prime_sdk/examples/preview_unstake.py --wallet-id abc123 --amount 1.5
+python prime_sdk/examples/staking/claim_wallet_staking_rewards.py --wallet-id abc123
+python prime_sdk/examples/staking/create_portfolio_stake.py --currency-symbol ETH --amount 32
+python prime_sdk/examples/staking/create_portfolio_unstake.py --currency-symbol ETH --amount 1.5
+python prime_sdk/examples/staking/create_stake.py --wallet-id abc123
+python prime_sdk/examples/staking/create_unstake.py --wallet-id abc123
+python prime_sdk/examples/staking/get_unstaking_status.py --wallet-id abc123
+python prime_sdk/examples/staking/preview_unstake.py --wallet-id abc123 --amount 1.5
 
 # Transactions
 python prime_sdk/examples/transactions/create_conversion.py --wallet-id abc123 --amount 1 --source-symbol USD --destination-symbol USDC

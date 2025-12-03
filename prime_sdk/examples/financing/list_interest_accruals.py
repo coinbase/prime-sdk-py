@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_ListInterestAccruals
+# #docs operationId: PrimeRESTAPI_GetInterestAccruals
 # #docs operationName: List Interest Accruals
 
 import argparse
@@ -23,8 +23,7 @@ from prime_sdk.services.financing import ListInterestAccrualsRequest
 
 def main():
     parser = argparse.ArgumentParser(description="List interest accruals for an entity")
-    parser.add_argument("entity_id", nargs="?", help="Entity ID")
-    parser.add_argument("--entity-id", dest="entity_id_named", help="Entity ID")
+    parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
     parser.add_argument("--portfolio-id", help="Portfolio ID filter")
     parser.add_argument("--start-date", help="Start date (ISO format)")
     parser.add_argument("--end-date", help="End date (ISO format)")
@@ -32,12 +31,9 @@ def main():
 
     client = PrimeServicesClient.from_env()
 
-    # Accept entity ID from either positional or named argument
-    entity_id = args.entity_id or args.entity_id_named or os.getenv("PRIME_ENTITY_ID")
+    entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
     if not entity_id:
-        print("Error: Entity ID is required. Provide as positional argument, use --entity-id, or set PRIME_ENTITY_ID env var")
-        print("Example: python list_interest_accruals.py abc123")
-        print("Example: python list_interest_accruals.py --entity-id abc123")
+        print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
         return
 
     request = ListInterestAccrualsRequest(

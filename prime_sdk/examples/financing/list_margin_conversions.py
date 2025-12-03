@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_ListMarginConversions
+# #docs operationId: PrimeRESTAPI_GetMarginConversions
 # #docs operationName: List Margin Conversions
 
 import argparse

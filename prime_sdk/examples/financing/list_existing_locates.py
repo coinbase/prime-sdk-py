@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_ListExistingLocates
+# #docs operationId: PrimeRESTAPI_GetExistingLocates
 # #docs operationName: List Existing Locates
 
 import argparse

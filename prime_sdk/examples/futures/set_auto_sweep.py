@@ -23,37 +23,25 @@ from prime_sdk.services.futures import SetAutoSweepRequest
 
 def main():
     parser = argparse.ArgumentParser(description="Set auto sweep on or off for an entity")
-    parser.add_argument("entity_id", nargs="?", help="Entity ID")
-    parser.add_argument("--entity-id", dest="entity_id_named", help="Entity ID")
-    parser.add_argument("--enable", action="store_true", help="Enable auto sweep")
-    parser.add_argument("--disable", action="store_true", help="Disable auto sweep")
+    parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
+    parser.add_argument("--enable", dest="auto_sweep", action="store_true", help="Enable auto sweep")
+    parser.add_argument("--disable", dest="auto_sweep", action="store_false", help="Disable auto sweep")
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
 
-    # Accept entity ID from either positional or named argument
-    entity_id = args.entity_id or args.entity_id_named or os.getenv("PRIME_ENTITY_ID")
+    entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
     if not entity_id:
-        print("Error: Entity ID is required. Provide as positional argument, use --entity-id, or set PRIME_ENTITY_ID env var")
-        print("Example: python set_auto_sweep.py abc123 --enable")
-        print("Example: python set_auto_sweep.py --entity-id abc123 --disable")
+        print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
         return
 
-    # Determine auto_sweep value
-    if args.enable and args.disable:
-        print("Error: Cannot use both --enable and --disable")
-        return
-    elif args.enable:
-        auto_sweep = True
-    elif args.disable:
-        auto_sweep = False
-    else:
+    if args.auto_sweep is None:
         print("Error: Must specify either --enable or --disable")
         return
 
     request = SetAutoSweepRequest(
         entity_id=entity_id,
-        auto_sweep=auto_sweep
+        auto_sweep=args.auto_sweep
     )
 
     try:

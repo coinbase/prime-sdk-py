@@ -22,16 +22,14 @@ from prime_sdk.services.portfolios import GetPortfolioRequest
 
 def main():
     parser = argparse.ArgumentParser(description="Get details for a specific portfolio")
-    parser.add_argument("portfolio_id", nargs="?", help="Portfolio ID")
-    parser.add_argument("--portfolio-id", dest="portfolio_id_named", help="Portfolio ID")
+    parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
-    
-    # Accept portfolio ID from either positional or named argument
-    portfolio_id = args.portfolio_id or args.portfolio_id_named or os.getenv("PRIME_PORTFOLIO_ID")
+
+    portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
     if not portfolio_id:
-        print("Error: Portfolio ID is required. Provide as positional argument, use --portfolio-id, or set PRIME_PORTFOLIO_ID env var")
+        print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
         return
     
     request = GetPortfolioRequest(

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_ListMarginCallSummaries
+# #docs operationId: PrimeRESTAPI_GetMarginSummaries
 # #docs operationName: List Margin Call Summaries
 
 import argparse
@@ -23,20 +23,16 @@ from prime_sdk.services.financing import ListMarginCallSummariesRequest
 
 def main():
     parser = argparse.ArgumentParser(description="List margin call summaries for an entity")
-    parser.add_argument("entity_id", nargs="?", help="Entity ID")
-    parser.add_argument("--entity-id", dest="entity_id_named", help="Entity ID")
+    parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
     parser.add_argument("--start-date", help="Start date (ISO format)")
     parser.add_argument("--end-date", help="End date (ISO format)")
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
 
-    # Accept entity ID from either positional or named argument
-    entity_id = args.entity_id or args.entity_id_named or os.getenv("PRIME_ENTITY_ID")
+    entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
     if not entity_id:
-        print("Error: Entity ID is required. Provide as positional argument, use --entity-id, or set PRIME_ENTITY_ID env var")
-        print("Example: python list_margin_call_summaries.py abc123")
-        print("Example: python list_margin_call_summaries.py --entity-id abc123")
+        print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
         return
 
     request = ListMarginCallSummariesRequest(

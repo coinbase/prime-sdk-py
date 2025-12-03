@@ -26,16 +26,7 @@ def main():
 
     try:
         response = client.financing.list_financing_eligible_assets(request)
-
-        if response.assets:
-            print("Financing Eligible Assets (Trade Finance):")
-            print(f"{'Symbol':<10} {'Asset Adjustment':<20} {'Liability Adjustment':<20}")
-            print("-" * 50)
-            for asset in response.assets:
-                print(f"{asset.symbol:<10} {asset.asset_adjustment:<20} {asset.liability_adjustment:<20}")
-            print(f"\nTotal: {len(response.assets)} assets")
-        else:
-            print("No eligible assets found")
+        print(response)
     except Exception as e:
         print(f"failed to list financing eligible assets: {e}")
 

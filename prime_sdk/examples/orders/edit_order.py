@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# #docs operationId: PrimeRESTAPI_EditOrder
+# #docs operationName: Edit Order (Beta)
+
 import argparse
 import os
 import uuid

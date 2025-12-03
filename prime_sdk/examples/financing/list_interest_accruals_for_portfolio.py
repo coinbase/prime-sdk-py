@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_ListInterestAccrualsForPortfolio
+# #docs operationId: PrimeRESTAPI_GetPortfolioInterestAccruals
 # #docs operationName: List Interest Accruals For Portfolio
 
 import argparse

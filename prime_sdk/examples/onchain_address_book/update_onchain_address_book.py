@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_UpdateOnchainAddressBook
+# #docs operationId: PrimeRESTAPI_UpdateOnchainAddressGroup
 # #docs operationName: Update Onchain Address Book
 
 import argparse
@@ -24,7 +24,7 @@ from prime_sdk.enums import NetworkType
 
 def main():
     parser = argparse.ArgumentParser(description="Update an onchain address book entry")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (or set PRIME_PORTFOLIO_ID env var)")
+    parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
     parser.add_argument("--address-group-id", required=True, help="Address group ID to update")
     parser.add_argument("--name", required=True, help="Updated address group name")
     parser.add_argument("--network-type", choices=["NETWORK_TYPE_EVM", "NETWORK_TYPE_SOLANA"], 
@@ -38,7 +38,7 @@ def main():
     
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
     if not portfolio_id:
-        print("Error: Portfolio ID is required. Use --portfolio-id or set PRIME_PORTFOLIO_ID env var")
+        print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
         return
 
     # Parse chain IDs

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_GetPortfolioCreditInformation
+# #docs operationId: PrimeRESTAPI_GetPostTradeCredit
 # #docs operationName: Get Portfolio Credit Information
 
 import argparse

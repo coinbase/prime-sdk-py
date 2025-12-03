@@ -12,17 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# #docs operationId: PrimeRESTAPI_StakingUnstake
+# #docs operationName: Request to unstake a wallet
+
 import argparse
 import uuid
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
-from prime_sdk.services.staking import StakingService, CreateStakeRequest, StakingInputs
+from prime_sdk.services.staking import StakingService, CreateUnstakeRequest, StakingInputs
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Create a stake")
+    parser = argparse.ArgumentParser(description="Create an unstake")
     parser.add_argument("--wallet-id", required=True, help="Wallet ID")
-    parser.add_argument("--amount", required=True, help="Amount to stake")
+    parser.add_argument("--amount", required=True, help="Amount to unstake")
     parser.add_argument("--validator-address", help="Validator address (optional)")
     args = parser.parse_args()
 
@@ -35,7 +38,7 @@ def main():
         validator_address=args.validator_address
     )
 
-    request = CreateStakeRequest(
+    request = CreateUnstakeRequest(
         portfolio_id=credentials.portfolio_id,
         wallet_id=args.wallet_id,
         idempotency_key=str(uuid.uuid4()),
@@ -43,10 +46,10 @@ def main():
     )
 
     try:
-        response = staking_service.create_stake(request)
+        response = staking_service.create_unstake(request)
         print(response)
     except Exception as e:
-        print(f"failed to create stake: {e}")
+        print(f"failed to create unstake: {e}")
 
 
 if __name__ == "__main__":

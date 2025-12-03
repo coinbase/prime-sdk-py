@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_GetPortfolioProductCandles
+# #docs operationId: PrimeRESTAPI_GetCandles
 # #docs operationName: Get Product Candles
 
 import argparse

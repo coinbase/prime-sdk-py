@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_CreatePortfolioNetAllocations
+# #docs operationId: PrimeRESTAPI_CreateNetAllocation
 # #docs operationName: Create Portfolio Net Allocations
 
 import argparse
@@ -31,7 +31,7 @@ def main():
     parser.add_argument("--destination-portfolio-id", required=True, help="Destination portfolio ID")
     parser.add_argument("--amount", required=True, help="Amount to allocate")
     parser.add_argument("--size-type", required=True, choices=["BASE", "QUOTE", "PERCENT"], help="Size type")
-    parser.add_argument("--remainder-destination-portfolio-id", required=True, help="Portfolio ID for remainder")
+    parser.add_argument("--remainder-destination-portfolio-id", help="Portfolio ID for remainder")
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
