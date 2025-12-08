@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import argparse
-import time
+from datetime import datetime, timedelta
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
 from prime_sdk.services.products import ProductsService, GetProductCandlesRequest
@@ -33,17 +33,21 @@ def calculate_24h_change(products_service, portfolio_id, product_id):
     Returns:
         dict: Contains current_price, price_24h_ago, change_amount, change_percentage
     """
-    # Calculate timestamps (API expects Unix timestamps in seconds)
-    current_time = int(time.time())
-    past_time = current_time - (24 * 60 * 60)  # 24 hours ago
+    # Calculate timestamps (API expects ISO 8601 format)
+    current_time = datetime.utcnow()
+    past_time = current_time - timedelta(hours=24)
+
+    # Format as ISO 8601 with Z suffix
+    start_time_str = past_time.strftime('%Y-%m-%dT%H:%M:%SZ')
+    end_time_str = current_time.strftime('%Y-%m-%dT%H:%M:%SZ')
 
     # Get 24 hours of 5-minute candles (288 candles total)
     request = GetProductCandlesRequest(
         portfolio_id=portfolio_id,
         product_id=product_id,
         granularity="FIVE_MINUTES",
-        start_time=past_time,
-        end_time=current_time
+        start_time=start_time_str,
+        end_time=end_time_str
     )
     
     response = products_service.get_product_candles(request)

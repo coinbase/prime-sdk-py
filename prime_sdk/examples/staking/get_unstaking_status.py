@@ -12,41 +12,41 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# #docs operationId: PrimeRESTAPI_GetUnstakingStatus
+# #docs operationName: Get Unstaking Status
+
 import argparse
-import uuid
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
-from prime_sdk.services.staking import StakingService, CreateUnstakeRequest, StakingInputs
+from prime_sdk.services.staking import StakingService, GetUnstakingStatusRequest
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Create an unstake")
-    parser.add_argument("--wallet-id", required=True, help="Wallet ID")
-    parser.add_argument("--amount", required=True, help="Amount to unstake")
-    parser.add_argument("--validator-address", help="Validator address (optional)")
+    parser = argparse.ArgumentParser(description="Get unstaking status for a wallet")
+    parser.add_argument("wallet_id", nargs="?", help="Wallet ID")
+    parser.add_argument("--wallet-id", dest="wallet_id_named", help="Wallet ID")
     args = parser.parse_args()
 
     credentials = Credentials.from_env()
     client = Client(credentials)
     staking_service = StakingService(client)
 
-    staking_inputs = StakingInputs(
-        amount=args.amount,
-        validator_address=args.validator_address
-    )
+    # Accept wallet ID from either positional or named argument
+    wallet_id = args.wallet_id or args.wallet_id_named
+    if not wallet_id:
+        print("Error: Wallet ID is required. Provide as positional argument or use --wallet-id")
+        return
 
-    request = CreateUnstakeRequest(
+    request = GetUnstakingStatusRequest(
         portfolio_id=credentials.portfolio_id,
-        wallet_id=args.wallet_id,
-        idempotency_key=str(uuid.uuid4()),
-        inputs=staking_inputs
+        wallet_id=wallet_id
     )
 
     try:
-        response = staking_service.create_unstake(request)
+        response = staking_service.get_unstaking_status(request)
         print(response)
     except Exception as e:
-        print(f"failed to create unstake: {e}")
+        print(f"failed to get unstaking status: {e}")
 
 
 if __name__ == "__main__":

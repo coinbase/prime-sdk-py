@@ -67,6 +67,14 @@ from .list_interest_accruals_for_portfolio import (
     ListInterestAccrualsForPortfolioRequest,
     ListInterestAccrualsForPortfolioResponse
 )
+from .list_financing_eligible_assets import (
+    ListFinancingEligibleAssetsRequest,
+    ListFinancingEligibleAssetsResponse
+)
+from .list_trade_finance_obligations import (
+    ListTradeFinanceObligationsRequest,
+    ListTradeFinanceObligationsResponse
+)
 
 
 class FinancingService:
@@ -140,7 +148,7 @@ class FinancingService:
 
     # Fees
     def get_trade_finance_tiered_pricing_fees(self, request: GetTradeFinanceTieredPricingFeesRequest) -> GetTradeFinanceTieredPricingFeesResponse:
-        path = f"/portfolios/{request.portfolio_id}/tf_tiered_fees"
+        path = f"/entities/{request.entity_id}/tf_tiered_fees"
         query_params = append_query_param("", "effective_at", request.effective_at)
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
         return GetTradeFinanceTieredPricingFeesResponse(**response.json())
@@ -160,3 +168,14 @@ class FinancingService:
         query_params = append_query_param(query_params, "end_date", request.end_date)
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
         return ListInterestAccrualsForPortfolioResponse(**response.json())
+
+    # Trade Finance
+    def list_financing_eligible_assets(self, request: ListFinancingEligibleAssetsRequest) -> ListFinancingEligibleAssetsResponse:
+        path = "/financing/eligible-assets"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return ListFinancingEligibleAssetsResponse(**response.json())
+
+    def list_trade_finance_obligations(self, request: ListTradeFinanceObligationsRequest) -> ListTradeFinanceObligationsResponse:
+        path = f"/entities/{request.entity_id}/tf_obligations"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return ListTradeFinanceObligationsResponse(**response.json())

@@ -29,3 +29,4 @@ class ListInterestAccrualsForPortfolioRequest:
 @dataclass
 class ListInterestAccrualsForPortfolioResponse(BaseResponse):
     accruals: List[Accrual] = None
+    total_notional_accrual: str = None

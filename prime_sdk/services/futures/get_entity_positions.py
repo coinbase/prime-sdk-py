@@ -16,6 +16,7 @@ from dataclasses import dataclass
 from typing import List, Optional
 from ...base_response import BaseResponse
 from ...model import FuturesPosition
+from ...utils import Pagination
 
 
 @dataclass
@@ -29,3 +30,4 @@ class GetEntityPositionsRequest:
 class GetEntityPositionsResponse(BaseResponse):
     positions: List[FuturesPosition] = None
     clearing_account_id: str = None
+    pagination: Pagination = None

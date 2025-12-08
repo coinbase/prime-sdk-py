@@ -12,18 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_UpdateOnchainAddressBook
+# #docs operationId: PrimeRESTAPI_UpdateOnchainAddressGroup
 # #docs operationName: Update Onchain Address Book
 
 import argparse
 import os
 from prime_sdk.client_services import PrimeServicesClient
-from prime_sdk.services.onchain_address_book import UpdateOnchainAddressBookRequest, AddressGroup, Address
+from prime_sdk.services.onchain_address_book import UpdateOnchainAddressBookRequest
+from prime_sdk.model import AddressGroup, OnchainAddress
 from prime_sdk.enums import NetworkType
 
 def main():
     parser = argparse.ArgumentParser(description="Update an onchain address book entry")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (or set PRIME_PORTFOLIO_ID env var)")
+    parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
     parser.add_argument("--address-group-id", required=True, help="Address group ID to update")
     parser.add_argument("--name", required=True, help="Updated address group name")
     parser.add_argument("--network-type", choices=["NETWORK_TYPE_EVM", "NETWORK_TYPE_SOLANA"], 
@@ -37,14 +38,14 @@ def main():
     
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
     if not portfolio_id:
-        print("Error: Portfolio ID is required. Use --portfolio-id or set PRIME_PORTFOLIO_ID env var")
+        print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
         return
 
     # Parse chain IDs
     chain_ids = [chain_id.strip() for chain_id in args.chain_ids.split(',')]
-    
-    # Create Address object (now imported from onchain_address_book service)
-    address = Address(
+
+    # Create OnchainAddress object
+    address = OnchainAddress(
         name=args.address_name,
         address=args.address,
         chain_ids=chain_ids
@@ -56,7 +57,7 @@ def main():
         name=args.name,
         network_type=NetworkType(args.network_type).value,  # Convert enum to string value
         addresses=[address],
-        added_at=args.added_at or ""
+        added_at=""
     )
     
     request = UpdateOnchainAddressBookRequest(

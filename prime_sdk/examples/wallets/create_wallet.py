@@ -24,7 +24,7 @@ from prime_sdk.enums import WalletType
 
 def main():
     parser = argparse.ArgumentParser(description="Create a new wallet for a portfolio")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (or set PRIME_PORTFOLIO_ID env var)")
+    parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
     parser.add_argument("--name", required=True, help="Wallet name")
     parser.add_argument("--symbol", required=True, help="Currency symbol (e.g., BTC, ETH)")
     parser.add_argument("--wallet-type", choices=["VAULT", "TRADING", "ONCHAIN", "OTHER"], 
@@ -36,7 +36,7 @@ def main():
     
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
     if not portfolio_id:
-        print("Error: Portfolio ID is required. Use --portfolio-id or set PRIME_PORTFOLIO_ID env var")
+        print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
         return
 
     # Generate idempotency key if not provided

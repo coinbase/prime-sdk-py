@@ -30,3 +30,4 @@ class GetWalletDepositInstructionsRequest:
 @dataclass
 class GetWalletDepositInstructionsResponse(BaseResponse):
     instructions: Instructions = None
+    crypto_instructions: dict = None

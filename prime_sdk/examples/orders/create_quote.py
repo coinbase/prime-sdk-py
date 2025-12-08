@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_CreateQuote
+# #docs operationId: PrimeRESTAPI_CreateQuoteRequest
 # #docs operationName: Create Quote
 
 import argparse

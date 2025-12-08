@@ -23,8 +23,7 @@ from prime_sdk.utils import PaginationParams
 
 def main():
     parser = argparse.ArgumentParser(description="List Web3 balances for a wallet")
-    parser.add_argument("wallet_id", nargs="?", help="Wallet ID")
-    parser.add_argument("--wallet-id", dest="wallet_id_named", help="Wallet ID")
+    parser.add_argument("--wallet-id", required=True, help="Wallet ID")
     parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
     parser.add_argument("--visibility-statuses", help="Comma-separated list of visibility statuses")
     parser.add_argument("--limit", type=int, help="Number of results to return")
@@ -33,15 +32,9 @@ def main():
 
     client = PrimeServicesClient.from_env()
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
-    
+
     if not portfolio_id:
         print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
-        return
-
-    # Accept wallet ID from either positional or named argument
-    wallet_id = args.wallet_id or args.wallet_id_named
-    if not wallet_id:
-        print("Error: Wallet ID is required. Provide as positional argument or use --wallet-id")
         return
 
     # Set up pagination if provided
@@ -54,7 +47,7 @@ def main():
     
     request = ListWeb3WalletBalancesRequest(
         portfolio_id=portfolio_id,
-        wallet_id=wallet_id,
+        wallet_id=args.wallet_id,
         visibility_statuses=args.visibility_statuses,
         pagination=pagination
     )

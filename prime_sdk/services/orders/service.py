@@ -43,6 +43,10 @@ from .get_order import (
     GetOrderRequest,
     GetOrderResponse
 )
+from .get_order_edit_history import (
+    GetOrderEditHistoryRequest,
+    GetOrderEditHistoryResponse
+)
 from .list_open_orders import (
     ListOpenOrdersRequest,
     ListOpenOrdersResponse
@@ -104,6 +108,11 @@ class OrdersService:
         path = f"/portfolios/{request.portfolio_id}/orders/{request.order_id}"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
         return GetOrderResponse(**response.json())
+
+    def get_order_edit_history(self, request: GetOrderEditHistoryRequest) -> GetOrderEditHistoryResponse:
+        path = f"/portfolios/{request.portfolio_id}/orders/{request.order_id}/edit_history"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return GetOrderEditHistoryResponse(**response.json())
 
     def list_open_orders(self, request: ListOpenOrdersRequest) -> ListOpenOrdersResponse:
         path = f"/portfolios/{request.portfolio_id}/open_orders"

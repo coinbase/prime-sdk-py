@@ -18,7 +18,7 @@ from prime_sdk.enums import NetworkType
 
 
 @dataclass
-class Address:
+class OnchainAddress:
     name: str
     address: str
     chain_ids: List[str]
@@ -29,7 +29,7 @@ class AddressGroup:
     id: str
     name: str
     network_type: NetworkType
-    addresses: List[Address]
+    addresses: List[OnchainAddress]
     added_at: str
 
 
@@ -202,21 +202,28 @@ class Details:
     id: str
     symbol: str
     payment_method_type: str
-    bank_name: str
-    account_number: str
-    bank_name_2: str
+    bank_name: str = None
+    account_number: str = None
+    bank_name_2: str = None
+    name: str = None
+    bank_code: str = None
 
 
 @dataclass
 class FuturesPosition:
-    product_id: str
-    side: str
-    number_of_contracts: str
-    daily_realized_pnl: str
-    unrealized_pnl: str
-    current_price: str
-    avg_entry_price: str
-    expiration_time: str
+    product_id: str = None
+    side: str = None
+    number_of_contracts: str = None
+    daily_realized_pnl: str = None
+    unrealized_pnl: str = None
+    current_price: str = None
+    avg_entry_price: str = None
+    expiration_time: str = None
+    symbol: str = None
+    long: str = None
+    short: str = None
+    position_reference: str = None
+
 
 
 @dataclass
@@ -297,6 +304,9 @@ class Order:
     display_quote_size: str = None
     display_base_size: str = None
     edit_history: List[EditHistory] = None
+    peg_offset_type: str = None
+    offset: str = None
+    wig_level: str = None
 
 
 @dataclass
@@ -421,6 +431,7 @@ class Transaction:
     idempotency_key: str
     onchain_details: OnchainDetails
     network_info: Network
+    process_requirements: str = None
 
 
 @dataclass
@@ -983,3 +994,19 @@ class Candle:
 @dataclass
 class Counterparty:
     counterparty_id: str
+
+
+@dataclass
+class TFAsset:
+    symbol: str
+    asset_adjustment: str
+    liability_adjustment: str
+
+
+@dataclass
+class TFObligation:
+    portfolio_id: str
+    symbol: str
+    amount_due: str
+    notional_amount: str
+    due_date: str

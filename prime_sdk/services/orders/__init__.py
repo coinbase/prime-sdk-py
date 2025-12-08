@@ -41,6 +41,10 @@ from .get_order import (
     GetOrderRequest,
     GetOrderResponse
 )
+from .get_order_edit_history import (
+    GetOrderEditHistoryRequest,
+    GetOrderEditHistoryResponse
+)
 from .list_open_orders import (
     ListOpenOrdersRequest,
     ListOpenOrdersResponse
@@ -74,6 +78,8 @@ __all__ = [
     "EditOrderResponse",
     "GetOrderRequest",
     "GetOrderResponse",
+    "GetOrderEditHistoryRequest",
+    "GetOrderEditHistoryResponse",
     "ListOpenOrdersRequest",
     "ListOpenOrdersResponse",
     "ListOrderFillsRequest",

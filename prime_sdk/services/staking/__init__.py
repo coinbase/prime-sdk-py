@@ -41,6 +41,16 @@ from .query_transaction_validators import (
     QueryTransactionValidatorsRequest,
     QueryTransactionValidatorsResponse
 )
+from .get_unstaking_status import (
+    UnstakeStatusDetail,
+    ValidatorUnstakeStatus,
+    GetUnstakingStatusRequest,
+    GetUnstakingStatusResponse
+)
+from .preview_unstake import (
+    PreviewUnstakeRequest,
+    PreviewUnstakeResponse
+)
 
 __all__ = [
     "StakingService",
@@ -59,5 +69,11 @@ __all__ = [
     "ClaimWalletStakingRewardsRequest",
     "ClaimWalletStakingRewardsResponse",
     "QueryTransactionValidatorsRequest",
-    "QueryTransactionValidatorsResponse"
+    "QueryTransactionValidatorsResponse",
+    "UnstakeStatusDetail",
+    "ValidatorUnstakeStatus",
+    "GetUnstakingStatusRequest",
+    "GetUnstakingStatusResponse",
+    "PreviewUnstakeRequest",
+    "PreviewUnstakeResponse"
 ]

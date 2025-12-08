@@ -21,15 +21,16 @@ from prime_sdk.services.activities import GetEntityActivityRequest
 
 def main():
     parser = argparse.ArgumentParser(description="Get a specific entity activity by ID")
-    parser.add_argument("activity_id", nargs="?", help="Activity ID to retrieve")
-    parser.add_argument("--activity-id", required=True, help="Activity ID to retrieve")
+    parser.add_argument("activity_id", nargs="?", help="Activity ID")
+    parser.add_argument("--activity-id", dest="activity_id_named", help="Activity ID")
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
-    
-    activity_id = args.activity_id or getattr(args, 'activity_id_named', None)
+
+    # Accept activity ID from either positional or named argument
+    activity_id = args.activity_id or args.activity_id_named
     if not activity_id:
-        print("Error: Activity ID required as positional or --activity-id")
+        print("Error: Activity ID is required. Provide as positional argument or use --activity-id")
         return
 
     request = GetEntityActivityRequest(

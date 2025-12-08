@@ -19,11 +19,12 @@ import argparse
 import os
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.onchain_address_book import CreateOnchainAddressBookEntryRequest, AddressGroup, Address
+from prime_sdk.model import OnchainAddress
 from prime_sdk.enums import NetworkType
 
 def main():
     parser = argparse.ArgumentParser(description="Create an onchain address book entry")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (or set PRIME_PORTFOLIO_ID env var)")
+    parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
     parser.add_argument("--name", required=True, help="Address group name")
     parser.add_argument("--network-type", choices=["NETWORK_TYPE_EVM", "NETWORK_TYPE_SOLANA"], 
                        required=True, help="Network type")
@@ -36,14 +37,14 @@ def main():
     
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
     if not portfolio_id:
-        print("Error: Portfolio ID is required. Use --portfolio-id or set PRIME_PORTFOLIO_ID env var")
+        print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
         return
 
     # Parse chain IDs
     chain_ids = [chain_id.strip() for chain_id in args.chain_ids.split(',')]
-    
-    # Create Address object (now imported from onchain_address_book service)
-    address = Address(
+
+    # Create OnchainAddress object
+    address = OnchainAddress(
         name=args.address_name,
         address=args.address,
         chain_ids=chain_ids

@@ -22,21 +22,21 @@ from prime_sdk.services.activities import GetActivityRequest
 
 def main():
     parser = argparse.ArgumentParser(description="Get a specific activity by ID")
-    parser.add_argument("activity_id", nargs="?", help="Activity ID to retrieve")
-    parser.add_argument("--activity-id", required=True, help="Activity ID to retrieve")
+    parser.add_argument("activity_id", nargs="?", help="Activity ID")
+    parser.add_argument("--activity-id", dest="activity_id_named", help="Activity ID")
     parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
-    
+
     if not portfolio_id:
         print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
         return
-    
-    activity_id = args.activity_id or getattr(args, 'activity_id_named', None)
+
+    activity_id = args.activity_id or args.activity_id_named
     if not activity_id:
-        print("Error: Activity ID required as positional or --activity-id")
+        print("Error: Activity ID is required. Provide as positional argument or use --activity-id")
         return
 
     request = GetActivityRequest(

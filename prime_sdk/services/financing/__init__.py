@@ -65,6 +65,14 @@ from .list_interest_accruals_for_portfolio import (
     ListInterestAccrualsForPortfolioRequest,
     ListInterestAccrualsForPortfolioResponse
 )
+from .list_financing_eligible_assets import (
+    ListFinancingEligibleAssetsRequest,
+    ListFinancingEligibleAssetsResponse
+)
+from .list_trade_finance_obligations import (
+    ListTradeFinanceObligationsRequest,
+    ListTradeFinanceObligationsResponse
+)
 
 __all__ = [
     "FinancingService",
@@ -93,5 +101,9 @@ __all__ = [
     "ListInterestAccrualsRequest",
     "ListInterestAccrualsResponse",
     "ListInterestAccrualsForPortfolioRequest",
-    "ListInterestAccrualsForPortfolioResponse"
+    "ListInterestAccrualsForPortfolioResponse",
+    "ListFinancingEligibleAssetsRequest",
+    "ListFinancingEligibleAssetsResponse",
+    "ListTradeFinanceObligationsRequest",
+    "ListTradeFinanceObligationsResponse"
 ]

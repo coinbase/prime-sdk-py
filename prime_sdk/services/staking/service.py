@@ -38,6 +38,14 @@ from .query_transaction_validators import (
     QueryTransactionValidatorsRequest,
     QueryTransactionValidatorsResponse
 )
+from .get_unstaking_status import (
+    GetUnstakingStatusRequest,
+    GetUnstakingStatusResponse
+)
+from .preview_unstake import (
+    PreviewUnstakeRequest,
+    PreviewUnstakeResponse
+)
 
 
 class StakingService:
@@ -79,3 +87,14 @@ class StakingService:
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
         return QueryTransactionValidatorsResponse(**response.json())
+
+    def get_unstaking_status(self, request: GetUnstakingStatusRequest) -> GetUnstakingStatusResponse:
+        path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/unstake/status"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return GetUnstakingStatusResponse(**response.json())
+
+    def preview_unstake(self, request: PreviewUnstakeRequest) -> PreviewUnstakeResponse:
+        path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/unstake/preview"
+        body = to_body_dict(request)
+        response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
+        return PreviewUnstakeResponse(**response.json())

@@ -12,41 +12,38 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# #docs operationId: PrimeRESTAPI_PreviewUnstake
+# #docs operationName: Preview Unstake
+
 import argparse
-import uuid
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
-from prime_sdk.services.staking import StakingService, CreateStakeRequest, StakingInputs
+from prime_sdk.services.staking import StakingService, PreviewUnstakeRequest
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Create a stake")
+    parser = argparse.ArgumentParser(
+        description="Preview an unstaking request (currently only supports ETH)"
+    )
     parser.add_argument("--wallet-id", required=True, help="Wallet ID")
-    parser.add_argument("--amount", required=True, help="Amount to stake")
-    parser.add_argument("--validator-address", help="Validator address (optional)")
+    parser.add_argument("--amount", required=True, help="Amount to preview unstaking")
     args = parser.parse_args()
 
     credentials = Credentials.from_env()
     client = Client(credentials)
     staking_service = StakingService(client)
 
-    staking_inputs = StakingInputs(
-        amount=args.amount,
-        validator_address=args.validator_address
-    )
-
-    request = CreateStakeRequest(
+    request = PreviewUnstakeRequest(
         portfolio_id=credentials.portfolio_id,
         wallet_id=args.wallet_id,
-        idempotency_key=str(uuid.uuid4()),
-        inputs=staking_inputs
+        amount=args.amount
     )
 
     try:
-        response = staking_service.create_stake(request)
+        response = staking_service.preview_unstake(request)
         print(response)
     except Exception as e:
-        print(f"failed to create stake: {e}")
+        print(f"failed to preview unstake: {e}")
 
 
 if __name__ == "__main__":

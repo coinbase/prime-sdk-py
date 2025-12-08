@@ -20,7 +20,7 @@ from ...model import Fee
 
 @dataclass
 class GetTradeFinanceTieredPricingFeesRequest:
-    portfolio_id: str
+    entity_id: str
     effective_at: Optional[str] = None
     allowed_status_codes: Optional[List[int]] = None
 

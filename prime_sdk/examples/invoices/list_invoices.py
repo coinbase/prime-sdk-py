@@ -23,8 +23,7 @@ from prime_sdk.utils import PaginationParams
 
 def main():
     parser = argparse.ArgumentParser(description="List invoices for an entity")
-    parser.add_argument("entity_id", nargs="?", help="Entity ID")
-    parser.add_argument("--entity-id", dest="entity_id_named", help="Entity ID")
+    parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
     parser.add_argument("--states", help="Invoice states filter (e.g., DRAFT,SENT,PAID)")
     parser.add_argument("--billing-year", type=int, help="Billing year filter (e.g., 2025)")
     parser.add_argument("--billing-month", help="Billing month filter (e.g., JANUARY, FEBRUARY)")
@@ -34,10 +33,9 @@ def main():
 
     client = PrimeServicesClient.from_env()
     
-    # Accept entity ID from either positional or named argument
-    entity_id = args.entity_id or args.entity_id_named or os.getenv("PRIME_ENTITY_ID")
+    entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
     if not entity_id:
-        print("Error: Entity ID is required. Provide as positional argument, use --entity-id, or set PRIME_ENTITY_ID env var")
+        print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
         return
 
     # Set up pagination if provided
