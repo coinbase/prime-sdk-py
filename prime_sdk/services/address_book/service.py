@@ -26,7 +26,7 @@ class AddressBookService:
         path = f"/portfolios/{request.portfolio_id}/address_book"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return CreateAddressBookEntryResponse(**response.json())
+        return CreateAddressBookEntryResponse.from_response(response.json())
 
     def get_address_book(self, request: GetAddressBookRequest) -> GetAddressBookResponse:
         path = f"/portfolios/{request.portfolio_id}/address_book"
@@ -36,4 +36,4 @@ class AddressBookService:
         query_params = append_pagination_params(query_params, request.pagination)
 
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return GetAddressBookResponse(**response.json())
+        return GetAddressBookResponse.from_response(response.json())

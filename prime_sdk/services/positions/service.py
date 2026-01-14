@@ -32,10 +32,10 @@ class PositionsService:
         path = f"/entities/{request.entity_id}/aggregate_positions"
         query_params = append_pagination_params("", request.pagination)
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListAggregateEntityPositionsResponse(**response.json())
+        return ListAggregateEntityPositionsResponse.from_response(response.json())
 
     def list_entity_positions(self, request: ListEntityPositionsRequest) -> ListEntityPositionsResponse:
         path = f"/entities/{request.entity_id}/positions"
         query_params = append_pagination_params("", request.pagination)
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListEntityPositionsResponse(**response.json())
+        return ListEntityPositionsResponse.from_response(response.json())

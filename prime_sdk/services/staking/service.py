@@ -56,45 +56,45 @@ class StakingService:
         path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/initiate"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return CreateStakeResponse(**response.json())
+        return CreateStakeResponse.from_response(response.json())
 
     def create_unstake(self, request: CreateUnstakeRequest) -> CreateUnstakeResponse:
         path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/unstake"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return CreateUnstakeResponse(**response.json())
+        return CreateUnstakeResponse.from_response(response.json())
 
     def create_portfolio_stake(self, request: CreatePortfolioStakeRequest) -> CreatePortfolioStakeResponse:
         path = f"/portfolios/{request.portfolio_id}/staking/initiate"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return CreatePortfolioStakeResponse(**response.json())
+        return CreatePortfolioStakeResponse.from_response(response.json())
 
     def create_portfolio_unstake(self, request: CreatePortfolioUnstakeRequest) -> CreatePortfolioUnstakeResponse:
         path = f"/portfolios/{request.portfolio_id}/staking/unstake"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return CreatePortfolioUnstakeResponse(**response.json())
+        return CreatePortfolioUnstakeResponse.from_response(response.json())
 
     def claim_wallet_staking_rewards(self, request: ClaimWalletStakingRewardsRequest) -> ClaimWalletStakingRewardsResponse:
         path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/claim_rewards"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return ClaimWalletStakingRewardsResponse(**response.json())
+        return ClaimWalletStakingRewardsResponse.from_response(response.json())
 
     def query_transaction_validators(self, request: QueryTransactionValidatorsRequest) -> QueryTransactionValidatorsResponse:
         path = f"/portfolios/{request.portfolio_id}/staking/transaction-validators/query"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return QueryTransactionValidatorsResponse(**response.json())
+        return QueryTransactionValidatorsResponse.from_response(response.json())
 
     def get_unstaking_status(self, request: GetUnstakingStatusRequest) -> GetUnstakingStatusResponse:
         path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/unstake/status"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return GetUnstakingStatusResponse(**response.json())
+        return GetUnstakingStatusResponse.from_response(response.json())
 
     def preview_unstake(self, request: PreviewUnstakeRequest) -> PreviewUnstakeResponse:
         path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/unstake/preview"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return PreviewUnstakeResponse(**response.json())
+        return PreviewUnstakeResponse.from_response(response.json())

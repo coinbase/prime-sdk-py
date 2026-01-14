@@ -73,46 +73,46 @@ class OrdersService:
         path = f"/portfolios/{request.portfolio_id}/accept_quote"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return AcceptQuoteResponse(**response.json())
+        return AcceptQuoteResponse.from_response(response.json())
 
     def cancel_order(self, request: CancelOrderRequest) -> CancelOrderResponse:
         path = f"/portfolios/{request.portfolio_id}/orders/{request.order_id}/cancel"
         response = self.client.request("POST", path, allowed_status_codes=request.allowed_status_codes)
-        return CancelOrderResponse(**response.json())
+        return CancelOrderResponse.from_response(response.json())
 
     def create_order(self, request: CreateOrderRequest) -> CreateOrderResponse:
         path = f"/portfolios/{request.portfolio_id}/order"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return CreateOrderResponse(**response.json())
+        return CreateOrderResponse.from_response(response.json())
 
     def create_order_preview(self, request: CreateOrderPreviewRequest) -> CreateOrderPreviewResponse:
         path = f"/portfolios/{request.portfolio_id}/order_preview"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return CreateOrderPreviewResponse(**response.json())
+        return CreateOrderPreviewResponse.from_response(response.json())
 
     def create_quote(self, request: CreateQuoteRequest) -> CreateQuoteResponse:
         path = f"/portfolios/{request.portfolio_id}/rfq"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return CreateQuoteResponse(**response.json())
+        return CreateQuoteResponse.from_response(response.json())
 
     def edit_order(self, request: EditOrderRequest) -> EditOrderResponse:
         path = f"/portfolios/{request.portfolio_id}/orders/{request.order_id}/edit"
         body = to_body_dict(request)
         response = self.client.request("PUT", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return EditOrderResponse(**response.json())
+        return EditOrderResponse.from_response(response.json())
 
     def get_order(self, request: GetOrderRequest) -> GetOrderResponse:
         path = f"/portfolios/{request.portfolio_id}/orders/{request.order_id}"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return GetOrderResponse(**response.json())
+        return GetOrderResponse.from_response(response.json())
 
     def get_order_edit_history(self, request: GetOrderEditHistoryRequest) -> GetOrderEditHistoryResponse:
         path = f"/portfolios/{request.portfolio_id}/orders/{request.order_id}/edit_history"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return GetOrderEditHistoryResponse(**response.json())
+        return GetOrderEditHistoryResponse.from_response(response.json())
 
     def list_open_orders(self, request: ListOpenOrdersRequest) -> ListOpenOrdersResponse:
         path = f"/portfolios/{request.portfolio_id}/open_orders"
@@ -133,13 +133,13 @@ class OrdersService:
                 request.end_date.isoformat() + 'Z')
 
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListOpenOrdersResponse(**response.json())
+        return ListOpenOrdersResponse.from_response(response.json())
 
     def list_order_fills(self, request: ListOrderFillsRequest) -> ListOrderFillsResponse:
         path = f"/portfolios/{request.portfolio_id}/orders/{request.order_id}/fills"
         query_params = append_pagination_params("", request.pagination)
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListOrderFillsResponse(**response.json())
+        return ListOrderFillsResponse.from_response(response.json())
 
     def list_orders(self, request: ListOrdersRequest) -> ListOrdersResponse:
         path = f"/portfolios/{request.portfolio_id}/orders"
@@ -157,7 +157,7 @@ class OrdersService:
         query_params = append_pagination_params(query_params, request.pagination)
 
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListOrdersResponse(**response.json())
+        return ListOrdersResponse.from_response(response.json())
 
     def list_portfolio_fills(self, request: ListPortfolioFillsRequest) -> ListPortfolioFillsResponse:
         path = f"/portfolios/{request.portfolio_id}/fills"
@@ -170,4 +170,4 @@ class OrdersService:
         query_params = append_pagination_params(query_params, request.pagination)
 
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListPortfolioFillsResponse(**response.json())
+        return ListPortfolioFillsResponse.from_response(response.json())

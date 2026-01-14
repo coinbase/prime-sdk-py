@@ -32,10 +32,10 @@ class UsersService:
         path = f"/entities/{request.entity_id}/users"
         query_params = append_pagination_params("", request.pagination)
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListEntityUsersResponse(**response.json())
+        return ListEntityUsersResponse.from_response(response.json())
 
     def list_portfolio_users(self, request: ListPortfolioUsersRequest) -> ListPortfolioUsersResponse:
         path = f"/portfolios/{request.portfolio_id}/users"
         query_params = append_pagination_params("", request.pagination)
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListPortfolioUsersResponse(**response.json())
+        return ListPortfolioUsersResponse.from_response(response.json())

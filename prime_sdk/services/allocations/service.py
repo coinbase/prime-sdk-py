@@ -49,7 +49,7 @@ class AllocationsService:
             body["allocation_legs"] = [asdict(leg) for leg in request.allocation_legs]
 
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return CreatePortfolioAllocationsResponse(**response.json())
+        return CreatePortfolioAllocationsResponse.from_response(response.json())
 
     def create_portfolio_net_allocations(self, request: CreatePortfolioNetAllocationsRequest) -> CreatePortfolioNetAllocationsResponse:
         path = "/allocations/net"
@@ -59,17 +59,17 @@ class AllocationsService:
             body["allocation_legs"] = [asdict(leg) for leg in request.allocation_legs]
 
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return CreatePortfolioNetAllocationsResponse(**response.json())
+        return CreatePortfolioNetAllocationsResponse.from_response(response.json())
 
     def get_allocation_by_id(self, request: GetAllocationByIdRequest) -> GetAllocationByIdResponse:
         path = f"/portfolios/{request.portfolio_id}/allocations/{request.allocation_id}"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return GetAllocationByIdResponse(**response.json())
+        return GetAllocationByIdResponse.from_response(response.json())
 
     def get_net_allocations_by_netting_id(self, request: GetNetAllocationsByNettingIdRequest) -> GetNetAllocationsByNettingIdResponse:
         path = f"/portfolios/{request.portfolio_id}/allocations/net/{request.netting_id}"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return GetNetAllocationsByNettingIdResponse(**response.json())
+        return GetNetAllocationsByNettingIdResponse.from_response(response.json())
 
     def list_portfolio_allocations(self, request: ListPortfolioAllocationsRequest) -> ListPortfolioAllocationsResponse:
         path = f"/portfolios/{request.portfolio_id}/allocations"
@@ -85,4 +85,4 @@ class AllocationsService:
         query_params = append_pagination_params(query_params, request.pagination)
 
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListPortfolioAllocationsResponse(**response.json())
+        return ListPortfolioAllocationsResponse.from_response(response.json())

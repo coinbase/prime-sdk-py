@@ -52,30 +52,30 @@ class TransactionsService:
         path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/conversion"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return CreateConversionResponse(**response.json())
+        return CreateConversionResponse.from_response(response.json())
 
     def create_onchain_transaction(self, request: CreateOnchainTransactionRequest) -> CreateOnchainTransactionResponse:
         path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/transactions"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return CreateOnchainTransactionResponse(**response.json())
+        return CreateOnchainTransactionResponse.from_response(response.json())
 
     def create_transfer(self, request: CreateTransferRequest) -> CreateTransferResponse:
         path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/transfers"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return CreateTransferResponse(**response.json())
+        return CreateTransferResponse.from_response(response.json())
 
     def create_withdrawal(self, request: CreateWithdrawalRequest) -> CreateWithdrawalResponse:
         path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/withdrawals"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return CreateWithdrawalResponse(**response.json())
+        return CreateWithdrawalResponse.from_response(response.json())
 
     def get_transaction(self, request: GetTransactionRequest) -> GetTransactionResponse:
         path = f"/portfolios/{request.portfolio_id}/transactions/{request.transaction_id}"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return GetTransactionResponse(**response.json())
+        return GetTransactionResponse.from_response(response.json())
 
     def list_portfolio_transactions(self, request: ListPortfolioTransactionsRequest) -> ListPortfolioTransactionsResponse:
         path = f"/portfolios/{request.portfolio_id}/transactions"
@@ -89,7 +89,7 @@ class TransactionsService:
         if request.end:
             query_params = f"{query_params}&end={request.end.isoformat()}" if query_params else f"end={request.end.isoformat()}"
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListPortfolioTransactionsResponse(**response.json())
+        return ListPortfolioTransactionsResponse.from_response(response.json())
 
     def list_wallet_transactions(self, request: ListWalletTransactionsRequest) -> ListWalletTransactionsResponse:
         path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/transactions"
@@ -101,4 +101,4 @@ class TransactionsService:
         if request.end:
             query_params = f"{query_params}&end={request.end.isoformat()}" if query_params else f"end={request.end.isoformat()}"
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListWalletTransactionsResponse(**response.json())
+        return ListWalletTransactionsResponse.from_response(response.json())

@@ -39,7 +39,7 @@ class BalancesService:
     def get_wallet_balance(self, request: GetWalletBalanceRequest) -> GetWalletBalanceResponse:
         path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/balance"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return GetWalletBalanceResponse(**response.json())
+        return GetWalletBalanceResponse.from_response(response.json())
 
     def list_entity_balances(self, request: ListEntityBalancesRequest) -> ListEntityBalancesResponse:
         path = f"/entities/{request.entity_id}/balances"
@@ -49,7 +49,7 @@ class BalancesService:
         query_params = append_pagination_params(query_params, request.pagination)
 
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListEntityBalancesResponse(**response.json())
+        return ListEntityBalancesResponse.from_response(response.json())
 
     def list_web3_wallet_balances(self, request: ListWeb3WalletBalancesRequest) -> ListWeb3WalletBalancesResponse:
         path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/web3_balances"
@@ -58,7 +58,7 @@ class BalancesService:
         query_params = append_pagination_params(query_params, request.pagination)
 
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListWeb3WalletBalancesResponse(**response.json())
+        return ListWeb3WalletBalancesResponse.from_response(response.json())
 
     def list_portfolio_balances(self, request: ListPortfolioBalancesRequest) -> ListPortfolioBalancesResponse:
         path = f"/portfolios/{request.portfolio_id}/balances"
@@ -68,4 +68,4 @@ class BalancesService:
         query_params = append_pagination_params(query_params, request.pagination)
 
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListPortfolioBalancesResponse(**response.json())
+        return ListPortfolioBalancesResponse.from_response(response.json())
