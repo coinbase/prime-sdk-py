@@ -27,12 +27,12 @@ class ActivitiesService:
     def get_activity(self, request: GetActivityRequest) -> GetActivityResponse:
         path = f"/portfolios/{request.portfolio_id}/activities/{request.activity_id}"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return GetActivityResponse(**response.json())
+        return GetActivityResponse.from_response(response.json())
 
     def get_entity_activity(self, request: GetEntityActivityRequest) -> GetEntityActivityResponse:
         path = f"/activities/{request.activity_id}"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return GetEntityActivityResponse(**response.json())
+        return GetEntityActivityResponse.from_response(response.json())
 
     def list_activities(self, request: ListActivitiesRequest) -> ListActivitiesResponse:
         path = f"/portfolios/{request.portfolio_id}/activities"
@@ -54,7 +54,7 @@ class ActivitiesService:
 
         query_params = append_pagination_params(query_params, request.pagination)
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListActivitiesResponse(**response.json())
+        return ListActivitiesResponse.from_response(response.json())
 
     def list_entity_activities(self, request: ListEntityActivitiesRequest) -> ListEntityActivitiesResponse:
         path = f"/entities/{request.entity_id}/activities"
@@ -77,4 +77,4 @@ class ActivitiesService:
 
         query_params = append_pagination_params(query_params, request.pagination)
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListEntityActivitiesResponse(**response.json())
+        return ListEntityActivitiesResponse.from_response(response.json())

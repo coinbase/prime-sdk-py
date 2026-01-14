@@ -32,10 +32,10 @@ class ProductsService:
         path = f"/portfolios/{request.portfolio_id}/products"
         query_params = append_pagination_params("", request.pagination)
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListProductsResponse(**response.json())
+        return ListProductsResponse.from_response(response.json())
 
     def get_product_candles(self, request: GetProductCandlesRequest) -> GetProductCandlesResponse:
         path = f"/portfolios/{request.portfolio_id}/candles"
         query_params = f"product_id={request.product_id}&granularity={request.granularity}&start_time={request.start_time}&end_time={request.end_time}"
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return GetProductCandlesResponse(**response.json())
+        return GetProductCandlesResponse.from_response(response.json())

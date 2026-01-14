@@ -456,6 +456,7 @@ class Balance:
     withdrawable_amount: str
     fiat_amount: str
     unbondable_amount: str
+    claimable_rewards_amount: str
 
 
 @dataclass

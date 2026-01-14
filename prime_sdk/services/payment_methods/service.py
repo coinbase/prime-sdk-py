@@ -31,10 +31,10 @@ class PaymentMethodsService:
     def get_entity_payment_method(self, request: GetEntityPaymentMethodRequest) -> GetEntityPaymentMethodResponse:
         path = f"/entities/{request.entity_id}/payment-methods/{request.payment_method_id}"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return GetEntityPaymentMethodResponse(**response.json())
+        return GetEntityPaymentMethodResponse.from_response(response.json())
 
     def list_entity_payment_methods(self, request: ListEntityPaymentMethodsRequest) -> ListEntityPaymentMethodsResponse:
         path = f"/entities/{request.entity_id}/payment-methods"
         query_params = append_pagination_params("", request.pagination)
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListEntityPaymentMethodsResponse(**response.json())
+        return ListEntityPaymentMethodsResponse.from_response(response.json())

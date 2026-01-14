@@ -55,29 +55,29 @@ class FuturesService:
     def cancel_entity_futures_sweep(self, request: CancelEntityFuturesSweepRequest) -> CancelEntityFuturesSweepResponse:
         path = f"/entities/{request.entity_id}/futures/sweeps"
         response = self.client.request("DELETE", path, allowed_status_codes=request.allowed_status_codes)
-        return CancelEntityFuturesSweepResponse(**response.json())
+        return CancelEntityFuturesSweepResponse.from_response(response.json())
 
     def schedule_entity_futures_sweep(self, request: ScheduleEntityFuturesSweepRequest) -> ScheduleEntityFuturesSweepResponse:
         path = f"/entities/{request.entity_id}/futures/sweeps"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return ScheduleEntityFuturesSweepResponse(**response.json())
+        return ScheduleEntityFuturesSweepResponse.from_response(response.json())
 
     def list_entity_futures_sweeps(self, request: ListEntityFuturesSweepsRequest) -> ListEntityFuturesSweepsResponse:
         path = f"/entities/{request.entity_id}/futures/sweeps"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return ListEntityFuturesSweepsResponse(**response.json())
+        return ListEntityFuturesSweepsResponse.from_response(response.json())
 
     def set_auto_sweep(self, request: SetAutoSweepRequest) -> SetAutoSweepResponse:
         path = f"/entities/{request.entity_id}/futures/auto_sweep"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return SetAutoSweepResponse(**response.json())
+        return SetAutoSweepResponse.from_response(response.json())
 
     def get_entity_fcm_balance(self, request: GetEntityFcmBalanceRequest) -> GetEntityFcmBalanceResponse:
         path = f"/entities/{request.entity_id}/futures/balance_summary"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return GetEntityFcmBalanceResponse(**response.json())
+        return GetEntityFcmBalanceResponse.from_response(response.json())
 
     def get_entity_positions(self, request: GetEntityPositionsRequest) -> GetEntityPositionsResponse:
         path = f"/entities/{request.entity_id}/positions"
@@ -85,14 +85,14 @@ class FuturesService:
         if request.product_id:
             query_params = f"product_id={request.product_id}"
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return GetEntityPositionsResponse(**response.json())
+        return GetEntityPositionsResponse.from_response(response.json())
 
     def get_fcm_margin_call_details(self, request: GetFcmMarginCallDetailsRequest) -> GetFcmMarginCallDetailsResponse:
         path = f"/entities/{request.entity_id}/futures/margin_call_details"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return GetFcmMarginCallDetailsResponse(**response.json())
+        return GetFcmMarginCallDetailsResponse.from_response(response.json())
 
     def get_fcm_risk_limits(self, request: GetFcmRiskLimitsRequest) -> GetFcmRiskLimitsResponse:
         path = f"/entities/{request.entity_id}/futures/risk_limits"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return GetFcmRiskLimitsResponse(**response.json())
+        return GetFcmRiskLimitsResponse.from_response(response.json())
