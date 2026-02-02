@@ -45,6 +45,14 @@ from .get_fcm_risk_limits import (
     GetFcmRiskLimitsRequest,
     GetFcmRiskLimitsResponse
 )
+from .get_fcm_settings import (
+    GetFcmSettingsRequest,
+    GetFcmSettingsResponse
+)
+from .set_fcm_settings import (
+    SetFcmSettingsRequest,
+    SetFcmSettingsResponse
+)
 from ...utils import to_body_dict
 
 
@@ -96,3 +104,14 @@ class FuturesService:
         path = f"/entities/{request.entity_id}/futures/risk_limits"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
         return GetFcmRiskLimitsResponse.from_response(response.json())
+
+    def get_fcm_settings(self, request: GetFcmSettingsRequest) -> GetFcmSettingsResponse:
+        path = f"/entities/{request.entity_id}/futures/settings"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return GetFcmSettingsResponse.from_response(response.json())
+
+    def set_fcm_settings(self, request: SetFcmSettingsRequest) -> SetFcmSettingsResponse:
+        path = f"/entities/{request.entity_id}/futures/settings"
+        body = to_body_dict(request)
+        response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
+        return SetFcmSettingsResponse.from_response(response.json())

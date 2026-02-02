@@ -47,6 +47,13 @@ from .list_wallet_transactions import (
     ListWalletTransactionsRequest,
     ListWalletTransactionsResponse
 )
+from .submit_deposit_travel_rule_data import (
+    NaturalPersonName,
+    DetailedAddress,
+    TravelRuleParty,
+    SubmitDepositTravelRuleDataRequest,
+    SubmitDepositTravelRuleDataResponse
+)
 
 __all__ = [
     "TransactionsService",
@@ -69,5 +76,10 @@ __all__ = [
     "ListPortfolioTransactionsRequest",
     "ListPortfolioTransactionsResponse",
     "ListWalletTransactionsRequest",
-    "ListWalletTransactionsResponse"
+    "ListWalletTransactionsResponse",
+    "NaturalPersonName",
+    "DetailedAddress",
+    "TravelRuleParty",
+    "SubmitDepositTravelRuleDataRequest",
+    "SubmitDepositTravelRuleDataResponse"
 ]

@@ -45,6 +45,14 @@ from .get_fcm_risk_limits import (
     GetFcmRiskLimitsRequest,
     GetFcmRiskLimitsResponse
 )
+from .get_fcm_settings import (
+    GetFcmSettingsRequest,
+    GetFcmSettingsResponse
+)
+from .set_fcm_settings import (
+    SetFcmSettingsRequest,
+    SetFcmSettingsResponse
+)
 
 __all__ = [
     "FuturesService",
@@ -63,5 +71,9 @@ __all__ = [
     "GetFcmMarginCallDetailsRequest",
     "GetFcmMarginCallDetailsResponse",
     "GetFcmRiskLimitsRequest",
-    "GetFcmRiskLimitsResponse"
+    "GetFcmRiskLimitsResponse",
+    "GetFcmSettingsRequest",
+    "GetFcmSettingsResponse",
+    "SetFcmSettingsRequest",
+    "SetFcmSettingsResponse"
 ]
