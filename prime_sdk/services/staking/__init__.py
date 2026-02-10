@@ -47,6 +47,12 @@ from .get_unstaking_status import (
     GetUnstakingStatusRequest,
     GetUnstakingStatusResponse
 )
+from .get_staking_status import (
+    StakingStatus,
+    ValidatorStakingInfo,
+    GetStakingStatusRequest,
+    GetStakingStatusResponse
+)
 from .preview_unstake import (
     PreviewUnstakeRequest,
     PreviewUnstakeResponse
@@ -74,6 +80,10 @@ __all__ = [
     "ValidatorUnstakeStatus",
     "GetUnstakingStatusRequest",
     "GetUnstakingStatusResponse",
+    "StakingStatus",
+    "ValidatorStakingInfo",
+    "GetStakingStatusRequest",
+    "GetStakingStatusResponse",
     "PreviewUnstakeRequest",
     "PreviewUnstakeResponse"
 ]

@@ -56,9 +56,11 @@ python prime_sdk/examples/futures/get_entity_fcm_balance.py
 python prime_sdk/examples/futures/get_entity_positions.py
 python prime_sdk/examples/futures/get_fcm_margin_call_details.py
 python prime_sdk/examples/futures/get_fcm_risk_limits.py
+python prime_sdk/examples/futures/get_fcm_settings.py
 python prime_sdk/examples/futures/list_entity_futures_sweeps.py
 python prime_sdk/examples/futures/schedule_entity_futures_sweep.py --amount 1000 --currency USD
 python prime_sdk/examples/futures/set_auto_sweep.py --enable
+python prime_sdk/examples/futures/set_fcm_settings.py --target-derivatives-excess 1000.00
 
 # Invoices
 python prime_sdk/examples/invoices/list_invoices.py
@@ -104,8 +106,10 @@ python prime_sdk/examples/staking/create_portfolio_stake.py --currency-symbol ET
 python prime_sdk/examples/staking/create_portfolio_unstake.py --currency-symbol ETH --amount 1.5
 python prime_sdk/examples/staking/create_stake.py --wallet-id abc123
 python prime_sdk/examples/staking/create_unstake.py --wallet-id abc123
+python prime_sdk/examples/staking/get_staking_status.py --wallet-id abc123
 python prime_sdk/examples/staking/get_unstaking_status.py --wallet-id abc123
 python prime_sdk/examples/staking/preview_unstake.py --wallet-id abc123 --amount 1.5
+python prime_sdk/examples/staking/query_transaction_validators.py
 
 # Transactions
 python prime_sdk/examples/transactions/create_conversion.py --wallet-id abc123 --amount 1 --source-symbol USD --destination-symbol USDC
@@ -115,6 +119,7 @@ python prime_sdk/examples/transactions/create_withdrawal.py --wallet-id abc123 -
 python prime_sdk/examples/transactions/get_transaction.py 4b199bee-3f38-417b-b7af-b50ddb2193c3
 python prime_sdk/examples/transactions/list_portfolio_transactions.py
 python prime_sdk/examples/transactions/list_wallet_transactions.py --wallet-id abc123
+python prime_sdk/examples/transactions/submit_deposit_travel_rule_data.py --transaction-id 4b199bee-3f38-417b-b7af-b50ddb2193c3 --originator-name "John Doe" --beneficiary-name "Jane Smith"
 
 # Users
 python prime_sdk/examples/users/list_entity_users.py

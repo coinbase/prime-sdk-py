@@ -42,6 +42,10 @@ from .list_wallet_transactions import (
     ListWalletTransactionsRequest,
     ListWalletTransactionsResponse
 )
+from .submit_deposit_travel_rule_data import (
+    SubmitDepositTravelRuleDataRequest,
+    SubmitDepositTravelRuleDataResponse
+)
 
 
 class TransactionsService:
@@ -102,3 +106,9 @@ class TransactionsService:
             query_params = f"{query_params}&end={request.end.isoformat()}" if query_params else f"end={request.end.isoformat()}"
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
         return ListWalletTransactionsResponse.from_response(response.json())
+
+    def submit_deposit_travel_rule_data(self, request: SubmitDepositTravelRuleDataRequest) -> SubmitDepositTravelRuleDataResponse:
+        path = f"/portfolios/{request.portfolio_id}/transactions/{request.transaction_id}/travel_rule/deposit"
+        body = to_body_dict(request)
+        response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
+        return SubmitDepositTravelRuleDataResponse.from_response(response.json())

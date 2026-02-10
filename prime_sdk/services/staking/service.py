@@ -42,6 +42,10 @@ from .get_unstaking_status import (
     GetUnstakingStatusRequest,
     GetUnstakingStatusResponse
 )
+from .get_staking_status import (
+    GetStakingStatusRequest,
+    GetStakingStatusResponse
+)
 from .preview_unstake import (
     PreviewUnstakeRequest,
     PreviewUnstakeResponse
@@ -92,6 +96,11 @@ class StakingService:
         path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/unstake/status"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
         return GetUnstakingStatusResponse.from_response(response.json())
+
+    def get_staking_status(self, request: GetStakingStatusRequest) -> GetStakingStatusResponse:
+        path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/status"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return GetStakingStatusResponse.from_response(response.json())
 
     def preview_unstake(self, request: PreviewUnstakeRequest) -> PreviewUnstakeResponse:
         path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/unstake/preview"
