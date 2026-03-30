@@ -46,6 +46,10 @@ from .submit_deposit_travel_rule_data import (
     SubmitDepositTravelRuleDataRequest,
     SubmitDepositTravelRuleDataResponse
 )
+from .get_transaction_travel_rule_data import (
+    GetTransactionTravelRuleDataRequest,
+    GetTransactionTravelRuleDataResponse
+)
 
 
 class TransactionsService:
@@ -112,3 +116,8 @@ class TransactionsService:
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
         return SubmitDepositTravelRuleDataResponse.from_response(response.json())
+
+    def get_transaction_travel_rule_data(self, request: GetTransactionTravelRuleDataRequest) -> GetTransactionTravelRuleDataResponse:
+        path = f"/portfolios/{request.portfolio_id}/transactions/{request.transaction_id}/travel_rule"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return GetTransactionTravelRuleDataResponse.from_response(response.json())

@@ -54,6 +54,10 @@ from .submit_deposit_travel_rule_data import (
     SubmitDepositTravelRuleDataRequest,
     SubmitDepositTravelRuleDataResponse
 )
+from .get_transaction_travel_rule_data import (
+    GetTransactionTravelRuleDataRequest,
+    GetTransactionTravelRuleDataResponse
+)
 
 __all__ = [
     "TransactionsService",
@@ -81,5 +85,7 @@ __all__ = [
     "DetailedAddress",
     "TravelRuleParty",
     "SubmitDepositTravelRuleDataRequest",
-    "SubmitDepositTravelRuleDataResponse"
+    "SubmitDepositTravelRuleDataResponse",
+    "GetTransactionTravelRuleDataRequest",
+    "GetTransactionTravelRuleDataResponse",
 ]

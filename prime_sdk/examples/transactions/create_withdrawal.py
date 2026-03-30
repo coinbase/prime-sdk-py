@@ -23,8 +23,7 @@ from prime_sdk.services.transactions import (
     CreateWithdrawalRequest,
     PaymentMethod,
     BlockchainAddress,
-    Network,
-    Counterparty
+    Network
 )
 
 def main():

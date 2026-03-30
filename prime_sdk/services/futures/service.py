@@ -53,6 +53,10 @@ from .set_fcm_settings import (
     SetFcmSettingsRequest,
     SetFcmSettingsResponse
 )
+from .get_fcm_equity import (
+    GetFcmEquityRequest,
+    GetFcmEquityResponse
+)
 from ...utils import to_body_dict
 
 
@@ -115,3 +119,8 @@ class FuturesService:
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
         return SetFcmSettingsResponse.from_response(response.json())
+
+    def get_fcm_equity(self, request: GetFcmEquityRequest) -> GetFcmEquityResponse:
+        path = f"/entities/{request.entity_id}/futures/equity"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return GetFcmEquityResponse.from_response(response.json())

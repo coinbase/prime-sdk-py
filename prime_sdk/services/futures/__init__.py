@@ -53,6 +53,10 @@ from .set_fcm_settings import (
     SetFcmSettingsRequest,
     SetFcmSettingsResponse
 )
+from .get_fcm_equity import (
+    GetFcmEquityRequest,
+    GetFcmEquityResponse
+)
 
 __all__ = [
     "FuturesService",
@@ -75,5 +79,7 @@ __all__ = [
     "GetFcmSettingsRequest",
     "GetFcmSettingsResponse",
     "SetFcmSettingsRequest",
-    "SetFcmSettingsResponse"
+    "SetFcmSettingsResponse",
+    "GetFcmEquityRequest",
+    "GetFcmEquityResponse",
 ]

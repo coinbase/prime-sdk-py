@@ -34,3 +34,4 @@ venv.bak/
 .vscode/
 
 ai-docs/
+.ruff_cache/

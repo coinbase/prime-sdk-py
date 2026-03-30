@@ -77,6 +77,7 @@ class PrimeServicesClient:
     
     # Import services dynamically to avoid circular imports
     activities = lazy_service(lambda: __import__('prime_sdk.services.activities.service', fromlist=['ActivitiesService']).ActivitiesService)
+    advanced_transfers = lazy_service(lambda: __import__('prime_sdk.services.advanced_transfers.service', fromlist=['AdvancedTransfersService']).AdvancedTransfersService)
     orders = lazy_service(lambda: __import__('prime_sdk.services.orders.service', fromlist=['OrdersService']).OrdersService)
     portfolios = lazy_service(lambda: __import__('prime_sdk.services.portfolios.service', fromlist=['PortfoliosService']).PortfoliosService)
     wallets = lazy_service(lambda: __import__('prime_sdk.services.wallets.service', fromlist=['WalletsService']).WalletsService)
@@ -122,6 +123,7 @@ class FactoryPrimeServicesClient:
         # This could be loaded from configuration, metadata, or auto-discovered
         service_mappings = {
             'activities': 'prime_sdk.services.activities.service.ActivitiesService',
+            'advanced_transfers': 'prime_sdk.services.advanced_transfers.service.AdvancedTransfersService',
             'address_book': 'prime_sdk.services.address_book.service.AddressBookService',
             'allocations': 'prime_sdk.services.allocations.service.AllocationsService',
             'assets': 'prime_sdk.services.assets.service.AssetsService',

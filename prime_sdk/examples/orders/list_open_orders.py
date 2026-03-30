@@ -50,7 +50,7 @@ def main():
         try:
             start_date = datetime.fromisoformat(date_str)
         except ValueError:
-            print(f"Error: Invalid start-date format. Use ISO format like '2025-01-01T00:00:00Z'")
+            print("Error: Invalid start-date format. Use ISO format like '2025-01-01T00:00:00Z'")
             return
 
     if args.end_date:
@@ -59,7 +59,7 @@ def main():
         try:
             end_date = datetime.fromisoformat(date_str)
         except ValueError:
-            print(f"Error: Invalid end-date format. Use ISO format like '2025-01-01T23:59:59Z'")
+            print("Error: Invalid end-date format. Use ISO format like '2025-01-01T23:59:59Z'")
             return
 
     # Parse enum values if provided

@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from dataclasses import asdict
 from ...client import Client
 from ...utils import to_body_dict
 from .create_onchain_address_book_entry import (

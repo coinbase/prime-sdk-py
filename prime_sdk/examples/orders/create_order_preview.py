@@ -19,7 +19,7 @@ import argparse
 import os
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.orders import CreateOrderPreviewRequest
-from prime_sdk.enums import OrderSide, OrderType, TimeInForce
+from prime_sdk.enums import OrderSide, OrderType
 
 def main():
     parser = argparse.ArgumentParser(description="Create an order preview to estimate costs and execution details")

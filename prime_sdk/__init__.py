@@ -19,6 +19,7 @@ from .credentials import Credentials
 
 # Service classes - primary interface
 from .services.activities import ActivitiesService
+from .services.advanced_transfers import AdvancedTransfersService
 from .services.address_book import AddressBookService
 from .services.allocations import AllocationsService
 from .services.assets import AssetsService
@@ -46,6 +47,7 @@ __all__ = [
     
     # Service classes
     "ActivitiesService",
+    "AdvancedTransfersService",
     "AddressBookService", 
     "AllocationsService",
     "AssetsService",
