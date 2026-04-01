@@ -20,12 +20,6 @@ cd prime-sdk-py
 pip install -e .
 ```
 
-## License
-
-The *Prime Python SDK* sample library is free and open source and released under the [Apache License, Version 2.0](LICENSE).
-
-The application and code are only available for demonstration purposes.
-
 ## Usage
 
 ### Setting Up Credentials
@@ -283,3 +277,15 @@ Each service directory contains:
 - `service.py` - The main service class with API methods
 - Individual request/response modules (e.g., `list_portfolios.py`)
 - `__init__.py` - Exports for the service
+
+## 🚨 Security and Bug Reports
+
+If you discover a security vulnerability within this SDK, please see our [Security Policy](SECURITY.md) for disclosure information.
+
+## 📧 Contact
+
+- [GitHub Issues](https://github.com/coinbase-samples/prime-sdk-py/issues)
+
+## License
+
+The *Prime Python SDK* sample library is free and open source and released under the [Apache License, Version 2.0](LICENSE).

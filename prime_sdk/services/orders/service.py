@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from dataclasses import asdict
 from ...client import Client
 from ...utils import append_query_param, append_pagination_params, to_body_dict
 from .accept_quote import (

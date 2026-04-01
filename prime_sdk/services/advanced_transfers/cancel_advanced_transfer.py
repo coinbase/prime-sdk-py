@@ -1,4 +1,4 @@
-# Copyright 2025-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,16 +18,12 @@ from ...base_response import BaseResponse
 
 
 @dataclass
-class GetFcmRiskLimitsRequest:
-    entity_id: str
+class CancelAdvancedTransferRequest:
+    portfolio_id: str
+    advanced_transfer_id: str
     allowed_status_codes: Optional[List[int]] = None
 
 
 @dataclass
-class GetFcmRiskLimitsResponse(BaseResponse):
-    cfm_risk_limit: str = None
-    cfm_risk_limit_utilization: str = None
-    cfm_total_margin: str = None
-    cfm_delta_ote: str = None
-    cfm_unsettled_realized_pnl: str = None
-    cfm_unsettled_accrued_funding_pnl: str = None
+class CancelAdvancedTransferResponse(BaseResponse):
+    advanced_transfer_id: str = None

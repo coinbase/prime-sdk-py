@@ -15,13 +15,10 @@
 # #docs operationId: PrimeRESTAPI_GetPortfolios
 # #docs operationName: List Portfolios
 
-import argparse
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.portfolios import ListPortfoliosRequest
 
 def main():
-    parser = argparse.ArgumentParser(description="List all portfolios")
-    args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
     

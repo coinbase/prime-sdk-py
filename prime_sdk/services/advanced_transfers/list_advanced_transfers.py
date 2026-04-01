@@ -1,4 +1,4 @@
-# Copyright 2025-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,19 +15,23 @@
 from dataclasses import dataclass
 from typing import List, Optional
 from ...base_response import BaseResponse
+from ...model import AdvancedTransfer
+from ...utils import PaginationParams, Pagination
 
 
 @dataclass
-class GetFcmRiskLimitsRequest:
-    entity_id: str
+class ListAdvancedTransfersRequest:
+    portfolio_id: str
+    state: Optional[str] = None
+    type: Optional[str] = None
+    start_time: Optional[str] = None
+    end_time: Optional[str] = None
+    reference_id: Optional[str] = None
+    pagination: Optional[PaginationParams] = None
     allowed_status_codes: Optional[List[int]] = None
 
 
 @dataclass
-class GetFcmRiskLimitsResponse(BaseResponse):
-    cfm_risk_limit: str = None
-    cfm_risk_limit_utilization: str = None
-    cfm_total_margin: str = None
-    cfm_delta_ote: str = None
-    cfm_unsettled_realized_pnl: str = None
-    cfm_unsettled_accrued_funding_pnl: str = None
+class ListAdvancedTransfersResponse(BaseResponse):
+    advanced_transfers: List[AdvancedTransfer] = None
+    pagination: Pagination = None

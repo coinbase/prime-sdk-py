@@ -51,14 +51,14 @@ def main():
         try:
             start_time = datetime.fromisoformat(args.start_time.replace('Z', '+00:00'))
         except ValueError:
-            print(f"Error: Invalid start-time format. Use ISO format like '2025-01-01T00:00:00'")
+            print("Error: Invalid start-time format. Use ISO format like '2025-01-01T00:00:00'")
             return
     
     if args.end_time:
         try:
             end_time = datetime.fromisoformat(args.end_time.replace('Z', '+00:00'))
         except ValueError:
-            print(f"Error: Invalid end-time format. Use ISO format like '2025-01-01T00:00:00'")
+            print("Error: Invalid end-time format. Use ISO format like '2025-01-01T00:00:00'")
             return
 
     # Set up pagination if provided

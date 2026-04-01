@@ -20,9 +20,7 @@ import os
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.transactions import (
     SubmitDepositTravelRuleDataRequest,
-    TravelRuleParty,
-    NaturalPersonName,
-    DetailedAddress
+    TravelRuleParty
 )
 
 

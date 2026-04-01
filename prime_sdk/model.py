@@ -307,6 +307,19 @@ class Order:
     peg_offset_type: str = None
     offset: str = None
     wig_level: str = None
+    product_type: str = None
+    commission_detail_total: 'CommissionDetailTotal' = None
+
+
+@dataclass
+class CommissionDetailTotal:
+    total_commission: str = None
+    client_commission: str = None
+    venue_commission: str = None
+    ces_commission: str = None
+    financing_commission: str = None
+    regulatory_commission: str = None
+    clearing_commission: str = None
 
 
 @dataclass
@@ -315,32 +328,12 @@ class Commission:
     rate: str
     trading_volume: str
 
-
-@dataclass
-class AmountDue:
-    currency: str
-    amount: str
-    due_date: str
-
-@dataclass
-class PostTradeCredit:
-    portfolio_id: str
-    currency: str
-    limit: str
-    utilized: str
-    available: str
-    frozen: str
-    frozen_reason: str
-    amounts_due: List[AmountDue]
-    enabled: str
-    adjusted_credit_utilized: str
-    adjusted_portfolio_equity: str
-
-
 @dataclass
 class TransferLocation:
     type: str
     value: str
+    address: str = None
+    account_identifier: str = None
 
 
 @dataclass
@@ -381,9 +374,20 @@ class Web3TransactionMetadata:
 
 
 @dataclass
+class RewardMetadata:
+    subtype: str = None
+
+
+@dataclass
 class TransactionMetadata:
-    match_metadata: MatchMetadata
-    web3_transaction_metadata: Web3TransactionMetadata
+    match_metadata: MatchMetadata = None
+    web3_transaction_metadata: Web3TransactionMetadata = None
+    reward_metadata: RewardMetadata = None
+
+
+@dataclass
+class ProcessRequirements:
+    travel_rule_status: str = None
 
 
 @dataclass
@@ -431,7 +435,7 @@ class Transaction:
     idempotency_key: str
     onchain_details: OnchainDetails
     network_info: Network
-    process_requirements: str = None
+    process_requirements: ProcessRequirements = None
 
 
 @dataclass
@@ -1011,3 +1015,29 @@ class TFObligation:
     amount_due: str
     notional_amount: str
     due_date: str
+
+
+@dataclass
+class BlindMatchMetadata:
+    reference_id: str = None
+    settlement_date: str = None
+    trade_date: str = None
+    settlement_time: str = None
+
+
+@dataclass
+class FundMovement:
+    id: str = None
+    source: TransferLocation = None
+    target: TransferLocation = None
+    currency: str = None
+    amount: str = None
+
+
+@dataclass
+class AdvancedTransfer:
+    id: str = None
+    type: str = None
+    state: str = None
+    fund_movements: List[FundMovement] = None
+    blind_match_metadata: BlindMatchMetadata = None
