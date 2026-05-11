@@ -207,7 +207,7 @@ class FinancingService:
         return GetCrossMarginPrimeOverviewResponse.from_response(response.json())
 
     def set_funding_settings(self, request: SetFundingSettingsRequest) -> SetFundingSettingsResponse:
-        path = f"/entities/{request.entity_id}/funding/settings"
+        path = f"/entities/{request.entity_id}/funding_settings"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
         return SetFundingSettingsResponse.from_response(response.json())

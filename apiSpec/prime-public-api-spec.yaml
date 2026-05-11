@@ -4462,7 +4462,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/coinbase.public_rest_api.beta.GetCrossMarginPrimeOverviewResponse'
-  /v1/entities/{entity_id}/funding/settings:
+  /v1/entities/{entity_id}/funding_settings:
     post:
       tags:
       - Financing

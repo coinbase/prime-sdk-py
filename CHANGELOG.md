@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.7.1] - 2026-MAY-11
+
+### Fixed
+
+- Corrected `set_funding_settings` endpoint path from `/funding/settings` to `/funding_settings` to match the updated API spec.
+
 ## [1.7.0] - 2026-MAY-11
 
 ### Breaking Changes
