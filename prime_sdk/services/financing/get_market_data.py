@@ -15,28 +15,20 @@
 from dataclasses import dataclass
 from typing import List, Optional
 from ...base_response import BaseResponse
-from ...enums import OrderSide
+from ...model import MarketData
+from ...utils import Pagination
 
 
 @dataclass
-class CreateQuoteRequest:
-    portfolio_id: str
-    product_id: str
-    side: OrderSide
-    client_quote_id: str
-    limit_price: str
-    base_quantity: Optional[str] = None
-    quote_value: Optional[str] = None
-    settl_currency: Optional[str] = None
-    quote_duration_ms: Optional[str] = None
+class GetMarketDataRequest:
+    entity_id: str
+    cursor: Optional[str] = None
+    limit: Optional[int] = None
+    sort_direction: Optional[str] = None
     allowed_status_codes: Optional[List[int]] = None
 
 
 @dataclass
-class CreateQuoteResponse(BaseResponse):
-    quote_id: str = None
-    expiration_time: str = None
-    best_price: str = None
-    order_total: str = None
-    price_inclusive_of_fees: str = None
-    quote_duration_ms: str = None
+class GetMarketDataResponse(BaseResponse):
+    market_data: List[MarketData] = None
+    pagination: Pagination = None

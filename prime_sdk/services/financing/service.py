@@ -74,6 +74,22 @@ from .list_trade_finance_obligations import (
     ListTradeFinanceObligationsRequest,
     ListTradeFinanceObligationsResponse
 )
+from .get_cross_margin_risk_parameters import (
+    GetCrossMarginRiskParametersRequest,
+    GetCrossMarginRiskParametersResponse
+)
+from .get_cross_margin_prime_overview import (
+    GetCrossMarginPrimeOverviewRequest,
+    GetCrossMarginPrimeOverviewResponse
+)
+from .set_funding_settings import (
+    SetFundingSettingsRequest,
+    SetFundingSettingsResponse
+)
+from .get_market_data import (
+    GetMarketDataRequest,
+    GetMarketDataResponse
+)
 
 
 class FinancingService:
@@ -178,3 +194,28 @@ class FinancingService:
         path = f"/entities/{request.entity_id}/tf_obligations"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
         return ListTradeFinanceObligationsResponse.from_response(response.json())
+
+    # Beta endpoints
+    def get_cross_margin_risk_parameters(self, request: GetCrossMarginRiskParametersRequest) -> GetCrossMarginRiskParametersResponse:
+        path = f"/entities/{request.entity_id}/cross_margin/risk_parameters"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return GetCrossMarginRiskParametersResponse.from_response(response.json())
+
+    def get_cross_margin_prime_overview(self, request: GetCrossMarginPrimeOverviewRequest) -> GetCrossMarginPrimeOverviewResponse:
+        path = f"/entities/{request.entity_id}/cross_margin/prime"
+        response = self.client.request("GET", path, version="v2", allowed_status_codes=request.allowed_status_codes)
+        return GetCrossMarginPrimeOverviewResponse.from_response(response.json())
+
+    def set_funding_settings(self, request: SetFundingSettingsRequest) -> SetFundingSettingsResponse:
+        path = f"/entities/{request.entity_id}/funding/settings"
+        body = to_body_dict(request)
+        response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
+        return SetFundingSettingsResponse.from_response(response.json())
+
+    def get_market_data(self, request: GetMarketDataRequest) -> GetMarketDataResponse:
+        path = f"/entities/{request.entity_id}/market_data"
+        query_params = append_query_param("", "cursor", request.cursor)
+        query_params = append_query_param(query_params, "limit", request.limit)
+        query_params = append_query_param(query_params, "sort_direction", request.sort_direction)
+        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        return GetMarketDataResponse.from_response(response.json())

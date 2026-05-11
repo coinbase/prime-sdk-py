@@ -85,6 +85,10 @@ class AssetNetwork:
     prime_custody_supported: bool
     destination_tag_required: bool
     network_link: str
+    network_scoped_symbol: str = None
+    min_withdrawal_amount: str = None
+    max_withdrawal_amount: str = None
+    min_deposit_amount: str = None
 
 
 @dataclass
@@ -885,7 +889,7 @@ class XmPosition:
 
 @dataclass
 class RiskNettingInfo:
-    nodal_margin_requirement: str = None
+    dco_margin_requirement: str = None
     portfolio_margin_requirement: str = None
     integrated_portfolio_margin_requirement: str = None
     ineligible_futures_margin_requirement: str = None
@@ -909,6 +913,7 @@ class CrossMarginSummary:
     consumed_credit: str = None
     xm_credit_limit: str = None
     xm_margin_limit: str = None
+    consumed_margin_limit: str = None
     spot_equity: str = None
     futures_equity: str = None
     risk_netting_info: RiskNettingInfo = None
@@ -942,6 +947,13 @@ class CrossMarginCall:
 
 
 @dataclass
+class ActiveLiquidationSummary:
+    liquidation_id: str = None
+    status: str = None
+    shortfall_amount: str = None
+
+
+@dataclass
 class CrossMarginOverview:
     control_status: str = None
     call_status: str = None
@@ -949,6 +961,7 @@ class CrossMarginOverview:
     margin_summary: CrossMarginSummary = None
     active_margin_calls: List[CrossMarginCall] = None
     active_loans: List[CrossMarginLoan] = None
+    active_liquidation: ActiveLiquidationSummary = None
 
 
 @dataclass
@@ -1041,3 +1054,154 @@ class AdvancedTransfer:
     state: str = None
     fund_movements: List[FundMovement] = None
     blind_match_metadata: BlindMatchMetadata = None
+
+
+@dataclass
+class ValidatorUnstakePreview:
+    validator_address: str = None
+    estimated_unstaking_amount: str = None
+    unstake_time_estimate_in_hours: float = None
+    estimated_unstake_date: str = None
+
+
+@dataclass
+class CrossMarginRiskParameters:
+    asset_tier: str = None
+    base_ratio_long: str = None
+    base_ratio_short: str = None
+    volatility_rate_long: str = None
+    volatility_rate_short: str = None
+    volatility_low_threshold: str = None
+    volatility_high_threshold: str = None
+    liquidity_a_long: str = None
+    liquidity_a_short: str = None
+    liquidity_b_short: str = None
+    liquidity_threshold: str = None
+    basis_offset_credit_rate: str = None
+
+
+@dataclass
+class TierPairRateEntry:
+    tier_a: str = None
+    tier_b: str = None
+    rate: str = None
+
+
+@dataclass
+class PrimeXMMarginRequirementBreakdown:
+    base_margin: str = None
+    volatility_addon: str = None
+    liquidity_addon: str = None
+    offset_credit: str = None
+    futures_margin: str = None
+
+
+@dataclass
+class PrimeXMOffsetCreditBreakdown:
+    basis_credit: str = None
+    long_short_credit: str = None
+    long_long_credit: str = None
+    short_short_credit: str = None
+    same_tier_credit: str = None
+    total_credit: str = None
+
+
+@dataclass
+class CrossMarginPrimeXMPosition:
+    currency: str = None
+    market_price: str = None
+    spot_balance: str = None
+    spot_balance_notional: str = None
+    futures_balance: str = None
+    futures_balance_notional: str = None
+    base_requirement: str = None
+    total_position_margin: str = None
+    basis_credit: str = None
+    futures_netted_notional: str = None
+    futures_netting_margin: str = None
+    long_amount: str = None
+    short_amount: str = None
+    volatility_addon: str = None
+    liquidity_addon: str = None
+
+
+@dataclass
+class CrossMarginPrimeRiskNettingInfo:
+    dco_margin_requirement: str = None
+    portfolio_margin_requirement: str = None
+    integrated_portfolio_margin_requirement: str = None
+    ineligible_futures_margin_requirement: str = None
+    pmr_breakdown: PrimeXMMarginRequirementBreakdown = None
+    ipmr_breakdown: PrimeXMMarginRequirementBreakdown = None
+    portfolio_margin_offset_credit_breakdown: PrimeXMOffsetCreditBreakdown = None
+    integrated_portfolio_margin_offset_credit_breakdown: PrimeXMOffsetCreditBreakdown = None
+    xm_positions: List[CrossMarginPrimeXMPosition] = None
+
+
+@dataclass
+class CrossMarginPrimeSpotEquityBreakdown:
+    cash_balance: str = None
+    long_market_value: str = None
+    short_market_value: str = None
+    short_collateral: str = None
+    pending_transfers: str = None
+
+
+@dataclass
+class CrossMarginPrimeFuturesEquityBreakdown:
+    cash_balance: str = None
+    unrealized_pnl: str = None
+    realized_pnl: str = None
+    accrued_funding_pnl: str = None
+
+
+@dataclass
+class PrimeXMMarginThreshold:
+    margin_level: str = None
+    threshold_type: str = None
+    threshold_value: str = None
+
+
+@dataclass
+class PrimeXMMarginCallThresholds:
+    deficit_threshold: str = None
+    warning_threshold: str = None
+    critical_threshold: str = None
+    liquidation_threshold: str = None
+    margin_thresholds: List[PrimeXMMarginThreshold] = None
+
+
+@dataclass
+class CrossMarginPrimeMarginSummary:
+    margin_requirement: str = None
+    margin_requirement_type: str = None
+    account_equity: str = None
+    margin_excess_shortfall: str = None
+    consumed_credit: str = None
+    xm_credit_limit: str = None
+    xm_margin_limit: str = None
+    consumed_margin_limit: str = None
+    spot_equity: str = None
+    futures_equity: str = None
+    gross_market_value: str = None
+    net_market_value: str = None
+    net_exposure: str = None
+    gross_leverage: str = None
+    spot_equity_breakdown: CrossMarginPrimeSpotEquityBreakdown = None
+    futures_equity_breakdown: CrossMarginPrimeFuturesEquityBreakdown = None
+    risk_netting_info: CrossMarginPrimeRiskNettingInfo = None
+    health_status: str = None
+    equity_ratio: str = None
+    deficit_ratio: str = None
+    margin_thresholds: PrimeXMMarginCallThresholds = None
+    fcm_excess_available_to_return: str = None
+
+
+@dataclass
+class MarketData:
+    symbol: str = None
+    vol_5d: str = None
+    vol_30d: str = None
+    vol_90d: str = None
+    adv_30d: str = None
+    weighted_vol: str = None

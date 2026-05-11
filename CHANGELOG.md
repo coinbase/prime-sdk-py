@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.7.0] - 2026-MAY-11
+
+### Breaking Changes
+
+- `RiskNettingInfo.nodal_margin_requirement` renamed to `dco_margin_requirement` to match the updated API spec (`XMRiskNettingInfo.dco_margin_requirement`). Code accessing the old field name must be updated.
+
+### Added
+
+- Financing Service has four new beta endpoints
+  - `get_cross_margin_risk_parameters` — `GET /v1/entities/{entity_id}/cross_margin/risk_parameters`
+  - `get_cross_margin_prime_overview` — `GET /v2/entities/{entity_id}/cross_margin/prime`
+  - `set_funding_settings` — `POST /v1/entities/{entity_id}/funding/settings`
+  - `get_market_data` — `GET /v1/entities/{entity_id}/market_data`
+- New models: `ActiveLiquidationSummary`, `ValidatorUnstakePreview`, `CrossMarginRiskParameters`, `TierPairRateEntry`, `CrossMarginPrimeMarginSummary`, `CrossMarginPrimeSpotEquityBreakdown`, `CrossMarginPrimeFuturesEquityBreakdown`, `CrossMarginPrimeRiskNettingInfo`, `CrossMarginPrimeXMPosition`, `PrimeXMMarginRequirementBreakdown`, `PrimeXMOffsetCreditBreakdown`, `PrimeXMMarginCallThresholds`, `PrimeXMMarginThreshold`, `MarketData`
+- New enums: `XMLiquidationStatus`, `PrimeXMControlStatus`, `PrimeXMMarginLevel`, `PrimeXMMarginRequirementType`, `PrimeXMHealthStatus`, `PrimeXMMarginThresholdType`
+- `WalletType.QC` enum value added to match spec
+- `AssetNetwork` updated with `network_scoped_symbol`, `min_withdrawal_amount`, `max_withdrawal_amount`, and `min_deposit_amount` fields
+- `CrossMarginOverview` updated with `active_liquidation` field
+- `CrossMarginSummary` updated with `consumed_margin_limit` field
+- `PreviewUnstakeResponse` updated with `wallet_id`, `wallet_address`, `current_timestamp`, and `validators` fields
+- `CreateQuoteRequest` updated with optional `quote_duration_ms` field (RFQ timeout in ms, mirrors FIX tag 8090)
+- `CreateQuoteResponse` updated with `quote_duration_ms` echo field
+- `Client.request` now accepts an optional `version` parameter (default `"v1"`) to support versioned API paths
+
 ## [1.6.0] - 2026-MAR-30
 
 ### Added

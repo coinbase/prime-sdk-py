@@ -73,6 +73,22 @@ from .list_trade_finance_obligations import (
     ListTradeFinanceObligationsRequest,
     ListTradeFinanceObligationsResponse
 )
+from .get_cross_margin_risk_parameters import (
+    GetCrossMarginRiskParametersRequest,
+    GetCrossMarginRiskParametersResponse
+)
+from .get_cross_margin_prime_overview import (
+    GetCrossMarginPrimeOverviewRequest,
+    GetCrossMarginPrimeOverviewResponse
+)
+from .set_funding_settings import (
+    SetFundingSettingsRequest,
+    SetFundingSettingsResponse
+)
+from .get_market_data import (
+    GetMarketDataRequest,
+    GetMarketDataResponse
+)
 
 __all__ = [
     "FinancingService",
@@ -105,5 +121,13 @@ __all__ = [
     "ListFinancingEligibleAssetsRequest",
     "ListFinancingEligibleAssetsResponse",
     "ListTradeFinanceObligationsRequest",
-    "ListTradeFinanceObligationsResponse"
+    "ListTradeFinanceObligationsResponse",
+    "GetCrossMarginRiskParametersRequest",
+    "GetCrossMarginRiskParametersResponse",
+    "GetCrossMarginPrimeOverviewRequest",
+    "GetCrossMarginPrimeOverviewResponse",
+    "SetFundingSettingsRequest",
+    "SetFundingSettingsResponse",
+    "GetMarketDataRequest",
+    "GetMarketDataResponse"
 ]
