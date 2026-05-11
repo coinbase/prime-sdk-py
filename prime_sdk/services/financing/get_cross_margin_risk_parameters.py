@@ -15,28 +15,19 @@
 from dataclasses import dataclass
 from typing import List, Optional
 from ...base_response import BaseResponse
-from ...enums import OrderSide
+from ...model import CrossMarginRiskParameters, TierPairRateEntry
 
 
 @dataclass
-class CreateQuoteRequest:
-    portfolio_id: str
-    product_id: str
-    side: OrderSide
-    client_quote_id: str
-    limit_price: str
-    base_quantity: Optional[str] = None
-    quote_value: Optional[str] = None
-    settl_currency: Optional[str] = None
-    quote_duration_ms: Optional[str] = None
+class GetCrossMarginRiskParametersRequest:
+    entity_id: str
     allowed_status_codes: Optional[List[int]] = None
 
 
 @dataclass
-class CreateQuoteResponse(BaseResponse):
-    quote_id: str = None
-    expiration_time: str = None
-    best_price: str = None
-    order_total: str = None
-    price_inclusive_of_fees: str = None
-    quote_duration_ms: str = None
+class GetCrossMarginRiskParametersResponse(BaseResponse):
+    risk_parameters: List[CrossMarginRiskParameters] = None
+    offset_credit_matrix_long_short: List[TierPairRateEntry] = None
+    offset_credit_matrix_long_long: List[TierPairRateEntry] = None
+    offset_credit_matrix_short_short: List[TierPairRateEntry] = None
+    margin_period_of_risk: float = None

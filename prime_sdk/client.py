@@ -54,13 +54,14 @@ class Client:
         return base64.b64encode(h.digest()).decode()
 
     def request(self, method: str, path: str, query: Optional[str] = "", body: Optional[Dict] = None,
-                allowed_status_codes: Optional[List[int]] = None) -> requests.Response:
+                allowed_status_codes: Optional[List[int]] = None, version: str = "v1") -> requests.Response:
         if allowed_status_codes is None:
             allowed_status_codes = [200]
-        full_path = f"{self.http_base_url}{path}"
+        base_url = DEFAULT_V1_API_BASE_URL.replace("/v1", f"/{version}")
+        full_path = f"{base_url}{path}"
         url = f"{full_path}?{query}" if query else full_path
 
-        headers = self.generate_headers(method, f"/v1{path}", body)
+        headers = self.generate_headers(method, f"/{version}{path}", body)
         response = self.http_client.request(method, url, headers=headers, json=body)
 
         if response.status_code not in allowed_status_codes:

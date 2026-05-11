@@ -15,6 +15,7 @@
 from dataclasses import dataclass
 from typing import List, Optional
 from ...base_response import BaseResponse
+from ...model import ValidatorUnstakePreview
 
 
 @dataclass
@@ -28,3 +29,7 @@ class PreviewUnstakeRequest:
 @dataclass
 class PreviewUnstakeResponse(BaseResponse):
     estimated_amount: str = None
+    wallet_id: str = None
+    wallet_address: str = None
+    current_timestamp: str = None
+    validators: List[ValidatorUnstakePreview] = None
