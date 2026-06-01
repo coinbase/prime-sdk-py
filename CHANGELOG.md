@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.8.0] - 2026-JUN-01
+
+### Changed
+
+- Repository canonical home is [coinbase/prime-sdk-py](https://github.com/coinbase/prime-sdk-py). No intentional API or code changes compared to 1.7.1.
+
 ## [1.7.1] - 2026-MAY-11
 
 ### Fixed

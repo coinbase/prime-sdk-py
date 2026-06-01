@@ -15,7 +15,7 @@ pip install prime-sdk-py
 ### From Source
 
 ```bash
-git clone https://github.com/coinbase-samples/prime-sdk-py.git
+git clone https://github.com/coinbase/prime-sdk-py.git
 cd prime-sdk-py
 pip install -e .
 ```
@@ -232,7 +232,7 @@ If you need to make modifications to the SDK for your specific use case, follow 
 #### 1. Clone and Setup
 
 ```bash
-git clone https://github.com/coinbase-samples/prime-sdk-py.git
+git clone https://github.com/coinbase/prime-sdk-py.git
 cd prime-sdk-py
 ```
 
@@ -284,7 +284,7 @@ If you discover a security vulnerability within this SDK, please see our [Securi
 
 ## 📧 Contact
 
-- [GitHub Issues](https://github.com/coinbase-samples/prime-sdk-py/issues)
+- [GitHub Issues](https://github.com/coinbase/prime-sdk-py/issues)
 
 ## License
 
