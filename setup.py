@@ -19,6 +19,7 @@ from setuptools import setup, find_packages
 setup(
     name="prime-sdk-py",
     version="1.8.0",
+    python_requires=">=3.10",
     long_description=Path("README.md").read_text(encoding="utf-8"),
     long_description_content_type="text/markdown",
     packages=find_packages(exclude=['prime_sdk.examples', 'prime_sdk.examples.*']),
@@ -28,10 +29,5 @@ setup(
     project_urls={
         "Source": "https://github.com/coinbase/prime-sdk-py",
         "Issue Tracker": "https://github.com/coinbase/prime-sdk-py/issues",
-    },
-    entry_points={
-        'console_scripts': [
-            'prime-sdk=prime_sdk.__main__:main',
-        ],
     },
 )
