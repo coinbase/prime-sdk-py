@@ -221,62 +221,66 @@ if __name__ == "__main__":
 - You're building a minimal application with specific performance requirements
 
 ### Supported Versions
-The SDK is tested and confirmed to work with Python version 3.7 and newer.
+The SDK requires Python 3.10 or newer.
 
 ## Local Development
 
-### Making Changes to the SDK
-
-If you need to make modifications to the SDK for your specific use case, follow these steps:
-
-#### 1. Clone and Setup
+### Clone and Setup
 
 ```bash
 git clone https://github.com/coinbase/prime-sdk-py.git
 cd prime-sdk-py
+make install-dev
 ```
 
-#### 2. Install in Development Mode
+### Code Generation
+
+The SDK surface (models, enums, services) is generated from the committed OpenAPI spec at `apiSpec/prime-public-api-spec.yaml`.
 
 ```bash
-pip install -e .
+# Fetch latest spec from Coinbase Prime and regenerate the SDK
+make update-spec
+
+# Regenerate from the committed spec only
+make generate
+
+# Refresh operations.json mapping from existing services (after manual edits)
+make bootstrap-operations
 ```
 
-This installs the SDK in "editable" mode, meaning changes to the source code will be immediately reflected without reinstallation.
+Hand-written (not generated):
+- `prime_sdk/client.py` — HTTP transport and HMAC auth
+- `prime_sdk/credentials.py` — credential loading
+- `prime_sdk/base_response.py` — forward-compatible response parsing
+- `prime_sdk/utils.py` — pagination and serialization helpers
+- `prime_sdk/client_services.py` — lazy service facade
 
-#### 3. Running Tests
+### Running Tests
 
 ```bash
-# Install test dependencies
-pip install pytest
-
-# Run tests
-pytest tests/
+make test
 ```
 
-#### 4. Code Structure
-
-The SDK follows this structure:
+### Code Structure
 
 ```
 prime_sdk/
-├── credentials.py          # Authentication handling
-├── client.py              # HTTP client
-├── base_response.py       # Base response classes
-├── utils.py               # Utility functions
-├── enums.py               # Common enumerations
-└── services/              # Service modules
-    ├── portfolios/        # Portfolio operations
-    ├── orders/            # Order management
-    ├── transactions/      # Transaction operations
-    ├── wallets/           # Wallet management
-    └── ...                # Other services
+├── client.py              # HTTP client (hand-written)
+├── credentials.py         # Authentication (hand-written)
+├── base_response.py       # Response base class (hand-written)
+├── utils.py               # Utilities (hand-written)
+├── model/                 # Generated domain models
+├── enums/                 # Generated enums
+├── common/                # Shared generated types (e.g. Pagination)
+└── services/              # Generated per-domain API surface
+    ├── orders/
+    │   ├── service.py
+    │   ├── create_order.py
+    │   └── ...
+    └── ...
+tools/generator/           # Code generation pipeline
+apiSpec/                   # Committed OpenAPI spec
 ```
-
-Each service directory contains:
-- `service.py` - The main service class with API methods
-- Individual request/response modules (e.g., `list_portfolios.py`)
-- `__init__.py` - Exports for the service
 
 ## 🚨 Security and Bug Reports
 
