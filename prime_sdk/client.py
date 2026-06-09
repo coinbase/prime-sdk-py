@@ -12,13 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import hmac
-import hashlib
 import base64
-import requests
-import time
+import hashlib
+import hmac
 import json
-from typing import Optional, Dict, List
+import time
+from typing import Dict, List, Optional
+
+import requests
+
 from prime_sdk.credentials import Credentials
 
 DEFAULT_V1_API_BASE_URL = "https://api.prime.coinbase.com/v1"
@@ -31,7 +33,10 @@ class Client:
         self.http_client = http_client if http_client else requests.Session()
 
     @staticmethod
-    def from_env(variable_name: str = 'PRIME_CREDENTIALS', http_client: Optional[requests.Session] = None) -> 'Client':
+    def from_env(
+        variable_name: str = "PRIME_CREDENTIALS",
+        http_client: Optional[requests.Session] = None,
+    ) -> "Client":
         credentials = Credentials.from_env(variable_name)
         return Client(credentials, http_client)
 
@@ -53,8 +58,15 @@ class Client:
         h = hmac.new(self.credentials.signing_key.encode(), message.encode(), hashlib.sha256)
         return base64.b64encode(h.digest()).decode()
 
-    def request(self, method: str, path: str, query: Optional[str] = "", body: Optional[Dict] = None,
-                allowed_status_codes: Optional[List[int]] = None, version: str = "v1") -> requests.Response:
+    def request(
+        self,
+        method: str,
+        path: str,
+        query: Optional[str] = "",
+        body: Optional[Dict] = None,
+        allowed_status_codes: Optional[List[int]] = None,
+        version: str = "v1",
+    ) -> requests.Response:
         if allowed_status_codes is None:
             allowed_status_codes = [200]
         base_url = DEFAULT_V1_API_BASE_URL.replace("/v1", f"/{version}")
@@ -67,7 +79,7 @@ class Client:
         if response.status_code not in allowed_status_codes:
             try:
                 error_details = response.json()
-                error_message = error_details.get('message', response.text)
+                error_message = error_details.get("message", response.text)
             except ValueError:
                 error_message = response.text
             raise Exception(f"Request failed with status {response.status_code}: {error_message}")
