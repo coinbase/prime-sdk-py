@@ -12,5 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class PrimeXMMarginLevel(str, Enum):
+    XM_MARGIN_LEVEL_UNSPECIFIED = "XM_MARGIN_LEVEL_UNSPECIFIED"
+    HEALTHY_THRESHOLD = "HEALTHY_THRESHOLD"
+    WARNING_THRESHOLD = "WARNING_THRESHOLD"
+    URGENT_MARGIN_CALL_THRESHOLD = "URGENT_MARGIN_CALL_THRESHOLD"
+    LIQUIDATION_THRESHOLD = "LIQUIDATION_THRESHOLD"
+    DEFICIT_THRESHOLD = "DEFICIT_THRESHOLD"

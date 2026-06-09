@@ -12,5 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class HierarchyType(str, Enum):
+    HIERARCHY_TYPE_UNSPECIFIED = "HIERARCHY_TYPE_UNSPECIFIED"
+    HIERARCHY_TYPE_PORTFOLIO = "HIERARCHY_TYPE_PORTFOLIO"
+    HIERARCHY_TYPE_ENTITY = "HIERARCHY_TYPE_ENTITY"

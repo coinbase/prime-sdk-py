@@ -12,5 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class ActivityLevel(str, Enum):
+    ACTIVITY_LEVEL_ALL = "ACTIVITY_LEVEL_ALL"
+    ACTIVITY_LEVEL_PORTFOLIO = "ACTIVITY_LEVEL_PORTFOLIO"
+    ACTIVITY_LEVEL_ENTITY = "ACTIVITY_LEVEL_ENTITY"

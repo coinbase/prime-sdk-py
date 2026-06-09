@@ -12,5 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class RewardSubtype(str, Enum):
+    MEV_REWARD = "MEV_REWARD"
+    INFLATION_REWARD = "INFLATION_REWARD"
+    BLOCK_REWARD = "BLOCK_REWARD"
+    VALIDATOR_REWARD = "VALIDATOR_REWARD"
+    TRANSACTION_REWARD = "TRANSACTION_REWARD"
+    STAKING_FEE_REBATE_REWARD = "STAKING_FEE_REBATE_REWARD"
+    BUIDL_DIVIDEND = "BUIDL_DIVIDEND"

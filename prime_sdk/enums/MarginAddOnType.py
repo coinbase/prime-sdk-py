@@ -12,5 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class MarginAddOnType(str, Enum):
+    MARGIN_ADD_ON_TYPE_UNSPECIFIED = "MARGIN_ADD_ON_TYPE_UNSPECIFIED"
+    SINGLE_COIN_STRESS = "SINGLE_COIN_STRESS"
+    CONCENTRATION_STRESS = "CONCENTRATION_STRESS"
+    MACRO_STRESS = "MACRO_STRESS"
+    SHORT_BIASED_STRESS = "SHORT_BIASED_STRESS"

@@ -12,5 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class FcmMarginHealthState(str, Enum):
+    FCM_MARGIN_HEALTH_STATE_UNSPECIFIED = "FCM_MARGIN_HEALTH_STATE_UNSPECIFIED"
+    FCM_MARGIN_HEALTH_STATE_HEALTHY = "FCM_MARGIN_HEALTH_STATE_HEALTHY"
+    FCM_MARGIN_HEALTH_STATE_RESTRICTED = "FCM_MARGIN_HEALTH_STATE_RESTRICTED"
+    FCM_MARGIN_HEALTH_STATE_PRE_LIQUIDATION = "FCM_MARGIN_HEALTH_STATE_PRE_LIQUIDATION"
+    FCM_MARGIN_HEALTH_STATE_LIQUIDATION = "FCM_MARGIN_HEALTH_STATE_LIQUIDATION"

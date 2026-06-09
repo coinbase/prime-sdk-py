@@ -12,5 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class ActivityStatus(str, Enum):
+    OTHER_ACTIVITY_STATUS = "OTHER_ACTIVITY_STATUS"
+    ACTIVITY_STATUS_CANCELLED = "ACTIVITY_STATUS_CANCELLED"
+    ACTIVITY_STATUS_PROCESSING = "ACTIVITY_STATUS_PROCESSING"
+    ACTIVITY_STATUS_COMPLETED = "ACTIVITY_STATUS_COMPLETED"
+    ACTIVITY_STATUS_EXPIRED = "ACTIVITY_STATUS_EXPIRED"
+    ACTIVITY_STATUS_REJECTED = "ACTIVITY_STATUS_REJECTED"
+    ACTIVITY_STATUS_FAILED = "ACTIVITY_STATUS_FAILED"

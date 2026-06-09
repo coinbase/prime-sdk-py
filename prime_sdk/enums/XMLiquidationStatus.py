@@ -12,5 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class XMLiquidationStatus(str, Enum):
+    XM_LIQUIDATION_STATUS_UNSET = "XM_LIQUIDATION_STATUS_UNSET"
+    XM_LIQUIDATION_STATUS_PRE_LIQUIDATION = "XM_LIQUIDATION_STATUS_PRE_LIQUIDATION"
+    XM_LIQUIDATION_STATUS_LIQUIDATING = "XM_LIQUIDATION_STATUS_LIQUIDATING"
+    XM_LIQUIDATION_STATUS_LIQUIDATED = "XM_LIQUIDATION_STATUS_LIQUIDATED"
+    XM_LIQUIDATION_STATUS_CANCELED = "XM_LIQUIDATION_STATUS_CANCELED"
+    XM_LIQUIDATION_STATUS_FAILED = "XM_LIQUIDATION_STATUS_FAILED"

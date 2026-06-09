@@ -12,5 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class ProductPermissions(str, Enum):
+    PRODUCT_PERMISSION_READ = "PRODUCT_PERMISSION_READ"
+    PRODUCT_PERMISSION_TRADE = "PRODUCT_PERMISSION_TRADE"
+    PRODUCT_PERMISSION_LENDING = "PRODUCT_PERMISSION_LENDING"

@@ -12,5 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class Benchmark(str, Enum):
+    BENCHMARK_UNSET = "BENCHMARK_UNSET"
+    ZERO = "ZERO"
+    SOFR_360 = "SOFR_360"
+    SOFR_365 = "SOFR_365"
+    CRYPTO_RFR = "CRYPTO_RFR"

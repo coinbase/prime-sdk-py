@@ -12,5 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class PrimeXMHealthStatus(str, Enum):
+    HEALTH_STATUS_HEALTHY = "HEALTH_STATUS_HEALTHY"
+    HEALTH_STATUS_WARNING = "HEALTH_STATUS_WARNING"
+    HEALTH_STATUS_CRITICAL = "HEALTH_STATUS_CRITICAL"
+    HEALTH_STATUS_SUSPENDED = "HEALTH_STATUS_SUSPENDED"
+    HEALTH_STATUS_RESTRICTED = "HEALTH_STATUS_RESTRICTED"
+    HEALTH_STATUS_PRE_LIQUIDATION = "HEALTH_STATUS_PRE_LIQUIDATION"
+    HEALTH_STATUS_LIQUIDATING = "HEALTH_STATUS_LIQUIDATING"
+    HEALTH_STATUS_IN_DEFICIT = "HEALTH_STATUS_IN_DEFICIT"

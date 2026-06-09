@@ -12,5 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class ValidatorStatus(str, Enum):
+    VALIDATOR_STATUS_UNSPECIFIED = "VALIDATOR_STATUS_UNSPECIFIED"
+    VALIDATOR_STATUS_PENDING = "VALIDATOR_STATUS_PENDING"
+    VALIDATOR_STATUS_ACTIVE = "VALIDATOR_STATUS_ACTIVE"
+    VALIDATOR_STATUS_EXITING = "VALIDATOR_STATUS_EXITING"
+    VALIDATOR_STATUS_EXITED = "VALIDATOR_STATUS_EXITED"
+    VALIDATOR_STATUS_WITHDRAWN = "VALIDATOR_STATUS_WITHDRAWN"

@@ -12,5 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class InvoiceState(str, Enum):
+    INVOICE_STATE_UNSPECIFIED = "INVOICE_STATE_UNSPECIFIED"
+    INVOICE_STATE_IMPORTED = "INVOICE_STATE_IMPORTED"
+    INVOICE_STATE_BILLED = "INVOICE_STATE_BILLED"
+    INVOICE_STATE_PARTIALLY_PAID = "INVOICE_STATE_PARTIALLY_PAID"
+    INVOICE_STATE_PAID = "INVOICE_STATE_PAID"

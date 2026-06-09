@@ -12,5 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class PositionReferenceType(str, Enum):
+    POSITION_REFERENCE_TYPE_UNSPECIFIED = "POSITION_REFERENCE_TYPE_UNSPECIFIED"
+    ENTITY = "ENTITY"
+    PORTFOLIO = "PORTFOLIO"

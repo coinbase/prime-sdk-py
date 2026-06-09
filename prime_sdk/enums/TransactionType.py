@@ -1,0 +1,55 @@
+# Copyright 2026-present Coinbase Global, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+from __future__ import annotations
+
+from enum import Enum
+
+
+class TransactionType(str, Enum):
+    DEPOSIT = "DEPOSIT"
+    WITHDRAWAL = "WITHDRAWAL"
+    INTERNAL_DEPOSIT = "INTERNAL_DEPOSIT"
+    INTERNAL_WITHDRAWAL = "INTERNAL_WITHDRAWAL"
+    SWEEP_DEPOSIT = "SWEEP_DEPOSIT"
+    SWEEP_WITHDRAWAL = "SWEEP_WITHDRAWAL"
+    PROXY_DEPOSIT = "PROXY_DEPOSIT"
+    PROXY_WITHDRAWAL = "PROXY_WITHDRAWAL"
+    BILLING_WITHDRAWAL = "BILLING_WITHDRAWAL"
+    REWARD = "REWARD"
+    COINBASE_REFUND = "COINBASE_REFUND"
+    TRANSACTION_TYPE_OTHER = "TRANSACTION_TYPE_OTHER"
+    WITHDRAWAL_ADJUSTMENT = "WITHDRAWAL_ADJUSTMENT"
+    DEPOSIT_ADJUSTMENT = "DEPOSIT_ADJUSTMENT"
+    KEY_REGISTRATION = "KEY_REGISTRATION"
+    DELEGATION = "DELEGATION"
+    UNDELEGATION = "UNDELEGATION"
+    RESTAKE = "RESTAKE"
+    COMPLETE_UNBONDING = "COMPLETE_UNBONDING"
+    WITHDRAW_UNBONDED = "WITHDRAW_UNBONDED"
+    STAKE_ACCOUNT_CREATE = "STAKE_ACCOUNT_CREATE"
+    CHANGE_VALIDATOR = "CHANGE_VALIDATOR"
+    STAKE = "STAKE"
+    UNSTAKE = "UNSTAKE"
+    REMOVE_AUTHORIZED_PARTY = "REMOVE_AUTHORIZED_PARTY"
+    STAKE_AUTHORIZE_WITH_SEED = "STAKE_AUTHORIZE_WITH_SEED"
+    SLASH = "SLASH"
+    COINBASE_DEPOSIT = "COINBASE_DEPOSIT"
+    CONVERSION = "CONVERSION"
+    CLAIM_REWARDS = "CLAIM_REWARDS"
+    VOTE_AUTHORIZE = "VOTE_AUTHORIZE"
+    WEB3_TRANSACTION = "WEB3_TRANSACTION"
+    ONCHAIN_TRANSACTION = "ONCHAIN_TRANSACTION"
+    PORTFOLIO_STAKE = "PORTFOLIO_STAKE"
+    PORTFOLIO_UNSTAKE = "PORTFOLIO_UNSTAKE"

@@ -12,5 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class SecondaryPermission(str, Enum):
+    VIDEO_APPROVER = "VIDEO_APPROVER"
+    TEAM_APPROVER = "TEAM_APPROVER"
+    WEB3_SIGNER = "WEB3_SIGNER"

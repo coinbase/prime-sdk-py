@@ -12,5 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class XMEntityCallStatus(str, Enum):
+    XM_ENTITY_CALL_STATUS_UNSPECIFIED = "XM_ENTITY_CALL_STATUS_UNSPECIFIED"
+    ENTITY_NO_CALL = "ENTITY_NO_CALL"
+    ENTITY_OPEN_STANDARD_CALL = "ENTITY_OPEN_STANDARD_CALL"
+    ENTITY_OPEN_URGENT_CALL = "ENTITY_OPEN_URGENT_CALL"
+    ENTITY_AGED_CALL = "ENTITY_AGED_CALL"
+    ENTITY_OPEN_DEBIT_CALL = "ENTITY_OPEN_DEBIT_CALL"

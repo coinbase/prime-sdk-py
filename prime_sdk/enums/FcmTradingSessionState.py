@@ -12,5 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class FcmTradingSessionState(str, Enum):
+    FCM_TRADING_SESSION_STATE_UNDEFINED = "FCM_TRADING_SESSION_STATE_UNDEFINED"
+    FCM_TRADING_SESSION_STATE_PRE_OPEN = "FCM_TRADING_SESSION_STATE_PRE_OPEN"
+    FCM_TRADING_SESSION_STATE_PRE_OPEN_NO_CANCEL = "FCM_TRADING_SESSION_STATE_PRE_OPEN_NO_CANCEL"
+    FCM_TRADING_SESSION_STATE_OPEN = "FCM_TRADING_SESSION_STATE_OPEN"
+    FCM_TRADING_SESSION_STATE_CLOSE = "FCM_TRADING_SESSION_STATE_CLOSE"
+    FCM_TRADING_SESSION_STATE_HALTED = "FCM_TRADING_SESSION_STATE_HALTED"

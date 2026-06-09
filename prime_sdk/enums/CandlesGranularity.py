@@ -12,5 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class CandlesGranularity(str, Enum):
+    ONE_MINUTE = "ONE_MINUTE"
+    FIVE_MINUTES = "FIVE_MINUTES"
+    FIFTEEN_MINUTES = "FIFTEEN_MINUTES"
+    ONE_HOUR = "ONE_HOUR"
+    SIX_HOURS = "SIX_HOURS"
+    ONE_DAY = "ONE_DAY"
+    THIRTY_MINUTES = "THIRTY_MINUTES"
+    TWO_HOURS = "TWO_HOURS"
+    FOUR_HOURS = "FOUR_HOURS"

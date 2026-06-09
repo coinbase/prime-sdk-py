@@ -12,5 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class NetworkType(str, Enum):
+    NETWORK_TYPE_UNSPECIFIED = "NETWORK_TYPE_UNSPECIFIED"
+    NETWORK_TYPE_EVM = "NETWORK_TYPE_EVM"
+    NETWORK_TYPE_SOLANA = "NETWORK_TYPE_SOLANA"

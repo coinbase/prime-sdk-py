@@ -12,5 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class FcmTradingSessionClosedReason(str, Enum):
+    FCM_TRADING_SESSION_CLOSED_REASON_UNDEFINED = "FCM_TRADING_SESSION_CLOSED_REASON_UNDEFINED"
+    FCM_TRADING_SESSION_CLOSED_REASON_REGULAR_MARKET_CLOSE = "FCM_TRADING_SESSION_CLOSED_REASON_REGULAR_MARKET_CLOSE"
+    FCM_TRADING_SESSION_CLOSED_REASON_EXCHANGE_MAINTENANCE = "FCM_TRADING_SESSION_CLOSED_REASON_EXCHANGE_MAINTENANCE"
+    FCM_TRADING_SESSION_CLOSED_REASON_VENDOR_MAINTENANCE = "FCM_TRADING_SESSION_CLOSED_REASON_VENDOR_MAINTENANCE"

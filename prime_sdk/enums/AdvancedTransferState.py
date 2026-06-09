@@ -12,5 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class AdvancedTransferState(str, Enum):
+    ADVANCED_TRANSFER_STATE_CREATED = "ADVANCED_TRANSFER_STATE_CREATED"
+    ADVANCED_TRANSFER_STATE_PROCESSING = "ADVANCED_TRANSFER_STATE_PROCESSING"
+    ADVANCED_TRANSFER_STATE_DONE = "ADVANCED_TRANSFER_STATE_DONE"
+    ADVANCED_TRANSFER_STATE_CANCELLED = "ADVANCED_TRANSFER_STATE_CANCELLED"
+    ADVANCED_TRANSFER_STATE_FAILED = "ADVANCED_TRANSFER_STATE_FAILED"
+    ADVANCED_TRANSFER_STATE_EXPIRED = "ADVANCED_TRANSFER_STATE_EXPIRED"

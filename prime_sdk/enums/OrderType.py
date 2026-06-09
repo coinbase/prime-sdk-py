@@ -12,5 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class OrderType(str, Enum):
+    MARKET = "MARKET"
+    LIMIT = "LIMIT"
+    TWAP = "TWAP"
+    BLOCK = "BLOCK"
+    VWAP = "VWAP"
+    STOP_LIMIT = "STOP_LIMIT"
+    RFQ = "RFQ"
+    PEG = "PEG"

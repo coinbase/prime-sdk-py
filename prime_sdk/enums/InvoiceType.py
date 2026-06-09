@@ -12,5 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class InvoiceType(str, Enum):
+    INVOICE_TYPE_UNSPECIFIED = "INVOICE_TYPE_UNSPECIFIED"
+    INVOICE_TYPE_AUC_FEE = "INVOICE_TYPE_AUC_FEE"
+    INVOICE_TYPE_MINIMUM_FEE = "INVOICE_TYPE_MINIMUM_FEE"
+    INVOICE_TYPE_WITHDRAWAL_FEE = "INVOICE_TYPE_WITHDRAWAL_FEE"
+    INVOICE_TYPE_NEW_WALLET_FEE = "INVOICE_TYPE_NEW_WALLET_FEE"
+    INVOICE_TYPE_STAKING_FEE = "INVOICE_TYPE_STAKING_FEE"

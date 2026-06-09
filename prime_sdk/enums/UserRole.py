@@ -12,5 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class UserRole(str, Enum):
+    AUDITOR = "AUDITOR"
+    SIGNATORY = "SIGNATORY"
+    ADMIN = "ADMIN"
+    INITIATOR = "INITIATOR"
+    REVIEWER = "REVIEWER"
+    TRADER = "TRADER"
+    FULL_TRADER = "FULL_TRADER"
+    TEAM_MANAGER = "TEAM_MANAGER"
+    APPROVER = "APPROVER"
+    TAX_MANAGER = "TAX_MANAGER"
+    BUSINESS_MANAGER = "BUSINESS_MANAGER"

@@ -12,5 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class XMControlStatus(str, Enum):
+    XM_CONTROL_STATUS_UNSPECIFIED = "XM_CONTROL_STATUS_UNSPECIFIED"
+    TRADES_AND_WITHDRAWALS = "TRADES_AND_WITHDRAWALS"
+    TRADES_ONLY = "TRADES_ONLY"
+    SESSION_LOCKED = "SESSION_LOCKED"

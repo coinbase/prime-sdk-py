@@ -12,5 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class ActivityCategory(str, Enum):
+    OTHER_ACTIVITY_CATEGORY = "OTHER_ACTIVITY_CATEGORY"
+    ACTIVITY_CATEGORY_ORDER = "ACTIVITY_CATEGORY_ORDER"
+    ACTIVITY_CATEGORY_TRANSACTION = "ACTIVITY_CATEGORY_TRANSACTION"
+    ACTIVITY_CATEGORY_ACCOUNT = "ACTIVITY_CATEGORY_ACCOUNT"
+    ACTIVITY_CATEGORY_ALLOCATION = "ACTIVITY_CATEGORY_ALLOCATION"
+    ACTIVITY_CATEGORY_LENDING = "ACTIVITY_CATEGORY_LENDING"

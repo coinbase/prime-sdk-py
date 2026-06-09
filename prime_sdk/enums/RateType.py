@@ -12,5 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class RateType(str, Enum):
+    RATE_TYPE_UNSET = "RATE_TYPE_UNSET"
+    BPS = "BPS"
+    APR_360 = "APR_360"
+    APR_365 = "APR_365"
+    APR = "APR"

@@ -12,5 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class FuturesSweepStatus(str, Enum):
+    FCM_FUTURES_SWEEP_STATUS_UNSPECIFIED = "FCM_FUTURES_SWEEP_STATUS_UNSPECIFIED"
+    FCM_FUTURES_SWEEP_STATUS_PENDING = "FCM_FUTURES_SWEEP_STATUS_PENDING"
+    FCM_FUTURES_SWEEP_STATUS_CLOSED = "FCM_FUTURES_SWEEP_STATUS_CLOSED"
+    FCM_FUTURES_SWEEP_STATUS_CANCELED = "FCM_FUTURES_SWEEP_STATUS_CANCELED"
+    FCM_FUTURES_SWEEP_STATUS_PROCESSING = "FCM_FUTURES_SWEEP_STATUS_PROCESSING"

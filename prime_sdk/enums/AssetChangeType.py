@@ -12,5 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class AssetChangeType(str, Enum):
+    BALANCE_TRANSFER = "BALANCE_TRANSFER"
+    BALANCE_APPROVAL = "BALANCE_APPROVAL"
+    ITEM_TRANSFER = "ITEM_TRANSFER"
+    ITEM_APPROVAL = "ITEM_APPROVAL"
+    ITEM_APPROVAL_ALL = "ITEM_APPROVAL_ALL"

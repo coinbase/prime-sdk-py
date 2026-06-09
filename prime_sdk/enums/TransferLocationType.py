@@ -12,5 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class TransferLocationType(str, Enum):
+    PAYMENT_METHOD = "PAYMENT_METHOD"
+    WALLET = "WALLET"
+    ADDRESS = "ADDRESS"
+    OTHER = "OTHER"
+    MULTIPLE_ADDRESSES = "MULTIPLE_ADDRESSES"
+    COUNTERPARTY_ID = "COUNTERPARTY_ID"

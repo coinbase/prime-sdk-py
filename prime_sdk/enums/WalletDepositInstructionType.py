@@ -12,5 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Compatibility shim - import from prime_sdk.enums package.
-from .enums import *  # noqa: F403
+from __future__ import annotations
+
+from enum import Enum
+
+
+class WalletDepositInstructionType(str, Enum):
+    CRYPTO = "CRYPTO"
+    WIRE = "WIRE"
+    SEN = "SEN"
+    SWIFT = "SWIFT"
+    SEPA = "SEPA"
