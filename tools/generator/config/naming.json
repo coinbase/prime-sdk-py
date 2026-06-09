@@ -1,0 +1,61 @@
+{
+  "file_path_replacements": {
+    "CoinbaseCustodyApiActivityType": "CustodyActivityType",
+    "CoinbasePublicRestApiActivityType": "PrimeActivityType",
+    "rFQ": "RFQ",
+    "FcmFuturesSweep": "FuturesSweep"
+  },
+  "content_replacements": {
+    "CoinbasePublicRestApi": "",
+    "coinbasePublicRestApi": "",
+    "PrimeRESTAPI": "",
+    "primeRESTAPI": "",
+    "CoinbaseCustodyApi": "",
+    "coinbaseCustodyApi": "",
+    "CoinbaseBrokerageProxyEventsMaterializedApi": "",
+    "coinbaseBrokerageProxyEventsMaterializedApi": "",
+    "publicRestApi": "",
+    "PublicRestApi": "",
+    "FcmFuturesSweep": "FuturesSweep",
+    "PaginatedResponse": "Pagination"
+  },
+  "enum_name_mappings": {
+    "ActivityType": "PrimeActivityType"
+  },
+  "common_models": {
+    "PaginatedResponse": "Pagination"
+  },
+  "skip_schema_patterns": [
+    "^google",
+    "^Google",
+    "protobuf",
+    "Request$",
+    "Response$",
+    "AllOf",
+    "OneOf",
+    "AnyOf",
+    "IsARequestTo"
+  ],
+  "domain_to_service_class": {
+    "activities": "ActivitiesService",
+    "advanced_transfers": "AdvancedTransfersService",
+    "address_book": "AddressBookService",
+    "allocations": "AllocationsService",
+    "assets": "AssetsService",
+    "balances": "BalancesService",
+    "commission": "CommissionService",
+    "financing": "FinancingService",
+    "futures": "FuturesService",
+    "invoices": "InvoicesService",
+    "onchain_address_book": "OnchainAddressBookService",
+    "orders": "OrdersService",
+    "payment_methods": "PaymentMethodsService",
+    "portfolios": "PortfoliosService",
+    "positions": "PositionsService",
+    "products": "ProductsService",
+    "staking": "StakingService",
+    "transactions": "TransactionsService",
+    "users": "UsersService",
+    "wallets": "WalletsService"
+  }
+}

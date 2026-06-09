@@ -1,0 +1,20 @@
+{
+  "PrimeRESTAPI_CreateOnchainTransaction": {
+    "domain": "transactions",
+    "method_name": "create_onchain_transaction",
+    "request_class": "CreateOnchainTransactionRequest",
+    "response_class": "CreateOnchainTransactionResponse",
+    "http_method": "POST",
+    "path_template": "/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/transactions",
+    "api_version": "v1"
+  },
+  "PrimeRESTAPI_GetPositions": {
+    "domain": "futures",
+    "method_name": "get_entity_positions",
+    "request_class": "GetEntityPositionsRequest",
+    "response_class": "GetEntityPositionsResponse",
+    "http_method": "GET",
+    "path_template": "/entities/{request.entity_id}/positions",
+    "api_version": "v1"
+  }
+}

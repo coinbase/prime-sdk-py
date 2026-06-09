@@ -1,0 +1,15 @@
+{
+  "spec_url": "https://api.prime.coinbase.com/v1/openapi.yaml",
+  "committed_spec_path": "apiSpec/prime-public-api-spec.yaml",
+  "models_output": "prime_sdk/model",
+  "enums_output": "prime_sdk/enums",
+  "services_output": "prime_sdk/services",
+  "datamodel_codegen": {
+    "output_model_type": "dataclasses.dataclass",
+    "use_subclass_enum": true,
+    "field_constraints": true,
+    "snake_case_field": true,
+    "capitalize_enum_members": true,
+    "strip_default_none": true
+  }
+}

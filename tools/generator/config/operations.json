@@ -1,0 +1,931 @@
+{
+  "operations": {
+    "PrimeBeta_GetCrossMarginPrimeOverview": {
+      "api_version": "v2",
+      "domain": "financing",
+      "http_method": "GET",
+      "method_name": "get_cross_margin_prime_overview",
+      "path_template": "/entities/{request.entity_id}/cross_margin/prime",
+      "request_class": "GetCrossMarginPrimeOverviewRequest",
+      "response_class": "GetCrossMarginPrimeOverviewResponse"
+    },
+    "PrimeBeta_GetCrossMarginRiskParameters": {
+      "api_version": "v1",
+      "domain": "financing",
+      "http_method": "GET",
+      "method_name": "get_cross_margin_risk_parameters",
+      "path_template": "/entities/{request.entity_id}/cross_margin/risk_parameters",
+      "request_class": "GetCrossMarginRiskParametersRequest",
+      "response_class": "GetCrossMarginRiskParametersResponse"
+    },
+    "PrimeBeta_GetMarketData": {
+      "api_version": "v1",
+      "domain": "financing",
+      "http_method": "GET",
+      "method_name": "get_market_data",
+      "path_template": "/entities/{request.entity_id}/market_data",
+      "request_class": "GetMarketDataRequest",
+      "response_class": "GetMarketDataResponse"
+    },
+    "PrimeBeta_SetFundingSettings": {
+      "api_version": "v1",
+      "domain": "financing",
+      "http_method": "POST",
+      "method_name": "set_funding_settings",
+      "path_template": "/entities/{request.entity_id}/funding_settings",
+      "request_class": "SetFundingSettingsRequest",
+      "response_class": "SetFundingSettingsResponse"
+    },
+    "PrimeRESTAPI_AcceptQuote": {
+      "api_version": "v1",
+      "domain": "orders",
+      "http_method": "POST",
+      "method_name": "accept_quote",
+      "path_template": "/portfolios/{request.portfolio_id}/accept_quote",
+      "request_class": "AcceptQuoteRequest",
+      "response_class": "AcceptQuoteResponse"
+    },
+    "PrimeRESTAPI_CancelAdvancedTransfer": {
+      "api_version": "v1",
+      "domain": "advanced_transfers",
+      "http_method": "POST",
+      "method_name": "cancel_advanced_transfer",
+      "path_template": "/portfolios/{request.portfolio_id}/advanced_transfers/{request.advanced_transfer_id}/cancel",
+      "request_class": "CancelAdvancedTransferRequest",
+      "response_class": "CancelAdvancedTransferResponse"
+    },
+    "PrimeRESTAPI_CancelFuturesSweep": {
+      "api_version": "v1",
+      "domain": "futures",
+      "http_method": "DELETE",
+      "method_name": "cancel_entity_futures_sweep",
+      "path_template": "/entities/{request.entity_id}/futures/sweeps",
+      "request_class": "CancelEntityFuturesSweepRequest",
+      "response_class": "CancelEntityFuturesSweepResponse"
+    },
+    "PrimeRESTAPI_CancelOrder": {
+      "api_version": "v1",
+      "domain": "orders",
+      "http_method": "POST",
+      "method_name": "cancel_order",
+      "path_template": "/portfolios/{request.portfolio_id}/orders/{request.order_id}/cancel",
+      "request_class": "CancelOrderRequest",
+      "response_class": "CancelOrderResponse"
+    },
+    "PrimeRESTAPI_CreateAdvancedTransfer": {
+      "api_version": "v1",
+      "domain": "advanced_transfers",
+      "http_method": "POST",
+      "method_name": "create_advanced_transfer",
+      "path_template": "/portfolios/{request.portfolio_id}/advanced_transfers",
+      "request_class": "CreateAdvancedTransferRequest",
+      "response_class": "CreateAdvancedTransferResponse"
+    },
+    "PrimeRESTAPI_CreateAllocation": {
+      "api_version": "v1",
+      "domain": "allocations",
+      "http_method": "POST",
+      "method_name": "create_portfolio_allocations",
+      "path_template": "/allocations",
+      "request_class": "CreatePortfolioAllocationsRequest",
+      "response_class": "CreatePortfolioAllocationsResponse"
+    },
+    "PrimeRESTAPI_CreateConversion": {
+      "api_version": "v1",
+      "domain": "transactions",
+      "http_method": "POST",
+      "method_name": "create_conversion",
+      "path_template": "/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/conversion",
+      "request_class": "CreateConversionRequest",
+      "response_class": "CreateConversionResponse"
+    },
+    "PrimeRESTAPI_CreateNetAllocation": {
+      "api_version": "v1",
+      "domain": "allocations",
+      "http_method": "POST",
+      "method_name": "create_portfolio_net_allocations",
+      "path_template": "/allocations/net",
+      "request_class": "CreatePortfolioNetAllocationsRequest",
+      "response_class": "CreatePortfolioNetAllocationsResponse"
+    },
+    "PrimeRESTAPI_CreateNewLocates": {
+      "api_version": "v1",
+      "domain": "financing",
+      "http_method": "POST",
+      "method_name": "create_new_locate",
+      "path_template": "/portfolios/{request.portfolio_id}/locates",
+      "request_class": "CreateNewLocateRequest",
+      "response_class": "CreateNewLocateResponse"
+    },
+    "PrimeRESTAPI_CreateOnchainAddressGroup": {
+      "api_version": "v1",
+      "domain": "onchain_address_book",
+      "http_method": "POST",
+      "method_name": "create_onchain_address_book_entry",
+      "path_template": "/portfolios/{request.portfolio_id}/onchain_address_group",
+      "request_class": "CreateOnchainAddressBookEntryRequest",
+      "response_class": "CreateOnchainAddressBookEntryResponse"
+    },
+    "PrimeRESTAPI_CreateOnchainTransaction": {
+      "api_version": "v1",
+      "domain": "transactions",
+      "http_method": "POST",
+      "method_name": "create_onchain_transaction",
+      "path_template": "/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/transactions",
+      "request_class": "CreateOnchainTransactionRequest",
+      "response_class": "CreateOnchainTransactionResponse"
+    },
+    "PrimeRESTAPI_CreateOrder": {
+      "api_version": "v1",
+      "domain": "orders",
+      "http_method": "POST",
+      "method_name": "create_order",
+      "path_template": "/portfolios/{request.portfolio_id}/order",
+      "request_class": "CreateOrderRequest",
+      "response_class": "CreateOrderResponse"
+    },
+    "PrimeRESTAPI_CreatePortfolioAddressBookEntry": {
+      "api_version": "v1",
+      "domain": "address_book",
+      "http_method": "POST",
+      "method_name": "create_address_book_entry",
+      "path_template": "/portfolios/{request.portfolio_id}/address_book",
+      "request_class": "CreateAddressBookEntryRequest",
+      "response_class": "CreateAddressBookEntryResponse"
+    },
+    "PrimeRESTAPI_CreateQuoteRequest": {
+      "api_version": "v1",
+      "domain": "orders",
+      "http_method": "POST",
+      "method_name": "create_quote",
+      "path_template": "/portfolios/{request.portfolio_id}/rfq",
+      "request_class": "CreateQuoteRequest",
+      "response_class": "CreateQuoteResponse"
+    },
+    "PrimeRESTAPI_CreateWallet": {
+      "api_version": "v1",
+      "domain": "wallets",
+      "http_method": "POST",
+      "method_name": "create_wallet",
+      "path_template": "/portfolios/{request.portfolio_id}/wallets",
+      "request_class": "CreateWalletRequest",
+      "response_class": "CreateWalletResponse"
+    },
+    "PrimeRESTAPI_CreateWalletDepositAddress": {
+      "api_version": "v1",
+      "domain": "wallets",
+      "http_method": "POST",
+      "method_name": "create_wallet_deposit_address",
+      "path_template": "/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/addresses",
+      "request_class": "CreateWalletDepositAddressRequest",
+      "response_class": "CreateWalletDepositAddressResponse"
+    },
+    "PrimeRESTAPI_CreateWalletTransfer": {
+      "api_version": "v1",
+      "domain": "transactions",
+      "http_method": "POST",
+      "method_name": "create_transfer",
+      "path_template": "/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/transfers",
+      "request_class": "CreateTransferRequest",
+      "response_class": "CreateTransferResponse"
+    },
+    "PrimeRESTAPI_CreateWalletWithdrawal": {
+      "api_version": "v1",
+      "domain": "transactions",
+      "http_method": "POST",
+      "method_name": "create_withdrawal",
+      "path_template": "/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/withdrawals",
+      "request_class": "CreateWithdrawalRequest",
+      "response_class": "CreateWithdrawalResponse"
+    },
+    "PrimeRESTAPI_DeleteOnchainAddressGroup": {
+      "api_version": "v1",
+      "domain": "onchain_address_book",
+      "http_method": "DELETE",
+      "method_name": "delete_onchain_address_group",
+      "path_template": "/portfolios/{request.portfolio_id}/onchain_address_group/{request.address_group_id}",
+      "request_class": "DeleteOnchainAddressGroupRequest",
+      "response_class": "DeleteOnchainAddressGroupResponse"
+    },
+    "PrimeRESTAPI_EditOrder": {
+      "api_version": "v1",
+      "domain": "orders",
+      "http_method": "PUT",
+      "method_name": "edit_order",
+      "path_template": "/portfolios/{request.portfolio_id}/orders/{request.order_id}/edit",
+      "request_class": "EditOrderRequest",
+      "response_class": "EditOrderResponse"
+    },
+    "PrimeRESTAPI_GetActivity": {
+      "api_version": "v1",
+      "domain": "activities",
+      "http_method": "GET",
+      "method_name": "get_entity_activity",
+      "path_template": "/activities/{request.activity_id}",
+      "request_class": "GetEntityActivityRequest",
+      "response_class": "GetEntityActivityResponse"
+    },
+    "PrimeRESTAPI_GetAllocation": {
+      "api_version": "v1",
+      "domain": "allocations",
+      "http_method": "GET",
+      "method_name": "get_allocation_by_id",
+      "path_template": "/portfolios/{request.portfolio_id}/allocations/{request.allocation_id}",
+      "request_class": "GetAllocationByIdRequest",
+      "response_class": "GetAllocationByIdResponse"
+    },
+    "PrimeRESTAPI_GetAllocationsByClientNettingId": {
+      "api_version": "v1",
+      "domain": "allocations",
+      "http_method": "GET",
+      "method_name": "get_net_allocations_by_netting_id",
+      "path_template": "/portfolios/{request.portfolio_id}/allocations/net/{request.netting_id}",
+      "request_class": "GetNetAllocationsByNettingIdRequest",
+      "response_class": "GetNetAllocationsByNettingIdResponse"
+    },
+    "PrimeRESTAPI_GetBuyingPower": {
+      "api_version": "v1",
+      "domain": "financing",
+      "http_method": "GET",
+      "method_name": "get_portfolio_buying_power",
+      "path_template": "/portfolios/{request.portfolio_id}/buying_power",
+      "request_class": "GetBuyingPowerRequest",
+      "response_class": "GetBuyingPowerResponse"
+    },
+    "PrimeRESTAPI_GetCandles": {
+      "api_version": "v1",
+      "domain": "products",
+      "http_method": "GET",
+      "method_name": "get_product_candles",
+      "path_template": "/portfolios/{request.portfolio_id}/candles",
+      "request_class": "GetProductCandlesRequest",
+      "response_class": "GetProductCandlesResponse"
+    },
+    "PrimeRESTAPI_GetCrossMarginOverview": {
+      "api_version": "v1",
+      "domain": "financing",
+      "http_method": "GET",
+      "method_name": "get_cross_margin_overview",
+      "path_template": "/entities/{request.entity_id}/cross_margin",
+      "request_class": "GetCrossMarginOverviewRequest",
+      "response_class": "GetCrossMarginOverviewResponse"
+    },
+    "PrimeRESTAPI_GetEntityActivities": {
+      "api_version": "v1",
+      "domain": "activities",
+      "http_method": "GET",
+      "method_name": "list_entity_activities",
+      "path_template": "/entities/{request.entity_id}/activities",
+      "request_class": "ListEntityActivitiesRequest",
+      "response_class": "ListEntityActivitiesResponse"
+    },
+    "PrimeRESTAPI_GetEntityAssets": {
+      "api_version": "v1",
+      "domain": "assets",
+      "http_method": "GET",
+      "method_name": "list_assets",
+      "path_template": "/entities/{request.entity_id}/assets",
+      "request_class": "ListAssetsRequest",
+      "response_class": "ListAssetsResponse"
+    },
+    "PrimeRESTAPI_GetEntityPaymentMethodDetails": {
+      "api_version": "v1",
+      "domain": "payment_methods",
+      "http_method": "GET",
+      "method_name": "get_entity_payment_method",
+      "path_template": "/entities/{request.entity_id}/payment-methods/{request.payment_method_id}",
+      "request_class": "GetEntityPaymentMethodRequest",
+      "response_class": "GetEntityPaymentMethodResponse"
+    },
+    "PrimeRESTAPI_GetEntityPaymentMethods": {
+      "api_version": "v1",
+      "domain": "payment_methods",
+      "http_method": "GET",
+      "method_name": "list_entity_payment_methods",
+      "path_template": "/entities/{request.entity_id}/payment-methods",
+      "request_class": "ListEntityPaymentMethodsRequest",
+      "response_class": "ListEntityPaymentMethodsResponse"
+    },
+    "PrimeRESTAPI_GetEntityUsers": {
+      "api_version": "v1",
+      "domain": "users",
+      "http_method": "GET",
+      "method_name": "list_entity_users",
+      "path_template": "/entities/{request.entity_id}/users",
+      "request_class": "ListEntityUsersRequest",
+      "response_class": "ListEntityUsersResponse"
+    },
+    "PrimeRESTAPI_GetExistingLocates": {
+      "api_version": "v1",
+      "domain": "financing",
+      "http_method": "GET",
+      "method_name": "list_existing_locates",
+      "path_template": "/portfolios/{request.portfolio_id}/locates",
+      "request_class": "ListExistingLocatesRequest",
+      "response_class": "ListExistingLocatesResponse"
+    },
+    "PrimeRESTAPI_GetFcmBalance": {
+      "api_version": "v1",
+      "domain": "futures",
+      "http_method": "GET",
+      "method_name": "get_entity_fcm_balance",
+      "path_template": "/entities/{request.entity_id}/futures/balance_summary",
+      "request_class": "GetEntityFcmBalanceRequest",
+      "response_class": "GetEntityFcmBalanceResponse"
+    },
+    "PrimeRESTAPI_GetFcmEquity": {
+      "api_version": "v1",
+      "domain": "futures",
+      "http_method": "GET",
+      "method_name": "get_fcm_equity",
+      "path_template": "/entities/{request.entity_id}/futures/equity",
+      "request_class": "GetFcmEquityRequest",
+      "response_class": "GetFcmEquityResponse"
+    },
+    "PrimeRESTAPI_GetFcmMarginCallDetails": {
+      "api_version": "v1",
+      "domain": "futures",
+      "http_method": "GET",
+      "method_name": "get_fcm_margin_call_details",
+      "path_template": "/entities/{request.entity_id}/futures/margin_call_details",
+      "request_class": "GetFcmMarginCallDetailsRequest",
+      "response_class": "GetFcmMarginCallDetailsResponse"
+    },
+    "PrimeRESTAPI_GetFcmRiskLimits": {
+      "api_version": "v1",
+      "domain": "futures",
+      "http_method": "GET",
+      "method_name": "get_fcm_risk_limits",
+      "path_template": "/entities/{request.entity_id}/futures/risk_limits",
+      "request_class": "GetFcmRiskLimitsRequest",
+      "response_class": "GetFcmRiskLimitsResponse"
+    },
+    "PrimeRESTAPI_GetFcmSettings": {
+      "api_version": "v1",
+      "domain": "futures",
+      "http_method": "GET",
+      "method_name": "get_fcm_settings",
+      "path_template": "/entities/{request.entity_id}/futures/settings",
+      "request_class": "GetFcmSettingsRequest",
+      "response_class": "GetFcmSettingsResponse"
+    },
+    "PrimeRESTAPI_GetFuturesSweeps": {
+      "api_version": "v1",
+      "domain": "futures",
+      "http_method": "GET",
+      "method_name": "list_entity_futures_sweeps",
+      "path_template": "/entities/{request.entity_id}/futures/sweeps",
+      "request_class": "ListEntityFuturesSweepsRequest",
+      "response_class": "ListEntityFuturesSweepsResponse"
+    },
+    "PrimeRESTAPI_GetInterestAccruals": {
+      "api_version": "v1",
+      "domain": "financing",
+      "http_method": "GET",
+      "method_name": "list_interest_accruals",
+      "path_template": "/entities/{request.entity_id}/accruals",
+      "request_class": "ListInterestAccrualsRequest",
+      "response_class": "ListInterestAccrualsResponse"
+    },
+    "PrimeRESTAPI_GetInvoices": {
+      "api_version": "v1",
+      "domain": "invoices",
+      "http_method": "GET",
+      "method_name": "list_invoices",
+      "path_template": "/entities/{request.entity_id}/invoices",
+      "request_class": "ListInvoicesRequest",
+      "response_class": "ListInvoicesResponse"
+    },
+    "PrimeRESTAPI_GetLocateAvailabilities": {
+      "api_version": "v1",
+      "domain": "financing",
+      "http_method": "GET",
+      "method_name": "get_entity_locate_availabilities",
+      "path_template": "/entities/{request.entity_id}/locates_availability",
+      "request_class": "GetEntityLocateAvailabilitiesRequest",
+      "response_class": "GetEntityLocateAvailabilitiesResponse"
+    },
+    "PrimeRESTAPI_GetMarginConversions": {
+      "api_version": "v1",
+      "domain": "financing",
+      "http_method": "GET",
+      "method_name": "list_margin_conversions",
+      "path_template": "/portfolios/{request.portfolio_id}/margin_conversions",
+      "request_class": "ListMarginConversionsRequest",
+      "response_class": "ListMarginConversionsResponse"
+    },
+    "PrimeRESTAPI_GetMarginInformation": {
+      "api_version": "v1",
+      "domain": "financing",
+      "http_method": "GET",
+      "method_name": "get_margin_information",
+      "path_template": "/entities/{request.entity_id}/margin",
+      "request_class": "GetMarginInformationRequest",
+      "response_class": "GetMarginInformationResponse"
+    },
+    "PrimeRESTAPI_GetMarginSummaries": {
+      "api_version": "v1",
+      "domain": "financing",
+      "http_method": "GET",
+      "method_name": "list_margin_call_summaries",
+      "path_template": "/entities/{request.entity_id}/margin_summaries",
+      "request_class": "ListMarginCallSummariesRequest",
+      "response_class": "ListMarginCallSummariesResponse"
+    },
+    "PrimeRESTAPI_GetOpenOrders": {
+      "api_version": "v1",
+      "domain": "orders",
+      "http_method": "GET",
+      "method_name": "list_open_orders",
+      "path_template": "/portfolios/{request.portfolio_id}/open_orders",
+      "request_class": "ListOpenOrdersRequest",
+      "response_class": "ListOpenOrdersResponse"
+    },
+    "PrimeRESTAPI_GetOrder": {
+      "api_version": "v1",
+      "domain": "orders",
+      "http_method": "GET",
+      "method_name": "get_order",
+      "path_template": "/portfolios/{request.portfolio_id}/orders/{request.order_id}",
+      "request_class": "GetOrderRequest",
+      "response_class": "GetOrderResponse"
+    },
+    "PrimeRESTAPI_GetOrderEditHistory": {
+      "api_version": "v1",
+      "domain": "orders",
+      "http_method": "GET",
+      "method_name": "get_order_edit_history",
+      "path_template": "/portfolios/{request.portfolio_id}/orders/{request.order_id}/edit_history",
+      "request_class": "GetOrderEditHistoryRequest",
+      "response_class": "GetOrderEditHistoryResponse"
+    },
+    "PrimeRESTAPI_GetOrderFills": {
+      "api_version": "v1",
+      "domain": "orders",
+      "http_method": "GET",
+      "method_name": "list_order_fills",
+      "path_template": "/portfolios/{request.portfolio_id}/orders/{request.order_id}/fills",
+      "request_class": "ListOrderFillsRequest",
+      "response_class": "ListOrderFillsResponse"
+    },
+    "PrimeRESTAPI_GetOrders": {
+      "api_version": "v1",
+      "domain": "orders",
+      "http_method": "GET",
+      "method_name": "list_orders",
+      "path_template": "/portfolios/{request.portfolio_id}/orders",
+      "request_class": "ListOrdersRequest",
+      "response_class": "ListOrdersResponse"
+    },
+    "PrimeRESTAPI_GetPortfolio": {
+      "api_version": "v1",
+      "domain": "portfolios",
+      "http_method": "GET",
+      "method_name": "get_portfolio",
+      "path_template": "/portfolios/{request.portfolio_id}",
+      "request_class": "GetPortfolioRequest",
+      "response_class": "GetPortfolioResponse"
+    },
+    "PrimeRESTAPI_GetPortfolioActivities": {
+      "api_version": "v1",
+      "domain": "activities",
+      "http_method": "GET",
+      "method_name": "list_activities",
+      "path_template": "/portfolios/{request.portfolio_id}/activities",
+      "request_class": "ListActivitiesRequest",
+      "response_class": "ListActivitiesResponse"
+    },
+    "PrimeRESTAPI_GetPortfolioActivity": {
+      "api_version": "v1",
+      "domain": "activities",
+      "http_method": "GET",
+      "method_name": "get_activity",
+      "path_template": "/portfolios/{request.portfolio_id}/activities/{request.activity_id}",
+      "request_class": "GetActivityRequest",
+      "response_class": "GetActivityResponse"
+    },
+    "PrimeRESTAPI_GetPortfolioAddressBook": {
+      "api_version": "v1",
+      "domain": "address_book",
+      "http_method": "GET",
+      "method_name": "get_address_book",
+      "path_template": "/portfolios/{request.portfolio_id}/address_book",
+      "request_class": "GetAddressBookRequest",
+      "response_class": "GetAddressBookResponse"
+    },
+    "PrimeRESTAPI_GetPortfolioAllocations": {
+      "api_version": "v1",
+      "domain": "allocations",
+      "http_method": "GET",
+      "method_name": "list_portfolio_allocations",
+      "path_template": "/portfolios/{request.portfolio_id}/allocations",
+      "request_class": "ListPortfolioAllocationsRequest",
+      "response_class": "ListPortfolioAllocationsResponse"
+    },
+    "PrimeRESTAPI_GetPortfolioBalances": {
+      "api_version": "v1",
+      "domain": "balances",
+      "http_method": "GET",
+      "method_name": "list_portfolio_balances",
+      "path_template": "/portfolios/{request.portfolio_id}/balances",
+      "request_class": "ListPortfolioBalancesRequest",
+      "response_class": "ListPortfolioBalancesResponse"
+    },
+    "PrimeRESTAPI_GetPortfolioCommission": {
+      "api_version": "v1",
+      "domain": "commission",
+      "http_method": "GET",
+      "method_name": "get_portfolio_commission",
+      "path_template": "/portfolios/{request.portfolio_id}/commission",
+      "request_class": "GetPortfolioCommissionRequest",
+      "response_class": "GetPortfolioCommissionResponse"
+    },
+    "PrimeRESTAPI_GetPortfolioCounterpartyID": {
+      "api_version": "v1",
+      "domain": "portfolios",
+      "http_method": "GET",
+      "method_name": "get_counterparty_id",
+      "path_template": "/portfolios/{request.portfolio_id}/counterparty",
+      "request_class": "GetCounterpartyIdRequest",
+      "response_class": "GetCounterpartyIdResponse"
+    },
+    "PrimeRESTAPI_GetPortfolioFills": {
+      "api_version": "v1",
+      "domain": "orders",
+      "http_method": "GET",
+      "method_name": "list_portfolio_fills",
+      "path_template": "/portfolios/{request.portfolio_id}/fills",
+      "request_class": "ListPortfolioFillsRequest",
+      "response_class": "ListPortfolioFillsResponse"
+    },
+    "PrimeRESTAPI_GetPortfolioInterestAccruals": {
+      "api_version": "v1",
+      "domain": "financing",
+      "http_method": "GET",
+      "method_name": "list_interest_accruals_for_portfolio",
+      "path_template": "/portfolios/{request.portfolio_id}/accruals",
+      "request_class": "ListInterestAccrualsForPortfolioRequest",
+      "response_class": "ListInterestAccrualsForPortfolioResponse"
+    },
+    "PrimeRESTAPI_GetPortfolioProducts": {
+      "api_version": "v1",
+      "domain": "products",
+      "http_method": "GET",
+      "method_name": "list_products",
+      "path_template": "/portfolios/{request.portfolio_id}/products",
+      "request_class": "ListProductsRequest",
+      "response_class": "ListProductsResponse"
+    },
+    "PrimeRESTAPI_GetPortfolioTransactions": {
+      "api_version": "v1",
+      "domain": "transactions",
+      "http_method": "GET",
+      "method_name": "list_portfolio_transactions",
+      "path_template": "/portfolios/{request.portfolio_id}/transactions",
+      "request_class": "ListPortfolioTransactionsRequest",
+      "response_class": "ListPortfolioTransactionsResponse"
+    },
+    "PrimeRESTAPI_GetPortfolioUsers": {
+      "api_version": "v1",
+      "domain": "users",
+      "http_method": "GET",
+      "method_name": "list_portfolio_users",
+      "path_template": "/portfolios/{request.portfolio_id}/users",
+      "request_class": "ListPortfolioUsersRequest",
+      "response_class": "ListPortfolioUsersResponse"
+    },
+    "PrimeRESTAPI_GetPortfolios": {
+      "api_version": "v1",
+      "domain": "portfolios",
+      "http_method": "GET",
+      "method_name": "list_portfolios",
+      "path_template": "/portfolios",
+      "request_class": "ListPortfoliosRequest",
+      "response_class": "ListPortfoliosResponse"
+    },
+    "PrimeRESTAPI_GetPositions": {
+      "api_version": "v1",
+      "domain": "futures",
+      "http_method": "GET",
+      "method_name": "get_entity_positions",
+      "path_template": "/entities/{request.entity_id}/positions",
+      "request_class": "GetEntityPositionsRequest",
+      "response_class": "GetEntityPositionsResponse"
+    },
+    "PrimeRESTAPI_GetPostTradeCredit": {
+      "api_version": "v1",
+      "domain": "financing",
+      "http_method": "GET",
+      "method_name": "get_portfolio_credit_information",
+      "path_template": "/portfolios/{request.portfolio_id}/credit",
+      "request_class": "GetPortfolioCreditInformationRequest",
+      "response_class": "GetPortfolioCreditInformationResponse"
+    },
+    "PrimeRESTAPI_GetStakingStatus": {
+      "api_version": "v1",
+      "domain": "staking",
+      "http_method": "GET",
+      "method_name": "get_staking_status",
+      "path_template": "/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/status",
+      "request_class": "GetStakingStatusRequest",
+      "response_class": "GetStakingStatusResponse"
+    },
+    "PrimeRESTAPI_GetTFTieredPricingFees": {
+      "api_version": "v1",
+      "domain": "financing",
+      "http_method": "GET",
+      "method_name": "get_trade_finance_tiered_pricing_fees",
+      "path_template": "/entities/{request.entity_id}/tf_tiered_fees",
+      "request_class": "GetTradeFinanceTieredPricingFeesRequest",
+      "response_class": "GetTradeFinanceTieredPricingFeesResponse"
+    },
+    "PrimeRESTAPI_GetTransaction": {
+      "api_version": "v1",
+      "domain": "transactions",
+      "http_method": "GET",
+      "method_name": "get_transaction",
+      "path_template": "/portfolios/{request.portfolio_id}/transactions/{request.transaction_id}",
+      "request_class": "GetTransactionRequest",
+      "response_class": "GetTransactionResponse"
+    },
+    "PrimeRESTAPI_GetTransactionTravelRuleData": {
+      "api_version": "v1",
+      "domain": "transactions",
+      "http_method": "GET",
+      "method_name": "get_transaction_travel_rule_data",
+      "path_template": "/portfolios/{request.portfolio_id}/transactions/{request.transaction_id}/travel_rule",
+      "request_class": "GetTransactionTravelRuleDataRequest",
+      "response_class": "GetTransactionTravelRuleDataResponse"
+    },
+    "PrimeRESTAPI_GetUnstakingStatus": {
+      "api_version": "v1",
+      "domain": "staking",
+      "http_method": "GET",
+      "method_name": "get_unstaking_status",
+      "path_template": "/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/unstake/status",
+      "request_class": "GetUnstakingStatusRequest",
+      "response_class": "GetUnstakingStatusResponse"
+    },
+    "PrimeRESTAPI_GetWallet": {
+      "api_version": "v1",
+      "domain": "wallets",
+      "http_method": "GET",
+      "method_name": "get_wallet",
+      "path_template": "/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}",
+      "request_class": "GetWalletRequest",
+      "response_class": "GetWalletResponse"
+    },
+    "PrimeRESTAPI_GetWalletBalance": {
+      "api_version": "v1",
+      "domain": "balances",
+      "http_method": "GET",
+      "method_name": "get_wallet_balance",
+      "path_template": "/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/balance",
+      "request_class": "GetWalletBalanceRequest",
+      "response_class": "GetWalletBalanceResponse"
+    },
+    "PrimeRESTAPI_GetWalletDepositInstructions": {
+      "api_version": "v1",
+      "domain": "wallets",
+      "http_method": "GET",
+      "method_name": "get_wallet_deposit_instructions",
+      "path_template": "/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/deposit_instructions",
+      "request_class": "GetWalletDepositInstructionsRequest",
+      "response_class": "GetWalletDepositInstructionsResponse"
+    },
+    "PrimeRESTAPI_GetWalletTransactions": {
+      "api_version": "v1",
+      "domain": "transactions",
+      "http_method": "GET",
+      "method_name": "list_wallet_transactions",
+      "path_template": "/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/transactions",
+      "request_class": "ListWalletTransactionsRequest",
+      "response_class": "ListWalletTransactionsResponse"
+    },
+    "PrimeRESTAPI_GetWallets": {
+      "api_version": "v1",
+      "domain": "wallets",
+      "http_method": "GET",
+      "method_name": "list_wallets",
+      "path_template": "/portfolios/{request.portfolio_id}/wallets",
+      "request_class": "ListWalletsRequest",
+      "response_class": "ListWalletsResponse"
+    },
+    "PrimeRESTAPI_GetWithdrawalPower": {
+      "api_version": "v1",
+      "domain": "financing",
+      "http_method": "GET",
+      "method_name": "get_portfolio_withdrawal_power",
+      "path_template": "/portfolios/{request.portfolio_id}/withdrawal_power",
+      "request_class": "GetPortfolioWithdrawalPowerRequest",
+      "response_class": "GetPortfolioWithdrawalPowerResponse"
+    },
+    "PrimeRESTAPI_ListAdvancedTransferTransactions": {
+      "api_version": "v1",
+      "domain": "advanced_transfers",
+      "http_method": "GET",
+      "method_name": "list_advanced_transfer_transactions",
+      "path_template": "/portfolios/{request.portfolio_id}/advanced_transfers/{request.advanced_transfer_id}/transactions",
+      "request_class": "ListAdvancedTransferTransactionsRequest",
+      "response_class": "ListAdvancedTransferTransactionsResponse"
+    },
+    "PrimeRESTAPI_ListAdvancedTransfers": {
+      "api_version": "v1",
+      "domain": "advanced_transfers",
+      "http_method": "GET",
+      "method_name": "list_advanced_transfers",
+      "path_template": "/portfolios/{request.portfolio_id}/advanced_transfers",
+      "request_class": "ListAdvancedTransfersRequest",
+      "response_class": "ListAdvancedTransfersResponse"
+    },
+    "PrimeRESTAPI_ListAggregateEntityPositions": {
+      "api_version": "v1",
+      "domain": "positions",
+      "http_method": "GET",
+      "method_name": "list_aggregate_entity_positions",
+      "path_template": "/entities/{request.entity_id}/aggregate_positions",
+      "request_class": "ListAggregateEntityPositionsRequest",
+      "response_class": "ListAggregateEntityPositionsResponse"
+    },
+    "PrimeRESTAPI_ListEntityBalances": {
+      "api_version": "v1",
+      "domain": "balances",
+      "http_method": "GET",
+      "method_name": "list_entity_balances",
+      "path_template": "/entities/{request.entity_id}/balances",
+      "request_class": "ListEntityBalancesRequest",
+      "response_class": "ListEntityBalancesResponse"
+    },
+    "PrimeRESTAPI_ListEntityPositions": {
+      "api_version": "v1",
+      "domain": "positions",
+      "http_method": "GET",
+      "method_name": "list_entity_positions",
+      "path_template": "/entities/{request.entity_id}/positions",
+      "request_class": "ListEntityPositionsRequest",
+      "response_class": "ListEntityPositionsResponse"
+    },
+    "PrimeRESTAPI_ListFinancingEligibleAssets": {
+      "api_version": "v1",
+      "domain": "financing",
+      "http_method": "GET",
+      "method_name": "list_financing_eligible_assets",
+      "path_template": "/financing/eligible-assets",
+      "request_class": "ListFinancingEligibleAssetsRequest",
+      "response_class": "ListFinancingEligibleAssetsResponse"
+    },
+    "PrimeRESTAPI_ListOnchainAddressGroups": {
+      "api_version": "v1",
+      "domain": "onchain_address_book",
+      "http_method": "GET",
+      "method_name": "list_onchain_address_groups",
+      "path_template": "/portfolios/{request.portfolio_id}/onchain_address_groups",
+      "request_class": "ListOnchainAddressGroupsRequest",
+      "response_class": "ListOnchainAddressGroupsResponse"
+    },
+    "PrimeRESTAPI_ListTFObligations": {
+      "api_version": "v1",
+      "domain": "financing",
+      "http_method": "GET",
+      "method_name": "list_trade_finance_obligations",
+      "path_template": "/entities/{request.entity_id}/tf_obligations",
+      "request_class": "ListTradeFinanceObligationsRequest",
+      "response_class": "ListTradeFinanceObligationsResponse"
+    },
+    "PrimeRESTAPI_ListTransactionValidators": {
+      "api_version": "v1",
+      "domain": "staking",
+      "http_method": "POST",
+      "method_name": "query_transaction_validators",
+      "path_template": "/portfolios/{request.portfolio_id}/staking/transaction-validators/query",
+      "request_class": "QueryTransactionValidatorsRequest",
+      "response_class": "QueryTransactionValidatorsResponse"
+    },
+    "PrimeRESTAPI_ListWalletAddresses": {
+      "api_version": "v1",
+      "domain": "wallets",
+      "http_method": "GET",
+      "method_name": "list_wallet_addresses",
+      "path_template": "/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/addresses",
+      "request_class": "ListWalletAddressesRequest",
+      "response_class": "ListWalletAddressesResponse"
+    },
+    "PrimeRESTAPI_ListWeb3WalletBalances": {
+      "api_version": "v1",
+      "domain": "balances",
+      "http_method": "GET",
+      "method_name": "list_web3_wallet_balances",
+      "path_template": "/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/web3_balances",
+      "request_class": "ListWeb3WalletBalancesRequest",
+      "response_class": "ListWeb3WalletBalancesResponse"
+    },
+    "PrimeRESTAPI_OrderPreview": {
+      "api_version": "v1",
+      "domain": "orders",
+      "http_method": "POST",
+      "method_name": "create_order_preview",
+      "path_template": "/portfolios/{request.portfolio_id}/order_preview",
+      "request_class": "CreateOrderPreviewRequest",
+      "response_class": "CreateOrderPreviewResponse"
+    },
+    "PrimeRESTAPI_PortfolioStakingInitiate": {
+      "api_version": "v1",
+      "domain": "staking",
+      "http_method": "POST",
+      "method_name": "create_portfolio_stake",
+      "path_template": "/portfolios/{request.portfolio_id}/staking/initiate",
+      "request_class": "CreatePortfolioStakeRequest",
+      "response_class": "CreatePortfolioStakeResponse"
+    },
+    "PrimeRESTAPI_PortfolioStakingUnstake": {
+      "api_version": "v1",
+      "domain": "staking",
+      "http_method": "POST",
+      "method_name": "create_portfolio_unstake",
+      "path_template": "/portfolios/{request.portfolio_id}/staking/unstake",
+      "request_class": "CreatePortfolioUnstakeRequest",
+      "response_class": "CreatePortfolioUnstakeResponse"
+    },
+    "PrimeRESTAPI_PreviewUnstake": {
+      "api_version": "v1",
+      "domain": "staking",
+      "http_method": "POST",
+      "method_name": "preview_unstake",
+      "path_template": "/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/unstake/preview",
+      "request_class": "PreviewUnstakeRequest",
+      "response_class": "PreviewUnstakeResponse"
+    },
+    "PrimeRESTAPI_ScheduleFuturesSweep": {
+      "api_version": "v1",
+      "domain": "futures",
+      "http_method": "POST",
+      "method_name": "schedule_entity_futures_sweep",
+      "path_template": "/entities/{request.entity_id}/futures/sweeps",
+      "request_class": "ScheduleEntityFuturesSweepRequest",
+      "response_class": "ScheduleEntityFuturesSweepResponse"
+    },
+    "PrimeRESTAPI_SetAutoSweep": {
+      "api_version": "v1",
+      "domain": "futures",
+      "http_method": "POST",
+      "method_name": "set_auto_sweep",
+      "path_template": "/entities/{request.entity_id}/futures/auto_sweep",
+      "request_class": "SetAutoSweepRequest",
+      "response_class": "SetAutoSweepResponse"
+    },
+    "PrimeRESTAPI_SetFcmSettings": {
+      "api_version": "v1",
+      "domain": "futures",
+      "http_method": "POST",
+      "method_name": "set_fcm_settings",
+      "path_template": "/entities/{request.entity_id}/futures/settings",
+      "request_class": "SetFcmSettingsRequest",
+      "response_class": "SetFcmSettingsResponse"
+    },
+    "PrimeRESTAPI_StakingClaimRewards": {
+      "api_version": "v1",
+      "domain": "staking",
+      "http_method": "POST",
+      "method_name": "claim_wallet_staking_rewards",
+      "path_template": "/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/claim_rewards",
+      "request_class": "ClaimWalletStakingRewardsRequest",
+      "response_class": "ClaimWalletStakingRewardsResponse"
+    },
+    "PrimeRESTAPI_StakingInitiate": {
+      "api_version": "v1",
+      "domain": "staking",
+      "http_method": "POST",
+      "method_name": "create_stake",
+      "path_template": "/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/initiate",
+      "request_class": "CreateStakeRequest",
+      "response_class": "CreateStakeResponse"
+    },
+    "PrimeRESTAPI_StakingUnstake": {
+      "api_version": "v1",
+      "domain": "staking",
+      "http_method": "POST",
+      "method_name": "create_unstake",
+      "path_template": "/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/unstake",
+      "request_class": "CreateUnstakeRequest",
+      "response_class": "CreateUnstakeResponse"
+    },
+    "PrimeRESTAPI_SubmitDepositTravelRuleData": {
+      "api_version": "v1",
+      "domain": "transactions",
+      "http_method": "POST",
+      "method_name": "submit_deposit_travel_rule_data",
+      "path_template": "/portfolios/{request.portfolio_id}/transactions/{request.transaction_id}/travel_rule/deposit",
+      "request_class": "SubmitDepositTravelRuleDataRequest",
+      "response_class": "SubmitDepositTravelRuleDataResponse"
+    },
+    "PrimeRESTAPI_UpdateOnchainAddressGroup": {
+      "api_version": "v1",
+      "domain": "onchain_address_book",
+      "http_method": "PUT",
+      "method_name": "update_onchain_address_book",
+      "path_template": "/portfolios/{request.portfolio_id}/onchain_address_group",
+      "request_class": "UpdateOnchainAddressBookRequest",
+      "response_class": "UpdateOnchainAddressBookResponse"
+    }
+  }
+}

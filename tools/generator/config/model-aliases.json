@@ -1,0 +1,35 @@
+{
+  "type_aliases": {
+    "Address": "AddressBookEntry",
+    "Blockchain": "BlockchainAddress",
+    "Details": "PaymentMethodDetails",
+    "FcmMarginCall": "FCMMarginCall",
+    "Fee": "TieredPricingFee",
+    "FuturesPosition": "FcmPosition",
+    "LocateAvailability": "ExistingLocate",
+    "MarginSummaryRecord": "MarginSummaryHistorical",
+    "OnchainBalance": "Web3Balance",
+    "OrderEditHistory": "OrderEdit",
+    "PostTradeCredit": "PostTradeCreditInformation",
+    "Sweep": "FuturesSweep",
+    "User": "EntityUser"
+  },
+  "compat_models": {
+    "BalanceWithHolds": {
+      "fields": {
+        "total": "str | None = None",
+        "holds": "str | None = None"
+      }
+    },
+    "Instructions": {
+      "fields": {
+        "crypto_instructions": "WalletCryptoDepositInstructions | None = None",
+        "fiat_instructions": "WalletFiatDepositInstructions | None = None"
+      },
+      "imports": [
+        "from .WalletCryptoDepositInstructions import WalletCryptoDepositInstructions",
+        "from .WalletFiatDepositInstructions import WalletFiatDepositInstructions"
+      ]
+    }
+  }
+}

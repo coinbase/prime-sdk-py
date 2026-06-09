@@ -1,0 +1,23 @@
+{
+  "type_aliases": {
+    "SizeType": "AllocationSizeType",
+    "TimeInForce": "TimeInForceType",
+    "BalanceType": "PortfolioBalanceType",
+    "WalletDepositType": "WalletDepositInstructionType"
+  },
+  "legacy_enums": {
+    "AggregationType": {
+      "UNKNOWN_BALANCE_TYPE": "UNKNOWN_BALANCE_TYPE",
+      "TRADING_BALANCES": "TRADING_BALANCES",
+      "VAULT_BALANCES": "VAULT_BALANCES",
+      "TOTAL_BALANCES": "TOTAL_BALANCES",
+      "PRIME_CUSTODY_BALANCES": "PRIME_CUSTODY_BALANCES",
+      "UNIFIED_TOTAL_BALANCES": "UNIFIED_TOTAL_BALANCES"
+    },
+    "UnstakeEstimateType": {
+      "UNSPECIFIED": "UNSPECIFIED",
+      "LIVE": "LIVE",
+      "INTERIM": "INTERIM"
+    }
+  }
+}

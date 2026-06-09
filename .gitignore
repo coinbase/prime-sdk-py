@@ -35,3 +35,4 @@ venv.bak/
 
 ai-docs/
 .ruff_cache/
+tools/generator/.source_services_backup/
