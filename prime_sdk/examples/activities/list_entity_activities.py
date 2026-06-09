@@ -18,16 +18,21 @@
 import argparse
 import os
 from datetime import datetime
+
 from prime_sdk.client_services import PrimeServicesClient
+from prime_sdk.enums import ActivityLevel
 from prime_sdk.services.activities import ListEntityActivitiesRequest
 from prime_sdk.utils import PaginationParams
-from prime_sdk.enums import ActivityLevel
+
 
 def main():
     parser = argparse.ArgumentParser(description="List entity activities")
     parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
-    parser.add_argument("--activity-level", choices=[level.value for level in ActivityLevel], 
-                       help="Activity level filter")
+    parser.add_argument(
+        "--activity-level",
+        choices=[level.value for level in ActivityLevel],
+        help="Activity level filter",
+    )
     parser.add_argument("--symbols", help="Comma-separated list of symbols to filter")
     parser.add_argument("--categories", help="Comma-separated list of categories to filter")
     parser.add_argument("--statuses", help="Comma-separated list of statuses to filter")
@@ -39,7 +44,7 @@ def main():
 
     client = PrimeServicesClient.from_env()
     entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
-    
+
     if not entity_id:
         print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
         return
@@ -49,14 +54,14 @@ def main():
     end_time = None
     if args.start_time:
         try:
-            start_time = datetime.fromisoformat(args.start_time.replace('Z', '+00:00'))
+            start_time = datetime.fromisoformat(args.start_time.replace("Z", "+00:00"))
         except ValueError:
             print("Error: Invalid start-time format. Use ISO format like '2025-01-01T00:00:00'")
             return
-    
+
     if args.end_time:
         try:
-            end_time = datetime.fromisoformat(args.end_time.replace('Z', '+00:00'))
+            end_time = datetime.fromisoformat(args.end_time.replace("Z", "+00:00"))
         except ValueError:
             print("Error: Invalid end-time format. Use ISO format like '2025-01-01T00:00:00'")
             return
@@ -64,16 +69,13 @@ def main():
     # Set up pagination if provided
     pagination = None
     if args.limit or args.cursor:
-        pagination = PaginationParams(
-            limit=args.limit,
-            cursor=args.cursor
-        )
+        pagination = PaginationParams(limit=args.limit, cursor=args.cursor)
 
     # Parse activity level if provided
     activity_level = None
     if args.activity_level:
         activity_level = ActivityLevel(args.activity_level)
-    
+
     request = ListEntityActivitiesRequest(
         entity_id=entity_id,
         activity_level=activity_level,
@@ -82,9 +84,9 @@ def main():
         statuses=args.statuses,
         start_time=start_time,
         end_time=end_time,
-        pagination=pagination
+        pagination=pagination,
     )
-    
+
     try:
         response = client.activities.list_entity_activities(request)
         print(response)

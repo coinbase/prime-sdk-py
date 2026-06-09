@@ -17,9 +17,11 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.users import ListPortfolioUsersRequest
 from prime_sdk.utils import PaginationParams
+
 
 def main():
     parser = argparse.ArgumentParser(description="List users for a portfolio")
@@ -38,16 +40,10 @@ def main():
     # Set up pagination if provided
     pagination = None
     if args.limit or args.cursor:
-        pagination = PaginationParams(
-            limit=args.limit,
-            cursor=args.cursor
-        )
-    
-    request = ListPortfolioUsersRequest(
-        portfolio_id=portfolio_id,
-        pagination=pagination
-    )
-    
+        pagination = PaginationParams(limit=args.limit, cursor=args.cursor)
+
+    request = ListPortfolioUsersRequest(portfolio_id=portfolio_id, pagination=pagination)
+
     try:
         response = client.users.list_portfolio_users(request)
         print(response)

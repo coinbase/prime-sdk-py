@@ -17,19 +17,25 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.wallets import CreateWalletDepositAddressRequest
+
 
 def main():
     parser = argparse.ArgumentParser(description="Create a deposit address for a wallet")
     parser.add_argument("wallet_id", nargs="?", help="Wallet ID")
     parser.add_argument("--wallet-id", dest="wallet_id_named", help="Wallet ID")
     parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
-    parser.add_argument("--network-id", required=True, help="Network ID (e.g., ethereum-mainnet, bitcoin)")
+    parser.add_argument(
+        "--network-id",
+        required=True,
+        help="Network ID (e.g., ethereum-mainnet, bitcoin)",
+    )
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
-    
+
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
     if not portfolio_id:
         print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
@@ -40,13 +46,11 @@ def main():
     if not wallet_id:
         print("Error: Wallet ID is required. Provide as positional argument or use --wallet-id")
         return
-    
+
     request = CreateWalletDepositAddressRequest(
-        portfolio_id=portfolio_id,
-        wallet_id=wallet_id,
-        network_id=args.network_id
+        portfolio_id=portfolio_id, wallet_id=wallet_id, network_id=args.network_id
     )
-    
+
     try:
         response = client.wallets.create_wallet_deposit_address(request)
         print(response)

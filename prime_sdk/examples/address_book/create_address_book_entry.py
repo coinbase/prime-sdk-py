@@ -17,6 +17,7 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.address_book import CreateAddressBookEntryRequest
 
@@ -42,7 +43,7 @@ def main():
         address=args.address,
         currency_symbol=args.currency_symbol,
         name=args.name,
-        account_identifier=args.account_identifier
+        account_identifier=args.account_identifier,
     )
 
     try:

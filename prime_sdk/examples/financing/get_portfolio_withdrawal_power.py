@@ -17,6 +17,7 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.financing import GetPortfolioWithdrawalPowerRequest
 
@@ -34,10 +35,7 @@ def main():
         print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
         return
 
-    request = GetPortfolioWithdrawalPowerRequest(
-        portfolio_id=portfolio_id,
-        symbol=args.symbol
-    )
+    request = GetPortfolioWithdrawalPowerRequest(portfolio_id=portfolio_id, symbol=args.symbol)
 
     try:
         response = client.financing.get_portfolio_withdrawal_power(request)

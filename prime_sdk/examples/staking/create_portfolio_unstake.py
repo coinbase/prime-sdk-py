@@ -17,9 +17,10 @@
 
 import argparse
 import uuid
-from prime_sdk.credentials import Credentials
+
 from prime_sdk.client import Client
-from prime_sdk.services.staking import StakingService, CreatePortfolioUnstakeRequest
+from prime_sdk.credentials import Credentials
+from prime_sdk.services.staking import CreatePortfolioUnstakeRequest, StakingService
 
 
 def main():
@@ -36,7 +37,7 @@ def main():
         portfolio_id=credentials.portfolio_id,
         idempotency_key=str(uuid.uuid4()),
         currency_symbol=args.currency_symbol,
-        amount=args.amount
+        amount=args.amount,
     )
 
     try:

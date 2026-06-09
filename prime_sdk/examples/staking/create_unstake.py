@@ -17,9 +17,14 @@
 
 import argparse
 import uuid
-from prime_sdk.credentials import Credentials
+
 from prime_sdk.client import Client
-from prime_sdk.services.staking import StakingService, CreateUnstakeRequest, StakingInputs
+from prime_sdk.credentials import Credentials
+from prime_sdk.services.staking import (
+    CreateUnstakeRequest,
+    StakingInputs,
+    StakingService,
+)
 
 
 def main():
@@ -33,16 +38,13 @@ def main():
     client = Client(credentials)
     staking_service = StakingService(client)
 
-    staking_inputs = StakingInputs(
-        amount=args.amount,
-        validator_address=args.validator_address
-    )
+    staking_inputs = StakingInputs(amount=args.amount, validator_address=args.validator_address)
 
     request = CreateUnstakeRequest(
         portfolio_id=credentials.portfolio_id,
         wallet_id=args.wallet_id,
         idempotency_key=str(uuid.uuid4()),
-        inputs=staking_inputs
+        inputs=staking_inputs,
     )
 
     try:

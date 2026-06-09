@@ -17,8 +17,10 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.balances import GetWalletBalanceRequest
+
 
 def main():
     parser = argparse.ArgumentParser(description="Get balance for a specific wallet")
@@ -39,12 +41,9 @@ def main():
     if not wallet_id:
         print("Error: Wallet ID is required. Provide as positional argument or use --wallet-id")
         return
-    
-    request = GetWalletBalanceRequest(
-        portfolio_id=portfolio_id,
-        wallet_id=wallet_id
-    )
-    
+
+    request = GetWalletBalanceRequest(portfolio_id=portfolio_id, wallet_id=wallet_id)
+
     try:
         response = client.balances.get_wallet_balance(request)
         print(response)

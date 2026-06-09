@@ -17,6 +17,7 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.financing import GetMarketDataRequest
 
@@ -26,8 +27,12 @@ def main():
     parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
     parser.add_argument("--cursor", help="Pagination cursor")
     parser.add_argument("--limit", type=int, help="Number of results per page")
-    parser.add_argument("--sort-direction", choices=["ASC", "DESC"], default="DESC",
-                        help="Sort direction (default: DESC)")
+    parser.add_argument(
+        "--sort-direction",
+        choices=["ASC", "DESC"],
+        default="DESC",
+        help="Sort direction (default: DESC)",
+    )
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
@@ -41,7 +46,7 @@ def main():
         entity_id=entity_id,
         cursor=args.cursor,
         limit=args.limit,
-        sort_direction=args.sort_direction
+        sort_direction=args.sort_direction,
     )
 
     try:

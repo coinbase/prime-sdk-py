@@ -17,8 +17,10 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.transactions import GetTransactionRequest
+
 
 def main():
     parser = argparse.ArgumentParser(description="Get details for a specific transaction")
@@ -29,7 +31,7 @@ def main():
 
     client = PrimeServicesClient.from_env()
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
-    
+
     if not portfolio_id:
         print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
         return
@@ -39,12 +41,9 @@ def main():
     if not transaction_id:
         print("Error: Transaction ID is required. Provide as positional argument or use --transaction-id")
         return
-    
-    request = GetTransactionRequest(
-        portfolio_id=portfolio_id,
-        transaction_id=transaction_id
-    )
-    
+
+    request = GetTransactionRequest(portfolio_id=portfolio_id, transaction_id=transaction_id)
+
     try:
         response = client.transactions.get_transaction(request)
         print(response)

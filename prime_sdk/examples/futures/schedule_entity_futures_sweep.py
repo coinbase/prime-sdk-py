@@ -17,6 +17,7 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.futures import ScheduleEntityFuturesSweepRequest
 
@@ -35,11 +36,7 @@ def main():
         print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
         return
 
-    request = ScheduleEntityFuturesSweepRequest(
-        entity_id=entity_id,
-        amount=args.amount,
-        currency=args.currency
-    )
+    request = ScheduleEntityFuturesSweepRequest(entity_id=entity_id, amount=args.amount, currency=args.currency)
 
     try:
         response = client.futures.schedule_entity_futures_sweep(request)

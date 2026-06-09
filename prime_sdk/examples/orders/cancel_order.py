@@ -17,8 +17,10 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.orders import CancelOrderRequest
+
 
 def main():
     parser = argparse.ArgumentParser(description="Cancel an existing order")
@@ -29,7 +31,7 @@ def main():
 
     client = PrimeServicesClient.from_env()
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
-    
+
     if not portfolio_id:
         print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
         return
@@ -41,12 +43,9 @@ def main():
         print("Example: python cancel_order.py abc123")
         print("Example: python cancel_order.py --order-id abc123")
         return
-    
-    request = CancelOrderRequest(
-        portfolio_id=portfolio_id,
-        order_id=order_id
-    )
-    
+
+    request = CancelOrderRequest(portfolio_id=portfolio_id, order_id=order_id)
+
     try:
         response = client.orders.cancel_order(request)
         print(response)

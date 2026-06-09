@@ -17,8 +17,10 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.onchain_address_book import ListOnchainAddressGroupsRequest
+
 
 def main():
     parser = argparse.ArgumentParser(description="List onchain address groups for a portfolio")
@@ -31,11 +33,9 @@ def main():
     if not portfolio_id:
         print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
         return
-    
-    request = ListOnchainAddressGroupsRequest(
-        portfolio_id=portfolio_id
-    )
-    
+
+    request = ListOnchainAddressGroupsRequest(portfolio_id=portfolio_id)
+
     try:
         response = client.onchain_address_book.list_onchain_address_groups(request)
         print(response)

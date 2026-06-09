@@ -16,8 +16,10 @@
 # #docs operationName: Get Activity
 
 import argparse
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.activities import GetEntityActivityRequest
+
 
 def main():
     parser = argparse.ArgumentParser(description="Get a specific entity activity by ID")
@@ -33,10 +35,8 @@ def main():
         print("Error: Activity ID is required. Provide as positional argument or use --activity-id")
         return
 
-    request = GetEntityActivityRequest(
-        activity_id=activity_id
-    )
-    
+    request = GetEntityActivityRequest(activity_id=activity_id)
+
     try:
         response = client.activities.get_entity_activity(request)
         print(response)

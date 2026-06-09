@@ -17,8 +17,10 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.assets import ListAssetsRequest
+
 
 def main():
     parser = argparse.ArgumentParser(description="List assets for an entity")
@@ -31,11 +33,9 @@ def main():
     if not entity_id:
         print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
         return
-    
-    request = ListAssetsRequest(
-        entity_id=entity_id
-    )
-    
+
+    request = ListAssetsRequest(entity_id=entity_id)
+
     try:
         response = client.assets.list_assets(request)
         print(response)

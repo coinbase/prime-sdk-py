@@ -17,9 +17,11 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.balances import ListWeb3WalletBalancesRequest
 from prime_sdk.utils import PaginationParams
+
 
 def main():
     parser = argparse.ArgumentParser(description="List Web3 balances for a wallet")
@@ -40,18 +42,15 @@ def main():
     # Set up pagination if provided
     pagination = None
     if args.limit or args.cursor:
-        pagination = PaginationParams(
-            limit=args.limit,
-            cursor=args.cursor
-        )
-    
+        pagination = PaginationParams(limit=args.limit, cursor=args.cursor)
+
     request = ListWeb3WalletBalancesRequest(
         portfolio_id=portfolio_id,
         wallet_id=args.wallet_id,
         visibility_statuses=args.visibility_statuses,
-        pagination=pagination
+        pagination=pagination,
     )
-    
+
     try:
         response = client.balances.list_web3_wallet_balances(request)
         print(response)

@@ -17,6 +17,7 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.financing import ListMarginCallSummariesRequest
 
@@ -35,11 +36,7 @@ def main():
         print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
         return
 
-    request = ListMarginCallSummariesRequest(
-        entity_id=entity_id,
-        start_date=args.start_date,
-        end_date=args.end_date
-    )
+    request = ListMarginCallSummariesRequest(entity_id=entity_id, start_date=args.start_date, end_date=args.end_date)
 
     try:
         response = client.financing.list_margin_call_summaries(request)

@@ -17,9 +17,11 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.invoices import ListInvoicesRequest
 from prime_sdk.utils import PaginationParams
+
 
 def main():
     parser = argparse.ArgumentParser(description="List invoices for an entity")
@@ -32,7 +34,7 @@ def main():
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
-    
+
     entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
     if not entity_id:
         print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
@@ -41,19 +43,16 @@ def main():
     # Set up pagination if provided
     pagination = None
     if args.limit or args.cursor:
-        pagination = PaginationParams(
-            limit=args.limit,
-            cursor=args.cursor
-        )
-    
+        pagination = PaginationParams(limit=args.limit, cursor=args.cursor)
+
     request = ListInvoicesRequest(
         entity_id=entity_id,
         states=args.states,
         billing_year=args.billing_year,
         billing_month=args.billing_month,
-        pagination=pagination
+        pagination=pagination,
     )
-    
+
     try:
         response = client.invoices.list_invoices(request)
         print(response)

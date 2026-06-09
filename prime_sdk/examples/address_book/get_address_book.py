@@ -17,6 +17,7 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.address_book import GetAddressBookRequest
 from prime_sdk.utils import PaginationParams
@@ -41,16 +42,13 @@ def main():
     # Set up pagination if provided
     pagination = None
     if args.limit or args.cursor:
-        pagination = PaginationParams(
-            limit=args.limit,
-            cursor=args.cursor
-        )
+        pagination = PaginationParams(limit=args.limit, cursor=args.cursor)
 
     request = GetAddressBookRequest(
         portfolio_id=portfolio_id,
         currency_symbol=args.currency_symbol,
         search=args.search,
-        pagination=pagination
+        pagination=pagination,
     )
 
     try:

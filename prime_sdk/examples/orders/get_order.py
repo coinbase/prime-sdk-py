@@ -17,8 +17,10 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.orders import GetOrderRequest
+
 
 def main():
     parser = argparse.ArgumentParser(description="Get details for a specific order")
@@ -29,7 +31,7 @@ def main():
 
     client = PrimeServicesClient.from_env()
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
-    
+
     if not portfolio_id:
         print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
         return
@@ -39,12 +41,9 @@ def main():
     if not order_id:
         print("Error: Order ID is required. Provide as positional argument or use --order-id")
         return
-    
-    request = GetOrderRequest(
-        portfolio_id=portfolio_id,
-        order_id=order_id
-    )
-    
+
+    request = GetOrderRequest(portfolio_id=portfolio_id, order_id=order_id)
+
     try:
         response = client.orders.get_order(request)
         print(response)

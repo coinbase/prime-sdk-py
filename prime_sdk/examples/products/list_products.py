@@ -17,9 +17,11 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.products import ListProductsRequest
 from prime_sdk.utils import PaginationParams
+
 
 def main():
     parser = argparse.ArgumentParser(description="List products for a portfolio")
@@ -30,7 +32,7 @@ def main():
 
     client = PrimeServicesClient.from_env()
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
-    
+
     if not portfolio_id:
         print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
         return
@@ -38,16 +40,10 @@ def main():
     # Set up pagination if provided
     pagination = None
     if args.limit or args.cursor:
-        pagination = PaginationParams(
-            limit=args.limit,
-            cursor=args.cursor
-        )
-    
-    request = ListProductsRequest(
-        portfolio_id=portfolio_id,
-        pagination=pagination
-    )
-    
+        pagination = PaginationParams(limit=args.limit, cursor=args.cursor)
+
+    request = ListProductsRequest(portfolio_id=portfolio_id, pagination=pagination)
+
     try:
         response = client.products.list_products(request)
         print(response)

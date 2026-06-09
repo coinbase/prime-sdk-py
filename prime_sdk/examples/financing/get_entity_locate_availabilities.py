@@ -17,6 +17,7 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.financing import GetEntityLocateAvailabilitiesRequest
 
@@ -34,10 +35,7 @@ def main():
         print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
         return
 
-    request = GetEntityLocateAvailabilitiesRequest(
-        entity_id=entity_id,
-        locate_date=args.locate_date
-    )
+    request = GetEntityLocateAvailabilitiesRequest(entity_id=entity_id, locate_date=args.locate_date)
 
     try:
         response = client.financing.get_entity_locate_availabilities(request)

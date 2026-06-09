@@ -18,20 +18,20 @@
 import argparse
 import os
 from datetime import datetime
+
 from prime_sdk.client_services import PrimeServicesClient
-from prime_sdk.services.orders import ListOrdersRequest
 from prime_sdk.enums import OrderSide, OrderType
+from prime_sdk.services.orders import ListOrdersRequest
 from prime_sdk.utils import PaginationParams
+
 
 def main():
     parser = argparse.ArgumentParser(description="List orders for a portfolio")
     parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
     parser.add_argument("--order-statuses", help="Order statuses filter (e.g., PENDING,FILLED)")
     parser.add_argument("--product-ids", help="Product IDs filter (e.g., BTC-USD,ETH-USD)")
-    parser.add_argument("--order-type", choices=[ot.value for ot in OrderType], 
-                       help="Order type filter")
-    parser.add_argument("--order-side", choices=[os.value for os in OrderSide], 
-                       help="Order side filter")
+    parser.add_argument("--order-type", choices=[ot.value for ot in OrderType], help="Order type filter")
+    parser.add_argument("--order-side", choices=[os.value for os in OrderSide], help="Order side filter")
     parser.add_argument("--start-date", help="Start date filter (ISO format: 2025-01-01T00:00:00)")
     parser.add_argument("--end-date", help="End date filter (ISO format: 2025-01-01T23:59:59)")
     parser.add_argument("--limit", type=int, help="Number of results to return")
@@ -40,7 +40,7 @@ def main():
 
     client = PrimeServicesClient.from_env()
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
-    
+
     if not portfolio_id:
         print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
         return
@@ -50,14 +50,14 @@ def main():
     end_date = None
     if args.start_date:
         try:
-            start_date = datetime.fromisoformat(args.start_date.replace('Z', '+00:00'))
+            start_date = datetime.fromisoformat(args.start_date.replace("Z", "+00:00"))
         except ValueError:
             print("Error: Invalid start-date format. Use ISO format like '2025-01-01T00:00:00'")
             return
-    
+
     if args.end_date:
         try:
-            end_date = datetime.fromisoformat(args.end_date.replace('Z', '+00:00'))
+            end_date = datetime.fromisoformat(args.end_date.replace("Z", "+00:00"))
         except ValueError:
             print("Error: Invalid end-date format. Use ISO format like '2025-01-01T23:59:59'")
             return
@@ -65,20 +65,17 @@ def main():
     # Set up pagination if provided
     pagination = None
     if args.limit or args.cursor:
-        pagination = PaginationParams(
-            limit=args.limit,
-            cursor=args.cursor
-        )
+        pagination = PaginationParams(limit=args.limit, cursor=args.cursor)
 
     # Parse enum values if provided
     order_type = None
     if args.order_type:
         order_type = OrderType(args.order_type)
-    
+
     order_side = None
     if args.order_side:
         order_side = OrderSide(args.order_side)
-    
+
     request = ListOrdersRequest(
         portfolio_id=portfolio_id,
         order_statuses=args.order_statuses,
@@ -87,9 +84,9 @@ def main():
         order_side=order_side,
         start_date=start_date,
         end_date=end_date,
-        pagination=pagination
+        pagination=pagination,
     )
-    
+
     try:
         response = client.orders.list_orders(request)
         print(response)

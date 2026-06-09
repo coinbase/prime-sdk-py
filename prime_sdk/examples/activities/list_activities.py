@@ -17,8 +17,10 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.activities import ListActivitiesRequest
+
 
 def main():
     parser = argparse.ArgumentParser(description="List activities")
@@ -29,12 +31,12 @@ def main():
 
     client = PrimeServicesClient.from_env()
     portfolio_id = os.getenv("PRIME_PORTFOLIO_ID")
-    
+
     request = ListActivitiesRequest(
         portfolio_id=portfolio_id,
         symbols=args.symbols,
         categories=args.categories,
-        statuses=args.statuses
+        statuses=args.statuses,
     )
     try:
         response = client.activities.list_activities(request)

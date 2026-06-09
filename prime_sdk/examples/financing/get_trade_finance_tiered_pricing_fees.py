@@ -17,6 +17,7 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.financing import GetTradeFinanceTieredPricingFeesRequest
 
@@ -34,10 +35,7 @@ def main():
         print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
         return
 
-    request = GetTradeFinanceTieredPricingFeesRequest(
-        entity_id=entity_id,
-        effective_at=args.effective_at
-    )
+    request = GetTradeFinanceTieredPricingFeesRequest(entity_id=entity_id, effective_at=args.effective_at)
 
     try:
         response = client.financing.get_trade_finance_tiered_pricing_fees(request)

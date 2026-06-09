@@ -18,8 +18,10 @@
 import argparse
 import os
 import uuid
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.orders import EditOrderRequest
+
 
 def main():
     parser = argparse.ArgumentParser(description="Edit an existing order")
@@ -51,6 +53,7 @@ def main():
         print(response)
     except Exception as e:
         print(f"failed to edit order: {e}")
+
 
 if __name__ == "__main__":
     main()

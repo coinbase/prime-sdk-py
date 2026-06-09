@@ -17,8 +17,10 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.orders import GetOrderEditHistoryRequest
+
 
 def main():
     parser = argparse.ArgumentParser(description="Get edit history for a specific order")
@@ -40,10 +42,7 @@ def main():
         print("Error: Order ID is required. Provide as positional argument or use --order-id")
         return
 
-    request = GetOrderEditHistoryRequest(
-        portfolio_id=portfolio_id,
-        order_id=order_id
-    )
+    request = GetOrderEditHistoryRequest(portfolio_id=portfolio_id, order_id=order_id)
 
     try:
         response = client.orders.get_order_edit_history(request)

@@ -18,16 +18,22 @@
 import argparse
 import os
 import uuid
+
 from prime_sdk.client_services import PrimeServicesClient
-from prime_sdk.services.orders import CreateQuoteRequest
 from prime_sdk.enums import OrderSide
+from prime_sdk.services.orders import CreateQuoteRequest
+
 
 def main():
     parser = argparse.ArgumentParser(description="Create a quote for a product")
     parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
     parser.add_argument("--product-id", required=True, help="Product ID (e.g., BTC-USD, ETH-USD)")
-    parser.add_argument("--side", required=True, choices=[side.value for side in OrderSide], 
-                       help="Order side")
+    parser.add_argument(
+        "--side",
+        required=True,
+        choices=[side.value for side in OrderSide],
+        help="Order side",
+    )
     parser.add_argument("--limit-price", required=True, help="Limit price for the quote")
     parser.add_argument("--base-quantity", help="Base quantity for the quote")
     parser.add_argument("--quote-value", help="Quote value for the quote")
@@ -36,7 +42,7 @@ def main():
 
     client = PrimeServicesClient.from_env()
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
-    
+
     if not portfolio_id:
         print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
         return
@@ -55,9 +61,9 @@ def main():
         limit_price=args.limit_price,
         base_quantity=args.base_quantity,
         quote_value=args.quote_value,
-        settl_currency=args.settl_currency
+        settl_currency=args.settl_currency,
     )
-    
+
     try:
         response = client.orders.create_quote(request)
         print(response)

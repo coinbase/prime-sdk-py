@@ -17,6 +17,7 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.financing import ListTradeFinanceObligationsRequest
 
@@ -33,9 +34,7 @@ def main():
         print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
         return
 
-    request = ListTradeFinanceObligationsRequest(
-        entity_id=entity_id
-    )
+    request = ListTradeFinanceObligationsRequest(entity_id=entity_id)
 
     try:
         response = client.financing.list_trade_finance_obligations(request)

@@ -17,8 +17,10 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.portfolios import GetPortfolioRequest
+
 
 def main():
     parser = argparse.ArgumentParser(description="Get details for a specific portfolio")
@@ -31,11 +33,9 @@ def main():
     if not portfolio_id:
         print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
         return
-    
-    request = GetPortfolioRequest(
-        portfolio_id=portfolio_id
-    )
-    
+
+    request = GetPortfolioRequest(portfolio_id=portfolio_id)
+
     try:
         response = client.portfolios.get_portfolio(request)
         print(response)

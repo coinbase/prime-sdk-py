@@ -17,6 +17,7 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.financing import ListMarginConversionsRequest
 
@@ -36,9 +37,7 @@ def main():
         return
 
     request = ListMarginConversionsRequest(
-        portfolio_id=portfolio_id,
-        start_date=args.start_date,
-        end_date=args.end_date
+        portfolio_id=portfolio_id, start_date=args.start_date, end_date=args.end_date
     )
 
     try:

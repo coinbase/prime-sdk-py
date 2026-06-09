@@ -17,6 +17,7 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.financing import GetBuyingPowerRequest
 
@@ -38,7 +39,7 @@ def main():
     request = GetBuyingPowerRequest(
         portfolio_id=portfolio_id,
         base_currency=args.base_currency,
-        quote_currency=args.quote_currency
+        quote_currency=args.quote_currency,
     )
 
     try:

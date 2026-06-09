@@ -17,9 +17,11 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.orders import ListOrderFillsRequest
 from prime_sdk.utils import PaginationParams
+
 
 def main():
     parser = argparse.ArgumentParser(description="List fills for a specific order")
@@ -32,7 +34,7 @@ def main():
 
     client = PrimeServicesClient.from_env()
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
-    
+
     if not portfolio_id:
         print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
         return
@@ -46,17 +48,10 @@ def main():
     # Set up pagination if provided
     pagination = None
     if args.limit or args.cursor:
-        pagination = PaginationParams(
-            limit=args.limit,
-            cursor=args.cursor
-        )
-    
-    request = ListOrderFillsRequest(
-        portfolio_id=portfolio_id,
-        order_id=order_id,
-        pagination=pagination
-    )
-    
+        pagination = PaginationParams(limit=args.limit, cursor=args.cursor)
+
+    request = ListOrderFillsRequest(portfolio_id=portfolio_id, order_id=order_id, pagination=pagination)
+
     try:
         response = client.orders.list_order_fills(request)
         print(response)

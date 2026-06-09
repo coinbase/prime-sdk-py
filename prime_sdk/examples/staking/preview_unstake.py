@@ -16,15 +16,14 @@
 # #docs operationName: Preview Unstake
 
 import argparse
-from prime_sdk.credentials import Credentials
+
 from prime_sdk.client import Client
-from prime_sdk.services.staking import StakingService, PreviewUnstakeRequest
+from prime_sdk.credentials import Credentials
+from prime_sdk.services.staking import PreviewUnstakeRequest, StakingService
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Preview an unstaking request (currently only supports ETH)"
-    )
+    parser = argparse.ArgumentParser(description="Preview an unstaking request (currently only supports ETH)")
     parser.add_argument("--wallet-id", required=True, help="Wallet ID")
     parser.add_argument("--amount", required=True, help="Amount to preview unstaking")
     args = parser.parse_args()
@@ -36,7 +35,7 @@ def main():
     request = PreviewUnstakeRequest(
         portfolio_id=credentials.portfolio_id,
         wallet_id=args.wallet_id,
-        amount=args.amount
+        amount=args.amount,
     )
 
     try:

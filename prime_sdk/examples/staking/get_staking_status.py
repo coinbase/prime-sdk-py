@@ -17,6 +17,7 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.staking import GetStakingStatusRequest
 
@@ -34,10 +35,7 @@ def main():
         print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
         return
 
-    request = GetStakingStatusRequest(
-        portfolio_id=portfolio_id,
-        wallet_id=args.wallet_id
-    )
+    request = GetStakingStatusRequest(portfolio_id=portfolio_id, wallet_id=args.wallet_id)
 
     try:
         response = client.staking.get_staking_status(request)

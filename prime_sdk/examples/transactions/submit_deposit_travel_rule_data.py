@@ -17,10 +17,11 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.transactions import (
     SubmitDepositTravelRuleDataRequest,
-    TravelRuleParty
+    TravelRuleParty,
 )
 
 
@@ -28,8 +29,16 @@ def main():
     parser = argparse.ArgumentParser(description="Submit travel rule data for an existing deposit transaction")
     parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
     parser.add_argument("--transaction-id", required=True, help="Transaction ID")
-    parser.add_argument("--is-self", action="store_true", help="True if user owns the counterparty address (self-transfer)")
-    parser.add_argument("--opt-out-verification", action="store_true", help="True to skip wallet ownership verification")
+    parser.add_argument(
+        "--is-self",
+        action="store_true",
+        help="True if user owns the counterparty address (self-transfer)",
+    )
+    parser.add_argument(
+        "--opt-out-verification",
+        action="store_true",
+        help="True to skip wallet ownership verification",
+    )
     parser.add_argument("--originator-name", help="Originator's name")
     parser.add_argument("--beneficiary-name", help="Beneficiary's name")
     args = parser.parse_args()
@@ -57,7 +66,7 @@ def main():
         originator=originator,
         beneficiary=beneficiary,
         is_self=args.is_self,
-        opt_out_of_ownership_verification=args.opt_out_verification
+        opt_out_of_ownership_verification=args.opt_out_verification,
     )
 
     try:

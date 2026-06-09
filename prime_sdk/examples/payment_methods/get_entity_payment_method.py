@@ -17,8 +17,10 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.payment_methods import GetEntityPaymentMethodRequest
+
 
 def main():
     parser = argparse.ArgumentParser(description="Get details for a specific payment method")
@@ -29,7 +31,7 @@ def main():
 
     client = PrimeServicesClient.from_env()
     entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
-    
+
     if not entity_id:
         print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
         return
@@ -39,12 +41,9 @@ def main():
     if not payment_method_id:
         print("Error: Payment Method ID is required. Provide as positional argument or use --payment-method-id")
         return
-    
-    request = GetEntityPaymentMethodRequest(
-        entity_id=entity_id,
-        payment_method_id=payment_method_id
-    )
-    
+
+    request = GetEntityPaymentMethodRequest(entity_id=entity_id, payment_method_id=payment_method_id)
+
     try:
         response = client.payment_methods.get_entity_payment_method(request)
         print(response)

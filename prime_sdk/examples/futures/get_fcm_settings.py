@@ -17,6 +17,7 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.futures import GetFcmSettingsRequest
 
@@ -33,9 +34,7 @@ def main():
         print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
         return
 
-    request = GetFcmSettingsRequest(
-        entity_id=entity_id
-    )
+    request = GetFcmSettingsRequest(entity_id=entity_id)
 
     try:
         response = client.futures.get_fcm_settings(request)

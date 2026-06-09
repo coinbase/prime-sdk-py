@@ -17,6 +17,7 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.financing import GetPortfolioCreditInformationRequest
 
@@ -33,9 +34,7 @@ def main():
         print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
         return
 
-    request = GetPortfolioCreditInformationRequest(
-        portfolio_id=portfolio_id
-    )
+    request = GetPortfolioCreditInformationRequest(portfolio_id=portfolio_id)
 
     try:
         response = client.financing.get_portfolio_credit_information(request)

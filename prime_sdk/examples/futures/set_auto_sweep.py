@@ -17,6 +17,7 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.futures import SetAutoSweepRequest
 
@@ -39,10 +40,7 @@ def main():
         print("Error: Must specify either --enable or --disable")
         return
 
-    request = SetAutoSweepRequest(
-        entity_id=entity_id,
-        auto_sweep=args.auto_sweep
-    )
+    request = SetAutoSweepRequest(entity_id=entity_id, auto_sweep=args.auto_sweep)
 
     try:
         response = client.futures.set_auto_sweep(request)
