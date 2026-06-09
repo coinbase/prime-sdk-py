@@ -1,4 +1,4 @@
-# Copyright 2024-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,32 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .get_activity import GetActivityRequest, GetActivityResponse
+from .get_entity_activity import GetEntityActivityRequest, GetEntityActivityResponse
+from .list_activities import ListActivitiesRequest, ListActivitiesResponse
+from .list_entity_activities import ListEntityActivitiesRequest, ListEntityActivitiesResponse
 from .service import ActivitiesService
-from .get_activity import (
-    GetActivityRequest,
-    GetActivityResponse
-)
-from .get_entity_activity import (
-    GetEntityActivityRequest,
-    GetEntityActivityResponse
-)
-from .list_activities import (
-    ListActivitiesRequest,
-    ListActivitiesResponse
-)
-from .list_entity_activities import (
-    ListEntityActivitiesRequest,
-    ListEntityActivitiesResponse
-)
 
 __all__ = [
     "ActivitiesService",
     "GetActivityRequest",
     "GetActivityResponse",
-    "GetEntityActivityRequest", 
+    "GetEntityActivityRequest",
     "GetEntityActivityResponse",
     "ListActivitiesRequest",
     "ListActivitiesResponse",
     "ListEntityActivitiesRequest",
-    "ListEntityActivitiesResponse"
+    "ListEntityActivitiesResponse",
 ]

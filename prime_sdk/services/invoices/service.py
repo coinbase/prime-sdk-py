@@ -1,4 +1,4 @@
-# Copyright 2025-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,11 +13,8 @@
 # limitations under the License.
 
 from ...client import Client
-from ...utils import append_query_param, append_pagination_params
-from .list_invoices import (
-    ListInvoicesRequest,
-    ListInvoicesResponse
-)
+from ...utils import append_pagination_params, append_query_param
+from .list_invoices import ListInvoicesRequest, ListInvoicesResponse
 
 
 class InvoicesService:
@@ -26,9 +23,11 @@ class InvoicesService:
 
     def list_invoices(self, request: ListInvoicesRequest) -> ListInvoicesResponse:
         path = f"/entities/{request.entity_id}/invoices"
-        query_params = append_query_param("", 'states', request.states)
-        query_params = append_query_param(query_params, 'billing_year', request.billing_year)
-        query_params = append_query_param(query_params, 'billing_month', request.billing_month)
+        query_params = append_query_param("", "states", request.states)
+        query_params = append_query_param(query_params, "billing_year", request.billing_year)
+        query_params = append_query_param(query_params, "billing_month", request.billing_month)
         query_params = append_pagination_params(query_params, request.pagination)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
         return ListInvoicesResponse.from_response(response.json())

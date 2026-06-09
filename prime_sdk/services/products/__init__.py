@@ -1,4 +1,4 @@
-# Copyright 2024-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,20 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .get_product_candles import GetProductCandlesRequest, GetProductCandlesResponse
+from .list_products import ListProductsRequest, ListProductsResponse
 from .service import ProductsService
-from .list_products import (
-    ListProductsRequest,
-    ListProductsResponse
-)
-from .get_product_candles import (
-    GetProductCandlesRequest,
-    GetProductCandlesResponse
-)
 
 __all__ = [
     "ProductsService",
+    "GetProductCandlesRequest",
+    "GetProductCandlesResponse",
     "ListProductsRequest",
     "ListProductsResponse",
-    "GetProductCandlesRequest",
-    "GetProductCandlesResponse"
 ]

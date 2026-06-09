@@ -1,4 +1,4 @@
-# Copyright 2024-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,44 +12,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .create_wallet import CreateWalletRequest, CreateWalletResponse
+from .create_wallet_deposit_address import CreateWalletDepositAddressRequest, CreateWalletDepositAddressResponse
+from .get_wallet import GetWalletRequest, GetWalletResponse
+from .get_wallet_deposit_instructions import GetWalletDepositInstructionsRequest, GetWalletDepositInstructionsResponse
+from .list_wallet_addresses import ListWalletAddressesRequest, ListWalletAddressesResponse
+from .list_wallets import ListWalletsRequest, ListWalletsResponse
 from .service import WalletsService
-from .create_wallet import (
-    CreateWalletRequest,
-    CreateWalletResponse
-)
-from .create_wallet_deposit_address import (
-    CreateWalletDepositAddressRequest,
-    CreateWalletDepositAddressResponse
-)
-from .get_wallet import (
-    GetWalletRequest,
-    GetWalletResponse
-)
-from .get_wallet_deposit_instructions import (
-    GetWalletDepositInstructionsRequest,
-    GetWalletDepositInstructionsResponse
-)
-from .list_wallet_addresses import (
-    ListWalletAddressesRequest,
-    ListWalletAddressesResponse
-)
-from .list_wallets import (
-    ListWalletsRequest,
-    ListWalletsResponse
-)
 
 __all__ = [
     "WalletsService",
-    "CreateWalletRequest",
-    "CreateWalletResponse",
     "CreateWalletDepositAddressRequest",
     "CreateWalletDepositAddressResponse",
-    "GetWalletRequest",
-    "GetWalletResponse",
+    "CreateWalletRequest",
+    "CreateWalletResponse",
     "GetWalletDepositInstructionsRequest",
     "GetWalletDepositInstructionsResponse",
+    "GetWalletRequest",
+    "GetWalletResponse",
     "ListWalletAddressesRequest",
     "ListWalletAddressesResponse",
     "ListWalletsRequest",
-    "ListWalletsResponse"
+    "ListWalletsResponse",
 ]

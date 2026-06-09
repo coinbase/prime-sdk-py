@@ -1,4 +1,4 @@
-# Copyright 2024-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,51 +13,18 @@
 # limitations under the License.
 
 from ...client import Client
-from .cancel_entity_futures_sweep import (
-    CancelEntityFuturesSweepRequest,
-    CancelEntityFuturesSweepResponse
-)
-from .schedule_entity_futures_sweep import (
-    ScheduleEntityFuturesSweepRequest,
-    ScheduleEntityFuturesSweepResponse
-)
-from .list_entity_futures_sweeps import (
-    ListEntityFuturesSweepsRequest,
-    ListEntityFuturesSweepsResponse
-)
-from .set_auto_sweep import (
-    SetAutoSweepRequest,
-    SetAutoSweepResponse
-)
-from .get_entity_fcm_balance import (
-    GetEntityFcmBalanceRequest,
-    GetEntityFcmBalanceResponse
-)
-from .get_entity_positions import (
-    GetEntityPositionsRequest,
-    GetEntityPositionsResponse
-)
-from .get_fcm_margin_call_details import (
-    GetFcmMarginCallDetailsRequest,
-    GetFcmMarginCallDetailsResponse
-)
-from .get_fcm_risk_limits import (
-    GetFcmRiskLimitsRequest,
-    GetFcmRiskLimitsResponse
-)
-from .get_fcm_settings import (
-    GetFcmSettingsRequest,
-    GetFcmSettingsResponse
-)
-from .set_fcm_settings import (
-    SetFcmSettingsRequest,
-    SetFcmSettingsResponse
-)
-from .get_fcm_equity import (
-    GetFcmEquityRequest,
-    GetFcmEquityResponse
-)
 from ...utils import to_body_dict
+from .cancel_entity_futures_sweep import CancelEntityFuturesSweepRequest, CancelEntityFuturesSweepResponse
+from .get_entity_fcm_balance import GetEntityFcmBalanceRequest, GetEntityFcmBalanceResponse
+from .get_entity_positions import GetEntityPositionsRequest, GetEntityPositionsResponse
+from .get_fcm_equity import GetFcmEquityRequest, GetFcmEquityResponse
+from .get_fcm_margin_call_details import GetFcmMarginCallDetailsRequest, GetFcmMarginCallDetailsResponse
+from .get_fcm_risk_limits import GetFcmRiskLimitsRequest, GetFcmRiskLimitsResponse
+from .get_fcm_settings import GetFcmSettingsRequest, GetFcmSettingsResponse
+from .list_entity_futures_sweeps import ListEntityFuturesSweepsRequest, ListEntityFuturesSweepsResponse
+from .schedule_entity_futures_sweep import ScheduleEntityFuturesSweepRequest, ScheduleEntityFuturesSweepResponse
+from .set_auto_sweep import SetAutoSweepRequest, SetAutoSweepResponse
+from .set_fcm_settings import SetFcmSettingsRequest, SetFcmSettingsResponse
 
 
 class FuturesService:
@@ -69,23 +36,6 @@ class FuturesService:
         response = self.client.request("DELETE", path, allowed_status_codes=request.allowed_status_codes)
         return CancelEntityFuturesSweepResponse.from_response(response.json())
 
-    def schedule_entity_futures_sweep(self, request: ScheduleEntityFuturesSweepRequest) -> ScheduleEntityFuturesSweepResponse:
-        path = f"/entities/{request.entity_id}/futures/sweeps"
-        body = to_body_dict(request)
-        response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return ScheduleEntityFuturesSweepResponse.from_response(response.json())
-
-    def list_entity_futures_sweeps(self, request: ListEntityFuturesSweepsRequest) -> ListEntityFuturesSweepsResponse:
-        path = f"/entities/{request.entity_id}/futures/sweeps"
-        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return ListEntityFuturesSweepsResponse.from_response(response.json())
-
-    def set_auto_sweep(self, request: SetAutoSweepRequest) -> SetAutoSweepResponse:
-        path = f"/entities/{request.entity_id}/futures/auto_sweep"
-        body = to_body_dict(request)
-        response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return SetAutoSweepResponse.from_response(response.json())
-
     def get_entity_fcm_balance(self, request: GetEntityFcmBalanceRequest) -> GetEntityFcmBalanceResponse:
         path = f"/entities/{request.entity_id}/futures/balance_summary"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
@@ -96,8 +46,15 @@ class FuturesService:
         query_params = ""
         if request.product_id:
             query_params = f"product_id={request.product_id}"
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
         return GetEntityPositionsResponse.from_response(response.json())
+
+    def get_fcm_equity(self, request: GetFcmEquityRequest) -> GetFcmEquityResponse:
+        path = f"/entities/{request.entity_id}/futures/equity"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return GetFcmEquityResponse.from_response(response.json())
 
     def get_fcm_margin_call_details(self, request: GetFcmMarginCallDetailsRequest) -> GetFcmMarginCallDetailsResponse:
         path = f"/entities/{request.entity_id}/futures/margin_call_details"
@@ -114,13 +71,27 @@ class FuturesService:
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
         return GetFcmSettingsResponse.from_response(response.json())
 
+    def list_entity_futures_sweeps(self, request: ListEntityFuturesSweepsRequest) -> ListEntityFuturesSweepsResponse:
+        path = f"/entities/{request.entity_id}/futures/sweeps"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return ListEntityFuturesSweepsResponse.from_response(response.json())
+
+    def schedule_entity_futures_sweep(
+        self, request: ScheduleEntityFuturesSweepRequest
+    ) -> ScheduleEntityFuturesSweepResponse:
+        path = f"/entities/{request.entity_id}/futures/sweeps"
+        body = to_body_dict(request)
+        response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
+        return ScheduleEntityFuturesSweepResponse.from_response(response.json())
+
+    def set_auto_sweep(self, request: SetAutoSweepRequest) -> SetAutoSweepResponse:
+        path = f"/entities/{request.entity_id}/futures/auto_sweep"
+        body = to_body_dict(request)
+        response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
+        return SetAutoSweepResponse.from_response(response.json())
+
     def set_fcm_settings(self, request: SetFcmSettingsRequest) -> SetFcmSettingsResponse:
         path = f"/entities/{request.entity_id}/futures/settings"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
         return SetFcmSettingsResponse.from_response(response.json())
-
-    def get_fcm_equity(self, request: GetFcmEquityRequest) -> GetFcmEquityResponse:
-        path = f"/entities/{request.entity_id}/futures/equity"
-        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return GetFcmEquityResponse.from_response(response.json())

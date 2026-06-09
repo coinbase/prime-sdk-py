@@ -1,4 +1,4 @@
-# Copyright 2024-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,208 +14,207 @@
 
 from ...client import Client
 from ...utils import append_query_param, to_body_dict
-from .create_new_locate import (
-    CreateNewLocateRequest,
-    CreateNewLocateResponse
-)
-from .list_existing_locates import (
-    ListExistingLocatesRequest,
-    ListExistingLocatesResponse
-)
+from .create_new_locate import CreateNewLocateRequest, CreateNewLocateResponse
+from .get_cross_margin_overview import GetCrossMarginOverviewRequest, GetCrossMarginOverviewResponse
+from .get_cross_margin_prime_overview import GetCrossMarginPrimeOverviewRequest, GetCrossMarginPrimeOverviewResponse
+from .get_cross_margin_risk_parameters import GetCrossMarginRiskParametersRequest, GetCrossMarginRiskParametersResponse
 from .get_entity_locate_availabilities import (
     GetEntityLocateAvailabilitiesRequest,
-    GetEntityLocateAvailabilitiesResponse
+    GetEntityLocateAvailabilitiesResponse,
 )
-from .get_portfolio_buying_power import (
-    GetBuyingPowerRequest,
-    GetBuyingPowerResponse
-)
-from .get_portfolio_withdrawal_power import (
-    GetPortfolioWithdrawalPowerRequest,
-    GetPortfolioWithdrawalPowerResponse
-)
-from .get_margin_information import (
-    GetMarginInformationRequest,
-    GetMarginInformationResponse
-)
-from .get_cross_margin_overview import (
-    GetCrossMarginOverviewRequest,
-    GetCrossMarginOverviewResponse
-)
-from .list_margin_call_summaries import (
-    ListMarginCallSummariesRequest,
-    ListMarginCallSummariesResponse
-)
-from .list_margin_conversions import (
-    ListMarginConversionsRequest,
-    ListMarginConversionsResponse
-)
+from .get_margin_information import GetMarginInformationRequest, GetMarginInformationResponse
+from .get_market_data import GetMarketDataRequest, GetMarketDataResponse
+from .get_portfolio_buying_power import GetBuyingPowerRequest, GetBuyingPowerResponse
 from .get_portfolio_credit_information import (
     GetPortfolioCreditInformationRequest,
-    GetPortfolioCreditInformationResponse
+    GetPortfolioCreditInformationResponse,
 )
+from .get_portfolio_withdrawal_power import GetPortfolioWithdrawalPowerRequest, GetPortfolioWithdrawalPowerResponse
 from .get_trade_finance_tiered_pricing_fees import (
     GetTradeFinanceTieredPricingFeesRequest,
-    GetTradeFinanceTieredPricingFeesResponse
+    GetTradeFinanceTieredPricingFeesResponse,
 )
-from .list_interest_accruals import (
-    ListInterestAccrualsRequest,
-    ListInterestAccrualsResponse
-)
+from .list_existing_locates import ListExistingLocatesRequest, ListExistingLocatesResponse
+from .list_financing_eligible_assets import ListFinancingEligibleAssetsRequest, ListFinancingEligibleAssetsResponse
+from .list_interest_accruals import ListInterestAccrualsRequest, ListInterestAccrualsResponse
 from .list_interest_accruals_for_portfolio import (
     ListInterestAccrualsForPortfolioRequest,
-    ListInterestAccrualsForPortfolioResponse
+    ListInterestAccrualsForPortfolioResponse,
 )
-from .list_financing_eligible_assets import (
-    ListFinancingEligibleAssetsRequest,
-    ListFinancingEligibleAssetsResponse
-)
-from .list_trade_finance_obligations import (
-    ListTradeFinanceObligationsRequest,
-    ListTradeFinanceObligationsResponse
-)
-from .get_cross_margin_risk_parameters import (
-    GetCrossMarginRiskParametersRequest,
-    GetCrossMarginRiskParametersResponse
-)
-from .get_cross_margin_prime_overview import (
-    GetCrossMarginPrimeOverviewRequest,
-    GetCrossMarginPrimeOverviewResponse
-)
-from .set_funding_settings import (
-    SetFundingSettingsRequest,
-    SetFundingSettingsResponse
-)
-from .get_market_data import (
-    GetMarketDataRequest,
-    GetMarketDataResponse
-)
+from .list_margin_call_summaries import ListMarginCallSummariesRequest, ListMarginCallSummariesResponse
+from .list_margin_conversions import ListMarginConversionsRequest, ListMarginConversionsResponse
+from .list_trade_finance_obligations import ListTradeFinanceObligationsRequest, ListTradeFinanceObligationsResponse
+from .set_funding_settings import SetFundingSettingsRequest, SetFundingSettingsResponse
 
 
 class FinancingService:
     def __init__(self, client: Client):
         self.client = client
 
-    # Locates
     def create_new_locate(self, request: CreateNewLocateRequest) -> CreateNewLocateResponse:
         path = f"/portfolios/{request.portfolio_id}/locates"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
         return CreateNewLocateResponse.from_response(response.json())
 
-    def list_existing_locates(self, request: ListExistingLocatesRequest) -> ListExistingLocatesResponse:
-        path = f"/portfolios/{request.portfolio_id}/locates"
-        query_params = append_query_param("", "locate_ids", request.locate_ids)
-        query_params = append_query_param(query_params, "locate_date", request.locate_date)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListExistingLocatesResponse.from_response(response.json())
-
-    def get_entity_locate_availabilities(self, request: GetEntityLocateAvailabilitiesRequest) -> GetEntityLocateAvailabilitiesResponse:
-        path = f"/entities/{request.entity_id}/locates_availability"
-        query_params = append_query_param("", "locate_date", request.locate_date)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return GetEntityLocateAvailabilitiesResponse.from_response(response.json())
-
-    # Power
-    def get_portfolio_buying_power(self, request: GetBuyingPowerRequest) -> GetBuyingPowerResponse:
-        path = f"/portfolios/{request.portfolio_id}/buying_power"
-        query_params = append_query_param("", "base_currency", request.base_currency)
-        query_params = append_query_param(query_params, "quote_currency", request.quote_currency)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return GetBuyingPowerResponse.from_response(response.json())
-
-    def get_portfolio_withdrawal_power(self, request: GetPortfolioWithdrawalPowerRequest) -> GetPortfolioWithdrawalPowerResponse:
-        path = f"/portfolios/{request.portfolio_id}/withdrawal_power"
-        query_params = append_query_param("", "symbol", request.symbol)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return GetPortfolioWithdrawalPowerResponse.from_response(response.json())
-
-    # Margin
-    def get_margin_information(self, request: GetMarginInformationRequest) -> GetMarginInformationResponse:
-        path = f"/entities/{request.entity_id}/margin"
-        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return GetMarginInformationResponse.from_response(response.json())
-
     def get_cross_margin_overview(self, request: GetCrossMarginOverviewRequest) -> GetCrossMarginOverviewResponse:
         path = f"/entities/{request.entity_id}/cross_margin"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
         return GetCrossMarginOverviewResponse.from_response(response.json())
 
-    def list_margin_call_summaries(self, request: ListMarginCallSummariesRequest) -> ListMarginCallSummariesResponse:
-        path = f"/entities/{request.entity_id}/margin_summaries"
-        query_params = append_query_param("", "start_date", request.start_date)
-        query_params = append_query_param(query_params, "end_date", request.end_date)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListMarginCallSummariesResponse.from_response(response.json())
-
-    def list_margin_conversions(self, request: ListMarginConversionsRequest) -> ListMarginConversionsResponse:
-        path = f"/portfolios/{request.portfolio_id}/margin_conversions"
-        query_params = append_query_param("", "start_date", request.start_date)
-        query_params = append_query_param(query_params, "end_date", request.end_date)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListMarginConversionsResponse.from_response(response.json())
-
-    # Credit
-    def get_portfolio_credit_information(self, request: GetPortfolioCreditInformationRequest) -> GetPortfolioCreditInformationResponse:
-        path = f"/portfolios/{request.portfolio_id}/credit"
-        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return GetPortfolioCreditInformationResponse.from_response(response.json())
-
-    # Fees
-    def get_trade_finance_tiered_pricing_fees(self, request: GetTradeFinanceTieredPricingFeesRequest) -> GetTradeFinanceTieredPricingFeesResponse:
-        path = f"/entities/{request.entity_id}/tf_tiered_fees"
-        query_params = append_query_param("", "effective_at", request.effective_at)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return GetTradeFinanceTieredPricingFeesResponse.from_response(response.json())
-
-    # Interest Accruals
-    def list_interest_accruals(self, request: ListInterestAccrualsRequest) -> ListInterestAccrualsResponse:
-        path = f"/entities/{request.entity_id}/accruals"
-        query_params = append_query_param("", "portfolio_id", request.portfolio_id)
-        query_params = append_query_param(query_params, "start_date", request.start_date)
-        query_params = append_query_param(query_params, "end_date", request.end_date)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListInterestAccrualsResponse.from_response(response.json())
-
-    def list_interest_accruals_for_portfolio(self, request: ListInterestAccrualsForPortfolioRequest) -> ListInterestAccrualsForPortfolioResponse:
-        path = f"/portfolios/{request.portfolio_id}/accruals"
-        query_params = append_query_param("", "start_date", request.start_date)
-        query_params = append_query_param(query_params, "end_date", request.end_date)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListInterestAccrualsForPortfolioResponse.from_response(response.json())
-
-    # Trade Finance
-    def list_financing_eligible_assets(self, request: ListFinancingEligibleAssetsRequest) -> ListFinancingEligibleAssetsResponse:
-        path = "/financing/eligible-assets"
-        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return ListFinancingEligibleAssetsResponse.from_response(response.json())
-
-    def list_trade_finance_obligations(self, request: ListTradeFinanceObligationsRequest) -> ListTradeFinanceObligationsResponse:
-        path = f"/entities/{request.entity_id}/tf_obligations"
-        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return ListTradeFinanceObligationsResponse.from_response(response.json())
-
-    # Beta endpoints
-    def get_cross_margin_risk_parameters(self, request: GetCrossMarginRiskParametersRequest) -> GetCrossMarginRiskParametersResponse:
-        path = f"/entities/{request.entity_id}/cross_margin/risk_parameters"
-        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return GetCrossMarginRiskParametersResponse.from_response(response.json())
-
-    def get_cross_margin_prime_overview(self, request: GetCrossMarginPrimeOverviewRequest) -> GetCrossMarginPrimeOverviewResponse:
+    def get_cross_margin_prime_overview(
+        self, request: GetCrossMarginPrimeOverviewRequest
+    ) -> GetCrossMarginPrimeOverviewResponse:
         path = f"/entities/{request.entity_id}/cross_margin/prime"
         response = self.client.request("GET", path, version="v2", allowed_status_codes=request.allowed_status_codes)
         return GetCrossMarginPrimeOverviewResponse.from_response(response.json())
 
-    def set_funding_settings(self, request: SetFundingSettingsRequest) -> SetFundingSettingsResponse:
-        path = f"/entities/{request.entity_id}/funding_settings"
-        body = to_body_dict(request)
-        response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return SetFundingSettingsResponse.from_response(response.json())
+    def get_cross_margin_risk_parameters(
+        self, request: GetCrossMarginRiskParametersRequest
+    ) -> GetCrossMarginRiskParametersResponse:
+        path = f"/entities/{request.entity_id}/cross_margin/risk_parameters"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return GetCrossMarginRiskParametersResponse.from_response(response.json())
+
+    def get_entity_locate_availabilities(
+        self, request: GetEntityLocateAvailabilitiesRequest
+    ) -> GetEntityLocateAvailabilitiesResponse:
+        path = f"/entities/{request.entity_id}/locates_availability"
+        query_params = append_query_param("", "locate_date", request.locate_date)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
+        return GetEntityLocateAvailabilitiesResponse.from_response(response.json())
+
+    # Power
+
+    def get_margin_information(self, request: GetMarginInformationRequest) -> GetMarginInformationResponse:
+        path = f"/entities/{request.entity_id}/margin"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return GetMarginInformationResponse.from_response(response.json())
 
     def get_market_data(self, request: GetMarketDataRequest) -> GetMarketDataResponse:
         path = f"/entities/{request.entity_id}/market_data"
         query_params = append_query_param("", "cursor", request.cursor)
         query_params = append_query_param(query_params, "limit", request.limit)
         query_params = append_query_param(query_params, "sort_direction", request.sort_direction)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
         return GetMarketDataResponse.from_response(response.json())
+
+    def get_portfolio_buying_power(self, request: GetBuyingPowerRequest) -> GetBuyingPowerResponse:
+        path = f"/portfolios/{request.portfolio_id}/buying_power"
+        query_params = append_query_param("", "base_currency", request.base_currency)
+        query_params = append_query_param(query_params, "quote_currency", request.quote_currency)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
+        return GetBuyingPowerResponse.from_response(response.json())
+
+    def get_portfolio_credit_information(
+        self, request: GetPortfolioCreditInformationRequest
+    ) -> GetPortfolioCreditInformationResponse:
+        path = f"/portfolios/{request.portfolio_id}/credit"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return GetPortfolioCreditInformationResponse.from_response(response.json())
+
+    # Fees
+
+    def get_portfolio_withdrawal_power(
+        self, request: GetPortfolioWithdrawalPowerRequest
+    ) -> GetPortfolioWithdrawalPowerResponse:
+        path = f"/portfolios/{request.portfolio_id}/withdrawal_power"
+        query_params = append_query_param("", "symbol", request.symbol)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
+        return GetPortfolioWithdrawalPowerResponse.from_response(response.json())
+
+    # Margin
+
+    def get_trade_finance_tiered_pricing_fees(
+        self, request: GetTradeFinanceTieredPricingFeesRequest
+    ) -> GetTradeFinanceTieredPricingFeesResponse:
+        path = f"/entities/{request.entity_id}/tf_tiered_fees"
+        query_params = append_query_param("", "effective_at", request.effective_at)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
+        return GetTradeFinanceTieredPricingFeesResponse.from_response(response.json())
+
+    # Interest Accruals
+
+    def list_existing_locates(self, request: ListExistingLocatesRequest) -> ListExistingLocatesResponse:
+        path = f"/portfolios/{request.portfolio_id}/locates"
+        query_params = append_query_param("", "locate_ids", request.locate_ids)
+        query_params = append_query_param(query_params, "locate_date", request.locate_date)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
+        return ListExistingLocatesResponse.from_response(response.json())
+
+    def list_financing_eligible_assets(
+        self, request: ListFinancingEligibleAssetsRequest
+    ) -> ListFinancingEligibleAssetsResponse:
+        path = "/financing/eligible-assets"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return ListFinancingEligibleAssetsResponse.from_response(response.json())
+
+    def list_interest_accruals(self, request: ListInterestAccrualsRequest) -> ListInterestAccrualsResponse:
+        path = f"/entities/{request.entity_id}/accruals"
+        query_params = append_query_param("", "portfolio_id", request.portfolio_id)
+        query_params = append_query_param(query_params, "start_date", request.start_date)
+        query_params = append_query_param(query_params, "end_date", request.end_date)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
+        return ListInterestAccrualsResponse.from_response(response.json())
+
+    def list_interest_accruals_for_portfolio(
+        self, request: ListInterestAccrualsForPortfolioRequest
+    ) -> ListInterestAccrualsForPortfolioResponse:
+        path = f"/portfolios/{request.portfolio_id}/accruals"
+        query_params = append_query_param("", "start_date", request.start_date)
+        query_params = append_query_param(query_params, "end_date", request.end_date)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
+        return ListInterestAccrualsForPortfolioResponse.from_response(response.json())
+
+    # Trade Finance
+
+    def list_margin_call_summaries(self, request: ListMarginCallSummariesRequest) -> ListMarginCallSummariesResponse:
+        path = f"/entities/{request.entity_id}/margin_summaries"
+        query_params = append_query_param("", "start_date", request.start_date)
+        query_params = append_query_param(query_params, "end_date", request.end_date)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
+        return ListMarginCallSummariesResponse.from_response(response.json())
+
+    def list_margin_conversions(self, request: ListMarginConversionsRequest) -> ListMarginConversionsResponse:
+        path = f"/portfolios/{request.portfolio_id}/margin_conversions"
+        query_params = append_query_param("", "start_date", request.start_date)
+        query_params = append_query_param(query_params, "end_date", request.end_date)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
+        return ListMarginConversionsResponse.from_response(response.json())
+
+    # Credit
+
+    def list_trade_finance_obligations(
+        self, request: ListTradeFinanceObligationsRequest
+    ) -> ListTradeFinanceObligationsResponse:
+        path = f"/entities/{request.entity_id}/tf_obligations"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return ListTradeFinanceObligationsResponse.from_response(response.json())
+
+    # Beta endpoints
+
+    def set_funding_settings(self, request: SetFundingSettingsRequest) -> SetFundingSettingsResponse:
+        path = f"/entities/{request.entity_id}/funding_settings"
+        body = to_body_dict(request)
+        response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
+        return SetFundingSettingsResponse.from_response(response.json())

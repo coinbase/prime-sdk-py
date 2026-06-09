@@ -1,4 +1,4 @@
-# Copyright 2025-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,14 +14,8 @@
 
 from ...client import Client
 from ...utils import append_pagination_params
-from .list_entity_users import (
-    ListEntityUsersRequest,
-    ListEntityUsersResponse
-)
-from .list_portfolio_users import (
-    ListPortfolioUsersRequest,
-    ListPortfolioUsersResponse
-)
+from .list_entity_users import ListEntityUsersRequest, ListEntityUsersResponse
+from .list_portfolio_users import ListPortfolioUsersRequest, ListPortfolioUsersResponse
 
 
 class UsersService:
@@ -31,11 +25,15 @@ class UsersService:
     def list_entity_users(self, request: ListEntityUsersRequest) -> ListEntityUsersResponse:
         path = f"/entities/{request.entity_id}/users"
         query_params = append_pagination_params("", request.pagination)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
         return ListEntityUsersResponse.from_response(response.json())
 
     def list_portfolio_users(self, request: ListPortfolioUsersRequest) -> ListPortfolioUsersResponse:
         path = f"/portfolios/{request.portfolio_id}/users"
         query_params = append_pagination_params("", request.pagination)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
         return ListPortfolioUsersResponse.from_response(response.json())

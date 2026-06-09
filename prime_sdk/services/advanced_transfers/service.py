@@ -14,27 +14,36 @@
 
 from ...client import Client
 from ...utils import append_pagination_params, append_query_param, to_body_dict
-from .list_advanced_transfers import (
-    ListAdvancedTransfersRequest,
-    ListAdvancedTransfersResponse
-)
-from .create_advanced_transfer import (
-    CreateAdvancedTransferRequest,
-    CreateAdvancedTransferResponse
-)
-from .cancel_advanced_transfer import (
-    CancelAdvancedTransferRequest,
-    CancelAdvancedTransferResponse
-)
+from .cancel_advanced_transfer import CancelAdvancedTransferRequest, CancelAdvancedTransferResponse
+from .create_advanced_transfer import CreateAdvancedTransferRequest, CreateAdvancedTransferResponse
 from .list_advanced_transfer_transactions import (
     ListAdvancedTransferTransactionsRequest,
-    ListAdvancedTransferTransactionsResponse
+    ListAdvancedTransferTransactionsResponse,
 )
+from .list_advanced_transfers import ListAdvancedTransfersRequest, ListAdvancedTransfersResponse
 
 
 class AdvancedTransfersService:
     def __init__(self, client: Client):
         self.client = client
+
+    def cancel_advanced_transfer(self, request: CancelAdvancedTransferRequest) -> CancelAdvancedTransferResponse:
+        path = f"/portfolios/{request.portfolio_id}/advanced_transfers/{request.advanced_transfer_id}/cancel"
+        response = self.client.request("POST", path, allowed_status_codes=request.allowed_status_codes)
+        return CancelAdvancedTransferResponse.from_response(response.json())
+
+    def create_advanced_transfer(self, request: CreateAdvancedTransferRequest) -> CreateAdvancedTransferResponse:
+        path = f"/portfolios/{request.portfolio_id}/advanced_transfers"
+        body = to_body_dict(request)
+        response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
+        return CreateAdvancedTransferResponse.from_response(response.json())
+
+    def list_advanced_transfer_transactions(
+        self, request: ListAdvancedTransferTransactionsRequest
+    ) -> ListAdvancedTransferTransactionsResponse:
+        path = f"/portfolios/{request.portfolio_id}/advanced_transfers/{request.advanced_transfer_id}/transactions"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return ListAdvancedTransferTransactionsResponse.from_response(response.json())
 
     def list_advanced_transfers(self, request: ListAdvancedTransfersRequest) -> ListAdvancedTransfersResponse:
         path = f"/portfolios/{request.portfolio_id}/advanced_transfers"
@@ -44,21 +53,7 @@ class AdvancedTransfersService:
         query_params = append_query_param(query_params, "start_time", request.start_time)
         query_params = append_query_param(query_params, "end_time", request.end_time)
         query_params = append_query_param(query_params, "reference_id", request.reference_id)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
         return ListAdvancedTransfersResponse.from_response(response.json())
-
-    def create_advanced_transfer(self, request: CreateAdvancedTransferRequest) -> CreateAdvancedTransferResponse:
-        path = f"/portfolios/{request.portfolio_id}/advanced_transfers"
-        body = to_body_dict(request)
-        response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return CreateAdvancedTransferResponse.from_response(response.json())
-
-    def cancel_advanced_transfer(self, request: CancelAdvancedTransferRequest) -> CancelAdvancedTransferResponse:
-        path = f"/portfolios/{request.portfolio_id}/advanced_transfers/{request.advanced_transfer_id}/cancel"
-        response = self.client.request("POST", path, allowed_status_codes=request.allowed_status_codes)
-        return CancelAdvancedTransferResponse.from_response(response.json())
-
-    def list_advanced_transfer_transactions(self, request: ListAdvancedTransferTransactionsRequest) -> ListAdvancedTransferTransactionsResponse:
-        path = f"/portfolios/{request.portfolio_id}/advanced_transfers/{request.advanced_transfer_id}/transactions"
-        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return ListAdvancedTransferTransactionsResponse.from_response(response.json())

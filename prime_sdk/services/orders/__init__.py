@@ -1,4 +1,4 @@
-# Copyright 2024-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,55 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .accept_quote import AcceptQuoteRequest, AcceptQuoteResponse
+from .cancel_order import CancelOrderRequest, CancelOrderResponse
+from .create_order import CreateOrderRequest, CreateOrderResponse
+from .create_order_preview import CreateOrderPreviewRequest, CreateOrderPreviewResponse
+from .create_quote import CreateQuoteRequest, CreateQuoteResponse
+from .edit_order import EditOrderRequest, EditOrderResponse
+from .get_order import GetOrderRequest, GetOrderResponse
+from .get_order_edit_history import GetOrderEditHistoryRequest, GetOrderEditHistoryResponse
+from .list_open_orders import ListOpenOrdersRequest, ListOpenOrdersResponse
+from .list_order_fills import ListOrderFillsRequest, ListOrderFillsResponse
+from .list_orders import ListOrdersRequest, ListOrdersResponse
+from .list_portfolio_fills import ListPortfolioFillsRequest, ListPortfolioFillsResponse
 from .service import OrdersService
-from .accept_quote import (
-    AcceptQuoteRequest,
-    AcceptQuoteResponse
-)
-from .cancel_order import (
-    CancelOrderRequest,
-    CancelOrderResponse
-)
-from .create_order import (
-    CreateOrderRequest,
-    CreateOrderResponse
-)
-from .create_order_preview import (
-    CreateOrderPreviewRequest,
-    CreateOrderPreviewResponse
-)
-from .create_quote import (
-    CreateQuoteRequest,
-    CreateQuoteResponse
-)
-from .edit_order import (
-    EditOrderRequest,
-    EditOrderResponse
-)
-from .get_order import (
-    GetOrderRequest,
-    GetOrderResponse
-)
-from .get_order_edit_history import (
-    GetOrderEditHistoryRequest,
-    GetOrderEditHistoryResponse
-)
-from .list_open_orders import (
-    ListOpenOrdersRequest,
-    ListOpenOrdersResponse
-)
-from .list_order_fills import (
-    ListOrderFillsRequest,
-    ListOrderFillsResponse
-)
-from .list_orders import (
-    ListOrdersRequest,
-    ListOrdersResponse
-)
-from .list_portfolio_fills import (
-    ListPortfolioFillsRequest,
-    ListPortfolioFillsResponse
-)
 
 __all__ = [
     "OrdersService",
@@ -68,18 +32,18 @@ __all__ = [
     "AcceptQuoteResponse",
     "CancelOrderRequest",
     "CancelOrderResponse",
-    "CreateOrderRequest",
-    "CreateOrderResponse",
     "CreateOrderPreviewRequest",
     "CreateOrderPreviewResponse",
+    "CreateOrderRequest",
+    "CreateOrderResponse",
     "CreateQuoteRequest",
     "CreateQuoteResponse",
     "EditOrderRequest",
     "EditOrderResponse",
-    "GetOrderRequest",
-    "GetOrderResponse",
     "GetOrderEditHistoryRequest",
     "GetOrderEditHistoryResponse",
+    "GetOrderRequest",
+    "GetOrderResponse",
     "ListOpenOrdersRequest",
     "ListOpenOrdersResponse",
     "ListOrderFillsRequest",
@@ -87,5 +51,5 @@ __all__ = [
     "ListOrdersRequest",
     "ListOrdersResponse",
     "ListPortfolioFillsRequest",
-    "ListPortfolioFillsResponse"
+    "ListPortfolioFillsResponse",
 ]

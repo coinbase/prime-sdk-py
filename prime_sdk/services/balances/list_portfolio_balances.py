@@ -14,10 +14,11 @@
 
 from dataclasses import dataclass
 from typing import List, Optional
+
 from ...base_response import BaseResponse
+from ...enums import BalanceType
 from ...model import Balance, BalanceWithHolds
 from ...utils import PaginationParams
-from ...enums import BalanceType
 
 
 @dataclass

@@ -1,4 +1,4 @@
-# Copyright 2024-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,20 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .list_aggregate_entity_positions import ListAggregateEntityPositionsRequest, ListAggregateEntityPositionsResponse
+from .list_entity_positions import ListEntityPositionsRequest, ListEntityPositionsResponse
 from .service import PositionsService
-from .list_aggregate_entity_positions import (
-    ListAggregateEntityPositionsRequest,
-    ListAggregateEntityPositionsResponse
-)
-from .list_entity_positions import (
-    ListEntityPositionsRequest,
-    ListEntityPositionsResponse
-)
 
 __all__ = [
     "PositionsService",
     "ListAggregateEntityPositionsRequest",
     "ListAggregateEntityPositionsResponse",
     "ListEntityPositionsRequest",
-    "ListEntityPositionsResponse"
+    "ListEntityPositionsResponse",
 ]

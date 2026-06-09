@@ -1,4 +1,4 @@
-# Copyright 2025-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,61 +12,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from prime_sdk.client import Client
-from prime_sdk.utils import to_body_dict
-from .create_stake import (
-    CreateStakeRequest,
-    CreateStakeResponse
-)
-from .create_unstake import (
-    CreateUnstakeRequest,
-    CreateUnstakeResponse
-)
-from .create_portfolio_stake import (
-    CreatePortfolioStakeRequest,
-    CreatePortfolioStakeResponse
-)
-from .create_portfolio_unstake import (
-    CreatePortfolioUnstakeRequest,
-    CreatePortfolioUnstakeResponse
-)
-from .claim_wallet_staking_rewards import (
-    ClaimWalletStakingRewardsRequest,
-    ClaimWalletStakingRewardsResponse
-)
-from .query_transaction_validators import (
-    QueryTransactionValidatorsRequest,
-    QueryTransactionValidatorsResponse
-)
-from .get_unstaking_status import (
-    GetUnstakingStatusRequest,
-    GetUnstakingStatusResponse
-)
-from .get_staking_status import (
-    GetStakingStatusRequest,
-    GetStakingStatusResponse
-)
-from .preview_unstake import (
-    PreviewUnstakeRequest,
-    PreviewUnstakeResponse
-)
+from ...client import Client
+from ...utils import to_body_dict
+from .claim_wallet_staking_rewards import ClaimWalletStakingRewardsRequest, ClaimWalletStakingRewardsResponse
+from .create_portfolio_stake import CreatePortfolioStakeRequest, CreatePortfolioStakeResponse
+from .create_portfolio_unstake import CreatePortfolioUnstakeRequest, CreatePortfolioUnstakeResponse
+from .create_stake import CreateStakeRequest, CreateStakeResponse
+from .create_unstake import CreateUnstakeRequest, CreateUnstakeResponse
+from .get_staking_status import GetStakingStatusRequest, GetStakingStatusResponse
+from .get_unstaking_status import GetUnstakingStatusRequest, GetUnstakingStatusResponse
+from .preview_unstake import PreviewUnstakeRequest, PreviewUnstakeResponse
+from .query_transaction_validators import QueryTransactionValidatorsRequest, QueryTransactionValidatorsResponse
 
 
 class StakingService:
     def __init__(self, client: Client):
         self.client = client
 
-    def create_stake(self, request: CreateStakeRequest) -> CreateStakeResponse:
-        path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/initiate"
+    def claim_wallet_staking_rewards(
+        self, request: ClaimWalletStakingRewardsRequest
+    ) -> ClaimWalletStakingRewardsResponse:
+        path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/claim_rewards"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return CreateStakeResponse.from_response(response.json())
-
-    def create_unstake(self, request: CreateUnstakeRequest) -> CreateUnstakeResponse:
-        path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/unstake"
-        body = to_body_dict(request)
-        response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return CreateUnstakeResponse.from_response(response.json())
+        return ClaimWalletStakingRewardsResponse.from_response(response.json())
 
     def create_portfolio_stake(self, request: CreatePortfolioStakeRequest) -> CreatePortfolioStakeResponse:
         path = f"/portfolios/{request.portfolio_id}/staking/initiate"
@@ -80,30 +49,38 @@ class StakingService:
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
         return CreatePortfolioUnstakeResponse.from_response(response.json())
 
-    def claim_wallet_staking_rewards(self, request: ClaimWalletStakingRewardsRequest) -> ClaimWalletStakingRewardsResponse:
-        path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/claim_rewards"
+    def create_stake(self, request: CreateStakeRequest) -> CreateStakeResponse:
+        path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/initiate"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return ClaimWalletStakingRewardsResponse.from_response(response.json())
+        return CreateStakeResponse.from_response(response.json())
 
-    def query_transaction_validators(self, request: QueryTransactionValidatorsRequest) -> QueryTransactionValidatorsResponse:
-        path = f"/portfolios/{request.portfolio_id}/staking/transaction-validators/query"
+    def create_unstake(self, request: CreateUnstakeRequest) -> CreateUnstakeResponse:
+        path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/unstake"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
-        return QueryTransactionValidatorsResponse.from_response(response.json())
-
-    def get_unstaking_status(self, request: GetUnstakingStatusRequest) -> GetUnstakingStatusResponse:
-        path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/unstake/status"
-        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return GetUnstakingStatusResponse.from_response(response.json())
+        return CreateUnstakeResponse.from_response(response.json())
 
     def get_staking_status(self, request: GetStakingStatusRequest) -> GetStakingStatusResponse:
         path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/status"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
         return GetStakingStatusResponse.from_response(response.json())
 
+    def get_unstaking_status(self, request: GetUnstakingStatusRequest) -> GetUnstakingStatusResponse:
+        path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/unstake/status"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return GetUnstakingStatusResponse.from_response(response.json())
+
     def preview_unstake(self, request: PreviewUnstakeRequest) -> PreviewUnstakeResponse:
         path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/staking/unstake/preview"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
         return PreviewUnstakeResponse.from_response(response.json())
+
+    def query_transaction_validators(
+        self, request: QueryTransactionValidatorsRequest
+    ) -> QueryTransactionValidatorsResponse:
+        path = f"/portfolios/{request.portfolio_id}/staking/transaction-validators/query"
+        body = to_body_dict(request)
+        response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
+        return QueryTransactionValidatorsResponse.from_response(response.json())

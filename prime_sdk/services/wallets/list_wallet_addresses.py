@@ -14,9 +14,10 @@
 
 from dataclasses import dataclass
 from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import BlockchainAddress
-from ...utils import PaginationParams, Pagination
+from ...utils import Pagination, PaginationParams
 
 
 @dataclass

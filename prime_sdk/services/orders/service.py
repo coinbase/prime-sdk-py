@@ -1,4 +1,4 @@
-# Copyright 2025-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,55 +13,19 @@
 # limitations under the License.
 
 from ...client import Client
-from ...utils import append_query_param, append_pagination_params, to_body_dict
-from .accept_quote import (
-    AcceptQuoteRequest,
-    AcceptQuoteResponse
-)
-from .cancel_order import (
-    CancelOrderRequest,
-    CancelOrderResponse
-)
-from .create_order import (
-    CreateOrderRequest,
-    CreateOrderResponse
-)
-from .create_order_preview import (
-    CreateOrderPreviewRequest,
-    CreateOrderPreviewResponse
-)
-from .create_quote import (
-    CreateQuoteRequest,
-    CreateQuoteResponse
-)
-from .edit_order import (
-    EditOrderRequest,
-    EditOrderResponse
-)
-from .get_order import (
-    GetOrderRequest,
-    GetOrderResponse
-)
-from .get_order_edit_history import (
-    GetOrderEditHistoryRequest,
-    GetOrderEditHistoryResponse
-)
-from .list_open_orders import (
-    ListOpenOrdersRequest,
-    ListOpenOrdersResponse
-)
-from .list_order_fills import (
-    ListOrderFillsRequest,
-    ListOrderFillsResponse
-)
-from .list_orders import (
-    ListOrdersRequest,
-    ListOrdersResponse
-)
-from .list_portfolio_fills import (
-    ListPortfolioFillsRequest,
-    ListPortfolioFillsResponse
-)
+from ...utils import append_pagination_params, append_query_param, to_body_dict
+from .accept_quote import AcceptQuoteRequest, AcceptQuoteResponse
+from .cancel_order import CancelOrderRequest, CancelOrderResponse
+from .create_order import CreateOrderRequest, CreateOrderResponse
+from .create_order_preview import CreateOrderPreviewRequest, CreateOrderPreviewResponse
+from .create_quote import CreateQuoteRequest, CreateQuoteResponse
+from .edit_order import EditOrderRequest, EditOrderResponse
+from .get_order import GetOrderRequest, GetOrderResponse
+from .get_order_edit_history import GetOrderEditHistoryRequest, GetOrderEditHistoryResponse
+from .list_open_orders import ListOpenOrdersRequest, ListOpenOrdersResponse
+from .list_order_fills import ListOrderFillsRequest, ListOrderFillsResponse
+from .list_orders import ListOrdersRequest, ListOrdersResponse
+from .list_portfolio_fills import ListPortfolioFillsRequest, ListPortfolioFillsResponse
 
 
 class OrdersService:
@@ -116,57 +80,59 @@ class OrdersService:
     def list_open_orders(self, request: ListOpenOrdersRequest) -> ListOpenOrdersResponse:
         path = f"/portfolios/{request.portfolio_id}/open_orders"
 
-        query_params = append_query_param("", 'product_ids', request.product_ids)
-        query_params = append_query_param(query_params, 'order_type', request.order_type)
-        query_params = append_query_param(query_params, 'order_side', request.order_side)
+        query_params = append_query_param("", "product_ids", request.product_ids)
+        query_params = append_query_param(query_params, "order_type", request.order_type)
+        query_params = append_query_param(query_params, "order_side", request.order_side)
 
         if request.start_date:
-            query_params = append_query_param(
-                query_params,
-                'start_date',
-                request.start_date.isoformat() + 'Z')
+            query_params = append_query_param(query_params, "start_date", request.start_date.isoformat() + "Z")
         if request.end_date:
-            query_params = append_query_param(
-                query_params,
-                'end_date',
-                request.end_date.isoformat() + 'Z')
+            query_params = append_query_param(query_params, "end_date", request.end_date.isoformat() + "Z")
 
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
         return ListOpenOrdersResponse.from_response(response.json())
 
     def list_order_fills(self, request: ListOrderFillsRequest) -> ListOrderFillsResponse:
         path = f"/portfolios/{request.portfolio_id}/orders/{request.order_id}/fills"
         query_params = append_pagination_params("", request.pagination)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
         return ListOrderFillsResponse.from_response(response.json())
 
     def list_orders(self, request: ListOrdersRequest) -> ListOrdersResponse:
         path = f"/portfolios/{request.portfolio_id}/orders"
 
-        query_params = append_query_param("", 'order_statuses', request.order_statuses)
-        query_params = append_query_param(query_params, 'product_ids', request.product_ids)
-        query_params = append_query_param(query_params, 'order_type', request.order_type)
-        query_params = append_query_param(query_params, 'order_side', request.order_side)
+        query_params = append_query_param("", "order_statuses", request.order_statuses)
+        query_params = append_query_param(query_params, "product_ids", request.product_ids)
+        query_params = append_query_param(query_params, "order_type", request.order_type)
+        query_params = append_query_param(query_params, "order_side", request.order_side)
 
         if request.start_date:
-            query_params = append_query_param(query_params, 'start_date', request.start_date.isoformat() + 'Z')
+            query_params = append_query_param(query_params, "start_date", request.start_date.isoformat() + "Z")
         if request.end_date:
-            query_params = append_query_param(query_params, 'end_date', request.end_date.isoformat() + 'Z')
+            query_params = append_query_param(query_params, "end_date", request.end_date.isoformat() + "Z")
 
         query_params = append_pagination_params(query_params, request.pagination)
 
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
         return ListOrdersResponse.from_response(response.json())
 
     def list_portfolio_fills(self, request: ListPortfolioFillsRequest) -> ListPortfolioFillsResponse:
         path = f"/portfolios/{request.portfolio_id}/fills"
 
-        query_params = append_query_param("", 'start_date', request.start_date)
+        query_params = append_query_param("", "start_date", request.start_date)
 
         if request.end_date:
-            query_params = append_query_param(query_params, 'end_date', request.end_date)
+            query_params = append_query_param(query_params, "end_date", request.end_date)
 
         query_params = append_pagination_params(query_params, request.pagination)
 
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
         return ListPortfolioFillsResponse.from_response(response.json())

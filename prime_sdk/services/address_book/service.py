@@ -1,4 +1,4 @@
-# Copyright 2024-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from ...client import Client
-from ...utils import append_query_param, append_pagination_params, to_body_dict
+from ...utils import append_pagination_params, append_query_param, to_body_dict
 from .create_address_book_entry import CreateAddressBookEntryRequest, CreateAddressBookEntryResponse
 from .get_address_book import GetAddressBookRequest, GetAddressBookResponse
 
@@ -31,9 +31,11 @@ class AddressBookService:
     def get_address_book(self, request: GetAddressBookRequest) -> GetAddressBookResponse:
         path = f"/portfolios/{request.portfolio_id}/address_book"
 
-        query_params = append_query_param("", 'currency_symbol', request.currency_symbol)
-        query_params = append_query_param(query_params, 'search', request.search)
+        query_params = append_query_param("", "currency_symbol", request.currency_symbol)
+        query_params = append_query_param(query_params, "search", request.search)
         query_params = append_pagination_params(query_params, request.pagination)
 
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
         return GetAddressBookResponse.from_response(response.json())

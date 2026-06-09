@@ -1,4 +1,4 @@
-# Copyright 2024-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,26 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .get_counterparty_id import GetCounterpartyIdRequest, GetCounterpartyIdResponse
+from .get_portfolio import GetPortfolioRequest, GetPortfolioResponse
+from .list_portfolios import ListPortfoliosRequest, ListPortfoliosResponse
 from .service import PortfoliosService
-from .list_portfolios import (
-    ListPortfoliosRequest,
-    ListPortfoliosResponse
-)
-from .get_portfolio import (
-    GetPortfolioRequest,
-    GetPortfolioResponse
-)
-from .get_counterparty_id import (
-    GetCounterpartyIdRequest,
-    GetCounterpartyIdResponse,
-)
 
 __all__ = [
     "PortfoliosService",
-    "ListPortfoliosRequest",
-    "ListPortfoliosResponse", 
-    "GetPortfolioRequest",
-    "GetPortfolioResponse",
     "GetCounterpartyIdRequest",
     "GetCounterpartyIdResponse",
+    "GetPortfolioRequest",
+    "GetPortfolioResponse",
+    "ListPortfoliosRequest",
+    "ListPortfoliosResponse",
 ]

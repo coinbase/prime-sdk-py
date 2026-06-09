@@ -13,12 +13,13 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
 from datetime import datetime
+from typing import List, Optional
+
 from ...base_response import BaseResponse
-from ...model import Allocation
 from ...enums import OrderSide
-from ...utils import PaginationParams, Pagination
+from ...model import Allocation
+from ...utils import Pagination, PaginationParams
 
 
 @dataclass

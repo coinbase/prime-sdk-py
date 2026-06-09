@@ -1,4 +1,4 @@
-# Copyright 2024-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,20 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .get_entity_payment_method import GetEntityPaymentMethodRequest, GetEntityPaymentMethodResponse
+from .list_entity_payment_methods import ListEntityPaymentMethodsRequest, ListEntityPaymentMethodsResponse
 from .service import PaymentMethodsService
-from .get_entity_payment_method import (
-    GetEntityPaymentMethodRequest,
-    GetEntityPaymentMethodResponse
-)
-from .list_entity_payment_methods import (
-    ListEntityPaymentMethodsRequest,
-    ListEntityPaymentMethodsResponse
-)
 
 __all__ = [
     "PaymentMethodsService",
     "GetEntityPaymentMethodRequest",
     "GetEntityPaymentMethodResponse",
     "ListEntityPaymentMethodsRequest",
-    "ListEntityPaymentMethodsResponse"
+    "ListEntityPaymentMethodsResponse",
 ]

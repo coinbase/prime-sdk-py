@@ -14,9 +14,10 @@
 
 from dataclasses import dataclass
 from typing import List, Optional
+
 from ...base_response import BaseResponse
-from ...model import OnchainBalance, DefiBalance
-from ...utils import PaginationParams, Pagination
+from ...model import DefiBalance, OnchainBalance
+from ...utils import Pagination, PaginationParams
 
 
 @dataclass

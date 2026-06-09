@@ -1,4 +1,4 @@
-# Copyright 2024-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,32 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .get_wallet_balance import GetWalletBalanceRequest, GetWalletBalanceResponse
+from .list_entity_balances import ListEntityBalancesRequest, ListEntityBalancesResponse
+from .list_portfolio_balances import ListPortfolioBalancesRequest, ListPortfolioBalancesResponse
+from .list_web3_wallet_balances import ListWeb3WalletBalancesRequest, ListWeb3WalletBalancesResponse
 from .service import BalancesService
-from .get_wallet_balance import (
-    GetWalletBalanceRequest,
-    GetWalletBalanceResponse
-)
-from .list_entity_balances import (
-    ListEntityBalancesRequest,
-    ListEntityBalancesResponse
-)
-from .list_web3_wallet_balances import (
-    ListWeb3WalletBalancesRequest,
-    ListWeb3WalletBalancesResponse
-)
-from .list_portfolio_balances import (
-    ListPortfolioBalancesRequest,
-    ListPortfolioBalancesResponse
-)
 
 __all__ = [
     "BalancesService",
     "GetWalletBalanceRequest",
     "GetWalletBalanceResponse",
     "ListEntityBalancesRequest",
-    "ListEntityBalancesResponse", 
+    "ListEntityBalancesResponse",
+    "ListPortfolioBalancesRequest",
+    "ListPortfolioBalancesResponse",
     "ListWeb3WalletBalancesRequest",
     "ListWeb3WalletBalancesResponse",
-    "ListPortfolioBalancesRequest",
-    "ListPortfolioBalancesResponse"
 ]

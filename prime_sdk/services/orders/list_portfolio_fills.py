@@ -14,9 +14,10 @@
 
 from dataclasses import dataclass
 from typing import List, Optional
+
 from ...base_response import BaseResponse
-from ...utils import PaginationParams, Pagination
 from ...model import Fill
+from ...utils import Pagination, PaginationParams
 
 
 @dataclass

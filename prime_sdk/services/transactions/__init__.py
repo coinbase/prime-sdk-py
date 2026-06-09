@@ -1,4 +1,4 @@
-# Copyright 2024-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,80 +12,35 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .create_conversion import CreateConversionRequest, CreateConversionResponse
+from .create_onchain_transaction import CreateOnchainTransactionRequest, CreateOnchainTransactionResponse
+from .create_transfer import CreateTransferRequest, CreateTransferResponse
+from .create_withdrawal import CreateWithdrawalRequest, CreateWithdrawalResponse
+from .get_transaction import GetTransactionRequest, GetTransactionResponse
+from .get_transaction_travel_rule_data import GetTransactionTravelRuleDataRequest, GetTransactionTravelRuleDataResponse
+from .list_portfolio_transactions import ListPortfolioTransactionsRequest, ListPortfolioTransactionsResponse
+from .list_wallet_transactions import ListWalletTransactionsRequest, ListWalletTransactionsResponse
 from .service import TransactionsService
-from .create_conversion import (
-    CreateConversionRequest,
-    CreateConversionResponse
-)
-from .create_onchain_transaction import (
-    Rpc,
-    EvmParams,
-    CreateOnchainTransactionRequest,
-    CreateOnchainTransactionResponse
-)
-from .create_transfer import (
-    CreateTransferRequest,
-    CreateTransferResponse
-)
-from .create_withdrawal import (
-    PaymentMethod,
-    Network,
-    Counterparty,
-    BlockchainAddress,
-    CreateWithdrawalRequest,
-    CreateWithdrawalResponse
-)
-from .get_transaction import (
-    GetTransactionRequest,
-    GetTransactionResponse
-)
-from .list_portfolio_transactions import (
-    ListPortfolioTransactionsRequest,
-    ListPortfolioTransactionsResponse
-)
-from .list_wallet_transactions import (
-    ListWalletTransactionsRequest,
-    ListWalletTransactionsResponse
-)
-from .submit_deposit_travel_rule_data import (
-    NaturalPersonName,
-    DetailedAddress,
-    TravelRuleParty,
-    SubmitDepositTravelRuleDataRequest,
-    SubmitDepositTravelRuleDataResponse
-)
-from .get_transaction_travel_rule_data import (
-    GetTransactionTravelRuleDataRequest,
-    GetTransactionTravelRuleDataResponse
-)
+from .submit_deposit_travel_rule_data import SubmitDepositTravelRuleDataRequest, SubmitDepositTravelRuleDataResponse
 
 __all__ = [
     "TransactionsService",
     "CreateConversionRequest",
     "CreateConversionResponse",
-    "Rpc",
-    "EvmParams",
     "CreateOnchainTransactionRequest",
     "CreateOnchainTransactionResponse",
     "CreateTransferRequest",
     "CreateTransferResponse",
-    "PaymentMethod",
-    "Network",
-    "Counterparty",
-    "BlockchainAddress",
     "CreateWithdrawalRequest",
     "CreateWithdrawalResponse",
     "GetTransactionRequest",
     "GetTransactionResponse",
+    "GetTransactionTravelRuleDataRequest",
+    "GetTransactionTravelRuleDataResponse",
     "ListPortfolioTransactionsRequest",
     "ListPortfolioTransactionsResponse",
     "ListWalletTransactionsRequest",
     "ListWalletTransactionsResponse",
-    "NaturalPersonName",
-    "DetailedAddress",
-    "TravelRuleParty",
     "SubmitDepositTravelRuleDataRequest",
     "SubmitDepositTravelRuleDataResponse",
-    "GetTransactionTravelRuleDataRequest",
-    "GetTransactionTravelRuleDataResponse",
 ]

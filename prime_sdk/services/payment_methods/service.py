@@ -1,4 +1,4 @@
-# Copyright 2025-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,16 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from prime_sdk.client import Client
-from prime_sdk.utils import append_pagination_params
-from .get_entity_payment_method import (
-    GetEntityPaymentMethodRequest,
-    GetEntityPaymentMethodResponse
-)
-from .list_entity_payment_methods import (
-    ListEntityPaymentMethodsRequest,
-    ListEntityPaymentMethodsResponse
-)
+from ...client import Client
+from ...utils import append_pagination_params
+from .get_entity_payment_method import GetEntityPaymentMethodRequest, GetEntityPaymentMethodResponse
+from .list_entity_payment_methods import ListEntityPaymentMethodsRequest, ListEntityPaymentMethodsResponse
 
 
 class PaymentMethodsService:
@@ -36,5 +30,7 @@ class PaymentMethodsService:
     def list_entity_payment_methods(self, request: ListEntityPaymentMethodsRequest) -> ListEntityPaymentMethodsResponse:
         path = f"/entities/{request.entity_id}/payment-methods"
         query_params = append_pagination_params("", request.pagination)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
         return ListEntityPaymentMethodsResponse.from_response(response.json())

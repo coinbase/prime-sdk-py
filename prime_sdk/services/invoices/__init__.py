@@ -1,4 +1,4 @@
-# Copyright 2024-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,14 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .list_invoices import ListInvoicesRequest, ListInvoicesResponse
 from .service import InvoicesService
-from .list_invoices import (
-    ListInvoicesRequest,
-    ListInvoicesResponse
-)
 
-__all__ = [
-    "InvoicesService",
-    "ListInvoicesRequest",
-    "ListInvoicesResponse"
-]
+__all__ = ["InvoicesService", "ListInvoicesRequest", "ListInvoicesResponse"]

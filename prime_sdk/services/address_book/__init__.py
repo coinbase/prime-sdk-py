@@ -1,4 +1,4 @@
-# Copyright 2024-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,20 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .create_address_book_entry import CreateAddressBookEntryRequest, CreateAddressBookEntryResponse
+from .get_address_book import GetAddressBookRequest, GetAddressBookResponse
 from .service import AddressBookService
-from .create_address_book_entry import (
-    CreateAddressBookEntryRequest,
-    CreateAddressBookEntryResponse
-)
-from .get_address_book import (
-    GetAddressBookRequest,
-    GetAddressBookResponse
-)
 
 __all__ = [
     "AddressBookService",
     "CreateAddressBookEntryRequest",
     "CreateAddressBookEntryResponse",
     "GetAddressBookRequest",
-    "GetAddressBookResponse"
+    "GetAddressBookResponse",
 ]

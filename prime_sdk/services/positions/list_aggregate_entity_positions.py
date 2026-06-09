@@ -13,10 +13,11 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import Optional, List
+from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import Position
-from ...utils import PaginationParams, Pagination
+from ...utils import Pagination, PaginationParams
 
 
 @dataclass

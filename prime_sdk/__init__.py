@@ -1,4 +1,4 @@
-# Copyright 2025-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,8 +19,8 @@ from .credentials import Credentials
 
 # Service classes - primary interface
 from .services.activities import ActivitiesService
-from .services.advanced_transfers import AdvancedTransfersService
 from .services.address_book import AddressBookService
+from .services.advanced_transfers import AdvancedTransfersService
 from .services.allocations import AllocationsService
 from .services.assets import AssetsService
 from .services.balances import BalancesService
@@ -40,15 +40,12 @@ from .services.users import UsersService
 from .services.wallets import WalletsService
 
 __all__ = [
-    # Core classes
     "Client",
     "PrimeServicesClient",
     "Credentials",
-    
-    # Service classes
     "ActivitiesService",
+    "AddressBookService",
     "AdvancedTransfersService",
-    "AddressBookService", 
     "AllocationsService",
     "AssetsService",
     "BalancesService",
@@ -67,8 +64,3 @@ __all__ = [
     "UsersService",
     "WalletsService",
 ]
-
-# For request/response classes, users should import directly from services:
-# from prime_sdk.services.wallets import CreateWalletRequest, CreateWalletResponse
-# from prime_sdk.services.transactions import CreateConversionRequest, CreateConversionResponse
-# etc.

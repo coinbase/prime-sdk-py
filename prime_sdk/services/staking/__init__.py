@@ -1,4 +1,4 @@
-# Copyright 2024-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,78 +12,35 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .claim_wallet_staking_rewards import ClaimWalletStakingRewardsRequest, ClaimWalletStakingRewardsResponse
+from .create_portfolio_stake import CreatePortfolioStakeRequest, CreatePortfolioStakeResponse
+from .create_portfolio_unstake import CreatePortfolioUnstakeRequest, CreatePortfolioUnstakeResponse
+from .create_stake import CreateStakeRequest, CreateStakeResponse
+from .create_unstake import CreateUnstakeRequest, CreateUnstakeResponse
+from .get_staking_status import GetStakingStatusRequest, GetStakingStatusResponse
+from .get_unstaking_status import GetUnstakingStatusRequest, GetUnstakingStatusResponse
+from .preview_unstake import PreviewUnstakeRequest, PreviewUnstakeResponse
+from .query_transaction_validators import QueryTransactionValidatorsRequest, QueryTransactionValidatorsResponse
 from .service import StakingService
-from .create_stake import (
-    StakingInputs,
-    CreateStakeRequest,
-    CreateStakeResponse
-)
-from .create_unstake import (
-    CreateUnstakeRequest,
-    CreateUnstakeResponse
-)
-from .create_portfolio_stake import (
-    StakeMetadata,
-    CreatePortfolioStakeRequest,
-    CreatePortfolioStakeResponse
-)
-from .create_portfolio_unstake import (
-    UnstakeMetadata,
-    CreatePortfolioUnstakeRequest,
-    CreatePortfolioUnstakeResponse
-)
-from .claim_wallet_staking_rewards import (
-    ClaimRewardsInputs,
-    ClaimWalletStakingRewardsRequest,
-    ClaimWalletStakingRewardsResponse
-)
-from .query_transaction_validators import (
-    QueryTransactionValidatorsRequest,
-    QueryTransactionValidatorsResponse
-)
-from .get_unstaking_status import (
-    UnstakeStatusDetail,
-    ValidatorUnstakeStatus,
-    GetUnstakingStatusRequest,
-    GetUnstakingStatusResponse
-)
-from .get_staking_status import (
-    StakingStatus,
-    ValidatorStakingInfo,
-    GetStakingStatusRequest,
-    GetStakingStatusResponse
-)
-from .preview_unstake import (
-    PreviewUnstakeRequest,
-    PreviewUnstakeResponse
-)
 
 __all__ = [
     "StakingService",
-    "StakingInputs",
+    "ClaimWalletStakingRewardsRequest",
+    "ClaimWalletStakingRewardsResponse",
+    "CreatePortfolioStakeRequest",
+    "CreatePortfolioStakeResponse",
+    "CreatePortfolioUnstakeRequest",
+    "CreatePortfolioUnstakeResponse",
     "CreateStakeRequest",
     "CreateStakeResponse",
     "CreateUnstakeRequest",
     "CreateUnstakeResponse",
-    "StakeMetadata",
-    "CreatePortfolioStakeRequest",
-    "CreatePortfolioStakeResponse",
-    "UnstakeMetadata",
-    "CreatePortfolioUnstakeRequest",
-    "CreatePortfolioUnstakeResponse",
-    "ClaimRewardsInputs",
-    "ClaimWalletStakingRewardsRequest",
-    "ClaimWalletStakingRewardsResponse",
-    "QueryTransactionValidatorsRequest",
-    "QueryTransactionValidatorsResponse",
-    "UnstakeStatusDetail",
-    "ValidatorUnstakeStatus",
-    "GetUnstakingStatusRequest",
-    "GetUnstakingStatusResponse",
-    "StakingStatus",
-    "ValidatorStakingInfo",
     "GetStakingStatusRequest",
     "GetStakingStatusResponse",
+    "GetUnstakingStatusRequest",
+    "GetUnstakingStatusResponse",
     "PreviewUnstakeRequest",
-    "PreviewUnstakeResponse"
+    "PreviewUnstakeResponse",
+    "QueryTransactionValidatorsRequest",
+    "QueryTransactionValidatorsResponse",
 ]

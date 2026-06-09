@@ -1,4 +1,4 @@
-# Copyright 2024-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,42 +12,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .service import AllocationsService
-from .create_portfolio_allocations import (
-    CreatePortfolioAllocationsRequest,
-    CreatePortfolioAllocationsResponse,
-    AllocationLeg
-)
+from .create_portfolio_allocations import CreatePortfolioAllocationsRequest, CreatePortfolioAllocationsResponse
 from .create_portfolio_net_allocations import (
     CreatePortfolioNetAllocationsRequest,
     CreatePortfolioNetAllocationsResponse,
-    NetAllocationLeg
 )
-from .get_allocation_by_id import (
-    GetAllocationByIdRequest,
-    GetAllocationByIdResponse
-)
-from .get_net_allocations_by_netting_id import (
-    GetNetAllocationsByNettingIdRequest,
-    GetNetAllocationsByNettingIdResponse
-)
-from .list_portfolio_allocations import (
-    ListPortfolioAllocationsRequest,
-    ListPortfolioAllocationsResponse
-)
+from .get_allocation_by_id import GetAllocationByIdRequest, GetAllocationByIdResponse
+from .get_net_allocations_by_netting_id import GetNetAllocationsByNettingIdRequest, GetNetAllocationsByNettingIdResponse
+from .list_portfolio_allocations import ListPortfolioAllocationsRequest, ListPortfolioAllocationsResponse
+from .service import AllocationsService
 
 __all__ = [
     "AllocationsService",
     "CreatePortfolioAllocationsRequest",
     "CreatePortfolioAllocationsResponse",
-    "AllocationLeg",
-    "CreatePortfolioNetAllocationsRequest", 
+    "CreatePortfolioNetAllocationsRequest",
     "CreatePortfolioNetAllocationsResponse",
-    "NetAllocationLeg",
     "GetAllocationByIdRequest",
     "GetAllocationByIdResponse",
     "GetNetAllocationsByNettingIdRequest",
     "GetNetAllocationsByNettingIdResponse",
     "ListPortfolioAllocationsRequest",
-    "ListPortfolioAllocationsResponse"
+    "ListPortfolioAllocationsResponse",
 ]

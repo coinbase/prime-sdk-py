@@ -1,4 +1,4 @@
-# Copyright 2024-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,26 +13,26 @@
 # limitations under the License.
 
 from ...client import Client
-from .list_portfolios import ListPortfoliosRequest, ListPortfoliosResponse
-from .get_portfolio import GetPortfolioRequest, GetPortfolioResponse
 from .get_counterparty_id import GetCounterpartyIdRequest, GetCounterpartyIdResponse
+from .get_portfolio import GetPortfolioRequest, GetPortfolioResponse
+from .list_portfolios import ListPortfoliosRequest, ListPortfoliosResponse
 
 
 class PortfoliosService:
     def __init__(self, client: Client):
         self.client = client
 
-    def list_portfolios(self, request: ListPortfoliosRequest) -> ListPortfoliosResponse:
-        path = "/portfolios"
+    def get_counterparty_id(self, request: GetCounterpartyIdRequest) -> GetCounterpartyIdResponse:
+        path = f"/portfolios/{request.portfolio_id}/counterparty"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return ListPortfoliosResponse.from_response(response.json())
+        return GetCounterpartyIdResponse.from_response(response.json())
 
     def get_portfolio(self, request: GetPortfolioRequest) -> GetPortfolioResponse:
         path = f"/portfolios/{request.portfolio_id}"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
         return GetPortfolioResponse.from_response(response.json())
 
-    def get_counterparty_id(self, request: GetCounterpartyIdRequest) -> GetCounterpartyIdResponse:
-        path = f"/portfolios/{request.portfolio_id}/counterparty"
+    def list_portfolios(self, request: ListPortfoliosRequest) -> ListPortfoliosResponse:
+        path = "/portfolios"
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return GetCounterpartyIdResponse.from_response(response.json())
+        return ListPortfoliosResponse.from_response(response.json())

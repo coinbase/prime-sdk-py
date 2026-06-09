@@ -13,9 +13,10 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import Optional, List
-from ...model import Candle
+from typing import List, Optional
+
 from ...base_response import BaseResponse
+from ...model import Candle
 
 
 @dataclass

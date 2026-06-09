@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import Fee
 

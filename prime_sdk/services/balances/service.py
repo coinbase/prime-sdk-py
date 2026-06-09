@@ -1,4 +1,4 @@
-# Copyright 2024-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,23 +13,11 @@
 # limitations under the License.
 
 from ...client import Client
-from ...utils import append_query_param, append_pagination_params
-from .get_wallet_balance import (
-    GetWalletBalanceRequest,
-    GetWalletBalanceResponse
-)
-from .list_entity_balances import (
-    ListEntityBalancesRequest,
-    ListEntityBalancesResponse
-)
-from .list_web3_wallet_balances import (
-    ListWeb3WalletBalancesRequest,
-    ListWeb3WalletBalancesResponse
-)
-from .list_portfolio_balances import (
-    ListPortfolioBalancesRequest,
-    ListPortfolioBalancesResponse
-)
+from ...utils import append_pagination_params, append_query_param
+from .get_wallet_balance import GetWalletBalanceRequest, GetWalletBalanceResponse
+from .list_entity_balances import ListEntityBalancesRequest, ListEntityBalancesResponse
+from .list_portfolio_balances import ListPortfolioBalancesRequest, ListPortfolioBalancesResponse
+from .list_web3_wallet_balances import ListWeb3WalletBalancesRequest, ListWeb3WalletBalancesResponse
 
 
 class BalancesService:
@@ -48,24 +36,30 @@ class BalancesService:
         query_params = append_query_param(query_params, "aggregation_type", request.aggregation_type)
         query_params = append_pagination_params(query_params, request.pagination)
 
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
         return ListEntityBalancesResponse.from_response(response.json())
-
-    def list_web3_wallet_balances(self, request: ListWeb3WalletBalancesRequest) -> ListWeb3WalletBalancesResponse:
-        path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/web3_balances"
-
-        query_params = append_query_param("", 'visibility_statuses', request.visibility_statuses)
-        query_params = append_pagination_params(query_params, request.pagination)
-
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
-        return ListWeb3WalletBalancesResponse.from_response(response.json())
 
     def list_portfolio_balances(self, request: ListPortfolioBalancesRequest) -> ListPortfolioBalancesResponse:
         path = f"/portfolios/{request.portfolio_id}/balances"
 
-        query_params = append_query_param("", 'symbols', request.symbols)
-        query_params = append_query_param(query_params, 'balance_type', request.balance_type)
+        query_params = append_query_param("", "symbols", request.symbols)
+        query_params = append_query_param(query_params, "balance_type", request.balance_type)
         query_params = append_pagination_params(query_params, request.pagination)
 
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
         return ListPortfolioBalancesResponse.from_response(response.json())
+
+    def list_web3_wallet_balances(self, request: ListWeb3WalletBalancesRequest) -> ListWeb3WalletBalancesResponse:
+        path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/web3_balances"
+
+        query_params = append_query_param("", "visibility_statuses", request.visibility_statuses)
+        query_params = append_pagination_params(query_params, request.pagination)
+
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
+        return ListWeb3WalletBalancesResponse.from_response(response.json())

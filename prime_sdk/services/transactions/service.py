@@ -1,4 +1,4 @@
-# Copyright 2025-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,44 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from prime_sdk.client import Client
-from prime_sdk.utils import append_pagination_params, to_body_dict
-from .create_conversion import (
-    CreateConversionRequest,
-    CreateConversionResponse
-)
-from .create_onchain_transaction import (
-    CreateOnchainTransactionRequest,
-    CreateOnchainTransactionResponse
-)
-from .create_transfer import (
-    CreateTransferRequest,
-    CreateTransferResponse
-)
-from .create_withdrawal import (
-    CreateWithdrawalRequest,
-    CreateWithdrawalResponse
-)
-from .get_transaction import (
-    GetTransactionRequest,
-    GetTransactionResponse
-)
-from .list_portfolio_transactions import (
-    ListPortfolioTransactionsRequest,
-    ListPortfolioTransactionsResponse
-)
-from .list_wallet_transactions import (
-    ListWalletTransactionsRequest,
-    ListWalletTransactionsResponse
-)
-from .submit_deposit_travel_rule_data import (
-    SubmitDepositTravelRuleDataRequest,
-    SubmitDepositTravelRuleDataResponse
-)
-from .get_transaction_travel_rule_data import (
-    GetTransactionTravelRuleDataRequest,
-    GetTransactionTravelRuleDataResponse
-)
+from ...client import Client
+from ...utils import append_pagination_params, to_body_dict
+from .create_conversion import CreateConversionRequest, CreateConversionResponse
+from .create_onchain_transaction import CreateOnchainTransactionRequest, CreateOnchainTransactionResponse
+from .create_transfer import CreateTransferRequest, CreateTransferResponse
+from .create_withdrawal import CreateWithdrawalRequest, CreateWithdrawalResponse
+from .get_transaction import GetTransactionRequest, GetTransactionResponse
+from .get_transaction_travel_rule_data import GetTransactionTravelRuleDataRequest, GetTransactionTravelRuleDataResponse
+from .list_portfolio_transactions import ListPortfolioTransactionsRequest, ListPortfolioTransactionsResponse
+from .list_wallet_transactions import ListWalletTransactionsRequest, ListWalletTransactionsResponse
+from .submit_deposit_travel_rule_data import SubmitDepositTravelRuleDataRequest, SubmitDepositTravelRuleDataResponse
 
 
 class TransactionsService:
@@ -85,7 +58,16 @@ class TransactionsService:
         response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
         return GetTransactionResponse.from_response(response.json())
 
-    def list_portfolio_transactions(self, request: ListPortfolioTransactionsRequest) -> ListPortfolioTransactionsResponse:
+    def get_transaction_travel_rule_data(
+        self, request: GetTransactionTravelRuleDataRequest
+    ) -> GetTransactionTravelRuleDataResponse:
+        path = f"/portfolios/{request.portfolio_id}/transactions/{request.transaction_id}/travel_rule"
+        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        return GetTransactionTravelRuleDataResponse.from_response(response.json())
+
+    def list_portfolio_transactions(
+        self, request: ListPortfolioTransactionsRequest
+    ) -> ListPortfolioTransactionsResponse:
         path = f"/portfolios/{request.portfolio_id}/transactions"
         query_params = append_pagination_params("", request.pagination)
         if request.symbols:
@@ -93,10 +75,18 @@ class TransactionsService:
         if request.types:
             query_params = f"{query_params}&types={request.types}" if query_params else f"types={request.types}"
         if request.start:
-            query_params = f"{query_params}&start={request.start.isoformat()}" if query_params else f"start={request.start.isoformat()}"
+            query_params = (
+                f"{query_params}&start={request.start.isoformat()}"
+                if query_params
+                else f"start={request.start.isoformat()}"
+            )
         if request.end:
-            query_params = f"{query_params}&end={request.end.isoformat()}" if query_params else f"end={request.end.isoformat()}"
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+            query_params = (
+                f"{query_params}&end={request.end.isoformat()}" if query_params else f"end={request.end.isoformat()}"
+            )
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
         return ListPortfolioTransactionsResponse.from_response(response.json())
 
     def list_wallet_transactions(self, request: ListWalletTransactionsRequest) -> ListWalletTransactionsResponse:
@@ -105,19 +95,24 @@ class TransactionsService:
         if request.types:
             query_params = f"{query_params}&types={request.types}" if query_params else f"types={request.types}"
         if request.start:
-            query_params = f"{query_params}&start={request.start.isoformat()}" if query_params else f"start={request.start.isoformat()}"
+            query_params = (
+                f"{query_params}&start={request.start.isoformat()}"
+                if query_params
+                else f"start={request.start.isoformat()}"
+            )
         if request.end:
-            query_params = f"{query_params}&end={request.end.isoformat()}" if query_params else f"end={request.end.isoformat()}"
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+            query_params = (
+                f"{query_params}&end={request.end.isoformat()}" if query_params else f"end={request.end.isoformat()}"
+            )
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
         return ListWalletTransactionsResponse.from_response(response.json())
 
-    def submit_deposit_travel_rule_data(self, request: SubmitDepositTravelRuleDataRequest) -> SubmitDepositTravelRuleDataResponse:
+    def submit_deposit_travel_rule_data(
+        self, request: SubmitDepositTravelRuleDataRequest
+    ) -> SubmitDepositTravelRuleDataResponse:
         path = f"/portfolios/{request.portfolio_id}/transactions/{request.transaction_id}/travel_rule/deposit"
         body = to_body_dict(request)
         response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
         return SubmitDepositTravelRuleDataResponse.from_response(response.json())
-
-    def get_transaction_travel_rule_data(self, request: GetTransactionTravelRuleDataRequest) -> GetTransactionTravelRuleDataResponse:
-        path = f"/portfolios/{request.portfolio_id}/transactions/{request.transaction_id}/travel_rule"
-        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
-        return GetTransactionTravelRuleDataResponse.from_response(response.json())
