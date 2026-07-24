@@ -18,7 +18,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="prime-sdk-py",
-    version="1.8.0",
+    version="1.9.0",
     long_description=Path("README.md").read_text(encoding="utf-8"),
     long_description_content_type="text/markdown",
     packages=find_packages(exclude=['prime_sdk.examples', 'prime_sdk.examples.*']),

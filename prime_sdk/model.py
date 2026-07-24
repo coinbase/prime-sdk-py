@@ -378,8 +378,21 @@ class Web3TransactionMetadata:
 
 
 @dataclass
+class CustomStablecoinAsset:
+    symbol: str = None
+
+
+@dataclass
+class CustomStablecoinRewardDetails:
+    start_date: str = None
+    end_date: str = None
+    asset: CustomStablecoinAsset = None
+
+
+@dataclass
 class RewardMetadata:
     subtype: str = None
+    custom_stablecoin_reward_details: CustomStablecoinRewardDetails = None
 
 
 @dataclass
@@ -1065,6 +1078,12 @@ class ValidatorUnstakePreview:
 
 
 @dataclass
+class ValidatorAllocation:
+    validator_address: str = None
+    amount: str = None
+
+
+@dataclass
 class CrossMarginRiskParameters:
     asset_tier: str = None
     base_ratio_long: str = None
@@ -1205,3 +1224,50 @@ class MarketData:
     vol_90d: str = None
     adv_30d: str = None
     weighted_vol: str = None
+
+
+@dataclass
+class XMSummary:
+    margin_requirement: str = None
+    account_equity: str = None
+    margin_excess_shortfall: str = None
+    consumed_credit: str = None
+    xm_credit_limit: str = None
+    xm_margin_limit: str = None
+    spot_equity: str = None
+    futures_equity: str = None
+    risk_netting_info: RiskNettingInfo = None
+
+
+@dataclass
+class XMLiquidatedAsset:
+    asset: str = None
+    liquidated_amount: str = None
+    liquidated_notional: str = None
+    remaining_amount: str = None
+    remaining_notional: str = None
+
+
+@dataclass
+class XMLiquidationDetail:
+    liquidation_id: str = None
+    status: str = None
+    shortfall_amount: str = None
+    pre_liquidation_start_time: str = None
+    margin_summary: XMSummary = None
+    liquidation_start_time: str = None
+    filled_amount: str = None
+    remaining_amount: str = None
+    liquidation_finish_time: str = None
+    asset_breakdown: List[XMLiquidatedAsset] = None
+
+
+@dataclass
+class XMLiquidationSummary:
+    liquidation_id: str = None
+    status: str = None
+    shortfall_amount: str = None
+    filled_amount: str = None
+    remaining_amount: str = None
+    created_at: str = None
+    completed_at: str = None

@@ -12,28 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from dataclasses import dataclass
-from typing import List, Optional
-from ...base_response import BaseResponse
+from .service import ApiKeysService
+from .rotate_api_key import (
+    RotateApiKeyRequest,
+    RotateApiKeyResponse,
+)
 
-
-@dataclass
-class UnstakeMetadata:
-    external_id: Optional[str] = None
-
-
-@dataclass
-class CreatePortfolioUnstakeRequest:
-    portfolio_id: str
-    idempotency_key: str
-    currency_symbol: str
-    amount: str
-    metadata: Optional[UnstakeMetadata] = None
-    validator_provider: Optional[str] = None
-    allowed_status_codes: Optional[List[int]] = None
-
-
-@dataclass
-class CreatePortfolioUnstakeResponse(BaseResponse):
-    activity_id: str = None
-    transaction_id: str = None
+__all__ = [
+    "ApiKeysService",
+    "RotateApiKeyRequest",
+    "RotateApiKeyResponse",
+]

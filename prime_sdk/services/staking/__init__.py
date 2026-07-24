@@ -15,6 +15,7 @@
 from .service import StakingService
 from .create_stake import (
     StakingInputs,
+    WalletStakingMetadata,
     CreateStakeRequest,
     CreateStakeResponse
 )
@@ -61,6 +62,7 @@ from .preview_unstake import (
 __all__ = [
     "StakingService",
     "StakingInputs",
+    "WalletStakingMetadata",
     "CreateStakeRequest",
     "CreateStakeResponse",
     "CreateUnstakeRequest",

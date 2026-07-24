@@ -90,6 +90,14 @@ from .get_market_data import (
     GetMarketDataRequest,
     GetMarketDataResponse
 )
+from .get_xm_liquidation import (
+    GetXMLiquidationRequest,
+    GetXMLiquidationResponse
+)
+from .list_xm_liquidations import (
+    ListXMLiquidationsRequest,
+    ListXMLiquidationsResponse
+)
 
 
 class FinancingService:
@@ -219,3 +227,21 @@ class FinancingService:
         query_params = append_query_param(query_params, "sort_direction", request.sort_direction)
         response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
         return GetMarketDataResponse.from_response(response.json())
+
+    def get_xm_liquidation(self, request: GetXMLiquidationRequest) -> GetXMLiquidationResponse:
+        path = f"/entities/{request.entity_id}/cross_margin/liquidation"
+        query_params = append_query_param("", "liquidation_id", request.liquidation_id)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
+        return GetXMLiquidationResponse.from_response(response.json())
+
+    def list_xm_liquidations(self, request: ListXMLiquidationsRequest) -> ListXMLiquidationsResponse:
+        path = f"/entities/{request.entity_id}/cross_margin/liquidations"
+        query_params = append_query_param("", "cursor", request.cursor)
+        query_params = append_query_param(query_params, "limit", request.limit)
+        query_params = append_query_param(query_params, "sort_direction", request.sort_direction)
+        response = self.client.request(
+            "GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes
+        )
+        return ListXMLiquidationsResponse.from_response(response.json())

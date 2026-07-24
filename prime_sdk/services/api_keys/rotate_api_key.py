@@ -15,34 +15,15 @@
 from dataclasses import dataclass
 from typing import List, Optional
 from ...base_response import BaseResponse
-from ...model import ValidatorAllocation
 
 
 @dataclass
-class StakingInputs:
-    amount: Optional[str] = None
-    validator_address: Optional[str] = None
-    end_date: Optional[str] = None
-    validator_allocations: Optional[List[ValidatorAllocation]] = None
-
-
-@dataclass
-class WalletStakingMetadata:
-    external_id: Optional[str] = None
-
-
-@dataclass
-class CreateStakeRequest:
-    portfolio_id: str
-    wallet_id: str
-    idempotency_key: str
-    inputs: Optional[StakingInputs] = None
-    metadata: Optional[WalletStakingMetadata] = None
+class RotateApiKeyRequest:
+    duration_seconds: Optional[int] = None
     allowed_status_codes: Optional[List[int]] = None
 
 
 @dataclass
-class CreateStakeResponse(BaseResponse):
-    wallet_id: str = None
-    transaction_id: str = None
+class RotateApiKeyResponse(BaseResponse):
+    encrypted_credentials: str = None
     activity_id: str = None

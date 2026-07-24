@@ -89,6 +89,14 @@ from .get_market_data import (
     GetMarketDataRequest,
     GetMarketDataResponse
 )
+from .get_xm_liquidation import (
+    GetXMLiquidationRequest,
+    GetXMLiquidationResponse
+)
+from .list_xm_liquidations import (
+    ListXMLiquidationsRequest,
+    ListXMLiquidationsResponse
+)
 
 __all__ = [
     "FinancingService",
@@ -129,5 +137,9 @@ __all__ = [
     "SetFundingSettingsRequest",
     "SetFundingSettingsResponse",
     "GetMarketDataRequest",
-    "GetMarketDataResponse"
+    "GetMarketDataResponse",
+    "GetXMLiquidationRequest",
+    "GetXMLiquidationResponse",
+    "ListXMLiquidationsRequest",
+    "ListXMLiquidationsResponse",
 ]

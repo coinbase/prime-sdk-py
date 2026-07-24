@@ -43,6 +43,7 @@ class TravelRuleParty:
     wallet_type: Optional[str] = None
     vasp_id: Optional[str] = None
     vasp_name: Optional[str] = None
+    vasp_address: Optional[str] = None
     personal_id: Optional[str] = None
     date_of_birth: Optional[str] = None
     telephone_number: Optional[str] = None
