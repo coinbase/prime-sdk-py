@@ -14,10 +14,14 @@
 
 import dataclasses
 import json
+import sys
 from dataclasses import asdict, dataclass, fields
 from typing import Any, TypeVar, get_type_hints
 
-from typing_extensions import Self
+if sys.version_info >= (3, 11):
+    from typing import Self
+else:
+    from typing_extensions import Self
 
 T = TypeVar("T")
 
