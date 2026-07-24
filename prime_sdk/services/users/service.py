@@ -14,28 +14,36 @@
 
 from ...client import Client
 from ...utils import append_pagination_params
-from .list_entity_users import (
-    ListEntityUsersRequest,
-    ListEntityUsersResponse
-)
-from .list_portfolio_users import (
-    ListPortfolioUsersRequest,
-    ListPortfolioUsersResponse
-)
+from .list_entity_users import ListEntityUsersRequest, ListEntityUsersResponse
+from .list_portfolio_users import ListPortfolioUsersRequest, ListPortfolioUsersResponse
 
 
 class UsersService:
     def __init__(self, client: Client):
         self.client = client
 
-    def list_entity_users(self, request: ListEntityUsersRequest) -> ListEntityUsersResponse:
+    def list_entity_users(
+        self, request: ListEntityUsersRequest
+    ) -> ListEntityUsersResponse:
         path = f"/entities/{request.entity_id}/users"
         query_params = append_pagination_params("", request.pagination)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET",
+            path,
+            query=query_params,
+            allowed_status_codes=request.allowed_status_codes,
+        )
         return ListEntityUsersResponse.from_response(response.json())
 
-    def list_portfolio_users(self, request: ListPortfolioUsersRequest) -> ListPortfolioUsersResponse:
+    def list_portfolio_users(
+        self, request: ListPortfolioUsersRequest
+    ) -> ListPortfolioUsersResponse:
         path = f"/portfolios/{request.portfolio_id}/users"
         query_params = append_pagination_params("", request.pagination)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET",
+            path,
+            query=query_params,
+            allowed_status_codes=request.allowed_status_codes,
+        )
         return ListPortfolioUsersResponse.from_response(response.json())

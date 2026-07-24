@@ -18,12 +18,13 @@
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.portfolios import ListPortfoliosRequest
 
+
 def main():
 
     client = PrimeServicesClient.from_env()
-    
+
     request = ListPortfoliosRequest()
-    
+
     try:
         response = client.portfolios.list_portfolios(request)
         print(response)

@@ -44,11 +44,10 @@ __all__ = [
     "Client",
     "PrimeServicesClient",
     "Credentials",
-    
     # Service classes
     "ActivitiesService",
     "AdvancedTransfersService",
-    "AddressBookService", 
+    "AddressBookService",
     "AllocationsService",
     "AssetsService",
     "BalancesService",

@@ -14,25 +14,26 @@
 
 from enum import Enum
 
+
 class WalletType(Enum):
-    VAULT   = "VAULT"
+    VAULT = "VAULT"
     TRADING = "TRADING"
     ONCHAIN = "ONCHAIN"
-    OTHER   = "WALLET_TYPE_OTHER"
-    QC      = "QC"
+    OTHER = "WALLET_TYPE_OTHER"
+    QC = "QC"
 
 
 class WalletDepositType(Enum):
-    WIRE   = "WIRE"
-    SWIFT  = "SWIFT"
+    WIRE = "WIRE"
+    SWIFT = "SWIFT"
     CRYPTO = "CRYPTO"
-    SEPA   = "SEPA"
+    SEPA = "SEPA"
 
 
 class BalanceType(Enum):
     TRADING = "TRADING_BALANCES"
-    VAULT   = "VAULT_BALANCES"
-    TOTAL   = "TOTAL_BALANCES"
+    VAULT = "VAULT_BALANCES"
+    TOTAL = "TOTAL_BALANCES"
     UNKNOWN_BALANCE_TYPE = "UNKNOWN_BALANCE_TYPE"
     PRIME_CUSTODY_BALANCES = "PRIME_CUSTODY_BALANCES"
 
@@ -44,26 +45,26 @@ class NetworkType(Enum):
 
 
 class OrderSide(Enum):
-    BUY  = "BUY"
+    BUY = "BUY"
     SELL = "SELL"
 
 
 class OrderType(Enum):
     MARKET = "MARKET"
-    LIMIT  = "LIMIT"
-    TWAP   = "TWAP"
-    BLOCK  = "BLOCK"
-    VWAP   = "VWAP"
+    LIMIT = "LIMIT"
+    TWAP = "TWAP"
+    BLOCK = "BLOCK"
+    VWAP = "VWAP"
     STOP_LIMIT = "STOP_LIMIT"
     RFQ = "RFQ"
 
 
 class TimeInForce(Enum):
-    GOOD_UNTIL_DATE_TIME      = "GOOD_UNTIL_DATE_TIME"
-    GOOD_UNTIL_CANCELLED       = "GOOD_UNTIL_CANCELLED"
-    IMMEDIATE_OR_CANCEL        = "IMMEDIATE_OR_CANCEL"
-    FILL_OR_KILL               = "FILL_OR_KILL"
-    UNKNOWN_TIME_IN_FORCE      = "UNKNOWN_TIME_IN_FORCE"
+    GOOD_UNTIL_DATE_TIME = "GOOD_UNTIL_DATE_TIME"
+    GOOD_UNTIL_CANCELLED = "GOOD_UNTIL_CANCELLED"
+    IMMEDIATE_OR_CANCEL = "IMMEDIATE_OR_CANCEL"
+    FILL_OR_KILL = "FILL_OR_KILL"
+    UNKNOWN_TIME_IN_FORCE = "UNKNOWN_TIME_IN_FORCE"
 
 
 class SizeType(Enum):

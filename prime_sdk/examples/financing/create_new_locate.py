@@ -23,7 +23,9 @@ from prime_sdk.services.financing import CreateNewLocateRequest
 
 def main():
     parser = argparse.ArgumentParser(description="Create a new locate request")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
+    parser.add_argument(
+        "--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)"
+    )
     parser.add_argument("--symbol", required=True, help="Currency symbol (e.g., BTC)")
     parser.add_argument("--amount", required=True, help="Amount to locate")
     parser.add_argument("--locate-date", help="Locate date (ISO format)")
@@ -33,14 +35,16 @@ def main():
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
 
     if not portfolio_id:
-        print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
+        print(
+            "Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id"
+        )
         return
 
     request = CreateNewLocateRequest(
         portfolio_id=portfolio_id,
         symbol=args.symbol,
         amount=args.amount,
-        locate_date=args.locate_date
+        locate_date=args.locate_date,
     )
 
     try:

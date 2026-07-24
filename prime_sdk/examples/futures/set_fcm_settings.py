@@ -23,20 +23,27 @@ from prime_sdk.services.futures import SetFcmSettingsRequest
 
 def main():
     parser = argparse.ArgumentParser(description="Set FCM settings for an entity")
-    parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
-    parser.add_argument("--target-derivatives-excess", required=True, help="Target derivatives excess amount (e.g., '1000.00')")
+    parser.add_argument(
+        "--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)"
+    )
+    parser.add_argument(
+        "--target-derivatives-excess",
+        required=True,
+        help="Target derivatives excess amount (e.g., '1000.00')",
+    )
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
 
     entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
     if not entity_id:
-        print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
+        print(
+            "Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id"
+        )
         return
 
     request = SetFcmSettingsRequest(
-        entity_id=entity_id,
-        target_derivatives_excess=args.target_derivatives_excess
+        entity_id=entity_id, target_derivatives_excess=args.target_derivatives_excess
     )
 
     try:

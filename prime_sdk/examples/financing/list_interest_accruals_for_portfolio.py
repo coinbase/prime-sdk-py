@@ -22,8 +22,12 @@ from prime_sdk.services.financing import ListInterestAccrualsForPortfolioRequest
 
 
 def main():
-    parser = argparse.ArgumentParser(description="List interest accruals for a portfolio")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
+    parser = argparse.ArgumentParser(
+        description="List interest accruals for a portfolio"
+    )
+    parser.add_argument(
+        "--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)"
+    )
     parser.add_argument("--start-date", help="Start date (ISO format)")
     parser.add_argument("--end-date", help="End date (ISO format)")
     args = parser.parse_args()
@@ -32,13 +36,13 @@ def main():
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
 
     if not portfolio_id:
-        print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
+        print(
+            "Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id"
+        )
         return
 
     request = ListInterestAccrualsForPortfolioRequest(
-        portfolio_id=portfolio_id,
-        start_date=args.start_date,
-        end_date=args.end_date
+        portfolio_id=portfolio_id, start_date=args.start_date, end_date=args.end_date
     )
 
     try:

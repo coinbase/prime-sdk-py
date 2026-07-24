@@ -23,7 +23,9 @@ from prime_sdk.services.futures import ScheduleEntityFuturesSweepRequest
 
 def main():
     parser = argparse.ArgumentParser(description="Schedule an entity futures sweep")
-    parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
+    parser.add_argument(
+        "--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)"
+    )
     parser.add_argument("--amount", required=True, help="Amount to sweep")
     parser.add_argument("--currency", required=True, help="Currency (e.g., USD)")
     args = parser.parse_args()
@@ -32,13 +34,13 @@ def main():
 
     entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
     if not entity_id:
-        print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
+        print(
+            "Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id"
+        )
         return
 
     request = ScheduleEntityFuturesSweepRequest(
-        entity_id=entity_id,
-        amount=args.amount,
-        currency=args.currency
+        entity_id=entity_id, amount=args.amount, currency=args.currency
     )
 
     try:

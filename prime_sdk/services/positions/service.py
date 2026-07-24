@@ -16,11 +16,11 @@ from prime_sdk.client import Client
 from prime_sdk.utils import append_pagination_params
 from .list_aggregate_entity_positions import (
     ListAggregateEntityPositionsRequest,
-    ListAggregateEntityPositionsResponse
+    ListAggregateEntityPositionsResponse,
 )
 from .list_entity_positions import (
     ListEntityPositionsRequest,
-    ListEntityPositionsResponse
+    ListEntityPositionsResponse,
 )
 
 
@@ -28,14 +28,28 @@ class PositionsService:
     def __init__(self, client: Client):
         self.client = client
 
-    def list_aggregate_entity_positions(self, request: ListAggregateEntityPositionsRequest) -> ListAggregateEntityPositionsResponse:
+    def list_aggregate_entity_positions(
+        self, request: ListAggregateEntityPositionsRequest
+    ) -> ListAggregateEntityPositionsResponse:
         path = f"/entities/{request.entity_id}/aggregate_positions"
         query_params = append_pagination_params("", request.pagination)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET",
+            path,
+            query=query_params,
+            allowed_status_codes=request.allowed_status_codes,
+        )
         return ListAggregateEntityPositionsResponse.from_response(response.json())
 
-    def list_entity_positions(self, request: ListEntityPositionsRequest) -> ListEntityPositionsResponse:
+    def list_entity_positions(
+        self, request: ListEntityPositionsRequest
+    ) -> ListEntityPositionsResponse:
         path = f"/entities/{request.entity_id}/positions"
         query_params = append_pagination_params("", request.pagination)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET",
+            path,
+            query=query_params,
+            allowed_status_codes=request.allowed_status_codes,
+        )
         return ListEntityPositionsResponse.from_response(response.json())

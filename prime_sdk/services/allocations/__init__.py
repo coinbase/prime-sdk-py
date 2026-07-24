@@ -16,24 +16,21 @@ from .service import AllocationsService
 from .create_portfolio_allocations import (
     CreatePortfolioAllocationsRequest,
     CreatePortfolioAllocationsResponse,
-    AllocationLeg
+    AllocationLeg,
 )
 from .create_portfolio_net_allocations import (
     CreatePortfolioNetAllocationsRequest,
     CreatePortfolioNetAllocationsResponse,
-    NetAllocationLeg
+    NetAllocationLeg,
 )
-from .get_allocation_by_id import (
-    GetAllocationByIdRequest,
-    GetAllocationByIdResponse
-)
+from .get_allocation_by_id import GetAllocationByIdRequest, GetAllocationByIdResponse
 from .get_net_allocations_by_netting_id import (
     GetNetAllocationsByNettingIdRequest,
-    GetNetAllocationsByNettingIdResponse
+    GetNetAllocationsByNettingIdResponse,
 )
 from .list_portfolio_allocations import (
     ListPortfolioAllocationsRequest,
-    ListPortfolioAllocationsResponse
+    ListPortfolioAllocationsResponse,
 )
 
 __all__ = [
@@ -41,7 +38,7 @@ __all__ = [
     "CreatePortfolioAllocationsRequest",
     "CreatePortfolioAllocationsResponse",
     "AllocationLeg",
-    "CreatePortfolioNetAllocationsRequest", 
+    "CreatePortfolioNetAllocationsRequest",
     "CreatePortfolioNetAllocationsResponse",
     "NetAllocationLeg",
     "GetAllocationByIdRequest",
@@ -49,5 +46,5 @@ __all__ = [
     "GetNetAllocationsByNettingIdRequest",
     "GetNetAllocationsByNettingIdResponse",
     "ListPortfolioAllocationsRequest",
-    "ListPortfolioAllocationsResponse"
+    "ListPortfolioAllocationsResponse",
 ]

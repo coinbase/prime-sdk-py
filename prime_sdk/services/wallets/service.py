@@ -14,30 +14,21 @@
 
 from prime_sdk.client import Client
 from prime_sdk.utils import append_pagination_params, append_query_param, to_body_dict
-from .create_wallet import (
-    CreateWalletRequest,
-    CreateWalletResponse
-)
+from .create_wallet import CreateWalletRequest, CreateWalletResponse
 from .create_wallet_deposit_address import (
     CreateWalletDepositAddressRequest,
-    CreateWalletDepositAddressResponse
+    CreateWalletDepositAddressResponse,
 )
-from .get_wallet import (
-    GetWalletRequest,
-    GetWalletResponse
-)
+from .get_wallet import GetWalletRequest, GetWalletResponse
 from .get_wallet_deposit_instructions import (
     GetWalletDepositInstructionsRequest,
-    GetWalletDepositInstructionsResponse
+    GetWalletDepositInstructionsResponse,
 )
 from .list_wallet_addresses import (
     ListWalletAddressesRequest,
-    ListWalletAddressesResponse
+    ListWalletAddressesResponse,
 )
-from .list_wallets import (
-    ListWalletsRequest,
-    ListWalletsResponse
-)
+from .list_wallets import ListWalletsRequest, ListWalletsResponse
 
 
 class WalletsService:
@@ -47,37 +38,70 @@ class WalletsService:
     def create_wallet(self, request: CreateWalletRequest) -> CreateWalletResponse:
         path = f"/portfolios/{request.portfolio_id}/wallets"
         body = to_body_dict(request)
-        response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "POST", path, body=body, allowed_status_codes=request.allowed_status_codes
+        )
         return CreateWalletResponse.from_response(response.json())
 
-    def create_wallet_deposit_address(self, request: CreateWalletDepositAddressRequest) -> CreateWalletDepositAddressResponse:
-        path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/addresses"
+    def create_wallet_deposit_address(
+        self, request: CreateWalletDepositAddressRequest
+    ) -> CreateWalletDepositAddressResponse:
+        path = (
+            f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/addresses"
+        )
         body = to_body_dict(request)
-        response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "POST", path, body=body, allowed_status_codes=request.allowed_status_codes
+        )
         return CreateWalletDepositAddressResponse.from_response(response.json())
 
     def get_wallet(self, request: GetWalletRequest) -> GetWalletResponse:
         path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}"
-        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET", path, allowed_status_codes=request.allowed_status_codes
+        )
         return GetWalletResponse.from_response(response.json())
 
-    def get_wallet_deposit_instructions(self, request: GetWalletDepositInstructionsRequest) -> GetWalletDepositInstructionsResponse:
+    def get_wallet_deposit_instructions(
+        self, request: GetWalletDepositInstructionsRequest
+    ) -> GetWalletDepositInstructionsResponse:
         path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/deposit_instructions"
         query_params = f"deposit_type={request.deposit_type.value}"
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET",
+            path,
+            query=query_params,
+            allowed_status_codes=request.allowed_status_codes,
+        )
         return GetWalletDepositInstructionsResponse.from_response(response.json())
 
-    def list_wallet_addresses(self, request: ListWalletAddressesRequest) -> ListWalletAddressesResponse:
-        path = f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/addresses"
+    def list_wallet_addresses(
+        self, request: ListWalletAddressesRequest
+    ) -> ListWalletAddressesResponse:
+        path = (
+            f"/portfolios/{request.portfolio_id}/wallets/{request.wallet_id}/addresses"
+        )
         query_params = f"network_id={request.network_id}"
         query_params = append_pagination_params(query_params, request.pagination)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET",
+            path,
+            query=query_params,
+            allowed_status_codes=request.allowed_status_codes,
+        )
         return ListWalletAddressesResponse.from_response(response.json())
 
     def list_wallets(self, request: ListWalletsRequest) -> ListWalletsResponse:
         path = f"/portfolios/{request.portfolio_id}/wallets"
         query_params = append_pagination_params("", request.pagination)
-        query_params = append_query_param(query_params, "type", request.type.value if request.type else None)
+        query_params = append_query_param(
+            query_params, "type", request.type.value if request.type else None
+        )
         query_params = append_query_param(query_params, "symbols", request.symbols)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET",
+            path,
+            query=query_params,
+            allowed_status_codes=request.allowed_status_codes,
+        )
         return ListWalletsResponse.from_response(response.json())

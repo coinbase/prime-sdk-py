@@ -22,23 +22,33 @@ from prime_sdk.services.financing import GetBuyingPowerRequest
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Get portfolio buying power for a currency pair")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
-    parser.add_argument("--base-currency", required=True, help="Base currency (e.g., BTC)")
-    parser.add_argument("--quote-currency", required=True, help="Quote currency (e.g., USD)")
+    parser = argparse.ArgumentParser(
+        description="Get portfolio buying power for a currency pair"
+    )
+    parser.add_argument(
+        "--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)"
+    )
+    parser.add_argument(
+        "--base-currency", required=True, help="Base currency (e.g., BTC)"
+    )
+    parser.add_argument(
+        "--quote-currency", required=True, help="Quote currency (e.g., USD)"
+    )
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
 
     if not portfolio_id:
-        print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
+        print(
+            "Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id"
+        )
         return
 
     request = GetBuyingPowerRequest(
         portfolio_id=portfolio_id,
         base_currency=args.base_currency,
-        quote_currency=args.quote_currency
+        quote_currency=args.quote_currency,
     )
 
     try:

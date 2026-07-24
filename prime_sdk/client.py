@@ -25,17 +25,24 @@ DEFAULT_V1_API_BASE_URL = "https://api.prime.coinbase.com/v1"
 
 
 class Client:
-    def __init__(self, credentials: Credentials, http_client: Optional[requests.Session] = None):
+    def __init__(
+        self, credentials: Credentials, http_client: Optional[requests.Session] = None
+    ):
         self.http_base_url = DEFAULT_V1_API_BASE_URL
         self.credentials = credentials
         self.http_client = http_client if http_client else requests.Session()
 
     @staticmethod
-    def from_env(variable_name: str = 'PRIME_CREDENTIALS', http_client: Optional[requests.Session] = None) -> 'Client':
+    def from_env(
+        variable_name: str = "PRIME_CREDENTIALS",
+        http_client: Optional[requests.Session] = None,
+    ) -> "Client":
         credentials = Credentials.from_env(variable_name)
         return Client(credentials, http_client)
 
-    def generate_headers(self, method: str, path: str, body: Optional[Dict] = None) -> Dict[str, str]:
+    def generate_headers(
+        self, method: str, path: str, body: Optional[Dict] = None
+    ) -> Dict[str, str]:
         timestamp = str(int(time.time()))
         body_string = json.dumps(body) if body else ""
         message = f"{timestamp}{method}{path}{body_string}"
@@ -50,11 +57,20 @@ class Client:
         }
 
     def sign(self, message: str) -> str:
-        h = hmac.new(self.credentials.signing_key.encode(), message.encode(), hashlib.sha256)
+        h = hmac.new(
+            self.credentials.signing_key.encode(), message.encode(), hashlib.sha256
+        )
         return base64.b64encode(h.digest()).decode()
 
-    def request(self, method: str, path: str, query: Optional[str] = "", body: Optional[Dict] = None,
-                allowed_status_codes: Optional[List[int]] = None, version: str = "v1") -> requests.Response:
+    def request(
+        self,
+        method: str,
+        path: str,
+        query: Optional[str] = "",
+        body: Optional[Dict] = None,
+        allowed_status_codes: Optional[List[int]] = None,
+        version: str = "v1",
+    ) -> requests.Response:
         if allowed_status_codes is None:
             allowed_status_codes = [200]
         base_url = DEFAULT_V1_API_BASE_URL.replace("/v1", f"/{version}")
@@ -67,8 +83,10 @@ class Client:
         if response.status_code not in allowed_status_codes:
             try:
                 error_details = response.json()
-                error_message = error_details.get('message', response.text)
+                error_message = error_details.get("message", response.text)
             except ValueError:
                 error_message = response.text
-            raise Exception(f"Request failed with status {response.status_code}: {error_message}")
+            raise Exception(
+                f"Request failed with status {response.status_code}: {error_message}"
+            )
         return response

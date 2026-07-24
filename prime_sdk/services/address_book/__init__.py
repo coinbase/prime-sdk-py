@@ -15,17 +15,14 @@
 from .service import AddressBookService
 from .create_address_book_entry import (
     CreateAddressBookEntryRequest,
-    CreateAddressBookEntryResponse
+    CreateAddressBookEntryResponse,
 )
-from .get_address_book import (
-    GetAddressBookRequest,
-    GetAddressBookResponse
-)
+from .get_address_book import GetAddressBookRequest, GetAddressBookResponse
 
 __all__ = [
     "AddressBookService",
     "CreateAddressBookEntryRequest",
     "CreateAddressBookEntryResponse",
     "GetAddressBookRequest",
-    "GetAddressBookResponse"
+    "GetAddressBookResponse",
 ]

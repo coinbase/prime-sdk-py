@@ -16,11 +16,11 @@ from prime_sdk.client import Client
 from prime_sdk.utils import append_pagination_params
 from .get_entity_payment_method import (
     GetEntityPaymentMethodRequest,
-    GetEntityPaymentMethodResponse
+    GetEntityPaymentMethodResponse,
 )
 from .list_entity_payment_methods import (
     ListEntityPaymentMethodsRequest,
-    ListEntityPaymentMethodsResponse
+    ListEntityPaymentMethodsResponse,
 )
 
 
@@ -28,13 +28,26 @@ class PaymentMethodsService:
     def __init__(self, client: Client):
         self.client = client
 
-    def get_entity_payment_method(self, request: GetEntityPaymentMethodRequest) -> GetEntityPaymentMethodResponse:
-        path = f"/entities/{request.entity_id}/payment-methods/{request.payment_method_id}"
-        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+    def get_entity_payment_method(
+        self, request: GetEntityPaymentMethodRequest
+    ) -> GetEntityPaymentMethodResponse:
+        path = (
+            f"/entities/{request.entity_id}/payment-methods/{request.payment_method_id}"
+        )
+        response = self.client.request(
+            "GET", path, allowed_status_codes=request.allowed_status_codes
+        )
         return GetEntityPaymentMethodResponse.from_response(response.json())
 
-    def list_entity_payment_methods(self, request: ListEntityPaymentMethodsRequest) -> ListEntityPaymentMethodsResponse:
+    def list_entity_payment_methods(
+        self, request: ListEntityPaymentMethodsRequest
+    ) -> ListEntityPaymentMethodsResponse:
         path = f"/entities/{request.entity_id}/payment-methods"
         query_params = append_pagination_params("", request.pagination)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET",
+            path,
+            query=query_params,
+            allowed_status_codes=request.allowed_status_codes,
+        )
         return ListEntityPaymentMethodsResponse.from_response(response.json())

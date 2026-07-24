@@ -17,7 +17,7 @@ import dataclasses
 from dataclasses import dataclass, fields, asdict
 from typing import get_type_hints, Dict, Any, Type, TypeVar
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 def filter_known_fields(cls: Type[T], data: Dict[str, Any]) -> Dict[str, Any]:
@@ -47,10 +47,22 @@ class BaseResponse:
             if value is None:
                 continue
             expected_type = type_hints.get(f.name)
-            if hasattr(expected_type, '__origin__') and expected_type.__origin__ is list:
+            if (
+                hasattr(expected_type, "__origin__")
+                and expected_type.__origin__ is list
+            ):
                 inner_type = expected_type.__args__[0]
                 if dataclasses.is_dataclass(inner_type) and isinstance(value, list):
-                    setattr(self, f.name, [safe_instantiate(inner_type, v) if isinstance(v, dict) else v for v in value])
+                    setattr(
+                        self,
+                        f.name,
+                        [
+                            safe_instantiate(inner_type, v)
+                            if isinstance(v, dict)
+                            else v
+                            for v in value
+                        ],
+                    )
             elif dataclasses.is_dataclass(expected_type) and isinstance(value, dict):
                 setattr(self, f.name, safe_instantiate(expected_type, value))
 

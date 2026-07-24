@@ -23,19 +23,21 @@ from prime_sdk.services.futures import GetEntityPositionsRequest
 
 def main():
     parser = argparse.ArgumentParser(description="Get entity futures positions")
-    parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
+    parser.add_argument(
+        "--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)"
+    )
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
 
     entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
     if not entity_id:
-        print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
+        print(
+            "Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id"
+        )
         return
 
-    request = GetEntityPositionsRequest(
-        entity_id=entity_id
-    )
+    request = GetEntityPositionsRequest(entity_id=entity_id)
 
     try:
         response = client.futures.get_entity_positions(request)

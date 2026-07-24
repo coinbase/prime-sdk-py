@@ -22,8 +22,12 @@ from prime_sdk.services.financing import ListMarginCallSummariesRequest
 
 
 def main():
-    parser = argparse.ArgumentParser(description="List margin call summaries for an entity")
-    parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
+    parser = argparse.ArgumentParser(
+        description="List margin call summaries for an entity"
+    )
+    parser.add_argument(
+        "--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)"
+    )
     parser.add_argument("--start-date", help="Start date (ISO format)")
     parser.add_argument("--end-date", help="End date (ISO format)")
     args = parser.parse_args()
@@ -32,13 +36,13 @@ def main():
 
     entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
     if not entity_id:
-        print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
+        print(
+            "Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id"
+        )
         return
 
     request = ListMarginCallSummariesRequest(
-        entity_id=entity_id,
-        start_date=args.start_date,
-        end_date=args.end_date
+        entity_id=entity_id, start_date=args.start_date, end_date=args.end_date
     )
 
     try:

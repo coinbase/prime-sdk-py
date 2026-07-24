@@ -25,53 +25,45 @@ from prime_sdk.services.transactions import CreateConversionRequest
 def main():
     parser = argparse.ArgumentParser(description="Create a conversion transaction")
     parser.add_argument(
-        "--portfolio-id",
-        help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)"
+        "--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)"
     )
     parser.add_argument(
-        "--wallet-id",
-        required=True,
-        help="Wallet ID for the conversion"
+        "--wallet-id", required=True, help="Wallet ID for the conversion"
     )
-    parser.add_argument(
-        "--amount",
-        required=True,
-        help="Amount to convert"
-    )
+    parser.add_argument("--amount", required=True, help="Amount to convert")
     parser.add_argument(
         "--source-symbol",
         required=True,
-        help="Source symbol to convert from (e.g., BTC)"
+        help="Source symbol to convert from (e.g., BTC)",
     )
     parser.add_argument(
-        "--destination-symbol", 
+        "--destination-symbol",
         required=True,
-        help="Destination symbol to convert to (e.g., ETH)"
+        help="Destination symbol to convert to (e.g., ETH)",
     )
     parser.add_argument(
-        "--destination",
-        required=True,
-        help="Destination address or identifier"
+        "--destination", required=True, help="Destination address or identifier"
     )
     parser.add_argument(
-        "--idempotency-key",
-        help="Idempotency key (auto-generated if not provided)"
+        "--idempotency-key", help="Idempotency key (auto-generated if not provided)"
     )
-    
+
     args = parser.parse_args()
-    
+
     # Get portfolio ID from args or environment
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
     if not portfolio_id:
-        print("Error: Portfolio ID must be provided via --portfolio-id argument or PRIME_PORTFOLIO_ID environment variable")
+        print(
+            "Error: Portfolio ID must be provided via --portfolio-id argument or PRIME_PORTFOLIO_ID environment variable"
+        )
         return
-    
+
     # Generate idempotency key if not provided
     idempotency_key = args.idempotency_key or str(uuid.uuid4())
-    
+
     # Initialize the client
     client = PrimeServicesClient.from_env()
-    
+
     request = CreateConversionRequest(
         portfolio_id=portfolio_id,
         wallet_id=args.wallet_id,
@@ -79,9 +71,9 @@ def main():
         source_symbol=args.source_symbol,
         destination_symbol=args.destination_symbol,
         destination=args.destination,
-        idempotency_key=idempotency_key
+        idempotency_key=idempotency_key,
     )
-    
+
     try:
         response = client.transactions.create_conversion(request)
         print(response)

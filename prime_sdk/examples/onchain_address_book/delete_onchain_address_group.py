@@ -20,31 +20,39 @@ import os
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.onchain_address_book import DeleteOnchainAddressGroupRequest
 
+
 def main():
     parser = argparse.ArgumentParser(description="Delete an onchain address group")
     parser.add_argument("address_group_id", nargs="?", help="Address Group ID")
-    parser.add_argument("--address-group-id", dest="address_group_id_named", help="Address Group ID")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
+    parser.add_argument(
+        "--address-group-id", dest="address_group_id_named", help="Address Group ID"
+    )
+    parser.add_argument(
+        "--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)"
+    )
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
-    
+
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
     if not portfolio_id:
-        print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
+        print(
+            "Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id"
+        )
         return
 
     # Accept address group ID from either positional or named argument
     address_group_id = args.address_group_id or args.address_group_id_named
     if not address_group_id:
-        print("Error: Address Group ID is required. Provide as positional argument or use --address-group-id")
+        print(
+            "Error: Address Group ID is required. Provide as positional argument or use --address-group-id"
+        )
         return
-    
+
     request = DeleteOnchainAddressGroupRequest(
-        portfolio_id=portfolio_id,
-        address_group_id=address_group_id
+        portfolio_id=portfolio_id, address_group_id=address_group_id
     )
-    
+
     try:
         response = client.onchain_address_book.delete_onchain_address_group(request)
         print(response)

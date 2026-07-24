@@ -19,13 +19,20 @@ import argparse
 import uuid
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
-from prime_sdk.services.staking import StakingService, ClaimWalletStakingRewardsRequest, ClaimRewardsInputs
+from prime_sdk.services.staking import (
+    StakingService,
+    ClaimWalletStakingRewardsRequest,
+    ClaimRewardsInputs,
+)
 
 
 def main():
     parser = argparse.ArgumentParser(description="Claim wallet staking rewards (ALPHA)")
     parser.add_argument("--wallet-id", required=True, help="Wallet ID")
-    parser.add_argument("--amount", help="Amount to claim (optional, ETH only. If omitted, max available will be claimed)")
+    parser.add_argument(
+        "--amount",
+        help="Amount to claim (optional, ETH only. If omitted, max available will be claimed)",
+    )
     args = parser.parse_args()
 
     credentials = Credentials.from_env()
@@ -41,7 +48,7 @@ def main():
         portfolio_id=credentials.portfolio_id,
         wallet_id=args.wallet_id,
         idempotency_key=str(uuid.uuid4()),
-        inputs=inputs
+        inputs=inputs,
     )
 
     try:

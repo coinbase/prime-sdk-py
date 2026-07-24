@@ -13,21 +13,15 @@
 # limitations under the License.
 
 from .service import BalancesService
-from .get_wallet_balance import (
-    GetWalletBalanceRequest,
-    GetWalletBalanceResponse
-)
-from .list_entity_balances import (
-    ListEntityBalancesRequest,
-    ListEntityBalancesResponse
-)
+from .get_wallet_balance import GetWalletBalanceRequest, GetWalletBalanceResponse
+from .list_entity_balances import ListEntityBalancesRequest, ListEntityBalancesResponse
 from .list_web3_wallet_balances import (
     ListWeb3WalletBalancesRequest,
-    ListWeb3WalletBalancesResponse
+    ListWeb3WalletBalancesResponse,
 )
 from .list_portfolio_balances import (
     ListPortfolioBalancesRequest,
-    ListPortfolioBalancesResponse
+    ListPortfolioBalancesResponse,
 )
 
 __all__ = [
@@ -35,9 +29,9 @@ __all__ = [
     "GetWalletBalanceRequest",
     "GetWalletBalanceResponse",
     "ListEntityBalancesRequest",
-    "ListEntityBalancesResponse", 
+    "ListEntityBalancesResponse",
     "ListWeb3WalletBalancesRequest",
     "ListWeb3WalletBalancesResponse",
     "ListPortfolioBalancesRequest",
-    "ListPortfolioBalancesResponse"
+    "ListPortfolioBalancesResponse",
 ]

@@ -13,19 +13,13 @@
 # limitations under the License.
 
 from .service import UsersService
-from .list_entity_users import (
-    ListEntityUsersRequest,
-    ListEntityUsersResponse
-)
-from .list_portfolio_users import (
-    ListPortfolioUsersRequest,
-    ListPortfolioUsersResponse
-)
+from .list_entity_users import ListEntityUsersRequest, ListEntityUsersResponse
+from .list_portfolio_users import ListPortfolioUsersRequest, ListPortfolioUsersResponse
 
 __all__ = [
     "UsersService",
     "ListEntityUsersRequest",
     "ListEntityUsersResponse",
     "ListPortfolioUsersRequest",
-    "ListPortfolioUsersResponse"
+    "ListPortfolioUsersResponse",
 ]

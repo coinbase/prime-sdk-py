@@ -22,11 +22,23 @@ from prime_sdk.services.staking import StakingService, QueryTransactionValidator
 
 
 def main():
-    parser = argparse.ArgumentParser(description="List ETH 0x02 validators associated with wallet-level stake transactions")
-    parser.add_argument("--transaction-ids", required=True, help="Comma-separated list of transaction IDs (max 100)")
+    parser = argparse.ArgumentParser(
+        description="List ETH 0x02 validators associated with wallet-level stake transactions"
+    )
+    parser.add_argument(
+        "--transaction-ids",
+        required=True,
+        help="Comma-separated list of transaction IDs (max 100)",
+    )
     parser.add_argument("--cursor", help="Pagination cursor")
-    parser.add_argument("--limit", type=int, help="Maximum results per page (default 100, max 1000)")
-    parser.add_argument("--sort-direction", choices=["DESC", "ASC"], help="Sort direction (default DESC)")
+    parser.add_argument(
+        "--limit", type=int, help="Maximum results per page (default 100, max 1000)"
+    )
+    parser.add_argument(
+        "--sort-direction",
+        choices=["DESC", "ASC"],
+        help="Sort direction (default DESC)",
+    )
     args = parser.parse_args()
 
     credentials = Credentials.from_env()
@@ -34,7 +46,7 @@ def main():
     staking_service = StakingService(client)
 
     # Parse transaction IDs
-    transaction_ids = [tx_id.strip() for tx_id in args.transaction_ids.split(',')]
+    transaction_ids = [tx_id.strip() for tx_id in args.transaction_ids.split(",")]
 
     if len(transaction_ids) > 100:
         print("Error: Maximum 100 transaction IDs allowed")
@@ -45,7 +57,7 @@ def main():
         transaction_ids=transaction_ids,
         cursor=args.cursor,
         limit=args.limit,
-        sort_direction=args.sort_direction
+        sort_direction=args.sort_direction,
     )
 
     try:

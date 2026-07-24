@@ -22,12 +22,20 @@ from prime_sdk.services.balances import ListEntityBalancesRequest
 from prime_sdk.enums import AggregationType
 from prime_sdk.utils import PaginationParams
 
+
 def main():
     parser = argparse.ArgumentParser(description="List balances for an entity")
-    parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
-    parser.add_argument("--symbols", help="Comma-separated list of symbols to filter (e.g., BTC,ETH)")
-    parser.add_argument("--aggregation-type", choices=[agg.value for agg in AggregationType],
-                       help="Aggregation type for balances")
+    parser.add_argument(
+        "--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)"
+    )
+    parser.add_argument(
+        "--symbols", help="Comma-separated list of symbols to filter (e.g., BTC,ETH)"
+    )
+    parser.add_argument(
+        "--aggregation-type",
+        choices=[agg.value for agg in AggregationType],
+        help="Aggregation type for balances",
+    )
     parser.add_argument("--limit", type=int, help="Number of results to return")
     parser.add_argument("--cursor", help="Pagination cursor")
     args = parser.parse_args()
@@ -36,16 +44,15 @@ def main():
 
     entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
     if not entity_id:
-        print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
+        print(
+            "Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id"
+        )
         return
 
     # Set up pagination if provided
     pagination = None
     if args.limit or args.cursor:
-        pagination = PaginationParams(
-            limit=args.limit,
-            cursor=args.cursor
-        )
+        pagination = PaginationParams(limit=args.limit, cursor=args.cursor)
 
     # Parse aggregation type if provided
     aggregation_type = None
@@ -55,15 +62,15 @@ def main():
     # Parse symbols list if provided
     symbols = None
     if args.symbols:
-        symbols = [symbol.strip() for symbol in args.symbols.split(',')]
-    
+        symbols = [symbol.strip() for symbol in args.symbols.split(",")]
+
     request = ListEntityBalancesRequest(
         entity_id=entity_id,
         symbols=symbols,
         aggregation_type=aggregation_type,
-        pagination=pagination
+        pagination=pagination,
     )
-    
+
     try:
         response = client.balances.list_entity_balances(request)
         print(response)

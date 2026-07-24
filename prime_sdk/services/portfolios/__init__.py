@@ -13,14 +13,8 @@
 # limitations under the License.
 
 from .service import PortfoliosService
-from .list_portfolios import (
-    ListPortfoliosRequest,
-    ListPortfoliosResponse
-)
-from .get_portfolio import (
-    GetPortfolioRequest,
-    GetPortfolioResponse
-)
+from .list_portfolios import ListPortfoliosRequest, ListPortfoliosResponse
+from .get_portfolio import GetPortfolioRequest, GetPortfolioResponse
 from .get_counterparty_id import (
     GetCounterpartyIdRequest,
     GetCounterpartyIdResponse,
@@ -29,7 +23,7 @@ from .get_counterparty_id import (
 __all__ = [
     "PortfoliosService",
     "ListPortfoliosRequest",
-    "ListPortfoliosResponse", 
+    "ListPortfoliosResponse",
     "GetPortfolioRequest",
     "GetPortfolioResponse",
     "GetCounterpartyIdRequest",

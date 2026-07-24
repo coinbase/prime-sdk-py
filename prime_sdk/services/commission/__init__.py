@@ -15,11 +15,11 @@
 from .service import CommissionService
 from .get_portfolio_commission import (
     GetPortfolioCommissionRequest,
-    GetPortfolioCommissionResponse
+    GetPortfolioCommissionResponse,
 )
 
 __all__ = [
     "CommissionService",
     "GetPortfolioCommissionRequest",
-    "GetPortfolioCommissionResponse"
+    "GetPortfolioCommissionResponse",
 ]

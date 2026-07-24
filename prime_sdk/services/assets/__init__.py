@@ -13,13 +13,6 @@
 # limitations under the License.
 
 from .service import AssetsService
-from .list_assets import (
-    ListAssetsRequest,
-    ListAssetsResponse
-)
+from .list_assets import ListAssetsRequest, ListAssetsResponse
 
-__all__ = [
-    "AssetsService",
-    "ListAssetsRequest",
-    "ListAssetsResponse"
-]
+__all__ = ["AssetsService", "ListAssetsRequest", "ListAssetsResponse"]

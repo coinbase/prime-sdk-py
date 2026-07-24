@@ -21,11 +21,16 @@ import uuid
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.orders import EditOrderRequest
 
+
 def main():
     parser = argparse.ArgumentParser(description="Edit an existing order")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
+    parser.add_argument(
+        "--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)"
+    )
     parser.add_argument("--order-id", required=True, help="Order ID to edit")
-    parser.add_argument("--orig-client-order-id", required=True, help="Original client order ID")
+    parser.add_argument(
+        "--orig-client-order-id", required=True, help="Original client order ID"
+    )
     parser.add_argument("--base-quantity", help="New base quantity for the order")
     parser.add_argument("--limit-price", help="New limit price")
     args = parser.parse_args()
@@ -34,7 +39,9 @@ def main():
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
 
     if not portfolio_id:
-        print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
+        print(
+            "Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id"
+        )
         return
 
     request = EditOrderRequest(
@@ -51,6 +58,7 @@ def main():
         print(response)
     except Exception as e:
         print(f"failed to edit order: {e}")
+
 
 if __name__ == "__main__":
     main()

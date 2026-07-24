@@ -23,8 +23,12 @@ from prime_sdk.services.staking import StakingService, CreatePortfolioStakeReque
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Create a portfolio-level stake request")
-    parser.add_argument("--currency-symbol", required=True, help="Currency symbol (e.g., ETH)")
+    parser = argparse.ArgumentParser(
+        description="Create a portfolio-level stake request"
+    )
+    parser.add_argument(
+        "--currency-symbol", required=True, help="Currency symbol (e.g., ETH)"
+    )
     parser.add_argument("--amount", required=True, help="Amount to stake")
     args = parser.parse_args()
 
@@ -36,7 +40,7 @@ def main():
         portfolio_id=credentials.portfolio_id,
         idempotency_key=str(uuid.uuid4()),
         currency_symbol=args.currency_symbol,
-        amount=args.amount
+        amount=args.amount,
     )
 
     try:

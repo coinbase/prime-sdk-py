@@ -13,31 +13,22 @@
 # limitations under the License.
 
 from .service import ActivitiesService
-from .get_activity import (
-    GetActivityRequest,
-    GetActivityResponse
-)
-from .get_entity_activity import (
-    GetEntityActivityRequest,
-    GetEntityActivityResponse
-)
-from .list_activities import (
-    ListActivitiesRequest,
-    ListActivitiesResponse
-)
+from .get_activity import GetActivityRequest, GetActivityResponse
+from .get_entity_activity import GetEntityActivityRequest, GetEntityActivityResponse
+from .list_activities import ListActivitiesRequest, ListActivitiesResponse
 from .list_entity_activities import (
     ListEntityActivitiesRequest,
-    ListEntityActivitiesResponse
+    ListEntityActivitiesResponse,
 )
 
 __all__ = [
     "ActivitiesService",
     "GetActivityRequest",
     "GetActivityResponse",
-    "GetEntityActivityRequest", 
+    "GetEntityActivityRequest",
     "GetEntityActivityResponse",
     "ListActivitiesRequest",
     "ListActivitiesResponse",
     "ListEntityActivitiesRequest",
-    "ListEntityActivitiesResponse"
+    "ListEntityActivitiesResponse",
 ]

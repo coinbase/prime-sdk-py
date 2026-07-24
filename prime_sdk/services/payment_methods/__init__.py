@@ -15,11 +15,11 @@
 from .service import PaymentMethodsService
 from .get_entity_payment_method import (
     GetEntityPaymentMethodRequest,
-    GetEntityPaymentMethodResponse
+    GetEntityPaymentMethodResponse,
 )
 from .list_entity_payment_methods import (
     ListEntityPaymentMethodsRequest,
-    ListEntityPaymentMethodsResponse
+    ListEntityPaymentMethodsResponse,
 )
 
 __all__ = [
@@ -27,5 +27,5 @@ __all__ = [
     "GetEntityPaymentMethodRequest",
     "GetEntityPaymentMethodResponse",
     "ListEntityPaymentMethodsRequest",
-    "ListEntityPaymentMethodsResponse"
+    "ListEntityPaymentMethodsResponse",
 ]

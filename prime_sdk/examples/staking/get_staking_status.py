@@ -23,7 +23,9 @@ from prime_sdk.services.staking import GetStakingStatusRequest
 
 def main():
     parser = argparse.ArgumentParser(description="Get staking status for a wallet")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
+    parser.add_argument(
+        "--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)"
+    )
     parser.add_argument("--wallet-id", required=True, help="Wallet ID")
     args = parser.parse_args()
 
@@ -31,12 +33,13 @@ def main():
 
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
     if not portfolio_id:
-        print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
+        print(
+            "Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id"
+        )
         return
 
     request = GetStakingStatusRequest(
-        portfolio_id=portfolio_id,
-        wallet_id=args.wallet_id
+        portfolio_id=portfolio_id, wallet_id=args.wallet_id
     )
 
     try:

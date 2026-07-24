@@ -20,21 +20,26 @@ import os
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.financing import GetCrossMarginOverviewRequest
 
+
 def main():
-    parser = argparse.ArgumentParser(description="Get cross margin overview for an entity")
-    parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
+    parser = argparse.ArgumentParser(
+        description="Get cross margin overview for an entity"
+    )
+    parser.add_argument(
+        "--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)"
+    )
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
 
     entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
     if not entity_id:
-        print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
+        print(
+            "Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id"
+        )
         return
 
-    request = GetCrossMarginOverviewRequest(
-        entity_id=entity_id
-    )
+    request = GetCrossMarginOverviewRequest(entity_id=entity_id)
 
     try:
         response = client.financing.get_cross_margin_overview(request)

@@ -22,21 +22,32 @@ from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.orders import AcceptQuoteRequest
 from prime_sdk.enums import OrderSide
 
+
 def main():
     parser = argparse.ArgumentParser(description="Accept a quote and create an order")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
-    parser.add_argument("--product-id", required=True, help="Product ID (e.g., BTC-USD, ETH-USD)")
-    parser.add_argument("--side", required=True, choices=[side.value for side in OrderSide], 
-                       help="Order side")
+    parser.add_argument(
+        "--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)"
+    )
+    parser.add_argument(
+        "--product-id", required=True, help="Product ID (e.g., BTC-USD, ETH-USD)"
+    )
+    parser.add_argument(
+        "--side",
+        required=True,
+        choices=[side.value for side in OrderSide],
+        help="Order side",
+    )
     parser.add_argument("--quote-id", required=True, help="Quote ID to accept")
     parser.add_argument("--settl-currency", help="Settlement currency")
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
-    
+
     if not portfolio_id:
-        print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
+        print(
+            "Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id"
+        )
         return
 
     request = AcceptQuoteRequest(
@@ -45,9 +56,9 @@ def main():
         side=OrderSide(args.side),
         client_order_id=str(uuid.uuid4()),
         quote_id=args.quote_id,
-        settl_currency=args.settl_currency
+        settl_currency=args.settl_currency,
     )
-    
+
     try:
         response = client.orders.accept_quote(request)
         print(response)

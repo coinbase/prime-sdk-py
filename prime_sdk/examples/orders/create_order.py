@@ -22,14 +22,27 @@ from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.orders import CreateOrderRequest
 from prime_sdk.enums import OrderSide, OrderType
 
+
 def main():
     parser = argparse.ArgumentParser(description="Create a new order")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
-    parser.add_argument("--product-id", required=True, help="Product ID (e.g., BTC-USD, ETH-USD)")
-    parser.add_argument("--side", required=True, choices=[side.value for side in OrderSide], 
-                       help="Order side")
-    parser.add_argument("--type", choices=[ot.value for ot in OrderType], default="MARKET",
-                       help="Order type (default: MARKET)")
+    parser.add_argument(
+        "--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)"
+    )
+    parser.add_argument(
+        "--product-id", required=True, help="Product ID (e.g., BTC-USD, ETH-USD)"
+    )
+    parser.add_argument(
+        "--side",
+        required=True,
+        choices=[side.value for side in OrderSide],
+        help="Order side",
+    )
+    parser.add_argument(
+        "--type",
+        choices=[ot.value for ot in OrderType],
+        default="MARKET",
+        help="Order type (default: MARKET)",
+    )
     parser.add_argument("--base-quantity", help="Base quantity for the order")
     parser.add_argument("--quote-value", help="Quote value for the order")
     parser.add_argument("--limit-price", help="Limit price (required for LIMIT orders)")
@@ -37,9 +50,11 @@ def main():
 
     client = PrimeServicesClient.from_env()
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
-    
+
     if not portfolio_id:
-        print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
+        print(
+            "Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id"
+        )
         return
 
     # Validate required quantity/value
@@ -62,7 +77,7 @@ def main():
         quote_value=args.quote_value,
         limit_price=args.limit_price,
     )
-    
+
     try:
         response = client.orders.create_order(request)
         print(response)

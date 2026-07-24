@@ -22,8 +22,12 @@ from prime_sdk.services.financing import GetXMLiquidationRequest
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Get cross margin liquidation details for an entity")
-    parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
+    parser = argparse.ArgumentParser(
+        description="Get cross margin liquidation details for an entity"
+    )
+    parser.add_argument(
+        "--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)"
+    )
     parser.add_argument(
         "--liquidation-id",
         help="Liquidation UUID (omit for active or most recent liquidation)",
@@ -34,7 +38,9 @@ def main():
 
     entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
     if not entity_id:
-        print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
+        print(
+            "Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id"
+        )
         return
 
     request = GetXMLiquidationRequest(

@@ -28,7 +28,10 @@ class AllocationLeg:
 
     def __post_init__(self):
         if self.leg_id:
-            warn("The 'leg_id' field is deprecated and will be removed in a future version. Use 'allocation_leg_id' instead.", DeprecationWarning)
+            warn(
+                "The 'leg_id' field is deprecated and will be removed in a future version. Use 'allocation_leg_id' instead.",
+                DeprecationWarning,
+            )
             self.allocation_leg_id = self.leg_id
         else:
             self.leg_id = self.allocation_leg_id

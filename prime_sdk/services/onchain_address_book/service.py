@@ -16,19 +16,19 @@ from ...client import Client
 from ...utils import to_body_dict
 from .create_onchain_address_book_entry import (
     CreateOnchainAddressBookEntryRequest,
-    CreateOnchainAddressBookEntryResponse
+    CreateOnchainAddressBookEntryResponse,
 )
 from .delete_onchain_address_group import (
     DeleteOnchainAddressGroupRequest,
-    DeleteOnchainAddressGroupResponse
+    DeleteOnchainAddressGroupResponse,
 )
 from .list_onchain_address_groups import (
     ListOnchainAddressGroupsRequest,
-    ListOnchainAddressGroupsResponse
+    ListOnchainAddressGroupsResponse,
 )
 from .update_onchain_address_book import (
     UpdateOnchainAddressBookRequest,
-    UpdateOnchainAddressBookResponse
+    UpdateOnchainAddressBookResponse,
 )
 
 
@@ -36,24 +36,40 @@ class OnchainAddressBookService:
     def __init__(self, client: Client):
         self.client = client
 
-    def create_onchain_address_book_entry(self, request: CreateOnchainAddressBookEntryRequest) -> CreateOnchainAddressBookEntryResponse:
+    def create_onchain_address_book_entry(
+        self, request: CreateOnchainAddressBookEntryRequest
+    ) -> CreateOnchainAddressBookEntryResponse:
         path = f"/portfolios/{request.portfolio_id}/onchain_address_group"
         body = to_body_dict(request)
-        response = self.client.request("POST", path, body=body, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "POST", path, body=body, allowed_status_codes=request.allowed_status_codes
+        )
         return CreateOnchainAddressBookEntryResponse.from_response(response.json())
 
-    def delete_onchain_address_group(self, request: DeleteOnchainAddressGroupRequest) -> DeleteOnchainAddressGroupResponse:
+    def delete_onchain_address_group(
+        self, request: DeleteOnchainAddressGroupRequest
+    ) -> DeleteOnchainAddressGroupResponse:
         path = f"/portfolios/{request.portfolio_id}/onchain_address_group/{request.address_group_id}"
-        response = self.client.request("DELETE", path, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "DELETE", path, allowed_status_codes=request.allowed_status_codes
+        )
         return DeleteOnchainAddressGroupResponse.from_response(response.json())
 
-    def list_onchain_address_groups(self, request: ListOnchainAddressGroupsRequest) -> ListOnchainAddressGroupsResponse:
+    def list_onchain_address_groups(
+        self, request: ListOnchainAddressGroupsRequest
+    ) -> ListOnchainAddressGroupsResponse:
         path = f"/portfolios/{request.portfolio_id}/onchain_address_groups"
-        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET", path, allowed_status_codes=request.allowed_status_codes
+        )
         return ListOnchainAddressGroupsResponse.from_response(response.json())
 
-    def update_onchain_address_book(self, request: UpdateOnchainAddressBookRequest) -> UpdateOnchainAddressBookResponse:
+    def update_onchain_address_book(
+        self, request: UpdateOnchainAddressBookRequest
+    ) -> UpdateOnchainAddressBookResponse:
         path = f"/portfolios/{request.portfolio_id}/onchain_address_group"
         body = to_body_dict(request)
-        response = self.client.request("PUT", path, body=body, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "PUT", path, body=body, allowed_status_codes=request.allowed_status_codes
+        )
         return UpdateOnchainAddressBookResponse.from_response(response.json())

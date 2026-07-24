@@ -29,7 +29,7 @@ def test_get_order_response_parsing():
         "stop_price": "0.00",
         "net_average_filled_price": "60000.00",
         "user_context": "some-context",
-        "client_product_id": "BTC-USD"
+        "client_product_id": "BTC-USD",
     }
 
     # Initialize with the actual field values

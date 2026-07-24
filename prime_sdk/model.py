@@ -99,7 +99,7 @@ class Asset:
     trading_supported: bool
     explorer_url: str
     networks: List[AssetNetwork]
-  
+
 
 @dataclass
 class ConsensusMetadata:
@@ -229,7 +229,6 @@ class FuturesPosition:
     position_reference: str = None
 
 
-
 @dataclass
 class FcmMarginCall:
     type: str = None
@@ -312,7 +311,7 @@ class Order:
     offset: str = None
     wig_level: str = None
     product_type: str = None
-    commission_detail_total: 'CommissionDetailTotal' = None
+    commission_detail_total: "CommissionDetailTotal" = None
 
 
 @dataclass
@@ -331,6 +330,7 @@ class Commission:
     type: str
     rate: str
     trading_volume: str
+
 
 @dataclass
 class TransferLocation:

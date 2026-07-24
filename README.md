@@ -126,19 +126,17 @@ The SDK provides the following services:
 ```python
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
-from prime_sdk.services.transactions import (
-    TransactionsService, 
-    CreateTransferRequest
-)
+from prime_sdk.services.transactions import TransactionsService, CreateTransferRequest
+
 
 def main():
     # Initialize credentials and client
     credentials = Credentials.from_env("PRIME_CREDENTIALS")
     client = Client(credentials)
-    
+
     # Create the transactions service
     transactions_service = TransactionsService(client)
-    
+
     # Create a transfer request
     request = CreateTransferRequest(
         portfolio_id="your-portfolio-id",
@@ -146,14 +144,15 @@ def main():
         amount="0.01",
         destination="your-destination-wallet-id",
         currency_symbol="ETH",
-        idempotency_key=str(uuid.uuid4())
+        idempotency_key=str(uuid.uuid4()),
     )
-    
+
     try:
         response = transactions_service.create_transfer(request)
         print(f"Transfer created: {response}")
     except Exception as e:
         print(f"Failed to create transfer: {e}")
+
 
 if __name__ == "__main__":
     main()
@@ -184,26 +183,28 @@ import os
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.transactions import CreateTransferRequest
 
+
 def main():
     # Create client from environment
     client = PrimeServicesClient.from_env()
-    
+
     # Create transfer request
     request = CreateTransferRequest(
         portfolio_id="your-portfolio_id",
-        wallet_id="your-wallet-id", 
+        wallet_id="your-wallet-id",
         amount="0.01",
         destination="your-destination-wallet-id",
         currency_symbol="USD",
-        idempotency_key=str(uuid.uuid4())
+        idempotency_key=str(uuid.uuid4()),
     )
-    
+
     try:
         # Use the services client - no need to create individual services
         response = client.transactions.create_transfer(request)
         print(f"Transfer created: {response}")
     except Exception as e:
         print(f"Failed to create transfer: {e}")
+
 
 if __name__ == "__main__":
     main()

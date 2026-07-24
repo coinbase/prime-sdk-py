@@ -18,36 +18,46 @@ from typing import Optional, List, Union, Dict, Any
 
 @dataclass
 class PaginationParams:
-    cursor: str = ''
-    limit: str = ''
-    sort_direction: str = ''
+    cursor: str = ""
+    limit: str = ""
+    sort_direction: str = ""
 
     def to_dict(self) -> Dict[str, str]:
         return asdict(self)
 
 
-def append_query_param(query_params: str, key: str, value: Optional[Union[str, List[str]]]) -> str:
+def append_query_param(
+    query_params: str, key: str, value: Optional[Union[str, List[str]]]
+) -> str:
     if value:
         if isinstance(value, list):
             for v in value:
-                query_params = f"{query_params}&{key}={v}" if query_params else f"{key}={v}"
+                query_params = (
+                    f"{query_params}&{key}={v}" if query_params else f"{key}={v}"
+                )
         else:
-            query_params = f"{query_params}&{key}={value}" if query_params else f"{key}={value}"
+            query_params = (
+                f"{query_params}&{key}={value}" if query_params else f"{key}={value}"
+            )
     return query_params
 
 
-def append_pagination_params(query_params: str, pagination: Optional[PaginationParams]) -> str:
+def append_pagination_params(
+    query_params: str, pagination: Optional[PaginationParams]
+) -> str:
     if pagination:
-        query_params = append_query_param(query_params, 'cursor', pagination.cursor)
-        query_params = append_query_param(query_params, 'limit', pagination.limit)
-        query_params = append_query_param(query_params, 'sort_direction', pagination.sort_direction)
+        query_params = append_query_param(query_params, "cursor", pagination.cursor)
+        query_params = append_query_param(query_params, "limit", pagination.limit)
+        query_params = append_query_param(
+            query_params, "sort_direction", pagination.sort_direction
+        )
     return query_params
 
 
 @dataclass
 class Pagination:
-    next_cursor: str = ''
-    sort_direction: str = ''
+    next_cursor: str = ""
+    sort_direction: str = ""
     has_next: bool = False
 
     def to_dict(self) -> Dict[str, str]:
@@ -63,7 +73,7 @@ def to_body_dict(obj: Any) -> Dict[str, Any]:
     for k, v in asdict(obj).items():
         if v is not None:
             # Convert enums to their string values
-            if hasattr(v, 'value'):
+            if hasattr(v, "value"):
                 result[k] = v.value
             else:
                 result[k] = v

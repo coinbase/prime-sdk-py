@@ -15,19 +15,19 @@
 from .service import OnchainAddressBookService
 from .create_onchain_address_book_entry import (
     CreateOnchainAddressBookEntryRequest,
-    CreateOnchainAddressBookEntryResponse
+    CreateOnchainAddressBookEntryResponse,
 )
 from .delete_onchain_address_group import (
     DeleteOnchainAddressGroupRequest,
-    DeleteOnchainAddressGroupResponse
+    DeleteOnchainAddressGroupResponse,
 )
 from .list_onchain_address_groups import (
     ListOnchainAddressGroupsRequest,
-    ListOnchainAddressGroupsResponse
+    ListOnchainAddressGroupsResponse,
 )
 from .update_onchain_address_book import (
     UpdateOnchainAddressBookRequest,
-    UpdateOnchainAddressBookResponse
+    UpdateOnchainAddressBookResponse,
 )
 
 # Import model classes used by onchain address book to avoid import conflicts
@@ -36,6 +36,7 @@ from ...model import AddressGroup
 # TODO: A better fix may be to rename this model? its a breaking change maybe?
 # For the first Address class (onchain address book), we need to import it specifically
 import prime_sdk.model as _model
+
 # Get the first Address class definition for onchain address book
 Address = _model.Address
 
@@ -50,5 +51,5 @@ __all__ = [
     "UpdateOnchainAddressBookRequest",
     "UpdateOnchainAddressBookResponse",
     "AddressGroup",
-    "Address"
+    "Address",
 ]

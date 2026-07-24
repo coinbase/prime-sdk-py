@@ -36,7 +36,7 @@ def main():
     request = PreviewUnstakeRequest(
         portfolio_id=credentials.portfolio_id,
         wallet_id=args.wallet_id,
-        amount=args.amount
+        amount=args.amount,
     )
 
     try:

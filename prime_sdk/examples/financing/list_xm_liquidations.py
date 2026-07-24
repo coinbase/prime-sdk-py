@@ -22,19 +22,29 @@ from prime_sdk.services.financing import ListXMLiquidationsRequest
 
 
 def main():
-    parser = argparse.ArgumentParser(description="List cross margin liquidation history for an entity")
-    parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
+    parser = argparse.ArgumentParser(
+        description="List cross margin liquidation history for an entity"
+    )
+    parser.add_argument(
+        "--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)"
+    )
     parser.add_argument("--cursor", help="Pagination cursor")
     parser.add_argument("--limit", type=int, help="Number of results per page")
-    parser.add_argument("--sort-direction", choices=["ASC", "DESC"], default="DESC",
-                        help="Sort direction (default: DESC)")
+    parser.add_argument(
+        "--sort-direction",
+        choices=["ASC", "DESC"],
+        default="DESC",
+        help="Sort direction (default: DESC)",
+    )
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
 
     entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
     if not entity_id:
-        print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
+        print(
+            "Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id"
+        )
         return
 
     request = ListXMLiquidationsRequest(

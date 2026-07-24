@@ -21,33 +21,32 @@ from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.users import ListEntityUsersRequest
 from prime_sdk.utils import PaginationParams
 
+
 def main():
     parser = argparse.ArgumentParser(description="List users for an entity")
-    parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
+    parser.add_argument(
+        "--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)"
+    )
     parser.add_argument("--limit", type=int, help="Number of results to return")
     parser.add_argument("--cursor", help="Pagination cursor")
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
-    
+
     entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
     if not entity_id:
-        print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
+        print(
+            "Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id"
+        )
         return
 
     # Set up pagination if provided
     pagination = None
     if args.limit or args.cursor:
-        pagination = PaginationParams(
-            limit=args.limit,
-            cursor=args.cursor
-        )
-    
-    request = ListEntityUsersRequest(
-        entity_id=entity_id,
-        pagination=pagination
-    )
-    
+        pagination = PaginationParams(limit=args.limit, cursor=args.cursor)
+
+    request = ListEntityUsersRequest(entity_id=entity_id, pagination=pagination)
+
     try:
         response = client.users.list_entity_users(request)
         print(response)
