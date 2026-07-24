@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import Allocation
 
@@ -22,9 +22,9 @@ from ...model import Allocation
 class GetNetAllocationsByNettingIdRequest:
     portfolio_id: str
     netting_id: str
-    allowed_status_codes: Optional[List[int]] = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetNetAllocationsByNettingIdResponse(BaseResponse):
-    allocations: List[Allocation] = None
+    allocations: list[Allocation] = None

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import BuyingPower
 
@@ -21,9 +21,9 @@ from ...model import BuyingPower
 @dataclass
 class GetBuyingPowerRequest:
     portfolio_id: str
-    base_currency: Optional[str] = None
-    quote_currency: Optional[str] = None
-    allowed_status_codes: Optional[List[int]] = None
+    base_currency: str | None = None
+    quote_currency: str | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

@@ -17,42 +17,53 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
-from prime_sdk.services.wallets import GetWalletDepositInstructionsRequest
 from prime_sdk.enums import WalletDepositType
+from prime_sdk.services.wallets import GetWalletDepositInstructionsRequest
+
 
 def main():
-    parser = argparse.ArgumentParser(description="Get deposit instructions for a wallet")
+    parser = argparse.ArgumentParser(
+        description="Get deposit instructions for a wallet"
+    )
     parser.add_argument("wallet_id", nargs="?", help="Wallet ID")
     parser.add_argument("--wallet-id", dest="wallet_id_named", help="Wallet ID")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
-    parser.add_argument("--deposit-type", required=True, 
-                       choices=[dt.value for dt in WalletDepositType], 
-                       help="Deposit type")
+    parser.add_argument(
+        "--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)"
+    )
+    parser.add_argument(
+        "--deposit-type",
+        required=True,
+        choices=[dt.value for dt in WalletDepositType],
+        help="Deposit type",
+    )
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
-    
+
     if not portfolio_id:
-        print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
+        print(
+            "Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id"
+        )
         return
 
     # Accept wallet ID from either positional or named argument
     wallet_id = args.wallet_id or args.wallet_id_named
     if not wallet_id:
-        print("Error: Wallet ID is required. Provide as positional argument or use --wallet-id")
+        print(
+            "Error: Wallet ID is required. Provide as positional argument or use --wallet-id"
+        )
         return
 
     # Parse deposit type
     deposit_type = WalletDepositType(args.deposit_type)
-    
+
     request = GetWalletDepositInstructionsRequest(
-        portfolio_id=portfolio_id,
-        wallet_id=wallet_id,
-        deposit_type=deposit_type
+        portfolio_id=portfolio_id, wallet_id=wallet_id, deposit_type=deposit_type
     )
-    
+
     try:
         response = client.wallets.get_wallet_deposit_instructions(request)
         print(response)

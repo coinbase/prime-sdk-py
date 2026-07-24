@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import AddressGroup
 
@@ -21,9 +21,9 @@ from ...model import AddressGroup
 @dataclass
 class ListOnchainAddressGroupsRequest:
     portfolio_id: str
-    allowed_status_codes: Optional[List[int]] = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListOnchainAddressGroupsResponse(BaseResponse):
-    address_groups: List[AddressGroup] = None
+    address_groups: list[AddressGroup] = None

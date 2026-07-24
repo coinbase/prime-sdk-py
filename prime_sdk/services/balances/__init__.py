@@ -12,32 +12,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .service import BalancesService
-from .get_wallet_balance import (
-    GetWalletBalanceRequest,
-    GetWalletBalanceResponse
-)
-from .list_entity_balances import (
-    ListEntityBalancesRequest,
-    ListEntityBalancesResponse
+from .get_wallet_balance import GetWalletBalanceRequest, GetWalletBalanceResponse
+from .list_entity_balances import ListEntityBalancesRequest, ListEntityBalancesResponse
+from .list_portfolio_balances import (
+    ListPortfolioBalancesRequest,
+    ListPortfolioBalancesResponse,
 )
 from .list_web3_wallet_balances import (
     ListWeb3WalletBalancesRequest,
-    ListWeb3WalletBalancesResponse
+    ListWeb3WalletBalancesResponse,
 )
-from .list_portfolio_balances import (
-    ListPortfolioBalancesRequest,
-    ListPortfolioBalancesResponse
-)
+from .service import BalancesService
 
 __all__ = [
     "BalancesService",
     "GetWalletBalanceRequest",
     "GetWalletBalanceResponse",
     "ListEntityBalancesRequest",
-    "ListEntityBalancesResponse", 
+    "ListEntityBalancesResponse",
+    "ListPortfolioBalancesRequest",
+    "ListPortfolioBalancesResponse",
     "ListWeb3WalletBalancesRequest",
     "ListWeb3WalletBalancesResponse",
-    "ListPortfolioBalancesRequest",
-    "ListPortfolioBalancesResponse"
 ]

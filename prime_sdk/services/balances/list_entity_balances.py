@@ -13,23 +13,23 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
-from ...model import EntityBalance
-from ...utils import PaginationParams, Pagination
 from ...enums import AggregationType
+from ...model import EntityBalance
+from ...utils import Pagination, PaginationParams
 
 
 @dataclass
 class ListEntityBalancesRequest:
     entity_id: str
-    symbols: Optional[List[str]] = None
-    pagination: Optional[PaginationParams] = None
-    aggregation_type: Optional[AggregationType] = None
-    allowed_status_codes: Optional[List[int]] = None
+    symbols: list[str] | None = None
+    pagination: PaginationParams | None = None
+    aggregation_type: AggregationType | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListEntityBalancesResponse(BaseResponse):
-    balances: List[EntityBalance] = None
+    balances: list[EntityBalance] = None
     pagination: Pagination = None

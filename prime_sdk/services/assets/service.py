@@ -22,5 +22,7 @@ class AssetsService:
 
     def list_assets(self, request: ListAssetsRequest) -> ListAssetsResponse:
         path = f"/entities/{request.entity_id}/assets"
-        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET", path, allowed_status_codes=request.allowed_status_codes
+        )
         return ListAssetsResponse.from_response(response.json())

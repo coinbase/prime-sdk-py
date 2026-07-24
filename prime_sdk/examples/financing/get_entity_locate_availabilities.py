@@ -17,13 +17,16 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.financing import GetEntityLocateAvailabilitiesRequest
 
 
 def main():
     parser = argparse.ArgumentParser(description="Get entity locate availabilities")
-    parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
+    parser.add_argument(
+        "--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)"
+    )
     parser.add_argument("--locate-date", help="Locate date (ISO format)")
     args = parser.parse_args()
 
@@ -31,12 +34,13 @@ def main():
 
     entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
     if not entity_id:
-        print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
+        print(
+            "Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id"
+        )
         return
 
     request = GetEntityLocateAvailabilitiesRequest(
-        entity_id=entity_id,
-        locate_date=args.locate_date
+        entity_id=entity_id, locate_date=args.locate_date
     )
 
     try:

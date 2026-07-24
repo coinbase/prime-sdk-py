@@ -12,44 +12,35 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .service import WalletsService
-from .create_wallet import (
-    CreateWalletRequest,
-    CreateWalletResponse
-)
+from .create_wallet import CreateWalletRequest, CreateWalletResponse
 from .create_wallet_deposit_address import (
     CreateWalletDepositAddressRequest,
-    CreateWalletDepositAddressResponse
+    CreateWalletDepositAddressResponse,
 )
-from .get_wallet import (
-    GetWalletRequest,
-    GetWalletResponse
-)
+from .get_wallet import GetWalletRequest, GetWalletResponse
 from .get_wallet_deposit_instructions import (
     GetWalletDepositInstructionsRequest,
-    GetWalletDepositInstructionsResponse
+    GetWalletDepositInstructionsResponse,
 )
 from .list_wallet_addresses import (
     ListWalletAddressesRequest,
-    ListWalletAddressesResponse
+    ListWalletAddressesResponse,
 )
-from .list_wallets import (
-    ListWalletsRequest,
-    ListWalletsResponse
-)
+from .list_wallets import ListWalletsRequest, ListWalletsResponse
+from .service import WalletsService
 
 __all__ = [
-    "WalletsService",
-    "CreateWalletRequest",
-    "CreateWalletResponse",
     "CreateWalletDepositAddressRequest",
     "CreateWalletDepositAddressResponse",
-    "GetWalletRequest",
-    "GetWalletResponse",
+    "CreateWalletRequest",
+    "CreateWalletResponse",
     "GetWalletDepositInstructionsRequest",
     "GetWalletDepositInstructionsResponse",
+    "GetWalletRequest",
+    "GetWalletResponse",
     "ListWalletAddressesRequest",
     "ListWalletAddressesResponse",
     "ListWalletsRequest",
-    "ListWalletsResponse"
+    "ListWalletsResponse",
+    "WalletsService",
 ]

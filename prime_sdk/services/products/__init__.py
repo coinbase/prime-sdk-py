@@ -12,20 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .get_product_candles import GetProductCandlesRequest, GetProductCandlesResponse
+from .list_products import ListProductsRequest, ListProductsResponse
 from .service import ProductsService
-from .list_products import (
-    ListProductsRequest,
-    ListProductsResponse
-)
-from .get_product_candles import (
-    GetProductCandlesRequest,
-    GetProductCandlesResponse
-)
 
 __all__ = [
-    "ProductsService",
+    "GetProductCandlesRequest",
+    "GetProductCandlesResponse",
     "ListProductsRequest",
     "ListProductsResponse",
-    "GetProductCandlesRequest",
-    "GetProductCandlesResponse"
+    "ProductsService",
 ]

@@ -17,15 +17,22 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.address_book import GetAddressBookRequest
 from prime_sdk.utils import PaginationParams
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Get address book entries for a portfolio")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
-    parser.add_argument("--currency-symbol", help="Filter by currency symbol (e.g., BTC)")
+    parser = argparse.ArgumentParser(
+        description="Get address book entries for a portfolio"
+    )
+    parser.add_argument(
+        "--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)"
+    )
+    parser.add_argument(
+        "--currency-symbol", help="Filter by currency symbol (e.g., BTC)"
+    )
     parser.add_argument("--search", help="Search query")
     parser.add_argument("--limit", type=int, help="Number of results to return")
     parser.add_argument("--cursor", help="Pagination cursor")
@@ -35,22 +42,21 @@ def main():
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
 
     if not portfolio_id:
-        print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
+        print(
+            "Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id"
+        )
         return
 
     # Set up pagination if provided
     pagination = None
     if args.limit or args.cursor:
-        pagination = PaginationParams(
-            limit=args.limit,
-            cursor=args.cursor
-        )
+        pagination = PaginationParams(limit=args.limit, cursor=args.cursor)
 
     request = GetAddressBookRequest(
         portfolio_id=portfolio_id,
         currency_symbol=args.currency_symbol,
         search=args.search,
-        pagination=pagination
+        pagination=pagination,
     )
 
     try:

@@ -13,26 +13,26 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
 from datetime import datetime
+
 from ...base_response import BaseResponse
-from ...model import Allocation
 from ...enums import OrderSide
-from ...utils import PaginationParams, Pagination
+from ...model import Allocation
+from ...utils import Pagination, PaginationParams
 
 
 @dataclass
 class ListPortfolioAllocationsRequest:
     portfolio_id: str
     start_date: datetime
-    product_ids: Optional[str] = None
-    order_side: Optional[OrderSide] = None
-    end_date: Optional[datetime] = None
-    pagination: Optional[PaginationParams] = None
-    allowed_status_codes: Optional[List[int]] = None
+    product_ids: str | None = None
+    order_side: OrderSide | None = None
+    end_date: datetime | None = None
+    pagination: PaginationParams | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListPortfolioAllocationsResponse(BaseResponse):
-    allocations: List[Allocation] = None
+    allocations: list[Allocation] = None
     pagination: Pagination = None

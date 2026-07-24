@@ -13,51 +13,52 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 
 
 @dataclass
 class NaturalPersonName:
-    first_name: Optional[str] = None
-    middle_name: Optional[str] = None
-    last_name: Optional[str] = None
+    first_name: str | None = None
+    middle_name: str | None = None
+    last_name: str | None = None
 
 
 @dataclass
 class DetailedAddress:
-    address_1: Optional[str] = None
-    address_2: Optional[str] = None
-    address_3: Optional[str] = None
-    city: Optional[str] = None
-    state: Optional[str] = None
-    postal_code: Optional[str] = None
-    country_code: Optional[str] = None
+    address_1: str | None = None
+    address_2: str | None = None
+    address_3: str | None = None
+    city: str | None = None
+    state: str | None = None
+    postal_code: str | None = None
+    country_code: str | None = None
 
 
 @dataclass
 class TravelRuleParty:
-    name: Optional[str] = None
-    natural_person_name: Optional[NaturalPersonName] = None
-    address: Optional[DetailedAddress] = None
-    wallet_type: Optional[str] = None
-    vasp_id: Optional[str] = None
-    vasp_name: Optional[str] = None
-    personal_id: Optional[str] = None
-    date_of_birth: Optional[str] = None
-    telephone_number: Optional[str] = None
-    account_id: Optional[str] = None
+    name: str | None = None
+    natural_person_name: NaturalPersonName | None = None
+    address: DetailedAddress | None = None
+    wallet_type: str | None = None
+    vasp_id: str | None = None
+    vasp_name: str | None = None
+    vasp_address: str | None = None
+    personal_id: str | None = None
+    date_of_birth: str | None = None
+    telephone_number: str | None = None
+    account_id: str | None = None
 
 
 @dataclass
 class SubmitDepositTravelRuleDataRequest:
     portfolio_id: str
     transaction_id: str
-    originator: Optional[TravelRuleParty] = None
-    beneficiary: Optional[TravelRuleParty] = None
-    is_self: Optional[bool] = None
-    opt_out_of_ownership_verification: Optional[bool] = None
-    allowed_status_codes: Optional[List[int]] = None
+    originator: TravelRuleParty | None = None
+    beneficiary: TravelRuleParty | None = None
+    is_self: bool | None = None
+    opt_out_of_ownership_verification: bool | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

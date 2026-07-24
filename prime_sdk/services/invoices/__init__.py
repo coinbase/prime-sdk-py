@@ -12,14 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .list_invoices import ListInvoicesRequest, ListInvoicesResponse
 from .service import InvoicesService
-from .list_invoices import (
-    ListInvoicesRequest,
-    ListInvoicesResponse
-)
 
-__all__ = [
-    "InvoicesService",
-    "ListInvoicesRequest",
-    "ListInvoicesResponse"
-]
+__all__ = ["InvoicesService", "ListInvoicesRequest", "ListInvoicesResponse"]

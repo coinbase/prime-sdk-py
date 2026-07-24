@@ -17,25 +17,28 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.futures import ListEntityFuturesSweepsRequest
 
 
 def main():
     parser = argparse.ArgumentParser(description="List entity futures sweeps")
-    parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
+    parser.add_argument(
+        "--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)"
+    )
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
 
     entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
     if not entity_id:
-        print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
+        print(
+            "Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id"
+        )
         return
 
-    request = ListEntityFuturesSweepsRequest(
-        entity_id=entity_id
-    )
+    request = ListEntityFuturesSweepsRequest(entity_id=entity_id)
 
     try:
         response = client.futures.list_entity_futures_sweeps(request)

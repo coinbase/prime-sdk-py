@@ -13,14 +13,21 @@
 # limitations under the License.
 
 from ...client import Client
-from .get_portfolio_commission import GetPortfolioCommissionRequest, GetPortfolioCommissionResponse
+from .get_portfolio_commission import (
+    GetPortfolioCommissionRequest,
+    GetPortfolioCommissionResponse,
+)
 
 
 class CommissionService:
     def __init__(self, client: Client):
         self.client = client
 
-    def get_portfolio_commission(self, request: GetPortfolioCommissionRequest) -> GetPortfolioCommissionResponse:
+    def get_portfolio_commission(
+        self, request: GetPortfolioCommissionRequest
+    ) -> GetPortfolioCommissionResponse:
         path = f"/portfolios/{request.portfolio_id}/commission"
-        response = self.client.request("GET", path, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET", path, allowed_status_codes=request.allowed_status_codes
+        )
         return GetPortfolioCommissionResponse.from_response(response.json())

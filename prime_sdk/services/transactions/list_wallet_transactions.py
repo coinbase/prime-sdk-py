@@ -13,25 +13,25 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
 from datetime import datetime
+
 from ...base_response import BaseResponse
 from ...model import Transaction
-from ...utils import PaginationParams, Pagination
+from ...utils import Pagination, PaginationParams
 
 
 @dataclass
 class ListWalletTransactionsRequest:
     portfolio_id: str
     wallet_id: str
-    types: Optional[str] = None
-    start: Optional[datetime] = None
-    end: Optional[datetime] = None
-    pagination: Optional[PaginationParams] = None
-    allowed_status_codes: Optional[List[int]] = None
+    types: str | None = None
+    start: datetime | None = None
+    end: datetime | None = None
+    pagination: PaginationParams | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListWalletTransactionsResponse(BaseResponse):
-    transactions: List[Transaction] = None
+    transactions: list[Transaction] = None
     pagination: Pagination = None

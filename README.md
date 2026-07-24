@@ -1,8 +1,8 @@
-# Prime Python SDK README
+# Prime Python SDK
 
 ## Overview
 
-The *Prime Python SDK* is a sample library that demonstrates the usage of the [Coinbase Prime](https://prime.coinbase.com/) API via its [REST APIs](https://docs.cdp.coinbase.com/prime/reference). This SDK provides a structured way to integrate Coinbase Prime functionalities into your Python applications.
+The **Prime Python SDK** is the official Python client for the [Coinbase Prime](https://prime.coinbase.com/) [REST API](https://docs.cdp.coinbase.com/prime/reference). Use it to build production applications that manage portfolios, orders, transfers, staking, financing, and other Prime capabilities from Python.
 
 ## Installation
 
@@ -46,14 +46,15 @@ Set separate environment variables for better security separation:
 ```bash
 export PRIME_CREDENTIALS='{
   "accessKey": "your-access-key",
-  "passphrase": "your-passphrase", 
-  "signingKey": "your-signing-key",
-  "svcAccountId": "your-service-account-id"
+  "passphrase": "your-passphrase",
+  "signingKey": "your-signing-key"
 }'
 
 export PRIME_PORTFOLIO_ID="your-portfolio-id"
 export PRIME_ENTITY_ID="your-entity-id"
 ```
+
+Optional fields: `svcAccountId` in JSON; `PRIME_PORTFOLIO_ID` and `PRIME_ENTITY_ID` for portfolio/entity context.
 
 ##### Legacy Format (Backwards Compatible)
 
@@ -70,7 +71,7 @@ export PRIME_CREDENTIALS='{
 }'
 ```
 
-The SDK will automatically detect which format you're using. If `PRIME_PORTFOLIO_ID` and `PRIME_ENTITY_ID` are set, it will use the new format; otherwise, it falls back to the legacy format.
+If `PRIME_PORTFOLIO_ID` and/or `PRIME_ENTITY_ID` are set, they override `portfolioId` and `entityId` in the JSON. Only `accessKey`, `passphrase`, and `signingKey` are required in `PRIME_CREDENTIALS`.
 
 ### Obtaining API Credentials 
 
@@ -125,19 +126,17 @@ The SDK provides the following services:
 ```python
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
-from prime_sdk.services.transactions import (
-    TransactionsService, 
-    CreateTransferRequest
-)
+from prime_sdk.services.transactions import TransactionsService, CreateTransferRequest
+
 
 def main():
     # Initialize credentials and client
     credentials = Credentials.from_env("PRIME_CREDENTIALS")
     client = Client(credentials)
-    
+
     # Create the transactions service
     transactions_service = TransactionsService(client)
-    
+
     # Create a transfer request
     request = CreateTransferRequest(
         portfolio_id="your-portfolio-id",
@@ -145,14 +144,15 @@ def main():
         amount="0.01",
         destination="your-destination-wallet-id",
         currency_symbol="ETH",
-        idempotency_key=str(uuid.uuid4())
+        idempotency_key=str(uuid.uuid4()),
     )
-    
+
     try:
         response = transactions_service.create_transfer(request)
         print(f"Transfer created: {response}")
     except Exception as e:
         print(f"Failed to create transfer: {e}")
+
 
 if __name__ == "__main__":
     main()
@@ -183,26 +183,28 @@ import os
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.transactions import CreateTransferRequest
 
+
 def main():
     # Create client from environment
     client = PrimeServicesClient.from_env()
-    
+
     # Create transfer request
     request = CreateTransferRequest(
         portfolio_id="your-portfolio_id",
-        wallet_id="your-wallet-id", 
+        wallet_id="your-wallet-id",
         amount="0.01",
         destination="your-destination-wallet-id",
         currency_symbol="USD",
-        idempotency_key=str(uuid.uuid4())
+        idempotency_key=str(uuid.uuid4()),
     )
-    
+
     try:
         # Use the services client - no need to create individual services
         response = client.transactions.create_transfer(request)
         print(f"Transfer created: {response}")
     except Exception as e:
         print(f"Failed to create transfer: {e}")
+
 
 if __name__ == "__main__":
     main()
@@ -288,4 +290,4 @@ If you discover a security vulnerability within this SDK, please see our [Securi
 
 ## License
 
-The *Prime Python SDK* sample library is free and open source and released under the [Apache License, Version 2.0](LICENSE).
+The Prime Python SDK is open source and released under the [Apache License, Version 2.0](LICENSE).

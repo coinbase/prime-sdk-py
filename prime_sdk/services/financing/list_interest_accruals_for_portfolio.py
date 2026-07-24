@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import Accrual
 
@@ -21,12 +21,12 @@ from ...model import Accrual
 @dataclass
 class ListInterestAccrualsForPortfolioRequest:
     portfolio_id: str
-    start_date: Optional[str] = None
-    end_date: Optional[str] = None
-    allowed_status_codes: Optional[List[int]] = None
+    start_date: str | None = None
+    end_date: str | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListInterestAccrualsForPortfolioResponse(BaseResponse):
-    accruals: List[Accrual] = None
+    accruals: list[Accrual] = None
     total_notional_accrual: str = None

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import MarketData
 from ...utils import Pagination
@@ -22,13 +22,13 @@ from ...utils import Pagination
 @dataclass
 class GetMarketDataRequest:
     entity_id: str
-    cursor: Optional[str] = None
-    limit: Optional[int] = None
-    sort_direction: Optional[str] = None
-    allowed_status_codes: Optional[List[int]] = None
+    cursor: str | None = None
+    limit: int | None = None
+    sort_direction: str | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetMarketDataResponse(BaseResponse):
-    market_data: List[MarketData] = None
+    market_data: list[MarketData] = None
     pagination: Pagination = None

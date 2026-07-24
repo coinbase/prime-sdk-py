@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import Blockchain
 
@@ -32,8 +32,8 @@ class Network:
 @dataclass
 class BlockchainAddress:
     address: str
-    account_identifier: Optional[str] = None
-    network: Optional[Network] = None
+    account_identifier: str | None = None
+    network: Network | None = None
 
 
 @dataclass
@@ -49,10 +49,10 @@ class CreateWithdrawalRequest:
     destination_type: str
     idempotency_key: str
     currency_symbol: str
-    payment_method: Optional[PaymentMethod] = None
-    blockchain_address: Optional[BlockchainAddress] = None
-    counterparty: Optional[Counterparty] = None
-    allowed_status_codes: Optional[List[int]] = None
+    payment_method: PaymentMethod | None = None
+    blockchain_address: BlockchainAddress | None = None
+    counterparty: Counterparty | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

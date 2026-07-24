@@ -13,9 +13,9 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import Optional, List
-from ...model import Candle
+
 from ...base_response import BaseResponse
+from ...model import Candle
 
 
 @dataclass
@@ -25,9 +25,9 @@ class GetProductCandlesRequest:
     granularity: str
     start_time: str
     end_time: str
-    allowed_status_codes: Optional[List[int]] = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetProductCandlesResponse(BaseResponse):
-    candles: List[Candle] = None
+    candles: list[Candle] = None

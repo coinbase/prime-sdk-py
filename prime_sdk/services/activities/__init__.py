@@ -12,32 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .service import ActivitiesService
-from .get_activity import (
-    GetActivityRequest,
-    GetActivityResponse
-)
-from .get_entity_activity import (
-    GetEntityActivityRequest,
-    GetEntityActivityResponse
-)
-from .list_activities import (
-    ListActivitiesRequest,
-    ListActivitiesResponse
-)
+from .get_activity import GetActivityRequest, GetActivityResponse
+from .get_entity_activity import GetEntityActivityRequest, GetEntityActivityResponse
+from .list_activities import ListActivitiesRequest, ListActivitiesResponse
 from .list_entity_activities import (
     ListEntityActivitiesRequest,
-    ListEntityActivitiesResponse
+    ListEntityActivitiesResponse,
 )
+from .service import ActivitiesService
 
 __all__ = [
     "ActivitiesService",
     "GetActivityRequest",
     "GetActivityResponse",
-    "GetEntityActivityRequest", 
+    "GetEntityActivityRequest",
     "GetEntityActivityResponse",
     "ListActivitiesRequest",
     "ListActivitiesResponse",
     "ListEntityActivitiesRequest",
-    "ListEntityActivitiesResponse"
+    "ListEntityActivitiesResponse",
 ]

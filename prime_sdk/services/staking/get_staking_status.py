@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...enums import StakeType
 
@@ -24,20 +24,20 @@ class StakingStatus:
     stake_type: StakeType
     estimated_stake_date: str
     estimated_hours_to_stake: int
-    requested_at: Optional[str] = None
+    requested_at: str | None = None
 
 
 @dataclass
 class ValidatorStakingInfo:
     validator_address: str
-    statuses: List[StakingStatus]
+    statuses: list[StakingStatus]
 
 
 @dataclass
 class GetStakingStatusRequest:
     portfolio_id: str
     wallet_id: str
-    allowed_status_codes: Optional[List[int]] = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
@@ -46,4 +46,4 @@ class GetStakingStatusResponse(BaseResponse):
     wallet_id: str = None
     wallet_address: str = None
     current_timestamp: str = None
-    validators: List[ValidatorStakingInfo] = None
+    validators: list[ValidatorStakingInfo] = None

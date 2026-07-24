@@ -12,42 +12,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .service import AllocationsService
 from .create_portfolio_allocations import (
+    AllocationLeg,
     CreatePortfolioAllocationsRequest,
     CreatePortfolioAllocationsResponse,
-    AllocationLeg
 )
 from .create_portfolio_net_allocations import (
     CreatePortfolioNetAllocationsRequest,
     CreatePortfolioNetAllocationsResponse,
-    NetAllocationLeg
+    NetAllocationLeg,
 )
-from .get_allocation_by_id import (
-    GetAllocationByIdRequest,
-    GetAllocationByIdResponse
-)
+from .get_allocation_by_id import GetAllocationByIdRequest, GetAllocationByIdResponse
 from .get_net_allocations_by_netting_id import (
     GetNetAllocationsByNettingIdRequest,
-    GetNetAllocationsByNettingIdResponse
+    GetNetAllocationsByNettingIdResponse,
 )
 from .list_portfolio_allocations import (
     ListPortfolioAllocationsRequest,
-    ListPortfolioAllocationsResponse
+    ListPortfolioAllocationsResponse,
 )
+from .service import AllocationsService
 
 __all__ = [
+    "AllocationLeg",
     "AllocationsService",
     "CreatePortfolioAllocationsRequest",
     "CreatePortfolioAllocationsResponse",
-    "AllocationLeg",
-    "CreatePortfolioNetAllocationsRequest", 
+    "CreatePortfolioNetAllocationsRequest",
     "CreatePortfolioNetAllocationsResponse",
-    "NetAllocationLeg",
     "GetAllocationByIdRequest",
     "GetAllocationByIdResponse",
     "GetNetAllocationsByNettingIdRequest",
     "GetNetAllocationsByNettingIdResponse",
     "ListPortfolioAllocationsRequest",
-    "ListPortfolioAllocationsResponse"
+    "ListPortfolioAllocationsResponse",
+    "NetAllocationLeg",
 ]

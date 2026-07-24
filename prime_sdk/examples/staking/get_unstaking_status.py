@@ -16,9 +16,10 @@
 # #docs operationName: Get Unstaking Status
 
 import argparse
-from prime_sdk.credentials import Credentials
+
 from prime_sdk.client import Client
-from prime_sdk.services.staking import StakingService, GetUnstakingStatusRequest
+from prime_sdk.credentials import Credentials
+from prime_sdk.services.staking import GetUnstakingStatusRequest, StakingService
 
 
 def main():
@@ -34,12 +35,13 @@ def main():
     # Accept wallet ID from either positional or named argument
     wallet_id = args.wallet_id or args.wallet_id_named
     if not wallet_id:
-        print("Error: Wallet ID is required. Provide as positional argument or use --wallet-id")
+        print(
+            "Error: Wallet ID is required. Provide as positional argument or use --wallet-id"
+        )
         return
 
     request = GetUnstakingStatusRequest(
-        portfolio_id=credentials.portfolio_id,
-        wallet_id=wallet_id
+        portfolio_id=credentials.portfolio_id, wallet_id=wallet_id
     )
 
     try:

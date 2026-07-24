@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 
 
@@ -25,7 +25,7 @@ class SetFundingSettingsRequest:
     automatic_loan_enabled: bool
     automatic_excess_return_enabled: bool
     excess_funds_target_amount: str
-    allowed_status_codes: Optional[List[int]] = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

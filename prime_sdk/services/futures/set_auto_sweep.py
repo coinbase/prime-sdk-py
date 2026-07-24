@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 
 
@@ -21,7 +21,7 @@ from ...base_response import BaseResponse
 class SetAutoSweepRequest:
     entity_id: str
     auto_sweep: bool
-    allowed_status_codes: Optional[List[int]] = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

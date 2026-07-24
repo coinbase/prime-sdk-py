@@ -1,5 +1,34 @@
 # Changelog
 
+## [1.9.0] - 2026-JUL-24
+
+### Added
+
+#### New API Endpoints
+
+**Api Keys Service**
+- **`rotate_api_key()`**: Rotate the Prime API key (`POST /v1/api-keys/rotate`)
+
+**Financing Service**
+- **`get_xm_liquidation()`**: Get cross margin liquidation details (`GET /v1/entities/{entity_id}/cross_margin/liquidation`)
+- **`list_xm_liquidations()`**: List cross margin liquidation history (`GET /v1/entities/{entity_id}/cross_margin/liquidations`)
+
+#### New & Updated Models
+- **`XMSummary`**, **`XMLiquidationDetail`**, **`XMLiquidationSummary`**, **`XMLiquidatedAsset`**: Cross margin liquidation types
+- **`CustomStablecoinAsset`**, **`CustomStablecoinRewardDetails`**, **`ValidatorAllocation`**: New supporting models
+- **`RewardMetadata`**: Added `custom_stablecoin_reward_details`
+- **`TravelRuleParty`**: Added `vasp_address`
+- **`StakingInputs`**: Added `end_date` and `validator_allocations`
+- **`CreateStakeRequest`** / **`CreateUnstakeRequest`**: Added `metadata` (`WalletStakingMetadata`)
+- **`CreatePortfolioUnstakeRequest`**: Added `validator_provider`
+
+#### New Enums
+- **`RewardSubtype`**, **`ValidatorProvider`**, **`TransactionType`** (includes new `MERGE_STAKE` value and `RewardSubtype.CUSTOM_STABLECOIN_REWARD`)
+
+### Changed
+
+- **`Credentials`**: Only `accessKey`, `passphrase`, and `signingKey` are required in `PRIME_CREDENTIALS`. `portfolioId`, `entityId`, and `svcAccountId` are optional (from JSON and/or `PRIME_PORTFOLIO_ID` / `PRIME_ENTITY_ID`).
+
 ## [1.8.0] - 2026-JUN-01
 
 ### Changed

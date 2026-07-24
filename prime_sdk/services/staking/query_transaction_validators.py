@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import TransactionValidator
 from ...utils import Pagination
@@ -22,14 +22,14 @@ from ...utils import Pagination
 @dataclass
 class QueryTransactionValidatorsRequest:
     portfolio_id: str
-    transaction_ids: List[str]
-    cursor: Optional[str] = None
-    limit: Optional[int] = None
-    sort_direction: Optional[str] = None
-    allowed_status_codes: Optional[List[int]] = None
+    transaction_ids: list[str]
+    cursor: str | None = None
+    limit: int | None = None
+    sort_direction: str | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class QueryTransactionValidatorsResponse(BaseResponse):
-    transaction_validators: List[TransactionValidator] = None
+    transaction_validators: list[TransactionValidator] = None
     pagination: Pagination = None

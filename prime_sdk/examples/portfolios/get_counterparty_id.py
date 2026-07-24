@@ -17,25 +17,29 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.portfolios import GetCounterpartyIdRequest
 
+
 def main():
     parser = argparse.ArgumentParser(description="Get counterparty ID for a portfolio")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
+    parser.add_argument(
+        "--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)"
+    )
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
 
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
     if not portfolio_id:
-        print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
+        print(
+            "Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id"
+        )
         return
-    
-    request = GetCounterpartyIdRequest(
-        portfolio_id=portfolio_id
-    )
-    
+
+    request = GetCounterpartyIdRequest(portfolio_id=portfolio_id)
+
     try:
         response = client.portfolios.get_counterparty_id(request)
         print(response)

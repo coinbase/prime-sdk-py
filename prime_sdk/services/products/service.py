@@ -14,14 +14,9 @@
 
 from prime_sdk.client import Client
 from prime_sdk.utils import append_pagination_params
-from .list_products import (
-    ListProductsRequest,
-    ListProductsResponse
-)
-from .get_product_candles import (
-    GetProductCandlesRequest,
-    GetProductCandlesResponse
-)
+
+from .get_product_candles import GetProductCandlesRequest, GetProductCandlesResponse
+from .list_products import ListProductsRequest, ListProductsResponse
 
 
 class ProductsService:
@@ -31,11 +26,23 @@ class ProductsService:
     def list_products(self, request: ListProductsRequest) -> ListProductsResponse:
         path = f"/portfolios/{request.portfolio_id}/products"
         query_params = append_pagination_params("", request.pagination)
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET",
+            path,
+            query=query_params,
+            allowed_status_codes=request.allowed_status_codes,
+        )
         return ListProductsResponse.from_response(response.json())
 
-    def get_product_candles(self, request: GetProductCandlesRequest) -> GetProductCandlesResponse:
+    def get_product_candles(
+        self, request: GetProductCandlesRequest
+    ) -> GetProductCandlesResponse:
         path = f"/portfolios/{request.portfolio_id}/candles"
         query_params = f"product_id={request.product_id}&granularity={request.granularity}&start_time={request.start_time}&end_time={request.end_time}"
-        response = self.client.request("GET", path, query=query_params, allowed_status_codes=request.allowed_status_codes)
+        response = self.client.request(
+            "GET",
+            path,
+            query=query_params,
+            allowed_status_codes=request.allowed_status_codes,
+        )
         return GetProductCandlesResponse.from_response(response.json())

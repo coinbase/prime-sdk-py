@@ -1,5 +1,5 @@
-from prime_sdk.services.portfolios import ListPortfoliosResponse
 from prime_sdk.model import Portfolio
+from prime_sdk.services.portfolios import ListPortfoliosResponse
 
 
 def test_list_portfolios_response_parsing():
@@ -10,7 +10,7 @@ def test_list_portfolios_response_parsing():
             "name": "CryptoBalances",
             "entity_id": "fake-entity-id",
             "organization_id": "fake-org-id",
-            "entity_name": "Sample Prime Entity"
+            "entity_name": "Sample Prime Entity",
         }
     ]
 

@@ -17,33 +17,55 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.financing import SetFundingSettingsRequest
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Update FCM funding settings for an entity")
-    parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
-    parser.add_argument("--designated-funding-portfolio-id", required=True,
-                        help="Portfolio ID to use for FCM margin calls and excess margin sweeps")
-    parser.add_argument("--automatic-conversion-enabled", required=True,
-                        choices=["true", "false"],
-                        help="Enable automatic USDC-to-USD conversion for margin calls")
-    parser.add_argument("--automatic-loan-enabled", required=True,
-                        choices=["true", "false"],
-                        help="Enable automatic loan initiation for margin calls")
-    parser.add_argument("--automatic-excess-return-enabled", required=True,
-                        choices=["true", "false"],
-                        help="Enable automatic return of excess FCM margin")
-    parser.add_argument("--excess-funds-target-amount", required=True,
-                        help="Target amount to maintain in the futures account above margin requirements")
+    parser = argparse.ArgumentParser(
+        description="Update FCM funding settings for an entity"
+    )
+    parser.add_argument(
+        "--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)"
+    )
+    parser.add_argument(
+        "--designated-funding-portfolio-id",
+        required=True,
+        help="Portfolio ID to use for FCM margin calls and excess margin sweeps",
+    )
+    parser.add_argument(
+        "--automatic-conversion-enabled",
+        required=True,
+        choices=["true", "false"],
+        help="Enable automatic USDC-to-USD conversion for margin calls",
+    )
+    parser.add_argument(
+        "--automatic-loan-enabled",
+        required=True,
+        choices=["true", "false"],
+        help="Enable automatic loan initiation for margin calls",
+    )
+    parser.add_argument(
+        "--automatic-excess-return-enabled",
+        required=True,
+        choices=["true", "false"],
+        help="Enable automatic return of excess FCM margin",
+    )
+    parser.add_argument(
+        "--excess-funds-target-amount",
+        required=True,
+        help="Target amount to maintain in the futures account above margin requirements",
+    )
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
 
     entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
     if not entity_id:
-        print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
+        print(
+            "Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id"
+        )
         return
 
     request = SetFundingSettingsRequest(
@@ -52,7 +74,7 @@ def main():
         automatic_conversion_enabled=args.automatic_conversion_enabled == "true",
         automatic_loan_enabled=args.automatic_loan_enabled == "true",
         automatic_excess_return_enabled=args.automatic_excess_return_enabled == "true",
-        excess_funds_target_amount=args.excess_funds_target_amount
+        excess_funds_target_amount=args.excess_funds_target_amount,
     )
 
     try:

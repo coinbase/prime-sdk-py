@@ -14,24 +14,26 @@
 
 from pathlib import Path
 
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 setup(
     name="prime-sdk-py",
-    version="1.8.0",
+    version="1.9.0",
     long_description=Path("README.md").read_text(encoding="utf-8"),
     long_description_content_type="text/markdown",
-    packages=find_packages(exclude=['prime_sdk.examples', 'prime_sdk.examples.*']),
+    packages=find_packages(exclude=["prime_sdk.examples", "prime_sdk.examples.*"]),
     install_requires=[
-        'requests',
+        "requests",
+        # `Self` is only available in typing on Python 3.11+
+        "typing_extensions; python_version < '3.11'",
     ],
     project_urls={
         "Source": "https://github.com/coinbase/prime-sdk-py",
         "Issue Tracker": "https://github.com/coinbase/prime-sdk-py/issues",
     },
     entry_points={
-        'console_scripts': [
-            'prime-sdk=prime_sdk.__main__:main',
+        "console_scripts": [
+            "prime-sdk=prime_sdk.__main__:main",
         ],
     },
 )

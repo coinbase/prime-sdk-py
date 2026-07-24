@@ -17,34 +17,45 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.payment_methods import GetEntityPaymentMethodRequest
 
+
 def main():
-    parser = argparse.ArgumentParser(description="Get details for a specific payment method")
+    parser = argparse.ArgumentParser(
+        description="Get details for a specific payment method"
+    )
     parser.add_argument("payment_method_id", nargs="?", help="Payment Method ID")
-    parser.add_argument("--payment-method-id", dest="payment_method_id_named", help="Payment Method ID")
-    parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
+    parser.add_argument(
+        "--payment-method-id", dest="payment_method_id_named", help="Payment Method ID"
+    )
+    parser.add_argument(
+        "--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)"
+    )
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
     entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
-    
+
     if not entity_id:
-        print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
+        print(
+            "Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id"
+        )
         return
 
     # Accept payment method ID from either positional or named argument
     payment_method_id = args.payment_method_id or args.payment_method_id_named
     if not payment_method_id:
-        print("Error: Payment Method ID is required. Provide as positional argument or use --payment-method-id")
+        print(
+            "Error: Payment Method ID is required. Provide as positional argument or use --payment-method-id"
+        )
         return
-    
+
     request = GetEntityPaymentMethodRequest(
-        entity_id=entity_id,
-        payment_method_id=payment_method_id
+        entity_id=entity_id, payment_method_id=payment_method_id
     )
-    
+
     try:
         response = client.payment_methods.get_entity_payment_method(request)
         print(response)

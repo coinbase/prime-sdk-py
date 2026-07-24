@@ -17,13 +17,17 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.users import ListPortfolioUsersRequest
 from prime_sdk.utils import PaginationParams
 
+
 def main():
     parser = argparse.ArgumentParser(description="List users for a portfolio")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
+    parser.add_argument(
+        "--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)"
+    )
     parser.add_argument("--limit", type=int, help="Number of results to return")
     parser.add_argument("--cursor", help="Pagination cursor")
     args = parser.parse_args()
@@ -32,22 +36,20 @@ def main():
 
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
     if not portfolio_id:
-        print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
+        print(
+            "Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id"
+        )
         return
 
     # Set up pagination if provided
     pagination = None
     if args.limit or args.cursor:
-        pagination = PaginationParams(
-            limit=args.limit,
-            cursor=args.cursor
-        )
-    
+        pagination = PaginationParams(limit=args.limit, cursor=args.cursor)
+
     request = ListPortfolioUsersRequest(
-        portfolio_id=portfolio_id,
-        pagination=pagination
+        portfolio_id=portfolio_id, pagination=pagination
     )
-    
+
     try:
         response = client.users.list_portfolio_users(request)
         print(response)

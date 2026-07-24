@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import MarginSummaryRecord
 
@@ -21,11 +21,11 @@ from ...model import MarginSummaryRecord
 @dataclass
 class ListMarginCallSummariesRequest:
     entity_id: str
-    start_date: Optional[str] = None
-    end_date: Optional[str] = None
-    allowed_status_codes: Optional[List[int]] = None
+    start_date: str | None = None
+    end_date: str | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListMarginCallSummariesResponse(BaseResponse):
-    margin_summaries: List[MarginSummaryRecord] = None
+    margin_summaries: list[MarginSummaryRecord] = None

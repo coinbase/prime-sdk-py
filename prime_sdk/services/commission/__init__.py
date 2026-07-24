@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .service import CommissionService
 from .get_portfolio_commission import (
     GetPortfolioCommissionRequest,
-    GetPortfolioCommissionResponse
+    GetPortfolioCommissionResponse,
 )
+from .service import CommissionService
 
 __all__ = [
     "CommissionService",
     "GetPortfolioCommissionRequest",
-    "GetPortfolioCommissionResponse"
+    "GetPortfolioCommissionResponse",
 ]

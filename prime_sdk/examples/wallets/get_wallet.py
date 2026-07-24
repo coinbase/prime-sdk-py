@@ -17,34 +17,39 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.wallets import GetWalletRequest
+
 
 def main():
     parser = argparse.ArgumentParser(description="Get details for a specific wallet")
     parser.add_argument("wallet_id", nargs="?", help="Wallet ID")
     parser.add_argument("--wallet-id", dest="wallet_id_named", help="Wallet ID")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
+    parser.add_argument(
+        "--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)"
+    )
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
-    
+
     if not portfolio_id:
-        print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
+        print(
+            "Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id"
+        )
         return
 
     # Accept wallet ID from either positional or named argument
     wallet_id = args.wallet_id or args.wallet_id_named
     if not wallet_id:
-        print("Error: Wallet ID is required. Provide as positional argument or use --wallet-id")
+        print(
+            "Error: Wallet ID is required. Provide as positional argument or use --wallet-id"
+        )
         return
-    
-    request = GetWalletRequest(
-        portfolio_id=portfolio_id,
-        wallet_id=wallet_id
-    )
-    
+
+    request = GetWalletRequest(portfolio_id=portfolio_id, wallet_id=wallet_id)
+
     try:
         response = client.wallets.get_wallet(request)
         print(response)

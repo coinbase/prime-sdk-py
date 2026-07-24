@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import Fee
 
@@ -21,10 +21,10 @@ from ...model import Fee
 @dataclass
 class GetTradeFinanceTieredPricingFeesRequest:
     entity_id: str
-    effective_at: Optional[str] = None
-    allowed_status_codes: Optional[List[int]] = None
+    effective_at: str | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetTradeFinanceTieredPricingFeesResponse(BaseResponse):
-    fees: List[Fee] = None
+    fees: list[Fee] = None

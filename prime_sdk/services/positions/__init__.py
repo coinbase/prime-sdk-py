@@ -12,20 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .service import PositionsService
 from .list_aggregate_entity_positions import (
     ListAggregateEntityPositionsRequest,
-    ListAggregateEntityPositionsResponse
+    ListAggregateEntityPositionsResponse,
 )
 from .list_entity_positions import (
     ListEntityPositionsRequest,
-    ListEntityPositionsResponse
+    ListEntityPositionsResponse,
 )
+from .service import PositionsService
 
 __all__ = [
-    "PositionsService",
     "ListAggregateEntityPositionsRequest",
     "ListAggregateEntityPositionsResponse",
     "ListEntityPositionsRequest",
-    "ListEntityPositionsResponse"
+    "ListEntityPositionsResponse",
+    "PositionsService",
 ]

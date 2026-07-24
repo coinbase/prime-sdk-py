@@ -17,13 +17,18 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.financing import GetPortfolioWithdrawalPowerRequest
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Get portfolio withdrawal power for a symbol")
-    parser.add_argument("--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)")
+    parser = argparse.ArgumentParser(
+        description="Get portfolio withdrawal power for a symbol"
+    )
+    parser.add_argument(
+        "--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)"
+    )
     parser.add_argument("--symbol", required=True, help="Currency symbol (e.g., BTC)")
     args = parser.parse_args()
 
@@ -31,12 +36,13 @@ def main():
     portfolio_id = args.portfolio_id or os.getenv("PRIME_PORTFOLIO_ID")
 
     if not portfolio_id:
-        print("Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id")
+        print(
+            "Error: Portfolio ID is required. Set PRIME_PORTFOLIO_ID env var or use --portfolio-id"
+        )
         return
 
     request = GetPortfolioWithdrawalPowerRequest(
-        portfolio_id=portfolio_id,
-        symbol=args.symbol
+        portfolio_id=portfolio_id, symbol=args.symbol
     )
 
     try:

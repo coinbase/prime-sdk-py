@@ -13,23 +13,23 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
-from ...model import OnchainBalance, DefiBalance
-from ...utils import PaginationParams, Pagination
+from ...model import DefiBalance, OnchainBalance
+from ...utils import Pagination, PaginationParams
 
 
 @dataclass
 class ListWeb3WalletBalancesRequest:
     portfolio_id: str
     wallet_id: str
-    visibility_statuses: Optional[str] = None
-    pagination: Optional[PaginationParams] = None
-    allowed_status_codes: Optional[List[int]] = None
+    visibility_statuses: str | None = None
+    pagination: PaginationParams | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListWeb3WalletBalancesResponse(BaseResponse):
-    balances: List[OnchainBalance] = None
+    balances: list[OnchainBalance] = None
     pagination: Pagination = None
-    defi_balances: List[DefiBalance] = None
+    defi_balances: list[DefiBalance] = None

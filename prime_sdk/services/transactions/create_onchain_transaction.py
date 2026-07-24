@@ -13,21 +13,21 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 
 
 @dataclass
 class Rpc:
-    skip_broadcast: Optional[bool] = None
-    url: Optional[str] = None
+    skip_broadcast: bool | None = None
+    url: str | None = None
 
 
 @dataclass
 class EvmParams:
-    disable_dynamic_gas: Optional[bool] = None
-    replaced_transaction_id: Optional[str] = None
-    chain_id: Optional[str] = None
+    disable_dynamic_gas: bool | None = None
+    replaced_transaction_id: str | None = None
+    chain_id: str | None = None
 
 
 @dataclass
@@ -35,9 +35,9 @@ class CreateOnchainTransactionRequest:
     portfolio_id: str
     wallet_id: str
     raw_unsigned_txn: str
-    rpc: Optional[Rpc] = None
-    evm_params: Optional[EvmParams] = None
-    allowed_status_codes: Optional[List[int]] = None
+    rpc: Rpc | None = None
+    evm_params: EvmParams | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import Asset
 
@@ -21,9 +21,9 @@ from ...model import Asset
 @dataclass
 class ListAssetsRequest:
     entity_id: str
-    allowed_status_codes: Optional[List[int]] = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListAssetsResponse(BaseResponse):
-    assets: List[Asset] = None
+    assets: list[Asset] = None

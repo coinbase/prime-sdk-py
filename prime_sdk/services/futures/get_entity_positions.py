@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import FuturesPosition
 from ...utils import Pagination
@@ -22,12 +22,12 @@ from ...utils import Pagination
 @dataclass
 class GetEntityPositionsRequest:
     entity_id: str
-    product_id: Optional[str] = None
-    allowed_status_codes: Optional[List[int]] = None
+    product_id: str | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetEntityPositionsResponse(BaseResponse):
-    positions: List[FuturesPosition] = None
+    positions: list[FuturesPosition] = None
     clearing_account_id: str = None
     pagination: Pagination = None

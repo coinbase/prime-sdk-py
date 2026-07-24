@@ -12,26 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .service import PortfoliosService
-from .list_portfolios import (
-    ListPortfoliosRequest,
-    ListPortfoliosResponse
-)
-from .get_portfolio import (
-    GetPortfolioRequest,
-    GetPortfolioResponse
-)
 from .get_counterparty_id import (
     GetCounterpartyIdRequest,
     GetCounterpartyIdResponse,
 )
+from .get_portfolio import GetPortfolioRequest, GetPortfolioResponse
+from .list_portfolios import ListPortfoliosRequest, ListPortfoliosResponse
+from .service import PortfoliosService
 
 __all__ = [
-    "PortfoliosService",
-    "ListPortfoliosRequest",
-    "ListPortfoliosResponse", 
-    "GetPortfolioRequest",
-    "GetPortfolioResponse",
     "GetCounterpartyIdRequest",
     "GetCounterpartyIdResponse",
+    "GetPortfolioRequest",
+    "GetPortfolioResponse",
+    "ListPortfoliosRequest",
+    "ListPortfoliosResponse",
+    "PortfoliosService",
 ]

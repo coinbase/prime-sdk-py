@@ -13,8 +13,8 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
 from datetime import datetime
+
 from ...base_response import BaseResponse
 from ...enums import OrderSide, OrderType
 from ...model import Order
@@ -24,16 +24,16 @@ from ...utils import Pagination
 @dataclass
 class ListOpenOrdersRequest:
     portfolio_id: str
-    order_statuses: Optional[str] = None
-    product_ids: Optional[str] = None
-    order_type: Optional[OrderType] = None
-    order_side: Optional[OrderSide] = None
+    order_statuses: str | None = None
+    product_ids: str | None = None
+    order_type: OrderType | None = None
+    order_side: OrderSide | None = None
     start_date: datetime = None
-    end_date: Optional[datetime] = None
-    allowed_status_codes: Optional[List[int]] = None
+    end_date: datetime | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListOpenOrdersResponse(BaseResponse):
-    orders: List[Order] = None
+    orders: list[Order] = None
     pagination: Pagination = None

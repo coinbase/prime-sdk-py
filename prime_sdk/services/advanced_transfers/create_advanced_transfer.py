@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import AdvancedTransfer
 
@@ -22,7 +22,7 @@ from ...model import AdvancedTransfer
 class CreateAdvancedTransferRequest:
     portfolio_id: str
     advanced_transfer: AdvancedTransfer = None
-    allowed_status_codes: Optional[List[int]] = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

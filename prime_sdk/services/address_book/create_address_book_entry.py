@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 
 
@@ -23,8 +23,8 @@ class CreateAddressBookEntryRequest:
     address: str
     currency_symbol: str
     name: str
-    account_identifier: Optional[str] = None
-    allowed_status_codes: Optional[List[int]] = None
+    account_identifier: str | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

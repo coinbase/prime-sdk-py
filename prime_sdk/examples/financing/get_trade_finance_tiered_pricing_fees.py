@@ -17,13 +17,18 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.financing import GetTradeFinanceTieredPricingFeesRequest
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Get trade finance tiered pricing fees")
-    parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
+    parser = argparse.ArgumentParser(
+        description="Get trade finance tiered pricing fees"
+    )
+    parser.add_argument(
+        "--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)"
+    )
     parser.add_argument("--effective-at", help="Effective date (ISO format)")
     args = parser.parse_args()
 
@@ -31,12 +36,13 @@ def main():
     entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
 
     if not entity_id:
-        print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
+        print(
+            "Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id"
+        )
         return
 
     request = GetTradeFinanceTieredPricingFeesRequest(
-        entity_id=entity_id,
-        effective_at=args.effective_at
+        entity_id=entity_id, effective_at=args.effective_at
     )
 
     try:

@@ -12,20 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .service import PaymentMethodsService
 from .get_entity_payment_method import (
     GetEntityPaymentMethodRequest,
-    GetEntityPaymentMethodResponse
+    GetEntityPaymentMethodResponse,
 )
 from .list_entity_payment_methods import (
     ListEntityPaymentMethodsRequest,
-    ListEntityPaymentMethodsResponse
+    ListEntityPaymentMethodsResponse,
 )
+from .service import PaymentMethodsService
 
 __all__ = [
-    "PaymentMethodsService",
     "GetEntityPaymentMethodRequest",
     "GetEntityPaymentMethodResponse",
     "ListEntityPaymentMethodsRequest",
-    "ListEntityPaymentMethodsResponse"
+    "ListEntityPaymentMethodsResponse",
+    "PaymentMethodsService",
 ]

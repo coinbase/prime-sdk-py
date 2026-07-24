@@ -13,8 +13,8 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
 from warnings import warn
+
 from ...base_response import BaseResponse
 from ...enums import SizeType
 
@@ -24,11 +24,14 @@ class AllocationLeg:
     allocation_leg_id: str
     destination_portfolio_id: str
     amount: str
-    leg_id: Optional[str] = None
+    leg_id: str | None = None
 
     def __post_init__(self):
         if self.leg_id:
-            warn("The 'leg_id' field is deprecated and will be removed in a future version. Use 'allocation_leg_id' instead.", DeprecationWarning)
+            warn(
+                "The 'leg_id' field is deprecated and will be removed in a future version. Use 'allocation_leg_id' instead.",
+                DeprecationWarning,
+            )
             self.allocation_leg_id = self.leg_id
         else:
             self.leg_id = self.allocation_leg_id
@@ -39,11 +42,11 @@ class CreatePortfolioAllocationsRequest:
     allocation_id: str
     source_portfolio_id: str
     product_id: str
-    order_ids: List[str]
-    allocation_legs: List[AllocationLeg]
+    order_ids: list[str]
+    allocation_legs: list[AllocationLeg]
     size_type: SizeType
     remainder_destination_portfolio_id: str
-    allowed_status_codes: Optional[List[int]] = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

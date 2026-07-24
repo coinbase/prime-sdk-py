@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import FcmMarginCall
 
@@ -21,9 +21,9 @@ from ...model import FcmMarginCall
 @dataclass
 class GetFcmMarginCallDetailsRequest:
     entity_id: str
-    allowed_status_codes: Optional[List[int]] = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetFcmMarginCallDetailsResponse(BaseResponse):
-    margin_calls: List[FcmMarginCall] = None
+    margin_calls: list[FcmMarginCall] = None

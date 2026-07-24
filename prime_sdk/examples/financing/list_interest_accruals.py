@@ -17,13 +17,16 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.financing import ListInterestAccrualsRequest
 
 
 def main():
     parser = argparse.ArgumentParser(description="List interest accruals for an entity")
-    parser.add_argument("--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)")
+    parser.add_argument(
+        "--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)"
+    )
     parser.add_argument("--portfolio-id", help="Portfolio ID filter")
     parser.add_argument("--start-date", help="Start date (ISO format)")
     parser.add_argument("--end-date", help="End date (ISO format)")
@@ -33,14 +36,16 @@ def main():
 
     entity_id = args.entity_id or os.getenv("PRIME_ENTITY_ID")
     if not entity_id:
-        print("Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id")
+        print(
+            "Error: Entity ID is required. Set PRIME_ENTITY_ID env var or use --entity-id"
+        )
         return
 
     request = ListInterestAccrualsRequest(
         entity_id=entity_id,
         portfolio_id=args.portfolio_id,
         start_date=args.start_date,
-        end_date=args.end_date
+        end_date=args.end_date,
     )
 
     try:
