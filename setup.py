@@ -24,6 +24,8 @@ setup(
     packages=find_packages(exclude=["prime_sdk.examples", "prime_sdk.examples.*"]),
     install_requires=[
         "requests",
+        # `Self` is only available in typing on Python 3.11+
+        "typing_extensions; python_version < '3.11'",
     ],
     project_urls={
         "Source": "https://github.com/coinbase/prime-sdk-py",
