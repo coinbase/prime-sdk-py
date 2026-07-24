@@ -12,21 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import hmac
-import hashlib
 import base64
-import requests
-import time
+import hashlib
+import hmac
 import json
-from typing import Optional, Dict, List
+import time
+
+import requests
+
 from prime_sdk.credentials import Credentials
+from prime_sdk.exceptions import PrimeAPIError
 
 DEFAULT_V1_API_BASE_URL = "https://api.prime.coinbase.com/v1"
 
 
 class Client:
     def __init__(
-        self, credentials: Credentials, http_client: Optional[requests.Session] = None
+        self, credentials: Credentials, http_client: requests.Session | None = None
     ):
         self.http_base_url = DEFAULT_V1_API_BASE_URL
         self.credentials = credentials
@@ -35,14 +37,14 @@ class Client:
     @staticmethod
     def from_env(
         variable_name: str = "PRIME_CREDENTIALS",
-        http_client: Optional[requests.Session] = None,
+        http_client: requests.Session | None = None,
     ) -> "Client":
         credentials = Credentials.from_env(variable_name)
         return Client(credentials, http_client)
 
     def generate_headers(
-        self, method: str, path: str, body: Optional[Dict] = None
-    ) -> Dict[str, str]:
+        self, method: str, path: str, body: dict | None = None
+    ) -> dict[str, str]:
         timestamp = str(int(time.time()))
         body_string = json.dumps(body) if body else ""
         message = f"{timestamp}{method}{path}{body_string}"
@@ -66,9 +68,9 @@ class Client:
         self,
         method: str,
         path: str,
-        query: Optional[str] = "",
-        body: Optional[Dict] = None,
-        allowed_status_codes: Optional[List[int]] = None,
+        query: str | None = "",
+        body: dict | None = None,
+        allowed_status_codes: list[int] | None = None,
         version: str = "v1",
     ) -> requests.Response:
         if allowed_status_codes is None:
@@ -86,7 +88,5 @@ class Client:
                 error_message = error_details.get("message", response.text)
             except ValueError:
                 error_message = response.text
-            raise Exception(
-                f"Request failed with status {response.status_code}: {error_message}"
-            )
+            raise PrimeAPIError(response.status_code, error_message)
         return response

@@ -1,5 +1,5 @@
-from prime_sdk.services.orders import GetOrderResponse
 from prime_sdk.model import Order
+from prime_sdk.services.orders import GetOrderResponse
 
 
 def test_get_order_response_parsing():

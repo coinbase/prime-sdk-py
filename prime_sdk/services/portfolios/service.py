@@ -13,9 +13,9 @@
 # limitations under the License.
 
 from ...client import Client
-from .list_portfolios import ListPortfoliosRequest, ListPortfoliosResponse
-from .get_portfolio import GetPortfolioRequest, GetPortfolioResponse
 from .get_counterparty_id import GetCounterpartyIdRequest, GetCounterpartyIdResponse
+from .get_portfolio import GetPortfolioRequest, GetPortfolioResponse
+from .list_portfolios import ListPortfoliosRequest, ListPortfoliosResponse
 
 
 class PortfoliosService:

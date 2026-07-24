@@ -13,22 +13,22 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
-from ...utils import PaginationParams, Pagination
 from ...model import Fill
+from ...utils import Pagination, PaginationParams
 
 
 @dataclass
 class ListPortfolioFillsRequest:
     portfolio_id: str
     start_date: str
-    end_date: Optional[str] = None
-    pagination: Optional[PaginationParams] = None
-    allowed_status_codes: Optional[List[int]] = None
+    end_date: str | None = None
+    pagination: PaginationParams | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListPortfolioFillsResponse(BaseResponse):
-    fills: List[Fill] = None
+    fills: list[Fill] = None
     pagination: Pagination = None

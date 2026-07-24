@@ -13,25 +13,25 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import AdvancedTransfer
-from ...utils import PaginationParams, Pagination
+from ...utils import Pagination, PaginationParams
 
 
 @dataclass
 class ListAdvancedTransfersRequest:
     portfolio_id: str
-    state: Optional[str] = None
-    type: Optional[str] = None
-    start_time: Optional[str] = None
-    end_time: Optional[str] = None
-    reference_id: Optional[str] = None
-    pagination: Optional[PaginationParams] = None
-    allowed_status_codes: Optional[List[int]] = None
+    state: str | None = None
+    type: str | None = None
+    start_time: str | None = None
+    end_time: str | None = None
+    reference_id: str | None = None
+    pagination: PaginationParams | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListAdvancedTransfersResponse(BaseResponse):
-    advanced_transfers: List[AdvancedTransfer] = None
+    advanced_transfers: list[AdvancedTransfer] = None
     pagination: Pagination = None

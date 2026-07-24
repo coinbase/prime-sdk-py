@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import CrossMarginRiskParameters, TierPairRateEntry
 
@@ -21,13 +21,13 @@ from ...model import CrossMarginRiskParameters, TierPairRateEntry
 @dataclass
 class GetCrossMarginRiskParametersRequest:
     entity_id: str
-    allowed_status_codes: Optional[List[int]] = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetCrossMarginRiskParametersResponse(BaseResponse):
-    risk_parameters: List[CrossMarginRiskParameters] = None
-    offset_credit_matrix_long_short: List[TierPairRateEntry] = None
-    offset_credit_matrix_long_long: List[TierPairRateEntry] = None
-    offset_credit_matrix_short_short: List[TierPairRateEntry] = None
+    risk_parameters: list[CrossMarginRiskParameters] = None
+    offset_credit_matrix_long_short: list[TierPairRateEntry] = None
+    offset_credit_matrix_long_long: list[TierPairRateEntry] = None
+    offset_credit_matrix_short_short: list[TierPairRateEntry] = None
     margin_period_of_risk: float = None

@@ -13,14 +13,14 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 
 
 @dataclass
 class RotateApiKeyRequest:
-    duration_seconds: Optional[int] = None
-    allowed_status_codes: Optional[List[int]] = None
+    duration_seconds: int | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

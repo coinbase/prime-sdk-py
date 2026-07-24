@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .service import OrdersService
 from .accept_quote import AcceptQuoteRequest, AcceptQuoteResponse
 from .cancel_order import CancelOrderRequest, CancelOrderResponse
 from .create_order import CreateOrderRequest, CreateOrderResponse
@@ -28,25 +27,25 @@ from .list_open_orders import ListOpenOrdersRequest, ListOpenOrdersResponse
 from .list_order_fills import ListOrderFillsRequest, ListOrderFillsResponse
 from .list_orders import ListOrdersRequest, ListOrdersResponse
 from .list_portfolio_fills import ListPortfolioFillsRequest, ListPortfolioFillsResponse
+from .service import OrdersService
 
 __all__ = [
-    "OrdersService",
     "AcceptQuoteRequest",
     "AcceptQuoteResponse",
     "CancelOrderRequest",
     "CancelOrderResponse",
-    "CreateOrderRequest",
-    "CreateOrderResponse",
     "CreateOrderPreviewRequest",
     "CreateOrderPreviewResponse",
+    "CreateOrderRequest",
+    "CreateOrderResponse",
     "CreateQuoteRequest",
     "CreateQuoteResponse",
     "EditOrderRequest",
     "EditOrderResponse",
-    "GetOrderRequest",
-    "GetOrderResponse",
     "GetOrderEditHistoryRequest",
     "GetOrderEditHistoryResponse",
+    "GetOrderRequest",
+    "GetOrderResponse",
     "ListOpenOrdersRequest",
     "ListOpenOrdersResponse",
     "ListOrderFillsRequest",
@@ -55,4 +54,5 @@ __all__ = [
     "ListOrdersResponse",
     "ListPortfolioFillsRequest",
     "ListPortfolioFillsResponse",
+    "OrdersService",
 ]

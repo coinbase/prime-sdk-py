@@ -13,13 +13,13 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 
 
 @dataclass
 class UnstakeMetadata:
-    external_id: Optional[str] = None
+    external_id: str | None = None
 
 
 @dataclass
@@ -28,9 +28,9 @@ class CreatePortfolioUnstakeRequest:
     idempotency_key: str
     currency_symbol: str
     amount: str
-    metadata: Optional[UnstakeMetadata] = None
-    validator_provider: Optional[str] = None
-    allowed_status_codes: Optional[List[int]] = None
+    metadata: UnstakeMetadata | None = None
+    validator_provider: str | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

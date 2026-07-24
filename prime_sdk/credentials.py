@@ -12,11 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from dataclasses import dataclass
-import os
 import json
-from typing import Optional
-
+import os
+from dataclasses import dataclass
 
 _REQUIRED_CREDENTIAL_KEYS = ("accessKey", "passphrase", "signingKey")
 
@@ -37,9 +35,9 @@ class Credentials:
     access_key: str
     passphrase: str
     signing_key: str
-    portfolio_id: Optional[str] = None
-    entity_id: Optional[str] = None
-    svc_account_id: Optional[str] = None
+    portfolio_id: str | None = None
+    entity_id: str | None = None
+    svc_account_id: str | None = None
 
     @staticmethod
     def from_json(data: str) -> "Credentials":
@@ -67,7 +65,7 @@ class Credentials:
         """
         env_var = os.getenv(variable_name)
         if not env_var:
-            raise EnvironmentError(f"{variable_name} not set as environment variable")
+            raise OSError(f"{variable_name} not set as environment variable")
 
         credentials_dict = json.loads(env_var)
         _require_core_credentials(credentials_dict)

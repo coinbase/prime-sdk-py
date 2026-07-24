@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .service import UsersService
 from .list_entity_users import ListEntityUsersRequest, ListEntityUsersResponse
 from .list_portfolio_users import ListPortfolioUsersRequest, ListPortfolioUsersResponse
+from .service import UsersService
 
 __all__ = [
-    "UsersService",
     "ListEntityUsersRequest",
     "ListEntityUsersResponse",
     "ListPortfolioUsersRequest",
     "ListPortfolioUsersResponse",
+    "UsersService",
 ]

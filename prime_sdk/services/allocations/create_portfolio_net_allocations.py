@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...enums import SizeType
 
@@ -30,11 +30,11 @@ class CreatePortfolioNetAllocationsRequest:
     allocation_id: str
     source_portfolio_id: str
     product_id: str
-    order_ids: List[str]
-    allocation_legs: List[NetAllocationLeg]
+    order_ids: list[str]
+    allocation_legs: list[NetAllocationLeg]
     size_type: SizeType
     remainder_destination_portfolio_id: str
-    allowed_status_codes: Optional[List[int]] = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

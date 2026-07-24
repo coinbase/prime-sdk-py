@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from .create_stake import StakingInputs, WalletStakingMetadata
 
@@ -23,9 +23,9 @@ class CreateUnstakeRequest:
     portfolio_id: str
     wallet_id: str
     idempotency_key: str
-    inputs: Optional[StakingInputs] = None
-    metadata: Optional[WalletStakingMetadata] = None
-    allowed_status_codes: Optional[List[int]] = None
+    inputs: StakingInputs | None = None
+    metadata: WalletStakingMetadata | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

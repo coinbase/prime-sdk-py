@@ -13,13 +13,13 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 
 
 @dataclass
 class StakeMetadata:
-    external_id: Optional[str] = None
+    external_id: str | None = None
 
 
 @dataclass
@@ -28,8 +28,8 @@ class CreatePortfolioStakeRequest:
     idempotency_key: str
     currency_symbol: str
     amount: str
-    metadata: Optional[StakeMetadata] = None
-    allowed_status_codes: Optional[List[int]] = None
+    metadata: StakeMetadata | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

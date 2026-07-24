@@ -13,10 +13,11 @@
 # limitations under the License.
 
 import argparse
-from datetime import datetime, timedelta
-from prime_sdk.credentials import Credentials
+from datetime import datetime, timedelta, timezone
+
 from prime_sdk.client import Client
-from prime_sdk.services.products import ProductsService, GetProductCandlesRequest
+from prime_sdk.credentials import Credentials
+from prime_sdk.services.products import GetProductCandlesRequest, ProductsService
 
 
 def calculate_24h_change(products_service, portfolio_id, product_id):
@@ -34,7 +35,7 @@ def calculate_24h_change(products_service, portfolio_id, product_id):
         dict: Contains current_price, price_24h_ago, change_amount, change_percentage
     """
     # Calculate timestamps (API expects ISO 8601 format)
-    current_time = datetime.utcnow()
+    current_time = datetime.now(timezone.utc)
     past_time = current_time - timedelta(hours=24)
 
     # Format as ISO 8601 with Z suffix
@@ -53,7 +54,7 @@ def calculate_24h_change(products_service, portfolio_id, product_id):
     response = products_service.get_product_candles(request)
 
     if not response.candles or len(response.candles) < 2:
-        raise Exception("Insufficient price data available")
+        raise ValueError("Insufficient price data available")
 
     price_24h_ago = float(response.candles[0].close)
     current_price = float(response.candles[-1].close)

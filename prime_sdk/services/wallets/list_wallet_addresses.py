@@ -13,10 +13,10 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import BlockchainAddress
-from ...utils import PaginationParams, Pagination
+from ...utils import Pagination, PaginationParams
 
 
 @dataclass
@@ -24,11 +24,11 @@ class ListWalletAddressesRequest:
     portfolio_id: str
     wallet_id: str
     network_id: str
-    pagination: Optional[PaginationParams] = None
-    allowed_status_codes: Optional[List[int]] = None
+    pagination: PaginationParams | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListWalletAddressesResponse(BaseResponse):
-    addresses: List[BlockchainAddress] = None
+    addresses: list[BlockchainAddress] = None
     pagination: Pagination = None

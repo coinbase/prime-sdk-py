@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from dataclasses import dataclass, asdict
-from typing import Optional, List, Union, Dict, Any
+from dataclasses import asdict, dataclass
+from typing import Any
 
 
 @dataclass
@@ -22,12 +22,12 @@ class PaginationParams:
     limit: str = ""
     sort_direction: str = ""
 
-    def to_dict(self) -> Dict[str, str]:
+    def to_dict(self) -> dict[str, str]:
         return asdict(self)
 
 
 def append_query_param(
-    query_params: str, key: str, value: Optional[Union[str, List[str]]]
+    query_params: str, key: str, value: str | list[str] | None
 ) -> str:
     if value:
         if isinstance(value, list):
@@ -43,7 +43,7 @@ def append_query_param(
 
 
 def append_pagination_params(
-    query_params: str, pagination: Optional[PaginationParams]
+    query_params: str, pagination: PaginationParams | None
 ) -> str:
     if pagination:
         query_params = append_query_param(query_params, "cursor", pagination.cursor)
@@ -60,11 +60,11 @@ class Pagination:
     sort_direction: str = ""
     has_next: bool = False
 
-    def to_dict(self) -> Dict[str, str]:
+    def to_dict(self) -> dict[str, str]:
         return asdict(self)
 
 
-def to_body_dict(obj: Any) -> Dict[str, Any]:
+def to_body_dict(obj: Any) -> dict[str, Any]:
     """
     Convert a dataclass to a dictionary, converting enum values to their string representation.
     This is used for request objects that need to be serialized for API calls.

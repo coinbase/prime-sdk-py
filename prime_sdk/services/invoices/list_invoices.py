@@ -13,22 +13,22 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import Optional, List
+
 from ...base_response import BaseResponse
-from ...utils import PaginationParams
 from ...model import Invoice
+from ...utils import PaginationParams
 
 
 @dataclass
 class ListInvoicesRequest:
     entity_id: str
-    states: Optional[str] = None
-    billing_year: Optional[int] = None
-    billing_month: Optional[str] = None
-    pagination: Optional[PaginationParams] = None
-    allowed_status_codes: Optional[List[int]] = None
+    states: str | None = None
+    billing_year: int | None = None
+    billing_month: str | None = None
+    pagination: PaginationParams | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListInvoicesResponse(BaseResponse):
-    invoices: List[Invoice] = None
+    invoices: list[Invoice] = None

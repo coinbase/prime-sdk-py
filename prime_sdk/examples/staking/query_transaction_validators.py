@@ -16,9 +16,10 @@
 # #docs operationName: List Transaction Validators
 
 import argparse
-from prime_sdk.credentials import Credentials
+
 from prime_sdk.client import Client
-from prime_sdk.services.staking import StakingService, QueryTransactionValidatorsRequest
+from prime_sdk.credentials import Credentials
+from prime_sdk.services.staking import QueryTransactionValidatorsRequest, StakingService
 
 
 def main():

@@ -18,9 +18,10 @@
 import argparse
 import os
 import uuid
+
 from prime_sdk.client_services import PrimeServicesClient
-from prime_sdk.services.orders import AcceptQuoteRequest
 from prime_sdk.enums import OrderSide
+from prime_sdk.services.orders import AcceptQuoteRequest
 
 
 def main():

@@ -16,11 +16,12 @@
 from .client import Client
 from .client_services import PrimeServicesClient
 from .credentials import Credentials
+from .exceptions import PrimeAPIError, PrimeSDKError
 
 # Service classes - primary interface
 from .services.activities import ActivitiesService
-from .services.advanced_transfers import AdvancedTransfersService
 from .services.address_book import AddressBookService
+from .services.advanced_transfers import AdvancedTransfersService
 from .services.allocations import AllocationsService
 from .services.assets import AssetsService
 from .services.balances import BalancesService
@@ -40,18 +41,15 @@ from .services.users import UsersService
 from .services.wallets import WalletsService
 
 __all__ = [
-    # Core classes
-    "Client",
-    "PrimeServicesClient",
-    "Credentials",
-    # Service classes
     "ActivitiesService",
-    "AdvancedTransfersService",
     "AddressBookService",
+    "AdvancedTransfersService",
     "AllocationsService",
     "AssetsService",
     "BalancesService",
+    "Client",
     "CommissionService",
+    "Credentials",
     "FinancingService",
     "FuturesService",
     "InvoicesService",
@@ -60,6 +58,9 @@ __all__ = [
     "PaymentMethodsService",
     "PortfoliosService",
     "PositionsService",
+    "PrimeAPIError",
+    "PrimeSDKError",
+    "PrimeServicesClient",
     "ProductsService",
     "StakingService",
     "TransactionsService",

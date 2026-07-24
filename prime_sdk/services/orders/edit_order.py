@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 
 
@@ -21,16 +21,16 @@ from ...base_response import BaseResponse
 class EditOrderRequest:
     portfolio_id: str
     order_id: str
-    orig_client_order_id: Optional[str] = None
-    client_order_id: Optional[str] = None
-    base_quantity: Optional[str] = None
-    quote_value: Optional[str] = None
-    limit_price: Optional[str] = None
-    expiry_time: Optional[str] = None
-    display_quote_size: Optional[str] = None
-    display_base_size: Optional[str] = None
-    stop_price: Optional[str] = None
-    allowed_status_codes: Optional[List[int]] = None
+    orig_client_order_id: str | None = None
+    client_order_id: str | None = None
+    base_quantity: str | None = None
+    quote_value: str | None = None
+    limit_price: str | None = None
+    expiry_time: str | None = None
+    display_quote_size: str | None = None
+    display_base_size: str | None = None
+    stop_price: str | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

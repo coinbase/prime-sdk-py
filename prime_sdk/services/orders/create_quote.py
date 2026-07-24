@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...enums import OrderSide
 
@@ -25,11 +25,11 @@ class CreateQuoteRequest:
     side: OrderSide
     client_quote_id: str
     limit_price: str
-    base_quantity: Optional[str] = None
-    quote_value: Optional[str] = None
-    settl_currency: Optional[str] = None
-    quote_duration_ms: Optional[str] = None
-    allowed_status_codes: Optional[List[int]] = None
+    base_quantity: str | None = None
+    quote_value: str | None = None
+    settl_currency: str | None = None
+    quote_duration_ms: str | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

@@ -14,6 +14,7 @@
 
 from prime_sdk.client import Client
 from prime_sdk.utils import append_pagination_params
+
 from .get_entity_payment_method import (
     GetEntityPaymentMethodRequest,
     GetEntityPaymentMethodResponse,

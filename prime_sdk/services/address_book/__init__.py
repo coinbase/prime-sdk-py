@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .service import AddressBookService
 from .create_address_book_entry import (
     CreateAddressBookEntryRequest,
     CreateAddressBookEntryResponse,
 )
 from .get_address_book import GetAddressBookRequest, GetAddressBookResponse
+from .service import AddressBookService
 
 __all__ = [
     "AddressBookService",

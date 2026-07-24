@@ -17,9 +17,10 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
-from prime_sdk.services.wallets import GetWalletDepositInstructionsRequest
 from prime_sdk.enums import WalletDepositType
+from prime_sdk.services.wallets import GetWalletDepositInstructionsRequest
 
 
 def main():

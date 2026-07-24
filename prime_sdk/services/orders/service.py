@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from ...client import Client
-from ...utils import append_query_param, append_pagination_params, to_body_dict
+from ...utils import append_pagination_params, append_query_param, to_body_dict
 from .accept_quote import AcceptQuoteRequest, AcceptQuoteResponse
 from .cancel_order import CancelOrderRequest, CancelOrderResponse
 from .create_order import CreateOrderRequest, CreateOrderResponse

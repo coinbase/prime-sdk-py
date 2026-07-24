@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import Commission
 
@@ -21,7 +21,7 @@ from ...model import Commission
 @dataclass
 class GetPortfolioCommissionRequest:
     portfolio_id: str
-    allowed_status_codes: Optional[List[int]] = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

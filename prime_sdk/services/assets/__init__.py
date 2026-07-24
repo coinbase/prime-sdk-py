@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .service import AssetsService
 from .list_assets import ListAssetsRequest, ListAssetsResponse
+from .service import AssetsService
 
 __all__ = ["AssetsService", "ListAssetsRequest", "ListAssetsResponse"]

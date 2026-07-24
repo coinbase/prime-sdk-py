@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .service import ApiKeysService
 from .rotate_api_key import (
     RotateApiKeyRequest,
     RotateApiKeyResponse,
 )
+from .service import ApiKeysService
 
 __all__ = [
     "ApiKeysService",

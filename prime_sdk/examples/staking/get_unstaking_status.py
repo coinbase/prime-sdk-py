@@ -16,9 +16,10 @@
 # #docs operationName: Get Unstaking Status
 
 import argparse
-from prime_sdk.credentials import Credentials
+
 from prime_sdk.client import Client
-from prime_sdk.services.staking import StakingService, GetUnstakingStatusRequest
+from prime_sdk.credentials import Credentials
+from prime_sdk.services.staking import GetUnstakingStatusRequest, StakingService
 
 
 def main():

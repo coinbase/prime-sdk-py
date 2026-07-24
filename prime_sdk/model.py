@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List
+
 from prime_sdk.enums import NetworkType
 
 
@@ -21,7 +21,7 @@ from prime_sdk.enums import NetworkType
 class OnchainAddress:
     name: str
     address: str
-    chain_ids: List[str]
+    chain_ids: list[str]
 
 
 @dataclass
@@ -29,7 +29,7 @@ class AddressGroup:
     id: str
     name: str
     network_type: NetworkType
-    addresses: List[OnchainAddress]
+    addresses: list[OnchainAddress]
     added_at: str
 
 
@@ -98,7 +98,7 @@ class Asset:
     decimal_precision: str
     trading_supported: bool
     explorer_url: str
-    networks: List[AssetNetwork]
+    networks: list[AssetNetwork]
 
 
 @dataclass
@@ -135,10 +135,10 @@ class Activity:
     created_by: str
     title: str
     description: str
-    user_actions: List[UserAction]
+    user_actions: list[UserAction]
     transactions_metadata: TransactionsMetadata = None
     account_metadata: AccountMetadata = None
-    symbols: List[str] = None
+    symbols: list[str] = None
     created_at: str = None
     updated_at: str = None
     hierarchy_type: str = None
@@ -196,8 +196,8 @@ class Allocation:
     fees_allocated: str
     status: str
     source: str
-    order_ids: List[str]
-    destinations: List[Destination]
+    order_ids: list[str]
+    destinations: list[Destination]
     netting_id: str
 
 
@@ -301,12 +301,12 @@ class Order:
     user_context: str
     client_product_id: str
     post_only: bool = None
-    order_edit_history: List[OrderEditHistory] = None
+    order_edit_history: list[OrderEditHistory] = None
     is_raise_exact: bool = None
     display_size: str = None
     display_quote_size: str = None
     display_base_size: str = None
-    edit_history: List[EditHistory] = None
+    edit_history: list[EditHistory] = None
     peg_offset_type: str = None
     offset: str = None
     wig_level: str = None
@@ -374,7 +374,7 @@ class MatchMetadata:
 @dataclass
 class Web3TransactionMetadata:
     label: str
-    confirmed_asset_changes: List[AssetChange]
+    confirmed_asset_changes: list[AssetChange]
 
 
 @dataclass
@@ -442,12 +442,12 @@ class Transaction:
     network_fees: str
     fees: str
     fee_symbol: str
-    blockchain_ids: List[str]
+    blockchain_ids: list[str]
     transaction_id: str
     destination_symbol: str
     estimated_network_fees: EstimatedNetworkFees
     network: str
-    estimated_asset_changes: List[AssetChange]
+    estimated_asset_changes: list[AssetChange]
     metadata: TransactionMetadata
     idempotency_key: str
     onchain_details: OnchainDetails
@@ -556,7 +556,7 @@ class Invoice:
     state: str
     usd_amount_paid: float
     usd_amount_owed: float
-    invoice_items: List[InvoiceItem]
+    invoice_items: list[InvoiceItem]
 
 
 @dataclass
@@ -602,7 +602,7 @@ class Product:
     quote_min_size: str
     base_max_size: str
     quote_max_size: str
-    permissions: List[str]
+    permissions: list[str]
     price_increment: str
     rfq_product_details: RfqProductDetails
 
@@ -707,11 +707,11 @@ class MarginSummary:
     frozen_reason: str
     tf_enabled: bool
     pm_enabled: bool
-    market_rates: List[MarketRate]
-    asset_balances: List[AssetBalance]
-    tf_loans: List[TfLoan]
-    pm_loans: List[PmLoan]
-    short_collateral: List[ShortCollateral]
+    market_rates: list[MarketRate]
+    asset_balances: list[AssetBalance]
+    tf_loans: list[TfLoan]
+    pm_loans: list[PmLoan]
+    short_collateral: list[ShortCollateral]
     gross_market_value: str
     net_market_value: str
     long_market_value: str
@@ -720,7 +720,7 @@ class MarginSummary:
     gross_leverage: str
     net_exposure: str
     portfolio_stress_triggered: PortfolioStressTriggered
-    pm_asset_info: List[PmAssetInfo]
+    pm_asset_info: list[PmAssetInfo]
     pm_credit_limit: str
     pm_margin_limit: str
     pm_margin_consumed: str
@@ -771,7 +771,7 @@ class ShortCollateral:
 
 @dataclass
 class Conversion:
-    conversion_details: List[ConversionDetail]
+    conversion_details: list[ConversionDetail]
     short_collateral: ShortCollateral
     conversion_datetime: str
     portfolio_id: str
@@ -861,7 +861,7 @@ class MarginCallRecord:
 
 @dataclass
 class MarginInformation:
-    margin_call_records: List[MarginCallRecord]
+    margin_call_records: list[MarginCallRecord]
     margin_summary: MarginSummary
 
 
@@ -914,8 +914,8 @@ class RiskNettingInfo:
     total_gmv_basis: str = None
     ipm_cash_balance: str = None
     integrated_scenario_addon: ScenarioAddon = None
-    all_integrated_scenario_addons: List[ScenarioAddon] = None
-    xm_positions: List[XmPosition] = None
+    all_integrated_scenario_addons: list[ScenarioAddon] = None
+    xm_positions: list[XmPosition] = None
 
 
 @dataclass
@@ -972,8 +972,8 @@ class CrossMarginOverview:
     call_status: str = None
     margin_level: str = None
     margin_summary: CrossMarginSummary = None
-    active_margin_calls: List[CrossMarginCall] = None
-    active_loans: List[CrossMarginLoan] = None
+    active_margin_calls: list[CrossMarginCall] = None
+    active_loans: list[CrossMarginLoan] = None
     active_liquidation: ActiveLiquidationSummary = None
 
 
@@ -993,7 +993,7 @@ class PostTradeCredit:
     available: str
     frozen: bool
     frozen_reason: str
-    amounts_due: List[AmountDue]
+    amounts_due: list[AmountDue]
     enabled: bool
     adjusted_credit_utilized: str
     adjusted_portfolio_equity: str
@@ -1065,7 +1065,7 @@ class AdvancedTransfer:
     id: str = None
     type: str = None
     state: str = None
-    fund_movements: List[FundMovement] = None
+    fund_movements: list[FundMovement] = None
     blind_match_metadata: BlindMatchMetadata = None
 
 
@@ -1154,7 +1154,7 @@ class CrossMarginPrimeRiskNettingInfo:
     ipmr_breakdown: PrimeXMMarginRequirementBreakdown = None
     portfolio_margin_offset_credit_breakdown: PrimeXMOffsetCreditBreakdown = None
     integrated_portfolio_margin_offset_credit_breakdown: PrimeXMOffsetCreditBreakdown = None
-    xm_positions: List[CrossMarginPrimeXMPosition] = None
+    xm_positions: list[CrossMarginPrimeXMPosition] = None
 
 
 @dataclass
@@ -1187,7 +1187,7 @@ class PrimeXMMarginCallThresholds:
     warning_threshold: str = None
     critical_threshold: str = None
     liquidation_threshold: str = None
-    margin_thresholds: List[PrimeXMMarginThreshold] = None
+    margin_thresholds: list[PrimeXMMarginThreshold] = None
 
 
 @dataclass
@@ -1259,7 +1259,7 @@ class XMLiquidationDetail:
     filled_amount: str = None
     remaining_amount: str = None
     liquidation_finish_time: str = None
-    asset_breakdown: List[XMLiquidatedAsset] = None
+    asset_breakdown: list[XMLiquidatedAsset] = None
 
 
 @dataclass

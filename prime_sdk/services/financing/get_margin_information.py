@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import MarginInformation
 
@@ -21,7 +21,7 @@ from ...model import MarginInformation
 @dataclass
 class GetMarginInformationRequest:
     entity_id: str
-    allowed_status_codes: Optional[List[int]] = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

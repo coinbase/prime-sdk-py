@@ -13,25 +13,25 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
+from ...enums import BalanceType
 from ...model import Balance, BalanceWithHolds
 from ...utils import PaginationParams
-from ...enums import BalanceType
 
 
 @dataclass
 class ListPortfolioBalancesRequest:
     portfolio_id: str
-    symbols: Optional[str] = None
-    balance_type: Optional[BalanceType] = None
-    pagination: Optional[PaginationParams] = None
-    allowed_status_codes: Optional[List[int]] = None
+    symbols: str | None = None
+    balance_type: BalanceType | None = None
+    pagination: PaginationParams | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListPortfolioBalancesResponse(BaseResponse):
-    balances: List[Balance] = None
+    balances: list[Balance] = None
     type: str = None
     trading_balances: BalanceWithHolds = None
     vault_balances: BalanceWithHolds = None

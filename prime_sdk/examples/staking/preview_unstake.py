@@ -16,9 +16,10 @@
 # #docs operationName: Preview Unstake
 
 import argparse
-from prime_sdk.credentials import Credentials
+
 from prime_sdk.client import Client
-from prime_sdk.services.staking import StakingService, PreviewUnstakeRequest
+from prime_sdk.credentials import Credentials
+from prime_sdk.services.staking import PreviewUnstakeRequest, StakingService
 
 
 def main():

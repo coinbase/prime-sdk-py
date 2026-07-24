@@ -17,7 +17,8 @@
 
 import argparse
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.products import GetProductCandlesRequest
 
@@ -64,7 +65,7 @@ def main():
     # Set default start/end times to yesterday 9am-4pm if not provided
     if args.start_time is None or args.end_time is None:
         # Get yesterday's date
-        yesterday = datetime.now() - timedelta(days=1)
+        yesterday = datetime.now(timezone.utc) - timedelta(days=1)
 
         # Default start time: yesterday at 9:00 AM
         default_start = yesterday.replace(hour=9, minute=0, second=0, microsecond=0)

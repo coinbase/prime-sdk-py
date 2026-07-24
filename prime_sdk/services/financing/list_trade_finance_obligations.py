@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import TFObligation
 
@@ -21,9 +21,9 @@ from ...model import TFObligation
 @dataclass
 class ListTradeFinanceObligationsRequest:
     entity_id: str
-    allowed_status_codes: Optional[List[int]] = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListTradeFinanceObligationsResponse(BaseResponse):
-    obligations: List[TFObligation] = None
+    obligations: list[TFObligation] = None

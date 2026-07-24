@@ -17,12 +17,13 @@
 
 import argparse
 import uuid
+
 from prime_sdk.client_services import PrimeServicesClient
+from prime_sdk.enums import SizeType
 from prime_sdk.services.allocations import (
     CreatePortfolioNetAllocationsRequest,
     NetAllocationLeg,
 )
-from prime_sdk.enums import SizeType
 
 
 def main():

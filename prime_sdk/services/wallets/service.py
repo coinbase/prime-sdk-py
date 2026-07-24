@@ -14,6 +14,7 @@
 
 from prime_sdk.client import Client
 from prime_sdk.utils import append_pagination_params, append_query_param, to_body_dict
+
 from .create_wallet import CreateWalletRequest, CreateWalletResponse
 from .create_wallet_deposit_address import (
     CreateWalletDepositAddressRequest,

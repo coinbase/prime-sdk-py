@@ -18,9 +18,10 @@
 import argparse
 import os
 from datetime import datetime
+
 from prime_sdk import PrimeServicesClient
-from prime_sdk.services.allocations import ListPortfolioAllocationsRequest
 from prime_sdk.enums import OrderSide
+from prime_sdk.services.allocations import ListPortfolioAllocationsRequest
 from prime_sdk.utils import PaginationParams
 
 

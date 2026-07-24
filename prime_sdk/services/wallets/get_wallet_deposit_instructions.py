@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...enums import WalletDepositType
 from ...model import Instructions
@@ -24,7 +24,7 @@ class GetWalletDepositInstructionsRequest:
     portfolio_id: str
     wallet_id: str
     deposit_type: WalletDepositType
-    allowed_status_codes: Optional[List[int]] = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

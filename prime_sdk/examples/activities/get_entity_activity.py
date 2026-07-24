@@ -16,6 +16,7 @@
 # #docs operationName: Get Activity
 
 import argparse
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.activities import GetEntityActivityRequest
 

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import XMLiquidationSummary
 from ...utils import Pagination
@@ -22,13 +22,13 @@ from ...utils import Pagination
 @dataclass
 class ListXMLiquidationsRequest:
     entity_id: str
-    cursor: Optional[str] = None
-    limit: Optional[int] = None
-    sort_direction: Optional[str] = None
-    allowed_status_codes: Optional[List[int]] = None
+    cursor: str | None = None
+    limit: int | None = None
+    sort_direction: str | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListXMLiquidationsResponse(BaseResponse):
-    liquidations: List[XMLiquidationSummary] = None
+    liquidations: list[XMLiquidationSummary] = None
     pagination: Pagination = None

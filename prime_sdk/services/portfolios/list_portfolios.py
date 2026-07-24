@@ -13,16 +13,16 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import Portfolio
 
 
 @dataclass
 class ListPortfoliosRequest:
-    allowed_status_codes: Optional[List[int]] = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListPortfoliosResponse(BaseResponse):
-    portfolios: List[Portfolio] = None
+    portfolios: list[Portfolio] = None

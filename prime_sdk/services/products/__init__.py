@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .service import ProductsService
-from .list_products import ListProductsRequest, ListProductsResponse
 from .get_product_candles import GetProductCandlesRequest, GetProductCandlesResponse
+from .list_products import ListProductsRequest, ListProductsResponse
+from .service import ProductsService
 
 __all__ = [
-    "ProductsService",
-    "ListProductsRequest",
-    "ListProductsResponse",
     "GetProductCandlesRequest",
     "GetProductCandlesResponse",
+    "ListProductsRequest",
+    "ListProductsResponse",
+    "ProductsService",
 ]

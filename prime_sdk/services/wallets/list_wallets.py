@@ -13,23 +13,23 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...enums import WalletType
 from ...model import Wallet
-from ...utils import PaginationParams, Pagination
+from ...utils import Pagination, PaginationParams
 
 
 @dataclass
 class ListWalletsRequest:
     portfolio_id: str
-    type: Optional[WalletType] = None
-    symbols: Optional[List[str]] = None
-    pagination: Optional[PaginationParams] = None
-    allowed_status_codes: Optional[List[int]] = None
+    type: WalletType | None = None
+    symbols: list[str] | None = None
+    pagination: PaginationParams | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListWalletsResponse(BaseResponse):
-    wallets: List[Wallet] = None
+    wallets: list[Wallet] = None
     pagination: Pagination = None

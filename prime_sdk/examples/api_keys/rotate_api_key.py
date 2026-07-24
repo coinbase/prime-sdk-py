@@ -16,6 +16,7 @@
 # #docs operationName: Rotate API Key
 
 import argparse
+
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.api_keys import RotateApiKeyRequest
 

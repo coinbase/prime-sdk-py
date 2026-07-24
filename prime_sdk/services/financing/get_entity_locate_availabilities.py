@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import LocateAvailability
 
@@ -21,10 +21,10 @@ from ...model import LocateAvailability
 @dataclass
 class GetEntityLocateAvailabilitiesRequest:
     entity_id: str
-    locate_date: Optional[str] = None
-    allowed_status_codes: Optional[List[int]] = None
+    locate_date: str | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetEntityLocateAvailabilitiesResponse(BaseResponse):
-    locate_availability: List[LocateAvailability] = None
+    locate_availability: list[LocateAvailability] = None

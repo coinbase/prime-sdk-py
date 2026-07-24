@@ -1,5 +1,5 @@
-from prime_sdk.services.portfolios import ListPortfoliosResponse
 from prime_sdk.model import Portfolio
+from prime_sdk.services.portfolios import ListPortfoliosResponse
 
 
 def test_list_portfolios_response_parsing():

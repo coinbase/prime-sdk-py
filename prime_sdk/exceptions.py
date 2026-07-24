@@ -1,4 +1,4 @@
-# Copyright 2025-present Coinbase Global, Inc.
+# Copyright 2024-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,19 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from dataclasses import dataclass
 
-from ...base_response import BaseResponse
-from ...model import Wallet
-
-
-@dataclass
-class GetWalletRequest:
-    portfolio_id: str
-    wallet_id: str
-    allowed_status_codes: list[int] | None = None
+class PrimeSDKError(Exception):
+    """Base class for all errors raised by the Prime SDK."""
 
 
-@dataclass
-class GetWalletResponse(BaseResponse):
-    wallet: Wallet = None
+class PrimeAPIError(PrimeSDKError):
+    """Raised when a Prime API request returns a non-allowed status code."""
+
+    def __init__(self, status_code: int, message: str):
+        self.status_code = status_code
+        self.message = message
+        super().__init__(f"Request failed with status {status_code}: {message}")

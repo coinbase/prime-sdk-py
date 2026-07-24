@@ -3,8 +3,11 @@ Compact lazy-loading implementation using a decorator pattern.
 This approach is more concise and uses Python's descriptor protocol.
 """
 
-from typing import Optional, Any, Dict, Type, Callable
+from collections.abc import Callable
+from typing import Any
+
 import requests
+
 from prime_sdk.client import Client
 from prime_sdk.credentials import Credentials
 
@@ -19,10 +22,10 @@ class LazyProperty:
         self.factory = factory
         self.attr_name = None
 
-    def __set_name__(self, owner: Type, name: str):
+    def __set_name__(self, owner: type, name: str):
         self.attr_name = f"_lazy_{name}"
 
-    def __get__(self, instance: "PrimeServicesClient", owner: Type = None):
+    def __get__(self, instance: "PrimeServicesClient", owner: type | None = None):
         if instance is None:
             return self
 
@@ -65,7 +68,7 @@ class PrimeServicesClient:
     """
 
     def __init__(
-        self, credentials: Credentials, http_client: Optional[requests.Session] = None
+        self, credentials: Credentials, http_client: requests.Session | None = None
     ):
         self._client = Client(credentials, http_client)
 
@@ -73,7 +76,7 @@ class PrimeServicesClient:
     def from_env(
         cls,
         variable_name: str = "PRIME_CREDENTIALS",
-        http_client: Optional[requests.Session] = None,
+        http_client: requests.Session | None = None,
     ) -> "PrimeServicesClient":
         """Create a PrimeServicesClient with credentials from environment variables."""
         credentials = Credentials.from_env(variable_name)
@@ -248,18 +251,18 @@ class FactoryPrimeServicesClient:
     """
 
     def __init__(
-        self, credentials: Credentials, http_client: Optional[requests.Session] = None
+        self, credentials: Credentials, http_client: requests.Session | None = None
     ):
         self._client = Client(credentials, http_client)
-        self._service_factories: Dict[str, Callable[[], Any]] = {}
-        self._service_cache: Dict[str, Any] = {}
+        self._service_factories: dict[str, Callable[[], Any]] = {}
+        self._service_cache: dict[str, Any] = {}
         self._setup_service_factories()
 
     @classmethod
     def from_env(
         cls,
         variable_name: str = "PRIME_CREDENTIALS",
-        http_client: Optional[requests.Session] = None,
+        http_client: requests.Session | None = None,
     ) -> "FactoryPrimeServicesClient":
         """Create a FactoryPrimeServicesClient with credentials from environment variables."""
         credentials = Credentials.from_env(variable_name)

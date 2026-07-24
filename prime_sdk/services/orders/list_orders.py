@@ -13,28 +13,28 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
 from datetime import datetime
+
 from ...base_response import BaseResponse
 from ...enums import OrderSide, OrderType
-from ...utils import PaginationParams, Pagination
 from ...model import Order
+from ...utils import Pagination, PaginationParams
 
 
 @dataclass
 class ListOrdersRequest:
     portfolio_id: str
-    order_statuses: Optional[str] = None
-    product_ids: Optional[str] = None
-    order_type: Optional[OrderType] = None
-    order_side: Optional[OrderSide] = None
-    start_date: Optional[datetime] = None
-    end_date: Optional[datetime] = None
-    pagination: Optional[PaginationParams] = None
-    allowed_status_codes: Optional[List[int]] = None
+    order_statuses: str | None = None
+    product_ids: str | None = None
+    order_type: OrderType | None = None
+    order_side: OrderSide | None = None
+    start_date: datetime | None = None
+    end_date: datetime | None = None
+    pagination: PaginationParams | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListOrdersResponse(BaseResponse):
-    orders: List[Order] = None
+    orders: list[Order] = None
     pagination: Pagination = None

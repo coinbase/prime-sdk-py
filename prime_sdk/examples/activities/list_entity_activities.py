@@ -18,10 +18,11 @@
 import argparse
 import os
 from datetime import datetime
+
 from prime_sdk.client_services import PrimeServicesClient
+from prime_sdk.enums import ActivityLevel
 from prime_sdk.services.activities import ListEntityActivitiesRequest
 from prime_sdk.utils import PaginationParams
-from prime_sdk.enums import ActivityLevel
 
 
 def main():

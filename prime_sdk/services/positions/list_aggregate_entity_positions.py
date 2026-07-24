@@ -13,20 +13,20 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import Optional, List
+
 from ...base_response import BaseResponse
 from ...model import Position
-from ...utils import PaginationParams, Pagination
+from ...utils import Pagination, PaginationParams
 
 
 @dataclass
 class ListAggregateEntityPositionsRequest:
     entity_id: str
-    pagination: Optional[PaginationParams] = None
-    allowed_status_codes: Optional[List[int]] = None
+    pagination: PaginationParams | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListAggregateEntityPositionsResponse(BaseResponse):
-    positions: List[Position] = None
+    positions: list[Position] = None
     pagination: Pagination = None

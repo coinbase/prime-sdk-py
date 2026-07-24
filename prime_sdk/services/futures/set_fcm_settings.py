@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 
 
@@ -21,7 +21,7 @@ from ...base_response import BaseResponse
 class SetFcmSettingsRequest:
     entity_id: str
     target_derivatives_excess: str
-    allowed_status_codes: Optional[List[int]] = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

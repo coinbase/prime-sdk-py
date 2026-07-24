@@ -14,8 +14,9 @@
 
 from prime_sdk.client import Client
 from prime_sdk.utils import append_pagination_params
-from .list_products import ListProductsRequest, ListProductsResponse
+
 from .get_product_candles import GetProductCandlesRequest, GetProductCandlesResponse
+from .list_products import ListProductsRequest, ListProductsResponse
 
 
 class ProductsService:

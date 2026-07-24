@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import Details
 from ...utils import PaginationParams
@@ -22,10 +22,10 @@ from ...utils import PaginationParams
 @dataclass
 class ListEntityPaymentMethodsRequest:
     entity_id: str
-    pagination: Optional[PaginationParams] = None
-    allowed_status_codes: Optional[List[int]] = None
+    pagination: PaginationParams | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListEntityPaymentMethodsResponse(BaseResponse):
-    payment_methods: List[Details] = None
+    payment_methods: list[Details] = None

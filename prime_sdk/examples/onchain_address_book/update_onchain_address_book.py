@@ -17,10 +17,11 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
-from prime_sdk.services.onchain_address_book import UpdateOnchainAddressBookRequest
-from prime_sdk.model import AddressGroup, OnchainAddress
 from prime_sdk.enums import NetworkType
+from prime_sdk.model import AddressGroup, OnchainAddress
+from prime_sdk.services.onchain_address_book import UpdateOnchainAddressBookRequest
 
 
 def main():

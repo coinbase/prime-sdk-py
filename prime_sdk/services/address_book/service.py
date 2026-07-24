@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from ...client import Client
-from ...utils import append_query_param, append_pagination_params, to_body_dict
+from ...utils import append_pagination_params, append_query_param, to_body_dict
 from .create_address_book_entry import (
     CreateAddressBookEntryRequest,
     CreateAddressBookEntryResponse,

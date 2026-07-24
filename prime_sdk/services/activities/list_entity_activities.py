@@ -13,28 +13,28 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
 from datetime import datetime
+
 from ...base_response import BaseResponse
-from ...model import Activity
-from ...utils import PaginationParams, Pagination
 from ...enums import ActivityLevel
+from ...model import Activity
+from ...utils import Pagination, PaginationParams
 
 
 @dataclass
 class ListEntityActivitiesRequest:
     entity_id: str
-    activity_level: Optional[ActivityLevel] = None
-    symbols: Optional[str] = None
-    categories: Optional[str] = None
-    statuses: Optional[str] = None
-    start_time: Optional[datetime] = None
-    end_time: Optional[datetime] = None
-    pagination: Optional[PaginationParams] = None
-    allowed_status_codes: Optional[List[int]] = None
+    activity_level: ActivityLevel | None = None
+    symbols: str | None = None
+    categories: str | None = None
+    statuses: str | None = None
+    start_time: datetime | None = None
+    end_time: datetime | None = None
+    pagination: PaginationParams | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListEntityActivitiesResponse(BaseResponse):
-    activities: List[Activity] = None
+    activities: list[Activity] = None
     pagination: Pagination = None

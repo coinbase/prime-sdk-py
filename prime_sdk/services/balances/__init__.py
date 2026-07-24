@@ -12,17 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .service import BalancesService
 from .get_wallet_balance import GetWalletBalanceRequest, GetWalletBalanceResponse
 from .list_entity_balances import ListEntityBalancesRequest, ListEntityBalancesResponse
-from .list_web3_wallet_balances import (
-    ListWeb3WalletBalancesRequest,
-    ListWeb3WalletBalancesResponse,
-)
 from .list_portfolio_balances import (
     ListPortfolioBalancesRequest,
     ListPortfolioBalancesResponse,
 )
+from .list_web3_wallet_balances import (
+    ListWeb3WalletBalancesRequest,
+    ListWeb3WalletBalancesResponse,
+)
+from .service import BalancesService
 
 __all__ = [
     "BalancesService",
@@ -30,8 +30,8 @@ __all__ = [
     "GetWalletBalanceResponse",
     "ListEntityBalancesRequest",
     "ListEntityBalancesResponse",
-    "ListWeb3WalletBalancesRequest",
-    "ListWeb3WalletBalancesResponse",
     "ListPortfolioBalancesRequest",
     "ListPortfolioBalancesResponse",
+    "ListWeb3WalletBalancesRequest",
+    "ListWeb3WalletBalancesResponse",
 ]

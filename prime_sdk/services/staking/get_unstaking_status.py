@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...enums import UnstakeEstimateType, UnstakeType
 
@@ -23,23 +23,23 @@ class UnstakeStatusDetail:
     amount: str
     estimate_type: UnstakeEstimateType
     estimate_description: str
-    unstake_type: Optional[UnstakeType] = None
-    finishing_at: Optional[str] = None
-    remaining_hours: Optional[int] = None
-    requested_at: Optional[str] = None
+    unstake_type: UnstakeType | None = None
+    finishing_at: str | None = None
+    remaining_hours: int | None = None
+    requested_at: str | None = None
 
 
 @dataclass
 class ValidatorUnstakeStatus:
     validator_address: str
-    statuses: List[UnstakeStatusDetail]
+    statuses: list[UnstakeStatusDetail]
 
 
 @dataclass
 class GetUnstakingStatusRequest:
     portfolio_id: str
     wallet_id: str
-    allowed_status_codes: Optional[List[int]] = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
@@ -48,4 +48,4 @@ class GetUnstakingStatusResponse(BaseResponse):
     wallet_id: str = None
     wallet_address: str = None
     current_timestamp: str = None
-    validators: List[ValidatorUnstakeStatus] = None
+    validators: list[ValidatorUnstakeStatus] = None

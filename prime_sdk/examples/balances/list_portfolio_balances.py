@@ -17,9 +17,10 @@
 
 import argparse
 import os
+
 from prime_sdk.client_services import PrimeServicesClient
-from prime_sdk.services.balances import ListPortfolioBalancesRequest
 from prime_sdk.enums import BalanceType
+from prime_sdk.services.balances import ListPortfolioBalancesRequest
 from prime_sdk.utils import PaginationParams
 
 

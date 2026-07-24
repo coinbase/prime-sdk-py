@@ -14,6 +14,7 @@
 
 from prime_sdk.client import Client
 from prime_sdk.utils import append_pagination_params, to_body_dict
+
 from .create_conversion import CreateConversionRequest, CreateConversionResponse
 from .create_onchain_transaction import (
     CreateOnchainTransactionRequest,
@@ -22,6 +23,10 @@ from .create_onchain_transaction import (
 from .create_transfer import CreateTransferRequest, CreateTransferResponse
 from .create_withdrawal import CreateWithdrawalRequest, CreateWithdrawalResponse
 from .get_transaction import GetTransactionRequest, GetTransactionResponse
+from .get_transaction_travel_rule_data import (
+    GetTransactionTravelRuleDataRequest,
+    GetTransactionTravelRuleDataResponse,
+)
 from .list_portfolio_transactions import (
     ListPortfolioTransactionsRequest,
     ListPortfolioTransactionsResponse,
@@ -33,10 +38,6 @@ from .list_wallet_transactions import (
 from .submit_deposit_travel_rule_data import (
     SubmitDepositTravelRuleDataRequest,
     SubmitDepositTravelRuleDataResponse,
-)
-from .get_transaction_travel_rule_data import (
-    GetTransactionTravelRuleDataRequest,
-    GetTransactionTravelRuleDataResponse,
 )
 
 

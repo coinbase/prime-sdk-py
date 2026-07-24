@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...enums import WalletType
 
@@ -25,7 +25,7 @@ class CreateWalletRequest:
     symbol: str
     idempotency_key: str
     wallet_type: WalletType
-    allowed_status_codes: Optional[List[int]] = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

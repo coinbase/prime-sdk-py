@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from ...client import Client
-from ...utils import append_query_param, append_pagination_params
+from ...utils import append_pagination_params, append_query_param
 from .get_activity import GetActivityRequest, GetActivityResponse
 from .get_entity_activity import GetEntityActivityRequest, GetEntityActivityResponse
 from .list_activities import ListActivitiesRequest, ListActivitiesResponse

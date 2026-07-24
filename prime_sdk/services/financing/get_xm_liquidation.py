@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import List, Optional
+
 from ...base_response import BaseResponse
 from ...model import XMLiquidationDetail
 
@@ -21,8 +21,8 @@ from ...model import XMLiquidationDetail
 @dataclass
 class GetXMLiquidationRequest:
     entity_id: str
-    liquidation_id: Optional[str] = None
-    allowed_status_codes: Optional[List[int]] = None
+    liquidation_id: str | None = None
+    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

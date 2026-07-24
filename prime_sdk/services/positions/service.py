@@ -14,6 +14,7 @@
 
 from prime_sdk.client import Client
 from prime_sdk.utils import append_pagination_params
+
 from .list_aggregate_entity_positions import (
     ListAggregateEntityPositionsRequest,
     ListAggregateEntityPositionsResponse,

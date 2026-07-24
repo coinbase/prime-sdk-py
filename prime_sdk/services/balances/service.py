@@ -13,16 +13,16 @@
 # limitations under the License.
 
 from ...client import Client
-from ...utils import append_query_param, append_pagination_params
+from ...utils import append_pagination_params, append_query_param
 from .get_wallet_balance import GetWalletBalanceRequest, GetWalletBalanceResponse
 from .list_entity_balances import ListEntityBalancesRequest, ListEntityBalancesResponse
-from .list_web3_wallet_balances import (
-    ListWeb3WalletBalancesRequest,
-    ListWeb3WalletBalancesResponse,
-)
 from .list_portfolio_balances import (
     ListPortfolioBalancesRequest,
     ListPortfolioBalancesResponse,
+)
+from .list_web3_wallet_balances import (
+    ListWeb3WalletBalancesRequest,
+    ListWeb3WalletBalancesResponse,
 )
 
 

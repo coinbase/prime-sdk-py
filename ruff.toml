@@ -1,0 +1,4 @@
+[lint.per-file-ignores]
+# Example scripts intentionally catch broad exceptions to print a friendly
+# message and exit; blind-except is acceptable in these demonstrative files.
+"prime_sdk/examples/**" = ["BLE001"]

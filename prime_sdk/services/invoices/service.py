@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from ...client import Client
-from ...utils import append_query_param, append_pagination_params
+from ...utils import append_pagination_params, append_query_param
 from .list_invoices import ListInvoicesRequest, ListInvoicesResponse
 
 
