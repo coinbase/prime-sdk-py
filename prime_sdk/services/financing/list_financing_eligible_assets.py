@@ -16,12 +16,17 @@ from dataclasses import dataclass
 
 from ...base_response import BaseResponse
 from ...model import (
+    ListFinancingEligibleAssetsRequest as _ListFinancingEligibleAssetsRequest,
+)
+from ...model import (
     ListFinancingEligibleAssetsResponse as _ListFinancingEligibleAssetsResponse,
 )
 
 
 @dataclass
-class ListFinancingEligibleAssetsRequest:
+class ListFinancingEligibleAssetsRequest(_ListFinancingEligibleAssetsRequest):
+    __doc__ = _ListFinancingEligibleAssetsRequest.__doc__
+
     allowed_status_codes: list[int] | None = None
 
 

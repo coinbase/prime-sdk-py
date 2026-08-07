@@ -15,11 +15,14 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import CancelFuturesSweepRequest as _CancelFuturesSweepRequest
 from ...model import CancelFuturesSweepResponse as _CancelFuturesSweepResponse
 
 
 @dataclass
-class CancelEntityFuturesSweepRequest:
+class CancelEntityFuturesSweepRequest(_CancelFuturesSweepRequest):
+    __doc__ = _CancelFuturesSweepRequest.__doc__
+
     entity_id: str
     allowed_status_codes: list[int] | None = None
 

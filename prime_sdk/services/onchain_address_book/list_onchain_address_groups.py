@@ -15,13 +15,16 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import ListOnchainAddressGroupsRequest as _ListOnchainAddressGroupsRequest
 from ...model import (
     ListOnchainAddressGroupsResponse as _ListOnchainAddressGroupsResponse,
 )
 
 
 @dataclass
-class ListOnchainAddressGroupsRequest:
+class ListOnchainAddressGroupsRequest(_ListOnchainAddressGroupsRequest):
+    __doc__ = _ListOnchainAddressGroupsRequest.__doc__
+
     portfolio_id: str
     allowed_status_codes: list[int] | None = None
 

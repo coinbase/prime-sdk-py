@@ -15,11 +15,14 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetFcmSettingsRequest as _GetFcmSettingsRequest
 from ...model import GetFcmSettingsResponse as _GetFcmSettingsResponse
 
 
 @dataclass
-class GetFcmSettingsRequest:
+class GetFcmSettingsRequest(_GetFcmSettingsRequest):
+    __doc__ = _GetFcmSettingsRequest.__doc__
+
     entity_id: str
     allowed_status_codes: list[int] | None = None
 

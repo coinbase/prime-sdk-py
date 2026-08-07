@@ -15,11 +15,14 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetExistingLocatesRequest as _GetExistingLocatesRequest
 from ...model import GetExistingLocatesResponse as _GetExistingLocatesResponse
 
 
 @dataclass
-class ListExistingLocatesRequest:
+class ListExistingLocatesRequest(_GetExistingLocatesRequest):
+    __doc__ = _GetExistingLocatesRequest.__doc__
+
     portfolio_id: str
     locate_ids: list[str] | None = None
     locate_date: str | None = None

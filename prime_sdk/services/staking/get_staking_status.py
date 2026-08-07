@@ -16,6 +16,7 @@ from dataclasses import dataclass
 
 from ...base_response import BaseResponse
 from ...enums import StakeType
+from ...model import GetStakingStatusRequest as _GetStakingStatusRequest
 from ...model import GetStakingStatusResponse as _GetStakingStatusResponse
 
 
@@ -35,7 +36,9 @@ class ValidatorStakingInfo:
 
 
 @dataclass
-class GetStakingStatusRequest:
+class GetStakingStatusRequest(_GetStakingStatusRequest):
+    __doc__ = _GetStakingStatusRequest.__doc__
+
     portfolio_id: str
     wallet_id: str
     allowed_status_codes: list[int] | None = None

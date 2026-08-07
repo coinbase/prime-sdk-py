@@ -19,6 +19,7 @@ from __future__ import annotations
 import ast
 import dataclasses
 import glob
+import re
 import sys
 from pathlib import Path
 
@@ -106,28 +107,44 @@ def _should_migrate_response(class_name: str) -> bool:
     return isinstance(obj, type) and dataclasses.is_dataclass(obj)
 
 
+def _is_already_migrated_request(class_def: ast.ClassDef, class_name: str) -> bool:
+    base_name = _request_base_name(class_name)
+    if base_name is None:
+        return False
+    for base in class_def.bases:
+        if isinstance(base, ast.Name) and base.id == f"_{base_name}":
+            return True
+    return False
+
+
 def _render_request_class(class_name: str, field_lines: dict[str, str]) -> str:
     base_name = _request_base_name(class_name)
     assert base_name is not None
     generated_fields = _generated_field_names(base_name)
-    extra_fields = [
-        field_lines[name]
-        for name in field_lines
-        if name not in generated_fields and name != "allowed_status_codes"
-    ]
-    allowed_status = field_lines.get(
-        "allowed_status_codes", "    allowed_status_codes: list[int] | None = None"
-    )
+    kw_only = bool(generated_fields)
+    decorator = "@dataclass(kw_only=True)" if kw_only else "@dataclass"
     parts = [
-        "@dataclass(kw_only=True)",
+        decorator,
         f"class {class_name}(_{base_name}):",
         f"    __doc__ = _{base_name}.__doc__",
         "",
     ]
-    parts.extend(extra_fields)
-    if extra_fields:
-        parts.append("")
-    parts.append(allowed_status)
+    if kw_only:
+        extra_fields = [
+            field_lines[name]
+            for name in field_lines
+            if name not in generated_fields and name != "allowed_status_codes"
+        ]
+        allowed_status = field_lines.get(
+            "allowed_status_codes",
+            "    allowed_status_codes: list[int] | None = None",
+        )
+        parts.extend(extra_fields)
+        if extra_fields:
+            parts.append("")
+        parts.append(allowed_status)
+    else:
+        parts.extend(field_lines.values())
     return "\n".join(parts)
 
 
@@ -201,6 +218,13 @@ def migrate_file(path: Path) -> bool:
     for node in body_nodes:
         if isinstance(node, ast.ClassDef):
             if node.name.endswith("Request") and _should_migrate_request(node.name):
+                if _is_already_migrated_request(node, node.name):
+                    rendered_blocks.append(_node_source(source, node))
+                    needs_dataclass = True
+                    base_name = _request_base_name(node.name)
+                    if base_name is not None:
+                        model_imports.add(base_name)
+                    continue
                 base_name = _request_base_name(node.name)
                 assert base_name is not None
                 model_imports.add(base_name)
@@ -251,8 +275,13 @@ def migrate_file(path: Path) -> bool:
     for base_name in sorted(model_imports):
         import_lines.append(f"from ...model import {base_name} as _{base_name}")
 
-    {f"_{name}" for name in model_imports}
+    model_import_names = {f"_{name}" for name in model_imports}
+    skip_until_blank = False
     for line in original_imports:
+        if skip_until_blank:
+            if line.strip() == "" or line.strip() == ")":
+                skip_until_blank = False
+            continue
         if line in import_lines:
             continue
         if line == "from dataclasses import dataclass":
@@ -260,9 +289,15 @@ def migrate_file(path: Path) -> bool:
         if line == "from ...base_response import BaseResponse":
             continue
         if line.startswith("from ...model import "):
+            if line.rstrip().endswith("("):
+                skip_until_blank = True
+                continue
             imported = line.removeprefix("from ...model import ").split(" as ")[0]
             imported_names = [part.strip() for part in imported.split(",")]
             if all(name in model_imports for name in imported_names):
+                continue
+            alias_match = re.search(r" as (_\w+)", line)
+            if alias_match and alias_match.group(1) in model_import_names:
                 continue
         import_lines.append(line)
 

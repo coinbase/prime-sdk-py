@@ -17,12 +17,15 @@ from datetime import datetime
 
 from ...base_response import BaseResponse
 from ...enums import ActivityLevel
+from ...model import GetEntityActivitiesRequest as _GetEntityActivitiesRequest
 from ...model import GetEntityActivitiesResponse as _GetEntityActivitiesResponse
 from ...utils import PaginationParams
 
 
 @dataclass
-class ListEntityActivitiesRequest:
+class ListEntityActivitiesRequest(_GetEntityActivitiesRequest):
+    __doc__ = _GetEntityActivitiesRequest.__doc__
+
     entity_id: str
     activity_level: ActivityLevel | None = None
     symbols: str | None = None

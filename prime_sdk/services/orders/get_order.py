@@ -15,11 +15,14 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetOrderRequest as _GetOrderRequest
 from ...model import GetOrderResponse as _GetOrderResponse
 
 
 @dataclass
-class GetOrderRequest:
+class GetOrderRequest(_GetOrderRequest):
+    __doc__ = _GetOrderRequest.__doc__
+
     portfolio_id: str
     order_id: str
     allowed_status_codes: list[int] | None = None

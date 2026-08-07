@@ -15,11 +15,14 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetCandlesRequest as _GetCandlesRequest
 from ...model import GetCandlesResponse as _GetCandlesResponse
 
 
 @dataclass
-class GetProductCandlesRequest:
+class GetProductCandlesRequest(_GetCandlesRequest):
+    __doc__ = _GetCandlesRequest.__doc__
+
     portfolio_id: str
     product_id: str
     granularity: str

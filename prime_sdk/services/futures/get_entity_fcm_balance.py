@@ -15,11 +15,14 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetFcmBalanceRequest as _GetFcmBalanceRequest
 from ...model import GetFcmBalanceResponse as _GetFcmBalanceResponse
 
 
 @dataclass
-class GetEntityFcmBalanceRequest:
+class GetEntityFcmBalanceRequest(_GetFcmBalanceRequest):
+    __doc__ = _GetFcmBalanceRequest.__doc__
+
     entity_id: str
     allowed_status_codes: list[int] | None = None
 

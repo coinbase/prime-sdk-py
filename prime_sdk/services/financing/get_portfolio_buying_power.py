@@ -15,11 +15,14 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetBuyingPowerRequest as _GetBuyingPowerRequest
 from ...model import GetBuyingPowerResponse as _GetBuyingPowerResponse
 
 
 @dataclass
-class GetBuyingPowerRequest:
+class GetBuyingPowerRequest(_GetBuyingPowerRequest):
+    __doc__ = _GetBuyingPowerRequest.__doc__
+
     portfolio_id: str
     base_currency: str | None = None
     quote_currency: str | None = None

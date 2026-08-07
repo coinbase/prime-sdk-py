@@ -15,12 +15,15 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetPortfolioFillsRequest as _GetPortfolioFillsRequest
 from ...model import GetPortfolioFillsResponse as _GetPortfolioFillsResponse
 from ...utils import PaginationParams
 
 
 @dataclass
-class ListPortfolioFillsRequest:
+class ListPortfolioFillsRequest(_GetPortfolioFillsRequest):
+    __doc__ = _GetPortfolioFillsRequest.__doc__
+
     portfolio_id: str
     start_date: str
     end_date: str | None = None

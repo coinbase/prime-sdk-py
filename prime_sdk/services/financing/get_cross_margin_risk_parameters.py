@@ -16,12 +16,17 @@ from dataclasses import dataclass
 
 from ...base_response import BaseResponse
 from ...model import (
+    GetCrossMarginRiskParametersRequest as _GetCrossMarginRiskParametersRequest,
+)
+from ...model import (
     GetCrossMarginRiskParametersResponse as _GetCrossMarginRiskParametersResponse,
 )
 
 
 @dataclass
-class GetCrossMarginRiskParametersRequest:
+class GetCrossMarginRiskParametersRequest(_GetCrossMarginRiskParametersRequest):
+    __doc__ = _GetCrossMarginRiskParametersRequest.__doc__
+
     entity_id: str
     allowed_status_codes: list[int] | None = None
 

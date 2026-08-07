@@ -15,16 +15,21 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetLocateAvailabilitiesRequest as _GetLocateAvailabilitiesRequest
 from ...model import GetLocateAvailabilitiesResponse as _GetLocateAvailabilitiesResponse
 
 
 @dataclass
-class GetEntityLocateAvailabilitiesRequest:
+class GetEntityLocateAvailabilitiesRequest(_GetLocateAvailabilitiesRequest):
+    __doc__ = _GetLocateAvailabilitiesRequest.__doc__
+
     entity_id: str
     locate_date: str | None = None
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class GetEntityLocateAvailabilitiesResponse(BaseResponse, _GetLocateAvailabilitiesResponse):
+class GetEntityLocateAvailabilitiesResponse(
+    BaseResponse, _GetLocateAvailabilitiesResponse
+):
     __doc__ = _GetLocateAvailabilitiesResponse.__doc__

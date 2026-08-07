@@ -16,12 +16,15 @@ from dataclasses import dataclass
 
 from ...base_response import BaseResponse
 from ...enums import WalletType
+from ...model import GetWalletsRequest as _GetWalletsRequest
 from ...model import GetWalletsResponse as _GetWalletsResponse
 from ...utils import PaginationParams
 
 
 @dataclass
-class ListWalletsRequest:
+class ListWalletsRequest(_GetWalletsRequest):
+    __doc__ = _GetWalletsRequest.__doc__
+
     portfolio_id: str
     type: WalletType | None = None
     symbols: list[str] | None = None

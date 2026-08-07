@@ -17,11 +17,14 @@ from datetime import datetime
 
 from ...base_response import BaseResponse
 from ...enums import OrderSide, OrderType
+from ...model import GetOpenOrdersRequest as _GetOpenOrdersRequest
 from ...model import GetOpenOrdersResponse as _GetOpenOrdersResponse
 
 
 @dataclass
-class ListOpenOrdersRequest:
+class ListOpenOrdersRequest(_GetOpenOrdersRequest):
+    __doc__ = _GetOpenOrdersRequest.__doc__
+
     portfolio_id: str
     order_statuses: str | None = None
     product_ids: str | None = None

@@ -16,12 +16,17 @@ from dataclasses import dataclass
 
 from ...base_response import BaseResponse
 from ...model import (
+    ListAdvancedTransferTransactionsRequest as _ListAdvancedTransferTransactionsRequest,
+)
+from ...model import (
     ListAdvancedTransferTransactionsResponse as _ListAdvancedTransferTransactionsResponse,
 )
 
 
 @dataclass
-class ListAdvancedTransferTransactionsRequest:
+class ListAdvancedTransferTransactionsRequest(_ListAdvancedTransferTransactionsRequest):
+    __doc__ = _ListAdvancedTransferTransactionsRequest.__doc__
+
     portfolio_id: str
     advanced_transfer_id: str
     allowed_status_codes: list[int] | None = None

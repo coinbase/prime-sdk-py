@@ -16,12 +16,17 @@ from dataclasses import dataclass
 
 from ...base_response import BaseResponse
 from ...model import (
+    GetPortfolioCounterpartyIDRequest as _GetPortfolioCounterpartyIDRequest,
+)
+from ...model import (
     GetPortfolioCounterpartyIDResponse as _GetPortfolioCounterpartyIDResponse,
 )
 
 
 @dataclass
-class GetCounterpartyIdRequest:
+class GetCounterpartyIdRequest(_GetPortfolioCounterpartyIDRequest):
+    __doc__ = _GetPortfolioCounterpartyIDRequest.__doc__
+
     portfolio_id: str
     allowed_status_codes: list[int] | None = None
 

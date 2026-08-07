@@ -16,12 +16,15 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from ...base_response import BaseResponse
+from ...model import GetPortfolioActivitiesRequest as _GetPortfolioActivitiesRequest
 from ...model import GetPortfolioActivitiesResponse as _GetPortfolioActivitiesResponse
 from ...utils import PaginationParams
 
 
 @dataclass
-class ListActivitiesRequest:
+class ListActivitiesRequest(_GetPortfolioActivitiesRequest):
+    __doc__ = _GetPortfolioActivitiesRequest.__doc__
+
     portfolio_id: str
     symbols: str | None = None
     categories: str | None = None

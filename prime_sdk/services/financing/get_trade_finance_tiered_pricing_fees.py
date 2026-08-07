@@ -15,11 +15,14 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetTFTieredPricingFeesRequest as _GetTFTieredPricingFeesRequest
 from ...model import GetTFTieredPricingFeesResponse as _GetTFTieredPricingFeesResponse
 
 
 @dataclass
-class GetTradeFinanceTieredPricingFeesRequest:
+class GetTradeFinanceTieredPricingFeesRequest(_GetTFTieredPricingFeesRequest):
+    __doc__ = _GetTFTieredPricingFeesRequest.__doc__
+
     entity_id: str
     effective_at: str | None = None
     allowed_status_codes: list[int] | None = None

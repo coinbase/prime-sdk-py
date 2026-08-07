@@ -15,12 +15,15 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetEntityUsersRequest as _GetEntityUsersRequest
 from ...model import GetEntityUsersResponse as _GetEntityUsersResponse
 from ...utils import PaginationParams
 
 
 @dataclass
-class ListEntityUsersRequest:
+class ListEntityUsersRequest(_GetEntityUsersRequest):
+    __doc__ = _GetEntityUsersRequest.__doc__
+
     entity_id: str
     pagination: PaginationParams | None = None
     allowed_status_codes: list[int] | None = None

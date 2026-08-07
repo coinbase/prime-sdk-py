@@ -15,12 +15,15 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetPortfolioUsersRequest as _GetPortfolioUsersRequest
 from ...model import GetPortfolioUsersResponse as _GetPortfolioUsersResponse
 from ...utils import PaginationParams
 
 
 @dataclass
-class ListPortfolioUsersRequest:
+class ListPortfolioUsersRequest(_GetPortfolioUsersRequest):
+    __doc__ = _GetPortfolioUsersRequest.__doc__
+
     portfolio_id: str
     pagination: PaginationParams | None = None
     allowed_status_codes: list[int] | None = None

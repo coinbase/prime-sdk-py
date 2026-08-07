@@ -15,12 +15,15 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetPortfolioAddressBookRequest as _GetPortfolioAddressBookRequest
 from ...model import GetPortfolioAddressBookResponse as _GetPortfolioAddressBookResponse
 from ...utils import PaginationParams
 
 
 @dataclass
-class GetAddressBookRequest:
+class GetAddressBookRequest(_GetPortfolioAddressBookRequest):
+    __doc__ = _GetPortfolioAddressBookRequest.__doc__
+
     portfolio_id: str
     currency_symbol: str | None = None
     search: str | None = None

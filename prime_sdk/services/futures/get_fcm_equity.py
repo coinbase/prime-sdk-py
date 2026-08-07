@@ -15,11 +15,14 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetFcmEquityRequest as _GetFcmEquityRequest
 from ...model import GetFcmEquityResponse as _GetFcmEquityResponse
 
 
 @dataclass
-class GetFcmEquityRequest:
+class GetFcmEquityRequest(_GetFcmEquityRequest):
+    __doc__ = _GetFcmEquityRequest.__doc__
+
     entity_id: str
     allowed_status_codes: list[int] | None = None
 

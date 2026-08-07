@@ -15,11 +15,14 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetWithdrawalPowerRequest as _GetWithdrawalPowerRequest
 from ...model import GetWithdrawalPowerResponse as _GetWithdrawalPowerResponse
 
 
 @dataclass
-class GetPortfolioWithdrawalPowerRequest:
+class GetPortfolioWithdrawalPowerRequest(_GetWithdrawalPowerRequest):
+    __doc__ = _GetWithdrawalPowerRequest.__doc__
+
     portfolio_id: str
     symbol: str | None = None
     allowed_status_codes: list[int] | None = None

@@ -16,6 +16,7 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from ...base_response import BaseResponse
+from ...model import GetPortfolioTransactionsRequest as _GetPortfolioTransactionsRequest
 from ...model import (
     GetPortfolioTransactionsResponse as _GetPortfolioTransactionsResponse,
 )
@@ -23,7 +24,9 @@ from ...utils import PaginationParams
 
 
 @dataclass
-class ListPortfolioTransactionsRequest:
+class ListPortfolioTransactionsRequest(_GetPortfolioTransactionsRequest):
+    __doc__ = _GetPortfolioTransactionsRequest.__doc__
+
     portfolio_id: str
     symbols: str | None = None
     types: str | None = None

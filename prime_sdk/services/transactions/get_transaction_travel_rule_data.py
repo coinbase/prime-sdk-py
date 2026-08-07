@@ -16,12 +16,17 @@ from dataclasses import dataclass
 
 from ...base_response import BaseResponse
 from ...model import (
+    GetTransactionTravelRuleDataRequest as _GetTransactionTravelRuleDataRequest,
+)
+from ...model import (
     GetTransactionTravelRuleDataResponse as _GetTransactionTravelRuleDataResponse,
 )
 
 
 @dataclass
-class GetTransactionTravelRuleDataRequest:
+class GetTransactionTravelRuleDataRequest(_GetTransactionTravelRuleDataRequest):
+    __doc__ = _GetTransactionTravelRuleDataRequest.__doc__
+
     portfolio_id: str
     transaction_id: str
     allowed_status_codes: list[int] | None = None

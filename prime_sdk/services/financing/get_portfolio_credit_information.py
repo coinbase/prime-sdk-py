@@ -15,11 +15,14 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetPostTradeCreditRequest as _GetPostTradeCreditRequest
 from ...model import GetPostTradeCreditResponse as _GetPostTradeCreditResponse
 
 
 @dataclass
-class GetPortfolioCreditInformationRequest:
+class GetPortfolioCreditInformationRequest(_GetPostTradeCreditRequest):
+    __doc__ = _GetPostTradeCreditRequest.__doc__
+
     portfolio_id: str
     allowed_status_codes: list[int] | None = None
 

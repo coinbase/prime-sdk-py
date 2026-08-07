@@ -15,11 +15,14 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetInterestAccrualsRequest as _GetInterestAccrualsRequest
 from ...model import GetInterestAccrualsResponse as _GetInterestAccrualsResponse
 
 
 @dataclass
-class ListInterestAccrualsRequest:
+class ListInterestAccrualsRequest(_GetInterestAccrualsRequest):
+    __doc__ = _GetInterestAccrualsRequest.__doc__
+
     entity_id: str
     portfolio_id: str | None = None
     start_date: str | None = None

@@ -15,11 +15,14 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetMarginSummariesRequest as _GetMarginSummariesRequest
 from ...model import GetMarginSummariesResponse as _GetMarginSummariesResponse
 
 
 @dataclass
-class ListMarginCallSummariesRequest:
+class ListMarginCallSummariesRequest(_GetMarginSummariesRequest):
+    __doc__ = _GetMarginSummariesRequest.__doc__
+
     entity_id: str
     start_date: str | None = None
     end_date: str | None = None

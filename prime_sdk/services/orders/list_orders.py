@@ -17,12 +17,15 @@ from datetime import datetime
 
 from ...base_response import BaseResponse
 from ...enums import OrderSide, OrderType
+from ...model import GetOrdersRequest as _GetOrdersRequest
 from ...model import GetOrdersResponse as _GetOrdersResponse
 from ...utils import PaginationParams
 
 
 @dataclass
-class ListOrdersRequest:
+class ListOrdersRequest(_GetOrdersRequest):
+    __doc__ = _GetOrdersRequest.__doc__
+
     portfolio_id: str
     order_statuses: str | None = None
     product_ids: str | None = None

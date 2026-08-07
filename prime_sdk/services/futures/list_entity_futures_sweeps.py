@@ -15,11 +15,14 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetFuturesSweepsRequest as _GetFuturesSweepsRequest
 from ...model import GetFuturesSweepsResponse as _GetFuturesSweepsResponse
 
 
 @dataclass
-class ListEntityFuturesSweepsRequest:
+class ListEntityFuturesSweepsRequest(_GetFuturesSweepsRequest):
+    __doc__ = _GetFuturesSweepsRequest.__doc__
+
     entity_id: str
     allowed_status_codes: list[int] | None = None
 

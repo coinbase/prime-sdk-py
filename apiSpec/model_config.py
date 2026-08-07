@@ -100,8 +100,8 @@ SCHEMA_CLASS_OVERRIDES: dict[str, str] = {
     "coinbase.public_rest_api.Locate": "LocateAvailability",
 }
 
-# operationId -> generated request-body class name (defaults strip PrimeRESTAPI_ prefix).
-REQUEST_BODY_CLASS_NAMES: dict[str, str] = {
+# operationId -> generated request class name (defaults strip PrimeRESTAPI_ prefix).
+REQUEST_CLASS_NAME_OVERRIDES: dict[str, str] = {
     "PrimeRESTAPI_CreateQuoteRequest": "CreateQuoteRequest",
     "PrimeRESTAPI_ListTransactionValidators": "ListTransactionValidatorsRequest",
     "PrimeRESTAPI_OrderPreview": "OrderPreviewRequest",
@@ -176,8 +176,9 @@ SERVICE_RESPONSE_BASES: dict[str, str] = {
 # Service Response classes that intentionally diverge from the generated spec model.
 MANUAL_SERVICE_RESPONSES: frozenset[str] = frozenset()
 
-# Service Request class -> generated request-body class to inherit from (when names differ).
+# Service Request class -> generated request class to inherit from (when names differ).
 SERVICE_REQUEST_BASES: dict[str, str] = {
+    "CancelEntityFuturesSweepRequest": "CancelFuturesSweepRequest",
     "ClaimWalletStakingRewardsRequest": "StakingClaimRewardsRequest",
     "CreateAddressBookEntryRequest": "CreatePortfolioAddressBookEntryRequest",
     "CreateNewLocateRequest": "CreateNewLocatesRequest",
@@ -191,6 +192,45 @@ SERVICE_REQUEST_BASES: dict[str, str] = {
     "CreateTransferRequest": "CreateWalletTransferRequest",
     "CreateUnstakeRequest": "StakingUnstakeRequest",
     "CreateWithdrawalRequest": "CreateWalletWithdrawalRequest",
+    "GetActivityRequest": "GetPortfolioActivityRequest",
+    "GetAddressBookRequest": "GetPortfolioAddressBookRequest",
+    "GetAllocationByIdRequest": "GetAllocationRequest",
+    "GetCounterpartyIdRequest": "GetPortfolioCounterpartyIDRequest",
+    "GetEntityActivityRequest": "GetActivityRequest",
+    "GetEntityFcmBalanceRequest": "GetFcmBalanceRequest",
+    "GetEntityLocateAvailabilitiesRequest": "GetLocateAvailabilitiesRequest",
+    "GetEntityPaymentMethodRequest": "GetEntityPaymentMethodDetailsRequest",
+    "GetEntityPositionsRequest": "ListEntityPositionsRequest",
+    "GetNetAllocationsByNettingIdRequest": "GetAllocationsByClientNettingIdRequest",
+    "GetPortfolioCreditInformationRequest": "GetPostTradeCreditRequest",
+    "GetPortfolioWithdrawalPowerRequest": "GetWithdrawalPowerRequest",
+    "GetProductCandlesRequest": "GetCandlesRequest",
+    "GetTradeFinanceTieredPricingFeesRequest": "GetTFTieredPricingFeesRequest",
+    "ListActivitiesRequest": "GetPortfolioActivitiesRequest",
+    "ListAssetsRequest": "GetEntityAssetsRequest",
+    "ListEntityActivitiesRequest": "GetEntityActivitiesRequest",
+    "ListEntityFuturesSweepsRequest": "GetFuturesSweepsRequest",
+    "ListEntityPaymentMethodsRequest": "GetEntityPaymentMethodsRequest",
+    "ListEntityUsersRequest": "GetEntityUsersRequest",
+    "ListExistingLocatesRequest": "GetExistingLocatesRequest",
+    "ListInterestAccrualsForPortfolioRequest": "GetPortfolioInterestAccrualsRequest",
+    "ListInterestAccrualsRequest": "GetInterestAccrualsRequest",
+    "ListInvoicesRequest": "GetInvoicesRequest",
+    "ListMarginCallSummariesRequest": "GetMarginSummariesRequest",
+    "ListMarginConversionsRequest": "GetMarginConversionsRequest",
+    "ListOpenOrdersRequest": "GetOpenOrdersRequest",
+    "ListOrderFillsRequest": "GetOrderFillsRequest",
+    "ListOrdersRequest": "GetOrdersRequest",
+    "ListPortfolioAllocationsRequest": "GetPortfolioAllocationsRequest",
+    "ListPortfolioBalancesRequest": "GetPortfolioBalancesRequest",
+    "ListPortfolioFillsRequest": "GetPortfolioFillsRequest",
+    "ListPortfolioTransactionsRequest": "GetPortfolioTransactionsRequest",
+    "ListPortfolioUsersRequest": "GetPortfolioUsersRequest",
+    "ListPortfoliosRequest": "GetPortfoliosRequest",
+    "ListProductsRequest": "GetPortfolioProductsRequest",
+    "ListTradeFinanceObligationsRequest": "ListTFObligationsRequest",
+    "ListWalletTransactionsRequest": "GetWalletTransactionsRequest",
+    "ListWalletsRequest": "GetWalletsRequest",
     "QueryTransactionValidatorsRequest": "ListTransactionValidatorsRequest",
     "RotateApiKeyRequest": "RotateAPIKeyRequest",
     "ScheduleEntityFuturesSweepRequest": "ScheduleFuturesSweepRequest",

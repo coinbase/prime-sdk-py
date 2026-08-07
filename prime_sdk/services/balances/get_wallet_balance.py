@@ -15,11 +15,14 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetWalletBalanceRequest as _GetWalletBalanceRequest
 from ...model import GetWalletBalanceResponse as _GetWalletBalanceResponse
 
 
 @dataclass
-class GetWalletBalanceRequest:
+class GetWalletBalanceRequest(_GetWalletBalanceRequest):
+    __doc__ = _GetWalletBalanceRequest.__doc__
+
     portfolio_id: str
     wallet_id: str
     allowed_status_codes: list[int] | None = None

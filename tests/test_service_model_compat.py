@@ -25,6 +25,16 @@ def _load_service_classes() -> dict[str, type]:
     return classes
 
 
+def test_service_request_classes_have_docstrings():
+    classes = _load_service_classes()
+    missing = [
+        class_name
+        for class_name, cls in classes.items()
+        if class_name.endswith("Request") and not cls.__doc__
+    ]
+    assert not missing, f"Request classes missing docstrings: {missing[:10]}"
+
+
 def test_service_model_surface_is_compatible_superset():
     surface = json.loads(FIXTURE_PATH.read_text(encoding="utf-8"))
     classes = _load_service_classes()

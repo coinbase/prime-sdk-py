@@ -15,12 +15,15 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetInvoicesRequest as _GetInvoicesRequest
 from ...model import GetInvoicesResponse as _GetInvoicesResponse
 from ...utils import PaginationParams
 
 
 @dataclass
-class ListInvoicesRequest:
+class ListInvoicesRequest(_GetInvoicesRequest):
+    __doc__ = _GetInvoicesRequest.__doc__
+
     entity_id: str
     states: str | None = None
     billing_year: int | None = None

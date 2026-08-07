@@ -15,12 +15,15 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import ListAdvancedTransfersRequest as _ListAdvancedTransfersRequest
 from ...model import ListAdvancedTransfersResponse as _ListAdvancedTransfersResponse
 from ...utils import PaginationParams
 
 
 @dataclass
-class ListAdvancedTransfersRequest:
+class ListAdvancedTransfersRequest(_ListAdvancedTransfersRequest):
+    __doc__ = _ListAdvancedTransfersRequest.__doc__
+
     portfolio_id: str
     state: str | None = None
     type: str | None = None

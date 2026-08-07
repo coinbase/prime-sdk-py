@@ -30,7 +30,7 @@ from model_config import (
     ENUM_NAME_OVERRIDES,
     EXTRA_FIELDS,
     FIELD_RENAMES,
-    REQUEST_BODY_CLASS_NAMES,
+    REQUEST_CLASS_NAME_OVERRIDES,
     SCHEMA_CLASS_OVERRIDES,
 )
 
@@ -76,7 +76,6 @@ SCHEMA_REF_TYPE_OVERRIDES = {
 }
 
 DOCSTRING_WRAP_WIDTH = 88
-REQUEST_BODY_METHODS = frozenset({"post", "put", "patch"})
 
 
 CLASS_NAME_PREFIXES = (
@@ -188,9 +187,9 @@ def schema_property_type(
     return "str"
 
 
-def operation_id_to_request_class(operation_id: str) -> str:
-    if operation_id in REQUEST_BODY_CLASS_NAMES:
-        return REQUEST_BODY_CLASS_NAMES[operation_id]
+def operation_id_to_class_name(operation_id: str) -> str:
+    if operation_id in REQUEST_CLASS_NAME_OVERRIDES:
+        return REQUEST_CLASS_NAME_OVERRIDES[operation_id]
     name = operation_id
     for prefix in ("PrimeRESTAPI_", "primeRESTAPI_"):
         name = name.removeprefix(prefix)
@@ -199,30 +198,82 @@ def operation_id_to_request_class(operation_id: str) -> str:
     return name
 
 
-def collect_inline_request_bodies(
+def collect_operation_parameter_names(operation: dict[str, Any]) -> list[str]:
+    names: list[str] = []
+    for param in operation.get("parameters") or []:
+        if not isinstance(param, dict):
+            continue
+        if param.get("in") not in ("path", "query"):
+            continue
+        name = param.get("name")
+        if isinstance(name, str):
+            names.append(name)
+    return names
+
+
+def collect_operation_docs(
+    operation: dict[str, Any],
+    body_schema: dict[str, Any] | None,
+) -> tuple[str | None, dict[str, str], list[str]]:
+    summary = operation.get("summary") or operation.get("description")
+    class_summary = (
+        normalize_description(str(summary)) if summary else None
+    )
+
+    descriptions: dict[str, str] = {}
+    field_order: list[str] = []
+
+    for param in operation.get("parameters") or []:
+        if not isinstance(param, dict):
+            continue
+        if param.get("in") not in ("path", "query"):
+            continue
+        name = param.get("name")
+        description = param.get("description")
+        if not isinstance(name, str):
+            continue
+        field_order.append(name)
+        if description:
+            descriptions[name] = normalize_description(str(description))
+
+    if body_schema:
+        body_descriptions = collect_field_descriptions(body_schema, {})
+        for name, description in body_descriptions.items():
+            if name not in descriptions:
+                field_order.append(name)
+            descriptions[name] = description
+
+    return class_summary, descriptions, field_order
+
+
+def collect_all_operations(
     spec: dict[str, Any],
-) -> dict[str, tuple[str, dict[str, Any]]]:
-    request_bodies: dict[str, tuple[str, dict[str, Any]]] = {}
+) -> dict[str, tuple[str, dict[str, Any], dict[str, Any] | None]]:
+    operations: dict[str, tuple[str, dict[str, Any], dict[str, Any] | None]] = {}
     for methods in (spec.get("paths") or {}).values():
         for method, operation in methods.items():
-            if method.lower() not in REQUEST_BODY_METHODS or not isinstance(
-                operation, dict
-            ):
+            if method.lower() not in {
+                "get",
+                "post",
+                "put",
+                "patch",
+                "delete",
+            } or not isinstance(operation, dict):
                 continue
-            schema = (
+            operation_id = operation.get("operationId")
+            if not operation_id:
+                continue
+            class_name = operation_id_to_class_name(operation_id)
+            body_schema = (
                 operation.get("requestBody", {})
                 .get("content", {})
                 .get("application/json", {})
                 .get("schema")
             )
-            if not isinstance(schema, dict):
-                continue
-            operation_id = operation.get("operationId")
-            if not operation_id:
-                continue
-            class_name = operation_id_to_request_class(operation_id)
-            request_bodies[class_name] = (operation_id, schema)
-    return request_bodies
+            if not isinstance(body_schema, dict):
+                body_schema = None
+            operations[class_name] = (operation_id, operation, body_schema)
+    return operations
 
 
 def collect_inline_fields(
@@ -407,11 +458,17 @@ def render_class(
     schema: dict[str, Any],
     *,
     kw_only: bool = False,
+    class_summary: str | None = None,
+    field_descriptions: dict[str, str] | None = None,
+    field_order: list[str] | None = None,
 ) -> str:
     renames = FIELD_RENAMES.get(class_short, {})
-    class_summary = collect_class_docstring(schema)
-    field_descriptions = collect_field_descriptions(schema, renames)
-    field_order = [name for name, _ in fields]
+    if class_summary is None:
+        class_summary = collect_class_docstring(schema)
+    if field_descriptions is None:
+        field_descriptions = collect_field_descriptions(schema, renames)
+    if field_order is None:
+        field_order = [name for name, _ in fields]
     docstring_lines = render_docstring_lines(
         class_summary, field_descriptions, field_order
     )
@@ -479,16 +536,34 @@ def generate_models() -> str:
         body_parts.append("")
         emitted.add(class_short)
 
-    request_bodies = collect_inline_request_bodies(spec)
-    if request_bodies:
-        body_parts.append("# Inline request-body models from OpenAPI paths")
+    operations = collect_all_operations(spec)
+    if operations:
+        body_parts.append("# Inline request models from OpenAPI paths")
         body_parts.append("")
-    for class_short in sorted(request_bodies):
+    for class_short in sorted(operations):
         if class_short in emitted:
             continue
-        _operation_id, schema = request_bodies[class_short]
-        fields = collect_inline_fields(class_short, schema, schemas, compat_types)
-        body_parts.append(render_class(class_short, fields, schema, kw_only=True))
+        _operation_id, operation, body_schema = operations[class_short]
+        class_summary, field_descriptions, field_order = collect_operation_docs(
+            operation, body_schema
+        )
+        if body_schema:
+            fields = collect_inline_fields(
+                class_short, body_schema, schemas, compat_types
+            )
+        else:
+            fields = []
+        body_parts.append(
+            render_class(
+                class_short,
+                fields,
+                body_schema or {},
+                kw_only=True,
+                class_summary=class_summary,
+                field_descriptions=field_descriptions,
+                field_order=field_order,
+            )
+        )
         body_parts.append("")
         emitted.add(class_short)
 

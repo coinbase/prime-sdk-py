@@ -15,12 +15,15 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetEntityPaymentMethodsRequest as _GetEntityPaymentMethodsRequest
 from ...model import GetEntityPaymentMethodsResponse as _GetEntityPaymentMethodsResponse
 from ...utils import PaginationParams
 
 
 @dataclass
-class ListEntityPaymentMethodsRequest:
+class ListEntityPaymentMethodsRequest(_GetEntityPaymentMethodsRequest):
+    __doc__ = _GetEntityPaymentMethodsRequest.__doc__
+
     entity_id: str
     pagination: PaginationParams | None = None
     allowed_status_codes: list[int] | None = None

@@ -15,11 +15,14 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetXMLiquidationRequest as _GetXMLiquidationRequest
 from ...model import GetXMLiquidationResponse as _GetXMLiquidationResponse
 
 
 @dataclass
-class GetXMLiquidationRequest:
+class GetXMLiquidationRequest(_GetXMLiquidationRequest):
+    __doc__ = _GetXMLiquidationRequest.__doc__
+
     entity_id: str
     liquidation_id: str | None = None
     allowed_status_codes: list[int] | None = None

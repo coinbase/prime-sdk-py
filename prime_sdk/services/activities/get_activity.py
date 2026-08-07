@@ -15,11 +15,14 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetPortfolioActivityRequest as _GetPortfolioActivityRequest
 from ...model import GetPortfolioActivityResponse as _GetPortfolioActivityResponse
 
 
 @dataclass
-class GetActivityRequest:
+class GetActivityRequest(_GetPortfolioActivityRequest):
+    __doc__ = _GetPortfolioActivityRequest.__doc__
+
     portfolio_id: str
     activity_id: str
     allowed_status_codes: list[int] | None = None

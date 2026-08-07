@@ -16,12 +16,15 @@ from dataclasses import dataclass
 
 from ...base_response import BaseResponse
 from ...enums import BalanceType
+from ...model import GetPortfolioBalancesRequest as _GetPortfolioBalancesRequest
 from ...model import GetPortfolioBalancesResponse as _GetPortfolioBalancesResponse
 from ...utils import PaginationParams
 
 
 @dataclass
-class ListPortfolioBalancesRequest:
+class ListPortfolioBalancesRequest(_GetPortfolioBalancesRequest):
+    __doc__ = _GetPortfolioBalancesRequest.__doc__
+
     portfolio_id: str
     symbols: str | None = None
     balance_type: BalanceType | None = None

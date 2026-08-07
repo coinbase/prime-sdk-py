@@ -16,13 +16,18 @@ from dataclasses import dataclass
 
 from ...base_response import BaseResponse
 from ...model import (
+    ListAggregateEntityPositionsRequest as _ListAggregateEntityPositionsRequest,
+)
+from ...model import (
     ListAggregateEntityPositionsResponse as _ListAggregateEntityPositionsResponse,
 )
 from ...utils import PaginationParams
 
 
 @dataclass
-class ListAggregateEntityPositionsRequest:
+class ListAggregateEntityPositionsRequest(_ListAggregateEntityPositionsRequest):
+    __doc__ = _ListAggregateEntityPositionsRequest.__doc__
+
     entity_id: str
     pagination: PaginationParams | None = None
     allowed_status_codes: list[int] | None = None

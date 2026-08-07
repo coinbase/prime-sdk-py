@@ -15,11 +15,14 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import CancelOrderRequest as _CancelOrderRequest
 from ...model import CancelOrderResponse as _CancelOrderResponse
 
 
 @dataclass
-class CancelOrderRequest:
+class CancelOrderRequest(_CancelOrderRequest):
+    __doc__ = _CancelOrderRequest.__doc__
+
     portfolio_id: str
     order_id: str
     allowed_status_codes: list[int] | None = None

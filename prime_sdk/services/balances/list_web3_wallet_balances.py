@@ -15,12 +15,15 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import ListWeb3WalletBalancesRequest as _ListWeb3WalletBalancesRequest
 from ...model import ListWeb3WalletBalancesResponse as _ListWeb3WalletBalancesResponse
 from ...utils import PaginationParams
 
 
 @dataclass
-class ListWeb3WalletBalancesRequest:
+class ListWeb3WalletBalancesRequest(_ListWeb3WalletBalancesRequest):
+    __doc__ = _ListWeb3WalletBalancesRequest.__doc__
+
     portfolio_id: str
     wallet_id: str
     visibility_statuses: str | None = None

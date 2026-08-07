@@ -16,10 +16,15 @@ from dataclasses import dataclass
 
 from ...base_response import BaseResponse
 from ...model import ActivityCreationResponse as _ActivityCreationResponse
+from ...model import (
+    DeleteOnchainAddressGroupRequest as _DeleteOnchainAddressGroupRequest,
+)
 
 
 @dataclass
-class DeleteOnchainAddressGroupRequest:
+class DeleteOnchainAddressGroupRequest(_DeleteOnchainAddressGroupRequest):
+    __doc__ = _DeleteOnchainAddressGroupRequest.__doc__
+
     portfolio_id: str
     address_group_id: str
     allowed_status_codes: list[int] | None = None

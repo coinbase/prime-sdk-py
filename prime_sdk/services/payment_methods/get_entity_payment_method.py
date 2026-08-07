@@ -16,12 +16,17 @@ from dataclasses import dataclass
 
 from ...base_response import BaseResponse
 from ...model import (
+    GetEntityPaymentMethodDetailsRequest as _GetEntityPaymentMethodDetailsRequest,
+)
+from ...model import (
     GetEntityPaymentMethodDetailsResponse as _GetEntityPaymentMethodDetailsResponse,
 )
 
 
 @dataclass
-class GetEntityPaymentMethodRequest:
+class GetEntityPaymentMethodRequest(_GetEntityPaymentMethodDetailsRequest):
+    __doc__ = _GetEntityPaymentMethodDetailsRequest.__doc__
+
     entity_id: str
     payment_method_id: str
     allowed_status_codes: list[int] | None = None

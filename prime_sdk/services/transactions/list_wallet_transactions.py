@@ -16,12 +16,15 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from ...base_response import BaseResponse
+from ...model import GetWalletTransactionsRequest as _GetWalletTransactionsRequest
 from ...model import GetWalletTransactionsResponse as _GetWalletTransactionsResponse
 from ...utils import PaginationParams
 
 
 @dataclass
-class ListWalletTransactionsRequest:
+class ListWalletTransactionsRequest(_GetWalletTransactionsRequest):
+    __doc__ = _GetWalletTransactionsRequest.__doc__
+
     portfolio_id: str
     wallet_id: str
     types: str | None = None

@@ -15,11 +15,14 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetMarketDataRequest as _GetMarketDataRequest
 from ...model import GetMarketDataResponse as _GetMarketDataResponse
 
 
 @dataclass
-class GetMarketDataRequest:
+class GetMarketDataRequest(_GetMarketDataRequest):
+    __doc__ = _GetMarketDataRequest.__doc__
+
     entity_id: str
     cursor: str | None = None
     limit: int | None = None

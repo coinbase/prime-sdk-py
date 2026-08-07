@@ -17,12 +17,15 @@ from datetime import datetime
 
 from ...base_response import BaseResponse
 from ...enums import OrderSide
+from ...model import GetPortfolioAllocationsRequest as _GetPortfolioAllocationsRequest
 from ...model import GetPortfolioAllocationsResponse as _GetPortfolioAllocationsResponse
 from ...utils import PaginationParams
 
 
 @dataclass
-class ListPortfolioAllocationsRequest:
+class ListPortfolioAllocationsRequest(_GetPortfolioAllocationsRequest):
+    __doc__ = _GetPortfolioAllocationsRequest.__doc__
+
     portfolio_id: str
     start_date: datetime
     product_ids: str | None = None

@@ -15,12 +15,15 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetOrderFillsRequest as _GetOrderFillsRequest
 from ...model import GetOrderFillsResponse as _GetOrderFillsResponse
 from ...utils import PaginationParams
 
 
 @dataclass
-class ListOrderFillsRequest:
+class ListOrderFillsRequest(_GetOrderFillsRequest):
+    __doc__ = _GetOrderFillsRequest.__doc__
+
     portfolio_id: str
     order_id: str
     pagination: PaginationParams | None = None

@@ -15,11 +15,14 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetMarginConversionsRequest as _GetMarginConversionsRequest
 from ...model import GetMarginConversionsResponse as _GetMarginConversionsResponse
 
 
 @dataclass
-class ListMarginConversionsRequest:
+class ListMarginConversionsRequest(_GetMarginConversionsRequest):
+    __doc__ = _GetMarginConversionsRequest.__doc__
+
     portfolio_id: str
     start_date: str | None = None
     end_date: str | None = None

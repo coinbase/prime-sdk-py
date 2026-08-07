@@ -15,11 +15,14 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetMarginInformationRequest as _GetMarginInformationRequest
 from ...model import GetMarginInformationResponse as _GetMarginInformationResponse
 
 
 @dataclass
-class GetMarginInformationRequest:
+class GetMarginInformationRequest(_GetMarginInformationRequest):
+    __doc__ = _GetMarginInformationRequest.__doc__
+
     entity_id: str
     allowed_status_codes: list[int] | None = None
 

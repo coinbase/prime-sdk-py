@@ -15,11 +15,14 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import ListXMLiquidationsRequest as _ListXMLiquidationsRequest
 from ...model import ListXMLiquidationsResponse as _ListXMLiquidationsResponse
 
 
 @dataclass
-class ListXMLiquidationsRequest:
+class ListXMLiquidationsRequest(_ListXMLiquidationsRequest):
+    __doc__ = _ListXMLiquidationsRequest.__doc__
+
     entity_id: str
     cursor: str | None = None
     limit: int | None = None

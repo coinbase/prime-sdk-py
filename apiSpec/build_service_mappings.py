@@ -156,12 +156,16 @@ def build_request_mapping() -> dict[str, str]:
     for path, methods in spec["paths"].items():
         api_path = _normalize_path(path.replace("/v1", ""))
         for method, operation in methods.items():
-            if method.lower() in {"post", "put", "patch"} and isinstance(
-                operation, dict
-            ):
+            if method.lower() in {
+                "get",
+                "post",
+                "put",
+                "patch",
+                "delete",
+            } and isinstance(operation, dict):
                 ops_by_path[(method.upper(), api_path)] = operation
 
-    from generate_models import operation_id_to_request_class
+    from generate_models import operation_id_to_class_name
 
     mapping: dict[str, str] = {}
     for service_file in sorted(
@@ -185,18 +189,10 @@ def build_request_mapping() -> dict[str, str]:
                 operation = ops_by_path.get((method_hint, _normalize_path(path_hint)))
                 if not operation:
                     continue
-                schema = (
-                    operation.get("requestBody", {})
-                    .get("content", {})
-                    .get("application/json", {})
-                    .get("schema")
-                )
-                if not schema:
-                    continue
                 operation_id = operation.get("operationId")
                 if not operation_id:
                     continue
-                generated_name = operation_id_to_request_class(operation_id)
+                generated_name = operation_id_to_class_name(operation_id)
                 if generated_name != request_class:
                     mapping[request_class] = generated_name
     return mapping

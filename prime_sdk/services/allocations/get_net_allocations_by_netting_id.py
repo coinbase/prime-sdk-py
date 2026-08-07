@@ -16,12 +16,17 @@ from dataclasses import dataclass
 
 from ...base_response import BaseResponse
 from ...model import (
+    GetAllocationsByClientNettingIdRequest as _GetAllocationsByClientNettingIdRequest,
+)
+from ...model import (
     GetAllocationsByClientNettingIdResponse as _GetAllocationsByClientNettingIdResponse,
 )
 
 
 @dataclass
-class GetNetAllocationsByNettingIdRequest:
+class GetNetAllocationsByNettingIdRequest(_GetAllocationsByClientNettingIdRequest):
+    __doc__ = _GetAllocationsByClientNettingIdRequest.__doc__
+
     portfolio_id: str
     netting_id: str
     allowed_status_codes: list[int] | None = None

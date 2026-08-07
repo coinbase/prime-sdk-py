@@ -16,12 +16,17 @@ from dataclasses import dataclass
 
 from ...base_response import BaseResponse
 from ...model import (
+    GetPortfolioInterestAccrualsRequest as _GetPortfolioInterestAccrualsRequest,
+)
+from ...model import (
     GetPortfolioInterestAccrualsResponse as _GetPortfolioInterestAccrualsResponse,
 )
 
 
 @dataclass
-class ListInterestAccrualsForPortfolioRequest:
+class ListInterestAccrualsForPortfolioRequest(_GetPortfolioInterestAccrualsRequest):
+    __doc__ = _GetPortfolioInterestAccrualsRequest.__doc__
+
     portfolio_id: str
     start_date: str | None = None
     end_date: str | None = None

@@ -15,12 +15,15 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import ListWalletAddressesRequest as _ListWalletAddressesRequest
 from ...model import ListWalletAddressesResponse as _ListWalletAddressesResponse
 from ...utils import PaginationParams
 
 
 @dataclass
-class ListWalletAddressesRequest:
+class ListWalletAddressesRequest(_ListWalletAddressesRequest):
+    __doc__ = _ListWalletAddressesRequest.__doc__
+
     portfolio_id: str
     wallet_id: str
     network_id: str
