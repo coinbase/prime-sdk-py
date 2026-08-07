@@ -52,9 +52,13 @@ export PRIME_CREDENTIALS='{
 
 export PRIME_PORTFOLIO_ID="your-portfolio-id"
 export PRIME_ENTITY_ID="your-entity-id"
+export PRIME_WALLET_ID="your-custody-wallet-id"
+export PRIME_ONCHAIN_WALLET_ID="your-web3-onchain-wallet-id"
 ```
 
 Optional fields: `svcAccountId` in JSON; `PRIME_PORTFOLIO_ID` and `PRIME_ENTITY_ID` for portfolio/entity context.
+
+`PRIME_WALLET_ID` and `PRIME_ONCHAIN_WALLET_ID` are convenience variables for the [example scripts](prime_sdk/examples/). They are not read by the SDK itself. Use `PRIME_WALLET_ID` for standard custody wallet examples (balances, deposits, transfers, staking). Use `PRIME_ONCHAIN_WALLET_ID` for web3/onchain wallet examples (`list_web3_wallet_balances`, `create_onchain_transaction`). Example scripts fall back to these env vars when `--wallet-id` is omitted.
 
 ##### Legacy Format (Backwards Compatible)
 

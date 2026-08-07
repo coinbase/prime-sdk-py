@@ -31,7 +31,10 @@ def main():
     parser.add_argument(
         "--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)"
     )
-    parser.add_argument("--wallet-id", required=True, help="Wallet ID")
+    parser.add_argument(
+        "--wallet-id",
+        help="Wallet ID (overrides PRIME_ONCHAIN_WALLET_ID env var)",
+    )
     parser.add_argument(
         "--raw-unsigned-txn",
         required=True,
@@ -76,9 +79,16 @@ def main():
             else None,
         )
 
+    wallet_id = args.wallet_id or os.getenv("PRIME_ONCHAIN_WALLET_ID")
+    if not wallet_id:
+        print(
+            "Error: Wallet ID is required. Set PRIME_ONCHAIN_WALLET_ID env var or use --wallet-id"
+        )
+        return
+
     request = CreateOnchainTransactionRequest(
         portfolio_id=portfolio_id,
-        wallet_id=args.wallet_id,
+        wallet_id=wallet_id,
         raw_unsigned_txn=args.raw_unsigned_txn,
         rpc=rpc,
         evm_params=evm_params,

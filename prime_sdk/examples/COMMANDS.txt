@@ -1,7 +1,9 @@
 # Prime SDK Example Commands
 # Run these commands from the repository root directory
 # Note: Most commands require PRIME_PORTFOLIO_ID and PRIME_ENTITY_ID environment variables
+# Optional wallet env vars: PRIME_WALLET_ID (custody wallet), PRIME_ONCHAIN_WALLET_ID (web3/onchain wallet)
 # Commands below use only REQUIRED parameters
+# Date defaults use 2026-01-01 where a date parameter is required but was omitted
 
 # Activities
 python prime_sdk/examples/activities/get_activity.py 82284de7-22cb-4700-b009-4292244b67c6
@@ -12,7 +14,6 @@ python prime_sdk/examples/activities/list_entity_activities.py
 # Address Book
 python prime_sdk/examples/address_book/create_address_book_entry.py --address bc1qwsstlssqtx0f45rel9q8ynmeuk3jxwuwxykgca --currency-symbol BTC --name "My BTC Wallet"
 python prime_sdk/examples/address_book/get_address_book.py
-python prime_sdk/examples/address_book/list_entries.py
 
 # Allocations
 python prime_sdk/examples/allocations/create_portfolio_allocations.py --source-portfolio-id abc123 --product-id BTC-USD --order-ids order1,order2 --destination-portfolio-id def456 --amount 1.5 --size-type BASE --remainder-destination-portfolio-id abc123
@@ -25,10 +26,10 @@ python prime_sdk/examples/allocations/get_net_allocations_by_netting_id.py abc12
 python prime_sdk/examples/assets/list_assets.py
 
 # Balances
-python prime_sdk/examples/balances/get_wallet_balance.py --wallet-id 219f6314-4c96-5de8-8fa0-16a8afaf8c0a
+python prime_sdk/examples/balances/get_wallet_balance.py
 python prime_sdk/examples/balances/list_entity_balances.py
 python prime_sdk/examples/balances/list_portfolio_balances.py
-python prime_sdk/examples/balances/list_web3_wallet_balances.py --wallet-id 219f6314-4c96-5de8-8fa0-16a8afaf8c0a
+python prime_sdk/examples/balances/list_web3_wallet_balances.py
 
 # Commission
 python prime_sdk/examples/commission/get_portfolio_commission.py
@@ -42,11 +43,11 @@ python prime_sdk/examples/financing/get_portfolio_buying_power.py --base-currenc
 python prime_sdk/examples/financing/get_portfolio_credit_information.py
 python prime_sdk/examples/financing/get_portfolio_withdrawal_power.py --symbol USDC
 python prime_sdk/examples/financing/get_trade_finance_tiered_pricing_fees.py --effective-at 2025-01-01T00:00:00Z
-python prime_sdk/examples/financing/list_existing_locates.py
+python prime_sdk/examples/financing/list_existing_locates.py --locate-date "2026-01-01"
 python prime_sdk/examples/financing/list_financing_eligible_assets.py
 python prime_sdk/examples/financing/list_interest_accruals.py --start-date 2025-01-01T00:00:00Z --end-date 2025-01-05T00:00:00Z
 python prime_sdk/examples/financing/list_interest_accruals_for_portfolio.py --start-date 2025-01-01T00:00:00Z --end-date 2025-01-05T00:00:00Z
-python prime_sdk/examples/financing/list_margin_call_summaries.py
+python prime_sdk/examples/financing/list_margin_call_summaries.py --start-date 2026-01-01T00:00:00Z --end-date 2026-01-05T00:00:00Z
 python prime_sdk/examples/financing/list_margin_conversions.py --start-date 2025-01-01T00:00:00Z --end-date 2025-01-05T00:00:00Z
 python prime_sdk/examples/financing/list_trade_finance_obligations.py
 
@@ -89,7 +90,7 @@ python prime_sdk/examples/payment_methods/list_entity_payment_methods.py
 
 # Portfolios
 python prime_sdk/examples/portfolios/get_counterparty_id.py
-python prime_sdk/examples/portfolios/get_portfolio.py 314dbd76-4459-41cd-ba9a-dccdd86b44e2
+python prime_sdk/examples/portfolios/get_portfolio.py
 python prime_sdk/examples/portfolios/list_portfolios.py
 
 # Positions
@@ -109,16 +110,16 @@ python prime_sdk/examples/staking/create_unstake.py --wallet-id abc123
 python prime_sdk/examples/staking/get_staking_status.py --wallet-id abc123
 python prime_sdk/examples/staking/get_unstaking_status.py --wallet-id abc123
 python prime_sdk/examples/staking/preview_unstake.py --wallet-id abc123 --amount 1.5
-python prime_sdk/examples/staking/query_transaction_validators.py
+python prime_sdk/examples/staking/query_transaction_validators.py --transaction-ids 4b199bee-3f38-417b-b7af-b50ddb2193c3
 
 # Transactions
 python prime_sdk/examples/transactions/create_conversion.py --wallet-id abc123 --amount 1 --source-symbol USD --destination-symbol USDC
-python prime_sdk/examples/transactions/create_onchain_transaction.py --wallet-id abc123 --raw-unsigned-txn 0x123abc...
+python prime_sdk/examples/transactions/create_onchain_transaction.py --raw-unsigned-txn 0x123abc...
 python prime_sdk/examples/transactions/create_transfer.py --wallet-id abc123 --amount 0.1 --destination-type WALLET --destination abc123 --currency-symbol BTC
 python prime_sdk/examples/transactions/create_withdrawal.py --wallet-id abc123 --amount 0.1 --currency-symbol BTC --address bc1qwsstlssqtx0f45rel9q8ynmeuk3jxwuwxykgca
 python prime_sdk/examples/transactions/get_transaction.py 4b199bee-3f38-417b-b7af-b50ddb2193c3
 python prime_sdk/examples/transactions/list_portfolio_transactions.py
-python prime_sdk/examples/transactions/list_wallet_transactions.py --wallet-id abc123
+python prime_sdk/examples/transactions/list_wallet_transactions.py
 python prime_sdk/examples/transactions/submit_deposit_travel_rule_data.py --transaction-id 4b199bee-3f38-417b-b7af-b50ddb2193c3 --originator-name "John Doe" --beneficiary-name "Jane Smith"
 
 # Users
@@ -126,10 +127,10 @@ python prime_sdk/examples/users/list_entity_users.py
 python prime_sdk/examples/users/list_portfolio_users.py
 
 # Wallets
-python prime_sdk/examples/wallets/create_wallet_address.py --wallet-id f48df0d9-5dda-512a-8289-a079e652c7cd
-python prime_sdk/examples/wallets/get_wallet.py f48df0d9-5dda-512a-8289-a079e652c7cd
-python prime_sdk/examples/wallets/get_wallet_deposit_instructions.py --wallet-id f48df0d9-5dda-512a-8289-a079e652c7cd --deposit-type CRYPTO
-python prime_sdk/examples/wallets/list_wallet_addresses.py --wallet-id aff3dd3a-6c27-5c05-a984-e5d689c78113 --network-id bitcoin-mainnet
+python prime_sdk/examples/wallets/create_wallet_deposit_address.py --network-id bitcoin-mainnet
+python prime_sdk/examples/wallets/get_wallet.py
+python prime_sdk/examples/wallets/get_wallet_deposit_instructions.py --deposit-type CRYPTO
+python prime_sdk/examples/wallets/list_wallet_addresses.py --network-id bitcoin-mainnet
 python prime_sdk/examples/wallets/list_wallets.py --limit 1000
 
 # Utility/Helper Scripts
