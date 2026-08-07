@@ -34,9 +34,6 @@ class CreateTransferRequest(BaseRequest, _CreateWalletTransferRequest):
         currency_symbol: The currency symbol to transfer
     """
 
-    portfolio_id: str
-    wallet_id: str
-
 
 @dataclass
 class CreateTransferResponse(BaseResponse, _CreateWalletTransferResponse):

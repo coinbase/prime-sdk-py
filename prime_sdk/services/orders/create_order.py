@@ -64,8 +64,6 @@ class CreateOrderRequest(BaseRequest, _CreateOrderRequest):
             products.
     """
 
-    portfolio_id: str
-
 
 @dataclass
 class CreateOrderResponse(BaseResponse, _CreateOrderResponse):

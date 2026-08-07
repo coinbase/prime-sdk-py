@@ -20,7 +20,7 @@ from ...model import CancelAdvancedTransferRequest as _CancelAdvancedTransferReq
 from ...model import CancelAdvancedTransferResponse as _CancelAdvancedTransferResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class CancelAdvancedTransferRequest(BaseRequest, _CancelAdvancedTransferRequest):
     """
     Cancel Advanced Transfer
@@ -29,9 +29,6 @@ class CancelAdvancedTransferRequest(BaseRequest, _CancelAdvancedTransferRequest)
         portfolio_id: The portfolio ID
         advanced_transfer_id: The ID of the canceled Advanced Transfer
     """
-
-    portfolio_id: str
-    advanced_transfer_id: str
 
 
 @dataclass

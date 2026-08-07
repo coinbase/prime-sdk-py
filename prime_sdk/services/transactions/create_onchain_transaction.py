@@ -46,9 +46,6 @@ class CreateOnchainTransactionRequest(BaseRequest, _CreateOnchainTransactionRequ
         raw_unsigned_txn: Raw unsigned transaction in Hex format (Supports EVM and Solana)
     """
 
-    portfolio_id: str
-    wallet_id: str
-
 
 @dataclass
 class CreateOnchainTransactionResponse(BaseResponse, _CreateOnchainTransactionResponse):

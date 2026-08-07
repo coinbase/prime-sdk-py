@@ -33,8 +33,6 @@ class CreateNewLocateRequest(BaseRequest, _CreateNewLocatesRequest):
         locate_date: The target date of the locate (YYYY-MM-DD)
     """
 
-    portfolio_id: str
-
 
 @dataclass
 class CreateNewLocateResponse(BaseResponse, _CreateNewLocatesResponse):

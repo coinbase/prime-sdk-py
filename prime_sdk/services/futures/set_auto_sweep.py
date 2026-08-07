@@ -30,8 +30,6 @@ class SetAutoSweepRequest(BaseRequest, _SetAutoSweepRequest):
         auto_sweep: Auto sweep status, default to false
     """
 
-    entity_id: str
-
 
 @dataclass
 class SetAutoSweepResponse(BaseResponse, _SetAutoSweepResponse):

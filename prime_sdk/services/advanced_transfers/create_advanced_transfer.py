@@ -29,8 +29,6 @@ class CreateAdvancedTransferRequest(BaseRequest, _CreateAdvancedTransferRequest)
         portfolio_id: The portfolio ID
     """
 
-    portfolio_id: str
-
 
 @dataclass
 class CreateAdvancedTransferResponse(BaseResponse, _CreateAdvancedTransferResponse):

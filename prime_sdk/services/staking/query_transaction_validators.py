@@ -38,8 +38,6 @@ class QueryTransactionValidatorsRequest(BaseRequest, _ListTransactionValidatorsR
             Default is 100, maximum is 1000.
     """
 
-    portfolio_id: str
-
 
 @dataclass
 class QueryTransactionValidatorsResponse(

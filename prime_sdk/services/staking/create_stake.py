@@ -46,9 +46,6 @@ class CreateStakeRequest(BaseRequest, _StakingInitiateRequest):
             Subsequent requests using the same key will fail
     """
 
-    portfolio_id: str
-    wallet_id: str
-
 
 @dataclass
 class CreateStakeResponse(BaseResponse, _StakingInitiateResponse):

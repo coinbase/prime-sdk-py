@@ -30,8 +30,6 @@ class CreateOnchainAddressBookEntryRequest(
     Create Onchain Address Book Entry
     """
 
-    portfolio_id: str
-
 
 @dataclass
 class CreateOnchainAddressBookEntryResponse(BaseResponse, _ActivityCreationResponse):

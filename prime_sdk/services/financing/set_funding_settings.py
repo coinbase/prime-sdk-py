@@ -42,8 +42,6 @@ class SetFundingSettingsRequest(BaseRequest, _UpdateFundingSettingsRequest):
             withdraw funds in excess of this amount.
     """
 
-    entity_id: str
-
 
 @dataclass
 class SetFundingSettingsResponse(BaseResponse, _UpdateFundingSettingsResponse):

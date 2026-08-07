@@ -37,9 +37,6 @@ class ClaimWalletStakingRewardsRequest(BaseRequest, _StakingClaimRewardsRequest)
             subsequent requests with the same key will return the original response
     """
 
-    portfolio_id: str
-    wallet_id: str
-
 
 @dataclass
 class ClaimWalletStakingRewardsResponse(BaseResponse, _StakingClaimRewardsResponse):

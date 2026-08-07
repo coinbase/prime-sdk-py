@@ -41,8 +41,6 @@ class CreatePortfolioStakeRequest(BaseRequest, _PortfolioStakingInitiateRequest)
         amount: The quantity of the chosen currency to stake
     """
 
-    portfolio_id: str
-
 
 @dataclass
 class CreatePortfolioStakeResponse(BaseResponse, _PortfolioStakingInitiateResponse):

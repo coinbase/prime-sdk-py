@@ -31,8 +31,6 @@ class ScheduleEntityFuturesSweepRequest(BaseRequest, _ScheduleFuturesSweepReques
         currency: Currency. Required
     """
 
-    entity_id: str
-
 
 @dataclass
 class ScheduleEntityFuturesSweepResponse(BaseResponse, _ScheduleFuturesSweepResponse):

@@ -72,9 +72,6 @@ class SubmitDepositTravelRuleDataRequest(
         opt_out_of_ownership_verification: True to skip wallet ownership verification
     """
 
-    portfolio_id: str
-    transaction_id: str
-
 
 @dataclass
 class SubmitDepositTravelRuleDataResponse(

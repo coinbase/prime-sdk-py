@@ -56,9 +56,6 @@ class CreateWithdrawalRequest(BaseRequest, _CreateWalletWithdrawalRequest):
         currency_symbol: The currency symbol for the withdrawal
     """
 
-    portfolio_id: str
-    wallet_id: str
-
 
 @dataclass
 class CreateWithdrawalResponse(BaseResponse, _CreateWalletWithdrawalResponse):

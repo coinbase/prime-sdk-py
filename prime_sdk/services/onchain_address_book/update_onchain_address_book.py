@@ -28,8 +28,6 @@ class UpdateOnchainAddressBookRequest(BaseRequest, _UpdateOnchainAddressGroupReq
     Update Onchain Address Book Entry
     """
 
-    portfolio_id: str
-
 
 @dataclass
 class UpdateOnchainAddressBookResponse(BaseResponse, _ActivityCreationResponse):

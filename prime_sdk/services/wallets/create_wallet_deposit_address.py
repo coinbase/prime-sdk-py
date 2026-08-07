@@ -35,9 +35,6 @@ class CreateWalletDepositAddressRequest(
         network_id: The network name and type
     """
 
-    portfolio_id: str
-    wallet_id: str
-
 
 @dataclass
 class CreateWalletDepositAddressResponse(BaseResponse, _BlockchainAddress):

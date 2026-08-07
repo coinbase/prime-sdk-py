@@ -45,8 +45,6 @@ class CreateQuoteRequest(BaseRequest, _CreateQuoteRequest):
             (QuoteRequestGoodForMs).
     """
 
-    portfolio_id: str
-
 
 @dataclass
 class CreateQuoteResponse(BaseResponse, _QuoteResponse):

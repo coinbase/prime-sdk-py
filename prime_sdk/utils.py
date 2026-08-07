@@ -81,14 +81,17 @@ def to_body_dict(obj: Any) -> dict[str, Any]:
     Convert a dataclass to a dictionary, converting enum values to their string representation.
     This is used for request objects that need to be serialized for API calls.
     """
-    control_fields = set()
+    skip_fields = set()
     if dataclasses.is_dataclass(obj):
-        control_fields = {
-            field.name for field in fields(obj) if field.metadata.get("control")
+        skip_fields = {
+            field.name
+            for field in fields(obj)
+            if field.metadata.get("control")
+            or field.metadata.get("location") in ("path", "query")
         }
     result = {}
     for k, v in asdict(obj).items():
-        if k in control_fields or v is None:
+        if k in skip_fields or v is None:
             continue
         # Convert enums to their string values
         if hasattr(v, "value"):

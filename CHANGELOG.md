@@ -18,7 +18,8 @@ These responses previously used incorrect field names or shapes in the Python SD
 - **Models**: `prime_sdk/model.py` is now a compatibility shim over generated dataclasses in `prime_sdk/generated/models.py`. Run `make update-spec` to refresh models from the OpenAPI specification. Existing imports and field names are preserved via `apiSpec/model_config.py` and `prime_sdk/model_manual.py`.
 - **Service models**: Service `*Request` and `*Response` dataclasses now inherit field definitions and docstrings from generated models (via local `as _Internal...` aliases), matching the TypeScript SDK pattern.
 - **Request docstrings**: All service `*Request` classes now inherit OpenAPI-derived docstrings from generated stub models. JSON-body requests document path/query parameters alongside body fields.
-- **Generated path/query parameters**: Body-less request models in `prime_sdk/generated/models.py` now include path and query parameter fields (not just docstrings). Service `*Request` subclasses keep only SDK-specific extras such as `allowed_status_codes` and `pagination`.
+- **Generated path/query parameters**: Request models in `prime_sdk/generated/models.py` now include path and query parameter fields (not just docstrings), including body-backed requests such as `CreateOrderRequest` and `CreatePortfolioAddressBookEntryRequest` (tagged with `metadata={"location": "path"|"query"}`). Service `*Request` subclasses no longer hand-redeclare fields such as `portfolio_id` or `wallet_id` when those are already on the generated base class, and keep only SDK-specific extras such as `allowed_status_codes` and `pagination`.
+- Path parameters on body-backed requests now use the same soft-required convention as other generated fields (`field(default=None, ...)` instead of a required `field_name: str` on the service subclass).
 - **Examples**: Wallet example scripts fall back to `PRIME_WALLET_ID` and `PRIME_ONCHAIN_WALLET_ID` when `--wallet-id` is omitted; see `.env.example` and README.
 - Service `*Request` classes now inherit SDK control fields (`allowed_status_codes`, `pagination`) from base mixins instead of declaring them per file. Pagination tier (full vs cursor+limit) is determined from the OpenAPI spec at generation time.
 - **`GetMarketDataRequest`** and **`ListXMLiquidationsRequest`**: replaced raw `cursor`/`limit`/`sort_direction` fields with the standard `pagination: PaginationParams` field.
@@ -26,7 +27,7 @@ These responses previously used incorrect field names or shapes in the Python SD
 ### Fixed
 
 - **`BaseResponse`**: Nested dataclass hydration now unwraps optional type annotations.
-- **`to_body_dict`**: SDK control fields tagged with `metadata={"control": True}` (such as `allowed_status_codes` and `pagination`) are no longer serialized into JSON request bodies.
+- **`to_body_dict`**: SDK control fields tagged with `metadata={"control": True}` (such as `allowed_status_codes` and `pagination`) and path/query fields tagged with `metadata={"location": "path"|"query"}` are no longer serialized into JSON request bodies.
 
 ### Added
 

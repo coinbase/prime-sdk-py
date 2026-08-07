@@ -40,8 +40,6 @@ class CreateAddressBookEntryRequest(
         chain_ids: List of compatible chain IDs for the address, empty for Solana
     """
 
-    portfolio_id: str
-
 
 @dataclass
 class CreateAddressBookEntryResponse(

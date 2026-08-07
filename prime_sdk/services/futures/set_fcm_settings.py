@@ -31,8 +31,6 @@ class SetFcmSettingsRequest(BaseRequest, _SetFcmSettingsRequest):
             is allowed
     """
 
-    entity_id: str
-
 
 @dataclass
 class SetFcmSettingsResponse(BaseResponse, _GetFcmSettingsResponse):

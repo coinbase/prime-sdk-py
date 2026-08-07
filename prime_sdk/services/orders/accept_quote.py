@@ -33,8 +33,6 @@ class AcceptQuoteRequest(BaseRequest, _AcceptQuoteRequest):
         quote_id: A quote id that was returned from the quote request
     """
 
-    portfolio_id: str
-
 
 @dataclass
 class AcceptQuoteResponse(BaseResponse, _AcceptQuoteResponse):

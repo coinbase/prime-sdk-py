@@ -39,8 +39,6 @@ class CreatePortfolioUnstakeRequest(BaseRequest, _PortfolioStakingUnstakeRequest
         amount: The quantity of the chosen currency to unstake
     """
 
-    portfolio_id: str
-
 
 @dataclass
 class CreatePortfolioUnstakeResponse(BaseResponse, _PortfolioStakingUnstakeResponse):

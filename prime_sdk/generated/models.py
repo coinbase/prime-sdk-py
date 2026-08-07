@@ -18,7 +18,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from datetime import datetime
 
@@ -4096,6 +4096,7 @@ class AcceptQuoteRequest:
         quote_id: A quote id that was returned from the quote request
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
     product_id: str = None
     side: str = None
     client_order_id: str = None
@@ -4112,6 +4113,9 @@ class CancelAdvancedTransferRequest:
         portfolio_id: The portfolio ID
         advanced_transfer_id: The ID of the canceled Advanced Transfer
     """
+
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
+    advanced_transfer_id: str = field(default=None, metadata={"location": "path"})
 
 
 @dataclass(kw_only=True)
@@ -4149,6 +4153,7 @@ class CreateAdvancedTransferRequest:
         portfolio_id: The portfolio ID
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
     advanced_transfer: AdvancedTransfer = None
 
 
@@ -4167,6 +4172,8 @@ class CreateConversionRequest:
         destination_symbol: The currency symbol to convert to
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
+    wallet_id: str = field(default=None, metadata={"location": "path"})
     amount: str = None
     destination: str = None
     idempotency_key: str = None
@@ -4187,6 +4194,7 @@ class CreateNewLocatesRequest:
         locate_date: The target date of the locate (YYYY-MM-DD)
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
     symbol: str = None
     amount: str = None
     conversion_date: str = None
@@ -4199,6 +4207,7 @@ class CreateOnchainAddressGroupRequest:
     Create Onchain Address Book Entry
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
     address_group: AddressGroup = None
 
 
@@ -4213,6 +4222,8 @@ class CreateOnchainTransactionRequest:
         raw_unsigned_txn: Raw unsigned transaction in Hex format (Supports EVM and Solana)
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
+    wallet_id: str = field(default=None, metadata={"location": "path"})
     raw_unsigned_txn: str = None
     rpc: RpcConfig = None
     evm_params: EvmParams = None
@@ -4262,6 +4273,7 @@ class CreateOrderRequest:
             products.
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
     product_id: str = None
     side: str = None
     client_order_id: str = None
@@ -4300,6 +4312,7 @@ class CreatePortfolioAddressBookEntryRequest:
         chain_ids: List of compatible chain IDs for the address, empty for Solana
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
     address: str = None
     currency_symbol: str = None
     name: str = None
@@ -4332,6 +4345,7 @@ class CreateQuoteRequest:
             (QuoteRequestGoodForMs).
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
     product_id: str = None
     side: str = None
     client_quote_id: str = None
@@ -4353,6 +4367,8 @@ class CreateWalletDepositAddressRequest:
         network_id: The network name and type
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
+    wallet_id: str = field(default=None, metadata={"location": "path"})
     network_id: str = None
 
 
@@ -4369,6 +4385,7 @@ class CreateWalletRequest:
         idempotency_key: idem
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
     name: str = None
     symbol: str = None
     wallet_type: str = None
@@ -4391,6 +4408,8 @@ class CreateWalletTransferRequest:
         currency_symbol: The currency symbol to transfer
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
+    wallet_id: str = field(default=None, metadata={"location": "path"})
     amount: str = None
     destination: str = None
     idempotency_key: str = None
@@ -4410,6 +4429,8 @@ class CreateWalletWithdrawalRequest:
         currency_symbol: The currency symbol for the withdrawal
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
+    wallet_id: str = field(default=None, metadata={"location": "path"})
     amount: str = None
     destination_type: str = None
     idempotency_key: str = None
@@ -4467,6 +4488,8 @@ class EditOrderRequest:
             removed post-placement (PEG orders only)
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
+    order_id: str = field(default=None, metadata={"location": "path"})
     product_id: str = None
     orig_client_order_id: str = None
     client_order_id: str = None
@@ -5642,6 +5665,7 @@ class ListTransactionValidatorsRequest:
             Default is 100, maximum is 1000.
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
     transaction_ids: list[str] = None
     cursor: str = None
     limit: str = None
@@ -5745,6 +5769,7 @@ class OrderPreviewRequest:
             products.
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
     product_id: str = None
     side: str = None
     type: str = None
@@ -5781,6 +5806,7 @@ class PortfolioStakingInitiateRequest:
         amount: The quantity of the chosen currency to stake
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
     idempotency_key: str = None
     currency_symbol: str = None
     amount: str = None
@@ -5801,6 +5827,7 @@ class PortfolioStakingUnstakeRequest:
         amount: The quantity of the chosen currency to unstake
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
     idempotency_key: str = None
     currency_symbol: str = None
     amount: str = None
@@ -5819,6 +5846,8 @@ class PreviewUnstakeRequest:
         amount: Amount to preview unstaking
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
+    wallet_id: str = field(default=None, metadata={"location": "path"})
     amount: str = None
 
 
@@ -5833,6 +5862,7 @@ class ScheduleFuturesSweepRequest:
         currency: Currency. Required
     """
 
+    entity_id: str = field(default=None, metadata={"location": "path"})
     amount: str = None
     currency: str = None
 
@@ -5847,6 +5877,7 @@ class SetAutoSweepRequest:
         auto_sweep: Auto sweep status, default to false
     """
 
+    entity_id: str = field(default=None, metadata={"location": "path"})
     auto_sweep: bool = None
 
 
@@ -5861,6 +5892,7 @@ class SetFcmSettingsRequest:
             is allowed
     """
 
+    entity_id: str = field(default=None, metadata={"location": "path"})
     target_derivatives_excess: str = None
 
 
@@ -5876,6 +5908,8 @@ class StakingClaimRewardsRequest:
             subsequent requests with the same key will return the original response
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
+    wallet_id: str = field(default=None, metadata={"location": "path"})
     idempotency_key: str = None
     inputs: WalletClaimRewardsInputs = None
 
@@ -5892,6 +5926,8 @@ class StakingInitiateRequest:
             Subsequent requests using the same key will fail
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
+    wallet_id: str = field(default=None, metadata={"location": "path"})
     idempotency_key: str = None
     inputs: WalletStakeInputs = None
     metadata: WalletStakingMetadata = None
@@ -5909,6 +5945,8 @@ class StakingUnstakeRequest:
             Subsequent requests using the same key will fail
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
+    wallet_id: str = field(default=None, metadata={"location": "path"})
     idempotency_key: str = None
     inputs: WalletUnstakeInputs = None
     metadata: WalletStakingMetadata = None
@@ -5927,6 +5965,8 @@ class SubmitDepositTravelRuleDataRequest:
         opt_out_of_ownership_verification: True to skip wallet ownership verification
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
+    transaction_id: str = field(default=None, metadata={"location": "path"})
     originator: TravelRuleParty = None
     beneficiary: TravelRuleParty = None
     is_self: bool = None
@@ -5955,6 +5995,7 @@ class UpdateFundingSettingsRequest:
             withdraw funds in excess of this amount.
     """
 
+    entity_id: str = field(default=None, metadata={"location": "path"})
     designated_funding_portfolio_id: str = None
     automatic_conversion_enabled: bool = None
     automatic_loan_enabled: bool = None
@@ -5968,6 +6009,7 @@ class UpdateOnchainAddressGroupRequest:
     Update Onchain Address Book Entry
     """
 
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
     address_group: AddressGroup = None
 
 

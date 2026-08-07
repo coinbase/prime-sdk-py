@@ -216,6 +216,32 @@ def collect_operation_parameter_names(operation: dict[str, Any]) -> list[str]:
     return names
 
 
+def collect_operation_parameter_locations(
+    operation: dict[str, Any],
+    class_short: str,
+) -> dict[str, str]:
+    renames = FIELD_RENAMES.get(class_short, {})
+    locations: dict[str, str] = {}
+    seen: set[str] = set()
+
+    for param in operation.get("parameters") or []:
+        if not isinstance(param, dict):
+            continue
+        param_in = param.get("in")
+        if param_in not in ("path", "query"):
+            continue
+        spec_name = param.get("name")
+        if not isinstance(spec_name, str) or not is_valid_param_field_name(spec_name):
+            continue
+        public_name = renames.get(spec_name, spec_name)
+        if public_name in seen:
+            continue
+        seen.add(public_name)
+        locations[public_name] = param_in
+
+    return locations
+
+
 def collect_operation_parameter_fields(
     operation: dict[str, Any],
     schemas: dict[str, Any],
@@ -497,6 +523,7 @@ def render_class(
     class_summary: str | None = None,
     field_descriptions: dict[str, str] | None = None,
     field_order: list[str] | None = None,
+    field_locations: dict[str, str] | None = None,
 ) -> str:
     renames = FIELD_RENAMES.get(class_short, {})
     if class_summary is None:
@@ -523,7 +550,13 @@ def render_class(
         return "\n".join(lines)
 
     for field_name, field_type in fields:
-        lines.append(f"    {field_name}: {field_type} = None")
+        location = (field_locations or {}).get(field_name)
+        if location in ("path", "query"):
+            lines.append(
+                f'    {field_name}: {field_type} = field(default=None, metadata={{"location": "{location}"}})'
+            )
+        else:
+            lines.append(f"    {field_name}: {field_type} = None")
 
     return "\n".join(lines)
 
@@ -585,13 +618,26 @@ def generate_models() -> str:
             operation, body_schema
         )
         if body_schema:
-            fields = collect_inline_fields(
+            param_fields = collect_operation_parameter_fields(
+                operation, schemas, compat_types, class_short
+            )
+            body_fields = collect_inline_fields(
                 class_short, body_schema, schemas, compat_types
+            )
+            param_names = {name for name, _ in param_fields}
+            fields = param_fields + [
+                (name, field_type)
+                for name, field_type in body_fields
+                if name not in param_names
+            ]
+            field_locations = collect_operation_parameter_locations(
+                operation, class_short
             )
         else:
             fields = collect_operation_parameter_fields(
                 operation, schemas, compat_types, class_short
             )
+            field_locations = None
         body_parts.append(
             render_class(
                 class_short,
@@ -601,6 +647,7 @@ def generate_models() -> str:
                 class_summary=class_summary,
                 field_descriptions=field_descriptions,
                 field_order=field_order,
+                field_locations=field_locations,
             )
         )
         body_parts.append("")
@@ -614,7 +661,14 @@ def generate_models() -> str:
     if ": datetime" in body_text:
         imports.insert(0, "from datetime import datetime\n")
 
-    return FILE_HEADER + "\n".join(imports) + body_text + "\n".join(alias_lines) + "\n"
+    header = FILE_HEADER
+    if "= field(default=None" in body_text:
+        header = header.replace(
+            "from dataclasses import dataclass",
+            "from dataclasses import dataclass, field",
+        )
+
+    return header + "\n".join(imports) + body_text + "\n".join(alias_lines) + "\n"
 
 
 def main() -> None:

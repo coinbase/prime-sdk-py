@@ -33,8 +33,6 @@ class CreateWalletRequest(BaseRequest, _CreateWalletRequest):
         idempotency_key: idem
     """
 
-    portfolio_id: str
-
 
 @dataclass
 class CreateWalletResponse(BaseResponse, _CreateWalletResponse):

@@ -32,9 +32,6 @@ class CreateUnstakeRequest(BaseRequest, _StakingUnstakeRequest):
             Subsequent requests using the same key will fail
     """
 
-    portfolio_id: str
-    wallet_id: str
-
 
 @dataclass
 class CreateUnstakeResponse(BaseResponse, _StakingUnstakeResponse):

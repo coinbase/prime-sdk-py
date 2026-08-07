@@ -35,9 +35,6 @@ class CreateConversionRequest(BaseRequest, _CreateConversionRequest):
         destination_symbol: The currency symbol to convert to
     """
 
-    portfolio_id: str
-    wallet_id: str
-
 
 @dataclass
 class CreateConversionResponse(BaseResponse, _CreateConversionResponse):

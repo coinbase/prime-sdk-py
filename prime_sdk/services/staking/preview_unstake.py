@@ -31,9 +31,6 @@ class PreviewUnstakeRequest(BaseRequest, _PreviewUnstakeRequest):
         amount: Amount to preview unstaking
     """
 
-    portfolio_id: str
-    wallet_id: str
-
 
 @dataclass
 class PreviewUnstakeResponse(BaseResponse, _PreviewUnstakeResponse):

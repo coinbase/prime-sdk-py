@@ -57,9 +57,6 @@ class EditOrderRequest(BaseRequest, _EditOrderRequest):
             removed post-placement (PEG orders only)
     """
 
-    portfolio_id: str
-    order_id: str
-
 
 @dataclass
 class EditOrderResponse(BaseResponse, _EditOrderResponse):

@@ -59,7 +59,6 @@ class CreateOrderPreviewRequest(BaseRequest, _OrderPreviewRequest):
             products.
     """
 
-    portfolio_id: str
     stp_id: str | None = None
     post_only: bool | None = None
 
