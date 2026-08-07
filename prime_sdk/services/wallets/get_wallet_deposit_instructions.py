@@ -31,3 +31,5 @@ class GetWalletDepositInstructionsRequest:
 class GetWalletDepositInstructionsResponse(BaseResponse):
     instructions: Instructions = None
     crypto_instructions: dict = None
+
+    # Intentionally hand-maintained: diverges from the generated spec model for GetWalletDepositInstructionsResponse.

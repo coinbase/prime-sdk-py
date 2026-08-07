@@ -15,21 +15,19 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import UpdateFundingSettingsRequest as _UpdateFundingSettingsRequest
+from ...model import UpdateFundingSettingsResponse as _UpdateFundingSettingsResponse
 
 
-@dataclass
-class SetFundingSettingsRequest:
+@dataclass(kw_only=True)
+class SetFundingSettingsRequest(_UpdateFundingSettingsRequest):
+    __doc__ = _UpdateFundingSettingsRequest.__doc__
+
     entity_id: str
-    designated_funding_portfolio_id: str
-    automatic_conversion_enabled: bool
-    automatic_loan_enabled: bool
-    automatic_excess_return_enabled: bool
-    excess_funds_target_amount: str
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class SetFundingSettingsResponse(BaseResponse):
-    activity_id: str = None
-    activity_type: str = None
-    num_approvals_remaining: int = None
+class SetFundingSettingsResponse(BaseResponse, _UpdateFundingSettingsResponse):
+    __doc__ = _UpdateFundingSettingsResponse.__doc__

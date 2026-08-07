@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import TFObligation
+from ...model import ListTFObligationsResponse as _ListTFObligationsResponse
 
 
 @dataclass
@@ -25,5 +25,5 @@ class ListTradeFinanceObligationsRequest:
 
 
 @dataclass
-class ListTradeFinanceObligationsResponse(BaseResponse):
-    obligations: list[TFObligation] = None
+class ListTradeFinanceObligationsResponse(BaseResponse, _ListTFObligationsResponse):
+    __doc__ = _ListTFObligationsResponse.__doc__

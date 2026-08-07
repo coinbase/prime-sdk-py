@@ -15,6 +15,10 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import CreateOnchainTransactionRequest as _CreateOnchainTransactionRequest
+from ...model import (
+    CreateOnchainTransactionResponse as _CreateOnchainTransactionResponse,
+)
 
 
 @dataclass
@@ -30,16 +34,16 @@ class EvmParams:
     chain_id: str | None = None
 
 
-@dataclass
-class CreateOnchainTransactionRequest:
+@dataclass(kw_only=True)
+class CreateOnchainTransactionRequest(_CreateOnchainTransactionRequest):
+    __doc__ = _CreateOnchainTransactionRequest.__doc__
+
     portfolio_id: str
     wallet_id: str
-    raw_unsigned_txn: str
-    rpc: Rpc | None = None
-    evm_params: EvmParams | None = None
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class CreateOnchainTransactionResponse(BaseResponse):
-    transaction_id: str = None
+class CreateOnchainTransactionResponse(BaseResponse, _CreateOnchainTransactionResponse):
+    __doc__ = _CreateOnchainTransactionResponse.__doc__

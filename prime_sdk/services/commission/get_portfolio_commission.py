@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Commission
+from ...model import GetPortfolioCommissionResponse as _GetPortfolioCommissionResponse
 
 
 @dataclass
@@ -25,5 +25,5 @@ class GetPortfolioCommissionRequest:
 
 
 @dataclass
-class GetPortfolioCommissionResponse(BaseResponse):
-    commission: Commission = None
+class GetPortfolioCommissionResponse(BaseResponse, _GetPortfolioCommissionResponse):
+    __doc__ = _GetPortfolioCommissionResponse.__doc__

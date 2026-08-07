@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...enums import SizeType
+from ...model import CreateNetAllocationRequest as _CreateNetAllocationRequest
 
 
 @dataclass
@@ -25,15 +25,13 @@ class NetAllocationLeg:
     amount: str
 
 
-@dataclass
-class CreatePortfolioNetAllocationsRequest:
+@dataclass(kw_only=True)
+class CreatePortfolioNetAllocationsRequest(_CreateNetAllocationRequest):
+    __doc__ = _CreateNetAllocationRequest.__doc__
+
     allocation_id: str
-    source_portfolio_id: str
-    product_id: str
-    order_ids: list[str]
-    allocation_legs: list[NetAllocationLeg]
-    size_type: SizeType
     remainder_destination_portfolio_id: str
+
     allowed_status_codes: list[int] | None = None
 
 
@@ -44,3 +42,5 @@ class CreatePortfolioNetAllocationsResponse(BaseResponse):
     buy_allocation_id: str = None
     sell_allocation_id: str = None
     failure_reason: str = None
+
+    # Intentionally hand-maintained: diverges from the generated spec model for CreatePortfolioNetAllocationsResponse.

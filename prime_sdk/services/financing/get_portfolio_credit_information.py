@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import PostTradeCredit
+from ...model import GetPostTradeCreditResponse as _GetPostTradeCreditResponse
 
 
 @dataclass
@@ -25,5 +25,5 @@ class GetPortfolioCreditInformationRequest:
 
 
 @dataclass
-class GetPortfolioCreditInformationResponse(BaseResponse):
-    post_trade_credit: PostTradeCredit = None
+class GetPortfolioCreditInformationResponse(BaseResponse, _GetPostTradeCreditResponse):
+    __doc__ = _GetPostTradeCreditResponse.__doc__

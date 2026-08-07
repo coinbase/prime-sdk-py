@@ -17,8 +17,8 @@ from datetime import datetime
 
 from ...base_response import BaseResponse
 from ...enums import OrderSide
-from ...model import Allocation
-from ...utils import Pagination, PaginationParams
+from ...model import GetPortfolioAllocationsResponse as _GetPortfolioAllocationsResponse
+from ...utils import PaginationParams
 
 
 @dataclass
@@ -33,6 +33,5 @@ class ListPortfolioAllocationsRequest:
 
 
 @dataclass
-class ListPortfolioAllocationsResponse(BaseResponse):
-    allocations: list[Allocation] = None
-    pagination: Pagination = None
+class ListPortfolioAllocationsResponse(BaseResponse, _GetPortfolioAllocationsResponse):
+    __doc__ = _GetPortfolioAllocationsResponse.__doc__

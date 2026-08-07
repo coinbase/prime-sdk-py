@@ -15,6 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetFcmBalanceResponse as _GetFcmBalanceResponse
 
 
 @dataclass
@@ -24,14 +25,5 @@ class GetEntityFcmBalanceRequest:
 
 
 @dataclass
-class GetEntityFcmBalanceResponse(BaseResponse):
-    portfolio_id: str = None
-    cfm_usd_balance: str = None
-    unrealized_pnl: str = None
-    daily_realized_pnl: str = None
-    excess_liquidity: str = None
-    futures_buying_power: str = None
-    initial_margin: str = None
-    maintenance_margin: str = None
-    clearing_account_id: str = None
-    cfm_unsettled_accrued_funding_pnl: str = None
+class GetEntityFcmBalanceResponse(BaseResponse, _GetFcmBalanceResponse):
+    __doc__ = _GetFcmBalanceResponse.__doc__

@@ -15,21 +15,20 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import ValidatorUnstakePreview
+from ...model import PreviewUnstakeRequest as _PreviewUnstakeRequest
+from ...model import PreviewUnstakeResponse as _PreviewUnstakeResponse
 
 
-@dataclass
-class PreviewUnstakeRequest:
+@dataclass(kw_only=True)
+class PreviewUnstakeRequest(_PreviewUnstakeRequest):
+    __doc__ = _PreviewUnstakeRequest.__doc__
+
     portfolio_id: str
     wallet_id: str
-    amount: str
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class PreviewUnstakeResponse(BaseResponse):
-    estimated_amount: str = None
-    wallet_id: str = None
-    wallet_address: str = None
-    current_timestamp: str = None
-    validators: list[ValidatorUnstakePreview] = None
+class PreviewUnstakeResponse(BaseResponse, _PreviewUnstakeResponse):
+    __doc__ = _PreviewUnstakeResponse.__doc__

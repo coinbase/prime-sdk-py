@@ -15,28 +15,20 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import CreateWalletTransferRequest as _CreateWalletTransferRequest
+from ...model import CreateWalletTransferResponse as _CreateWalletTransferResponse
 
 
-@dataclass
-class CreateTransferRequest:
+@dataclass(kw_only=True)
+class CreateTransferRequest(_CreateWalletTransferRequest):
+    __doc__ = _CreateWalletTransferRequest.__doc__
+
     portfolio_id: str
     wallet_id: str
-    amount: str
-    destination: str
-    idempotency_key: str
-    currency_symbol: str
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class CreateTransferResponse(BaseResponse):
-    activity_id: str = None
-    approval_url: str = None
-    symbol: str = None
-    amount: str = None
-    fee: str = None
-    destination_address: str = None
-    destination_type: str = None
-    source_address: str = None
-    source_type: str = None
-    transaction_id: str = None
+class CreateTransferResponse(BaseResponse, _CreateWalletTransferResponse):
+    __doc__ = _CreateWalletTransferResponse.__doc__

@@ -16,8 +16,10 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from ...base_response import BaseResponse
-from ...model import Transaction
-from ...utils import Pagination, PaginationParams
+from ...model import (
+    GetPortfolioTransactionsResponse as _GetPortfolioTransactionsResponse,
+)
+from ...utils import PaginationParams
 
 
 @dataclass
@@ -32,6 +34,7 @@ class ListPortfolioTransactionsRequest:
 
 
 @dataclass
-class ListPortfolioTransactionsResponse(BaseResponse):
-    transactions: list[Transaction] = None
-    pagination: Pagination = None
+class ListPortfolioTransactionsResponse(
+    BaseResponse, _GetPortfolioTransactionsResponse
+):
+    __doc__ = _GetPortfolioTransactionsResponse.__doc__

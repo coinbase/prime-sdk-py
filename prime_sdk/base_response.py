@@ -74,7 +74,9 @@ class BaseResponse:
             expected_type = type_hints.get(f.name)
             list_inner_type = _get_list_inner_type(expected_type)
             if list_inner_type is not None:
-                if dataclasses.is_dataclass(list_inner_type) and isinstance(value, list):
+                if dataclasses.is_dataclass(list_inner_type) and isinstance(
+                    value, list
+                ):
                     setattr(
                         self,
                         f.name,

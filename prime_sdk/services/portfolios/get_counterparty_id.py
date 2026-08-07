@@ -15,7 +15,9 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Counterparty
+from ...model import (
+    GetPortfolioCounterpartyIDResponse as _GetPortfolioCounterpartyIDResponse,
+)
 
 
 @dataclass
@@ -25,5 +27,5 @@ class GetCounterpartyIdRequest:
 
 
 @dataclass
-class GetCounterpartyIdResponse(BaseResponse):
-    counterparty: Counterparty = None
+class GetCounterpartyIdResponse(BaseResponse, _GetPortfolioCounterpartyIDResponse):
+    __doc__ = _GetPortfolioCounterpartyIDResponse.__doc__

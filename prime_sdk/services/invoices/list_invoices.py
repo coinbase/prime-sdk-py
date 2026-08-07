@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Invoice
+from ...model import GetInvoicesResponse as _GetInvoicesResponse
 from ...utils import PaginationParams
 
 
@@ -30,5 +30,5 @@ class ListInvoicesRequest:
 
 
 @dataclass
-class ListInvoicesResponse(BaseResponse):
-    invoices: list[Invoice] = None
+class ListInvoicesResponse(BaseResponse, _GetInvoicesResponse):
+    __doc__ = _GetInvoicesResponse.__doc__

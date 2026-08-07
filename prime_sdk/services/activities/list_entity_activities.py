@@ -17,8 +17,8 @@ from datetime import datetime
 
 from ...base_response import BaseResponse
 from ...enums import ActivityLevel
-from ...model import Activity
-from ...utils import Pagination, PaginationParams
+from ...model import GetEntityActivitiesResponse as _GetEntityActivitiesResponse
+from ...utils import PaginationParams
 
 
 @dataclass
@@ -35,6 +35,5 @@ class ListEntityActivitiesRequest:
 
 
 @dataclass
-class ListEntityActivitiesResponse(BaseResponse):
-    activities: list[Activity] = None
-    pagination: Pagination = None
+class ListEntityActivitiesResponse(BaseResponse, _GetEntityActivitiesResponse):
+    __doc__ = _GetEntityActivitiesResponse.__doc__

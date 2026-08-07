@@ -15,6 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import CancelFuturesSweepResponse as _CancelFuturesSweepResponse
 
 
 @dataclass
@@ -24,6 +25,5 @@ class CancelEntityFuturesSweepRequest:
 
 
 @dataclass
-class CancelEntityFuturesSweepResponse(BaseResponse):
-    success: bool = None
-    request_id: str = None
+class CancelEntityFuturesSweepResponse(BaseResponse, _CancelFuturesSweepResponse):
+    __doc__ = _CancelFuturesSweepResponse.__doc__

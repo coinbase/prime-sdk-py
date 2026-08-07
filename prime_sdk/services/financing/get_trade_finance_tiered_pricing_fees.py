@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Fee
+from ...model import GetTFTieredPricingFeesResponse as _GetTFTieredPricingFeesResponse
 
 
 @dataclass
@@ -26,5 +26,7 @@ class GetTradeFinanceTieredPricingFeesRequest:
 
 
 @dataclass
-class GetTradeFinanceTieredPricingFeesResponse(BaseResponse):
-    fees: list[Fee] = None
+class GetTradeFinanceTieredPricingFeesResponse(
+    BaseResponse, _GetTFTieredPricingFeesResponse
+):
+    __doc__ = _GetTFTieredPricingFeesResponse.__doc__

@@ -16,7 +16,7 @@ from dataclasses import dataclass
 from warnings import warn
 
 from ...base_response import BaseResponse
-from ...enums import SizeType
+from ...model import CreateAllocationRequest as _CreateAllocationRequest
 
 
 @dataclass
@@ -37,15 +37,12 @@ class AllocationLeg:
             self.leg_id = self.allocation_leg_id
 
 
-@dataclass
-class CreatePortfolioAllocationsRequest:
-    allocation_id: str
-    source_portfolio_id: str
-    product_id: str
-    order_ids: list[str]
-    allocation_legs: list[AllocationLeg]
-    size_type: SizeType
+@dataclass(kw_only=True)
+class CreatePortfolioAllocationsRequest(_CreateAllocationRequest):
+    __doc__ = _CreateAllocationRequest.__doc__
+
     remainder_destination_portfolio_id: str
+
     allowed_status_codes: list[int] | None = None
 
 
@@ -54,3 +51,5 @@ class CreatePortfolioAllocationsResponse(BaseResponse):
     success: bool = None
     allocation_id: str = None
     failure_reason: str = None
+
+    # Intentionally hand-maintained: diverges from the generated spec model for CreatePortfolioAllocationsResponse.

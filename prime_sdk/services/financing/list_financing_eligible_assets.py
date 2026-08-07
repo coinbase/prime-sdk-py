@@ -15,7 +15,9 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import TFAsset
+from ...model import (
+    ListFinancingEligibleAssetsResponse as _ListFinancingEligibleAssetsResponse,
+)
 
 
 @dataclass
@@ -24,5 +26,7 @@ class ListFinancingEligibleAssetsRequest:
 
 
 @dataclass
-class ListFinancingEligibleAssetsResponse(BaseResponse):
-    assets: list[TFAsset] = None
+class ListFinancingEligibleAssetsResponse(
+    BaseResponse, _ListFinancingEligibleAssetsResponse
+):
+    __doc__ = _ListFinancingEligibleAssetsResponse.__doc__

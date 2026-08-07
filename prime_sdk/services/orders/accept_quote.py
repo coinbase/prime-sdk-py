@@ -15,20 +15,19 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...enums import OrderSide
+from ...model import AcceptQuoteRequest as _AcceptQuoteRequest
+from ...model import AcceptQuoteResponse as _AcceptQuoteResponse
 
 
-@dataclass
-class AcceptQuoteRequest:
+@dataclass(kw_only=True)
+class AcceptQuoteRequest(_AcceptQuoteRequest):
+    __doc__ = _AcceptQuoteRequest.__doc__
+
     portfolio_id: str
-    product_id: str
-    side: OrderSide
-    client_order_id: str
-    quote_id: str
-    settl_currency: str | None = None
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class AcceptQuoteResponse(BaseResponse):
-    order_id: str = None
+class AcceptQuoteResponse(BaseResponse, _AcceptQuoteResponse):
+    __doc__ = _AcceptQuoteResponse.__doc__

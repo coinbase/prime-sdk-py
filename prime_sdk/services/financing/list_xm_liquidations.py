@@ -15,8 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import XMLiquidationSummary
-from ...utils import Pagination
+from ...model import ListXMLiquidationsResponse as _ListXMLiquidationsResponse
 
 
 @dataclass
@@ -29,6 +28,5 @@ class ListXMLiquidationsRequest:
 
 
 @dataclass
-class ListXMLiquidationsResponse(BaseResponse):
-    liquidations: list[XMLiquidationSummary] = None
-    pagination: Pagination = None
+class ListXMLiquidationsResponse(BaseResponse, _ListXMLiquidationsResponse):
+    __doc__ = _ListXMLiquidationsResponse.__doc__

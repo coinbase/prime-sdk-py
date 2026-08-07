@@ -15,26 +15,20 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import CreateConversionRequest as _CreateConversionRequest
+from ...model import CreateConversionResponse as _CreateConversionResponse
 
 
-@dataclass
-class CreateConversionRequest:
+@dataclass(kw_only=True)
+class CreateConversionRequest(_CreateConversionRequest):
+    __doc__ = _CreateConversionRequest.__doc__
+
     portfolio_id: str
     wallet_id: str
-    amount: str
-    destination: str
-    idempotency_key: str
-    source_symbol: str
-    destination_symbol: str
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class CreateConversionResponse(BaseResponse):
-    activity_id: str = None
-    source_symbol: str = None
-    destination_symbol: str = None
-    amount: str = None
-    destination: str = None
-    source: str = None
-    transaction_id: str = None
+class CreateConversionResponse(BaseResponse, _CreateConversionResponse):
+    __doc__ = _CreateConversionResponse.__doc__

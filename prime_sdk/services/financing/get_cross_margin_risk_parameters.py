@@ -15,7 +15,9 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import CrossMarginRiskParameters, TierPairRateEntry
+from ...model import (
+    GetCrossMarginRiskParametersResponse as _GetCrossMarginRiskParametersResponse,
+)
 
 
 @dataclass
@@ -25,9 +27,7 @@ class GetCrossMarginRiskParametersRequest:
 
 
 @dataclass
-class GetCrossMarginRiskParametersResponse(BaseResponse):
-    risk_parameters: list[CrossMarginRiskParameters] = None
-    offset_credit_matrix_long_short: list[TierPairRateEntry] = None
-    offset_credit_matrix_long_long: list[TierPairRateEntry] = None
-    offset_credit_matrix_short_short: list[TierPairRateEntry] = None
-    margin_period_of_risk: float = None
+class GetCrossMarginRiskParametersResponse(
+    BaseResponse, _GetCrossMarginRiskParametersResponse
+):
+    __doc__ = _GetCrossMarginRiskParametersResponse.__doc__

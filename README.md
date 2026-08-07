@@ -281,7 +281,7 @@ prime_sdk/
 ├── model.py               # Public model re-exports (backward-compatible)
 ├── model_manual.py        # Hand-maintained model extensions
 ├── generated/
-│   └── models.py          # Generated dataclasses from OpenAPI (do not edit)
+│   └── models.py          # Generated dataclasses from OpenAPI (schemas + request bodies; do not edit)
 └── services/              # Service modules
     ├── portfolios/        # Portfolio operations
     ├── orders/            # Order management
@@ -298,7 +298,7 @@ apiSpec/
 
 Each service directory contains:
 - `service.py` - The main service class with API methods
-- Individual request/response modules (e.g., `list_portfolios.py`)
+- Individual request/response modules (e.g., `list_portfolios.py`) whose dataclasses inherit generated model fields and docstrings
 - `__init__.py` - Exports for the service
 
 ## 🚨 Security and Bug Reports

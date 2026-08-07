@@ -15,17 +15,19 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import ScheduleFuturesSweepRequest as _ScheduleFuturesSweepRequest
+from ...model import ScheduleFuturesSweepResponse as _ScheduleFuturesSweepResponse
 
 
-@dataclass
-class ScheduleEntityFuturesSweepRequest:
+@dataclass(kw_only=True)
+class ScheduleEntityFuturesSweepRequest(_ScheduleFuturesSweepRequest):
+    __doc__ = _ScheduleFuturesSweepRequest.__doc__
+
     entity_id: str
-    amount: str
-    currency: str
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class ScheduleEntityFuturesSweepResponse(BaseResponse):
-    success: bool = None
-    request_id: str = None
+class ScheduleEntityFuturesSweepResponse(BaseResponse, _ScheduleFuturesSweepResponse):
+    __doc__ = _ScheduleFuturesSweepResponse.__doc__

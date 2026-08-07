@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Details
+from ...model import GetEntityPaymentMethodsResponse as _GetEntityPaymentMethodsResponse
 from ...utils import PaginationParams
 
 
@@ -27,5 +27,5 @@ class ListEntityPaymentMethodsRequest:
 
 
 @dataclass
-class ListEntityPaymentMethodsResponse(BaseResponse):
-    payment_methods: list[Details] = None
+class ListEntityPaymentMethodsResponse(BaseResponse, _GetEntityPaymentMethodsResponse):
+    __doc__ = _GetEntityPaymentMethodsResponse.__doc__

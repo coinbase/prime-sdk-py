@@ -15,7 +15,9 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Transaction
+from ...model import (
+    ListAdvancedTransferTransactionsResponse as _ListAdvancedTransferTransactionsResponse,
+)
 
 
 @dataclass
@@ -26,5 +28,7 @@ class ListAdvancedTransferTransactionsRequest:
 
 
 @dataclass
-class ListAdvancedTransferTransactionsResponse(BaseResponse):
-    transactions: list[Transaction] = None
+class ListAdvancedTransferTransactionsResponse(
+    BaseResponse, _ListAdvancedTransferTransactionsResponse
+):
+    __doc__ = _ListAdvancedTransferTransactionsResponse.__doc__

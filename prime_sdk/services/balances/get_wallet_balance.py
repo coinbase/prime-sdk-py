@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Balance
+from ...model import GetWalletBalanceResponse as _GetWalletBalanceResponse
 
 
 @dataclass
@@ -26,5 +26,5 @@ class GetWalletBalanceRequest:
 
 
 @dataclass
-class GetWalletBalanceResponse(BaseResponse):
-    balance: Balance = None
+class GetWalletBalanceResponse(BaseResponse, _GetWalletBalanceResponse):
+    __doc__ = _GetWalletBalanceResponse.__doc__

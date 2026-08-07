@@ -15,21 +15,25 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import TransactionValidator
-from ...utils import Pagination
+from ...model import (
+    ListTransactionValidatorsRequest as _ListTransactionValidatorsRequest,
+)
+from ...model import (
+    ListTransactionValidatorsResponse as _ListTransactionValidatorsResponse,
+)
 
 
-@dataclass
-class QueryTransactionValidatorsRequest:
+@dataclass(kw_only=True)
+class QueryTransactionValidatorsRequest(_ListTransactionValidatorsRequest):
+    __doc__ = _ListTransactionValidatorsRequest.__doc__
+
     portfolio_id: str
-    transaction_ids: list[str]
-    cursor: str | None = None
-    limit: int | None = None
-    sort_direction: str | None = None
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class QueryTransactionValidatorsResponse(BaseResponse):
-    transaction_validators: list[TransactionValidator] = None
-    pagination: Pagination = None
+class QueryTransactionValidatorsResponse(
+    BaseResponse, _ListTransactionValidatorsResponse
+):
+    __doc__ = _ListTransactionValidatorsResponse.__doc__

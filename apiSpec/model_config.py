@@ -98,3 +98,106 @@ ENUM_FIELD_IMPORTS: dict[str, dict[str, str]] = {
 
 # Rename generated class for the spec's three-field Locate schema.
 LOCATE_REQUEST_CLASS = "LocateRequest"
+
+# operationId -> generated request-body class name (defaults strip PrimeRESTAPI_ prefix).
+REQUEST_BODY_CLASS_NAMES: dict[str, str] = {
+    "PrimeRESTAPI_CreateQuoteRequest": "CreateQuoteRequest",
+    "PrimeRESTAPI_ListTransactionValidators": "ListTransactionValidatorsRequest",
+    "PrimeRESTAPI_OrderPreview": "OrderPreviewRequest",
+}
+
+# Service Response class -> generated model class to inherit from (when names differ).
+SERVICE_RESPONSE_BASES: dict[str, str] = {
+    "CancelEntityFuturesSweepResponse": "CancelFuturesSweepResponse",
+    "ClaimWalletStakingRewardsResponse": "StakingClaimRewardsResponse",
+    "CreateAddressBookEntryResponse": "CreatePortfolioAddressBookEntryResponse",
+    "CreateNewLocateResponse": "CreateNewLocatesResponse",
+    "CreateOnchainAddressBookEntryResponse": "ActivityCreationResponse",
+    "CreateOrderPreviewResponse": "PostOrderPreviewResponse",
+    "CreatePortfolioStakeResponse": "PortfolioStakingInitiateResponse",
+    "CreatePortfolioUnstakeResponse": "PortfolioStakingUnstakeResponse",
+    "CreateQuoteResponse": "QuoteResponse",
+    "CreateStakeResponse": "StakingInitiateResponse",
+    "CreateTransferResponse": "CreateWalletTransferResponse",
+    "CreateUnstakeResponse": "StakingUnstakeResponse",
+    "CreateWalletDepositAddressResponse": "BlockchainAddress",
+    "CreateWithdrawalResponse": "CreateWalletWithdrawalResponse",
+    "DeleteOnchainAddressGroupResponse": "ActivityCreationResponse",
+    "GetActivityResponse": "GetPortfolioActivityResponse",
+    "GetAddressBookResponse": "GetPortfolioAddressBookResponse",
+    "GetAllocationByIdResponse": "GetAllocationResponse",
+    "GetCounterpartyIdResponse": "GetPortfolioCounterpartyIDResponse",
+    "GetEntityActivityResponse": "GetActivityResponse",
+    "GetEntityFcmBalanceResponse": "GetFcmBalanceResponse",
+    "GetEntityPaymentMethodResponse": "GetEntityPaymentMethodDetailsResponse",
+    "GetEntityPositionsResponse": "ListEntityPositionsResponse",
+    "GetNetAllocationsByNettingIdResponse": "GetAllocationsByClientNettingIdResponse",
+    "GetPortfolioCreditInformationResponse": "GetPostTradeCreditResponse",
+    "GetPortfolioWithdrawalPowerResponse": "GetWithdrawalPowerResponse",
+    "GetProductCandlesResponse": "GetCandlesResponse",
+    "GetTradeFinanceTieredPricingFeesResponse": "GetTFTieredPricingFeesResponse",
+    "ListActivitiesResponse": "GetPortfolioActivitiesResponse",
+    "ListAssetsResponse": "GetEntityAssetsResponse",
+    "ListEntityActivitiesResponse": "GetEntityActivitiesResponse",
+    "ListEntityFuturesSweepsResponse": "GetFuturesSweepsResponse",
+    "ListEntityPaymentMethodsResponse": "GetEntityPaymentMethodsResponse",
+    "ListEntityUsersResponse": "GetEntityUsersResponse",
+    "ListExistingLocatesResponse": "GetExistingLocatesResponse",
+    "ListInterestAccrualsForPortfolioResponse": "GetPortfolioInterestAccrualsResponse",
+    "ListInterestAccrualsResponse": "GetInterestAccrualsResponse",
+    "ListInvoicesResponse": "GetInvoicesResponse",
+    "ListMarginCallSummariesResponse": "GetMarginSummariesResponse",
+    "ListMarginConversionsResponse": "GetMarginConversionsResponse",
+    "ListOpenOrdersResponse": "GetOpenOrdersResponse",
+    "ListOrderFillsResponse": "GetOrderFillsResponse",
+    "ListOrdersResponse": "GetOrdersResponse",
+    "ListPortfolioAllocationsResponse": "GetPortfolioAllocationsResponse",
+    "ListPortfolioBalancesResponse": "GetPortfolioBalancesResponse",
+    "ListPortfolioFillsResponse": "GetPortfolioFillsResponse",
+    "ListPortfolioTransactionsResponse": "GetPortfolioTransactionsResponse",
+    "ListPortfolioUsersResponse": "GetPortfolioUsersResponse",
+    "ListPortfoliosResponse": "GetPortfoliosResponse",
+    "ListProductsResponse": "GetPortfolioProductsResponse",
+    "ListTradeFinanceObligationsResponse": "ListTFObligationsResponse",
+    "ListWalletTransactionsResponse": "GetWalletTransactionsResponse",
+    "ListWalletsResponse": "GetWalletsResponse",
+    "QueryTransactionValidatorsResponse": "ListTransactionValidatorsResponse",
+    "RotateApiKeyResponse": "RotateAPIKeyResponse",
+    "ScheduleEntityFuturesSweepResponse": "ScheduleFuturesSweepResponse",
+    "SetFcmSettingsResponse": "GetFcmSettingsResponse",
+    "SetFundingSettingsResponse": "UpdateFundingSettingsResponse",
+    "UpdateOnchainAddressBookResponse": "ActivityCreationResponse",
+}
+
+# Service Response classes that intentionally diverge from the generated spec model.
+MANUAL_SERVICE_RESPONSES: frozenset[str] = frozenset(
+    {
+        "CreatePortfolioAllocationsResponse",
+        "CreatePortfolioNetAllocationsResponse",
+        "GetEntityLocateAvailabilitiesResponse",
+        "GetOrderEditHistoryResponse",
+        "GetWalletDepositInstructionsResponse",
+    }
+)
+
+# Service Request class -> generated request-body class to inherit from (when names differ).
+SERVICE_REQUEST_BASES: dict[str, str] = {
+    "ClaimWalletStakingRewardsRequest": "StakingClaimRewardsRequest",
+    "CreateAddressBookEntryRequest": "CreatePortfolioAddressBookEntryRequest",
+    "CreateNewLocateRequest": "CreateNewLocatesRequest",
+    "CreateOnchainAddressBookEntryRequest": "CreateOnchainAddressGroupRequest",
+    "CreateOrderPreviewRequest": "OrderPreviewRequest",
+    "CreatePortfolioAllocationsRequest": "CreateAllocationRequest",
+    "CreatePortfolioNetAllocationsRequest": "CreateNetAllocationRequest",
+    "CreatePortfolioStakeRequest": "PortfolioStakingInitiateRequest",
+    "CreatePortfolioUnstakeRequest": "PortfolioStakingUnstakeRequest",
+    "CreateStakeRequest": "StakingInitiateRequest",
+    "CreateTransferRequest": "CreateWalletTransferRequest",
+    "CreateUnstakeRequest": "StakingUnstakeRequest",
+    "CreateWithdrawalRequest": "CreateWalletWithdrawalRequest",
+    "QueryTransactionValidatorsRequest": "ListTransactionValidatorsRequest",
+    "RotateApiKeyRequest": "RotateAPIKeyRequest",
+    "ScheduleEntityFuturesSweepRequest": "ScheduleFuturesSweepRequest",
+    "SetFundingSettingsRequest": "UpdateFundingSettingsRequest",
+    "UpdateOnchainAddressBookRequest": "UpdateOnchainAddressGroupRequest",
+}

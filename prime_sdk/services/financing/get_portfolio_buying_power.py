@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import BuyingPower
+from ...model import GetBuyingPowerResponse as _GetBuyingPowerResponse
 
 
 @dataclass
@@ -27,5 +27,5 @@ class GetBuyingPowerRequest:
 
 
 @dataclass
-class GetBuyingPowerResponse(BaseResponse):
-    buying_power: BuyingPower = None
+class GetBuyingPowerResponse(BaseResponse, _GetBuyingPowerResponse):
+    __doc__ = _GetBuyingPowerResponse.__doc__

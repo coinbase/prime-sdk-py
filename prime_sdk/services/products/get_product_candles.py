@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Candle
+from ...model import GetCandlesResponse as _GetCandlesResponse
 
 
 @dataclass
@@ -29,5 +29,5 @@ class GetProductCandlesRequest:
 
 
 @dataclass
-class GetProductCandlesResponse(BaseResponse):
-    candles: list[Candle] = None
+class GetProductCandlesResponse(BaseResponse, _GetCandlesResponse):
+    __doc__ = _GetCandlesResponse.__doc__

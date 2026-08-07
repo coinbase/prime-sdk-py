@@ -16,6 +16,7 @@ from dataclasses import dataclass
 
 from ...base_response import BaseResponse
 from ...enums import UnstakeEstimateType, UnstakeType
+from ...model import GetUnstakingStatusResponse as _GetUnstakingStatusResponse
 
 
 @dataclass
@@ -43,9 +44,5 @@ class GetUnstakingStatusRequest:
 
 
 @dataclass
-class GetUnstakingStatusResponse(BaseResponse):
-    portfolio_id: str = None
-    wallet_id: str = None
-    wallet_address: str = None
-    current_timestamp: str = None
-    validators: list[ValidatorUnstakeStatus] = None
+class GetUnstakingStatusResponse(BaseResponse, _GetUnstakingStatusResponse):
+    __doc__ = _GetUnstakingStatusResponse.__doc__

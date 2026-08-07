@@ -4069,6 +4069,577 @@ class CreateNetAllocationRequest:
     netting_id: str = None
 
 
+# Inline request-body models from OpenAPI paths
+
+
+@dataclass(kw_only=True)
+class AcceptQuoteRequest:
+    """
+    Attributes:
+        product_id: The ID of the product being traded for the order (e.g. `BTC-USD`)
+        client_order_id: A client-generated ID used for reference purposes (note: order will
+            be rejected if this ID is not unique among all currently active orders)
+        quote_id: A quote id that was returned from the quote request
+    """
+
+    product_id: str = None
+    side: str = None
+    client_order_id: str = None
+    quote_id: str = None
+    settl_currency: str = None
+
+
+@dataclass(kw_only=True)
+class CancelAdvancedTransferRequest:
+    """
+    CancelAdvancedTransferRequest is the request to cancel an advanced transfer.
+    """
+
+
+@dataclass(kw_only=True)
+class CreateAdvancedTransferRequest:
+    """
+    CreateAdvancedTransferRequest is the request to create an advanced transfer.
+    """
+
+    advanced_transfer: AdvancedTransfer = None
+
+
+@dataclass(kw_only=True)
+class CreateConversionRequest:
+    """
+    Attributes:
+        amount: The amount in whole units to convert
+        destination: The UUID of the destination wallet
+        idempotency_key: The idempotency key associated with this conversion
+        source_symbol: The currency symbol to convert from
+        destination_symbol: The currency symbol to convert to
+    """
+
+    amount: str = None
+    destination: str = None
+    idempotency_key: str = None
+    source_symbol: str = None
+    destination_symbol: str = None
+
+
+@dataclass(kw_only=True)
+class CreateNewLocatesRequest:
+    """
+    Attributes:
+        symbol: Currency symbol
+        amount: Locate Amount
+        conversion_date: Deprecated: Use locate_date instead
+        locate_date: The target date of the locate (YYYY-MM-DD)
+    """
+
+    symbol: str = None
+    amount: str = None
+    conversion_date: str = None
+    locate_date: str = None
+
+
+@dataclass(kw_only=True)
+class CreateOnchainAddressGroupRequest:
+    """
+    ChangeOnchainAddressGroupRequest is a request to create or update a new onchain address group
+    """
+
+    address_group: AddressGroup = None
+
+
+@dataclass(kw_only=True)
+class CreateOnchainTransactionRequest:
+    """
+    Attributes:
+        raw_unsigned_txn: Raw unsigned transaction in Hex format (Supports EVM and Solana)
+    """
+
+    raw_unsigned_txn: str = None
+    rpc: RpcConfig = None
+    evm_params: EvmParams = None
+
+
+@dataclass(kw_only=True)
+class CreateOrderRequest:
+    """
+    Attributes:
+        product_id: The ID of the product being traded for the order (e.g. `BTC-USD`)
+        client_order_id: A client-generated order ID used for reference purposes
+        base_quantity: Order size in base asset units (either `base_quantity` or
+            `quote_value` is required)
+        quote_value: Order size in quote asset units, i.e. the amount the user wants to
+            spend (when buying) or receive (when selling); the quantity in base units will
+            be determined based on the market liquidity and indicated `quote_value` (either
+            `base_quantity` or `quote_value` is required)
+        limit_price: The limit price (required for TWAP, VWAP, LIMIT, and STOP_LIMIT orders)
+        start_time: The start time of the order in UTC (TWAP only)
+        expiry_time: The expiry time of the order in UTC (TWAP, VWAP, LIMIT, and STOP_LIMIT
+            GTD only)
+        stp_id: An optional self trade prevention id (in the form of a UUID). The value is
+            only honored for certain clients who are permitted to specify a custom self
+            trade prevention id
+        display_quote_size: Optionally specify a display size. This is the maximum order
+            size that will show up on venue order books. Specifying a value here effectively
+            makes a LIMIT order into an "iceberg" style order. This property only applies to
+            LIMIT orders and will be ignored for other order types.
+        historical_pov: Historical percentage of volume
+        stop_price: Specifies the stop price at which the order activates. The order is
+            activated if the last trade price on Coinbase Exchange crosses the stop price
+            specified on the order
+        settl_currency: The currency in which the settlement will be made
+        post_only: Post-only flag - when true, the order will only be posted to the order
+            book and not immediately matched. Only applicable to LIMIT orders with GTC or
+            GTD time in force.
+        offset: Offset value for PEG orders. 0 means peg to BBO. Only non-negative values
+            are allowed (PEG orders only)
+        wig_level: WIG (Would if Good) level - the best price a pegged order would be placed
+            on venues, opposite to limit_price (PEG orders only)
+        is_buy_exact: Buy Exact order flag. When true, fees for a BUY order sized in
+            quote_value are charged on top of the requested quote_value instead of being
+            carved out of it. Only valid for BUY orders sized in quote_value on SPOT
+            products.
+    """
+
+    product_id: str = None
+    side: str = None
+    client_order_id: str = None
+    type: str = None
+    base_quantity: str = None
+    quote_value: str = None
+    limit_price: str = None
+    start_time: str = None
+    expiry_time: str = None
+    time_in_force: str = None
+    stp_id: str = None
+    display_quote_size: str = None
+    display_base_size: str = None
+    is_raise_exact: bool = None
+    historical_pov: str = None
+    stop_price: str = None
+    settl_currency: str = None
+    post_only: bool = None
+    peg_offset_type: str = None
+    offset: str = None
+    wig_level: str = None
+    is_buy_exact: bool = None
+
+
+@dataclass(kw_only=True)
+class CreatePortfolioAddressBookEntryRequest:
+    """
+    Attributes:
+        address: Crypto address to add
+        currency_symbol: Currency symbol of address to add
+        name: Name of address book entry
+        account_identifier: Account Identifier (memo/destination tag)
+        chain_ids: List of compatible chain IDs for the address, empty for Solana
+    """
+
+    address: str = None
+    currency_symbol: str = None
+    name: str = None
+    account_identifier: str = None
+    chain_ids: list[str] = None
+
+
+@dataclass(kw_only=True)
+class CreateQuoteRequest:
+    """
+    based off PostOrderPreviewRequest
+
+    Attributes:
+        product_id: The ID of the product being traded for the order (e.g. `BTC-USD`)
+        client_quote_id: A client-generated order ID used for reference purposes (note:
+            order will be rejected if this ID is not unique among all currently active
+            orders)
+        base_quantity: Order size in base asset units (either `base_quantity` or
+            `quote_value` is required)
+        quote_value: Order size in quote asset units, i.e. the amount the user wants to
+            spend (when buying) or receive (when selling); the quantity in base units will
+            be determined based on the market liquidity and indicated `quote_value` (either
+            `base_quantity` or `quote_value` is required)
+        limit_price: The limit price
+        settl_currency: The currency in which the settlement will be made
+        quote_duration_ms: Optional quote timeout in milliseconds. Defaults to 3000 ms (3
+            seconds) if not specified. Maximum allowed value is 30000 ms (30 seconds);
+            requests with a larger value are rejected. Mirrors FIX tag 8090
+            (QuoteRequestGoodForMs).
+    """
+
+    product_id: str = None
+    side: str = None
+    client_quote_id: str = None
+    base_quantity: str = None
+    quote_value: str = None
+    limit_price: str = None
+    settl_currency: str = None
+    quote_duration_ms: str = None
+
+
+@dataclass(kw_only=True)
+class CreateWalletDepositAddressRequest:
+    """
+    Attributes:
+        network_id: The network name and type
+    """
+
+    network_id: str = None
+
+
+@dataclass(kw_only=True)
+class CreateWalletRequest:
+    """
+    Attributes:
+        name: The name of the wallet
+        symbol: The asset stored in the wallet. Should not be specified when wallet_type is
+            ONCHAIN
+        idempotency_key: idem
+    """
+
+    name: str = None
+    symbol: str = None
+    wallet_type: str = None
+    idempotency_key: str = None
+    network_family: str = None
+    network: Network = None
+
+
+@dataclass(kw_only=True)
+class CreateWalletTransferRequest:
+    """
+    Create a transfer between two wallets
+
+    Attributes:
+        amount: The amount in whole units to send
+        destination: The UUID of the destination wallet
+        idempotency_key: The idempotency key associated with this transfer
+        currency_symbol: The currency symbol to transfer
+    """
+
+    amount: str = None
+    destination: str = None
+    idempotency_key: str = None
+    currency_symbol: str = None
+
+
+@dataclass(kw_only=True)
+class CreateWalletWithdrawalRequest:
+    """
+    Attributes:
+        amount: The amount in whole units of the withdrawal
+        idempotency_key: The idempotency key associated with the withdrawal
+        currency_symbol: The currency symbol for the withdrawal
+    """
+
+    amount: str = None
+    destination_type: str = None
+    idempotency_key: str = None
+    currency_symbol: str = None
+    payment_method: PaymentMethodDestination = None
+    blockchain_address: BlockchainAddress = None
+    counterparty: CounterpartyDestination = None
+    travel_rule_data: TravelRuleData = None
+
+
+@dataclass(kw_only=True)
+class EditOrderRequest:
+    """
+    Attributes:
+        product_id: Deprecated: The product ID of the order being edited
+        orig_client_order_id: The client order ID of the order being edited
+        client_order_id: The updated version of the client order ID
+        base_quantity: Order size in base asset units (either `base_quantity` or
+            `quote_value` is required)
+        quote_value: Order size in quote asset units, i.e. the amount the user wants to
+            spend (when buying) or receive (when selling); the quantity in base units will
+            be determined based on the market liquidity and indicated `quote_value` (either
+            `base_quantity` or `quote_value` is required)
+        limit_price: The limit price (required for TWAP, VWAP, LIMIT, and STOP_LIMIT orders)
+        expiry_time: The expiry time of the order in UTC (TWAP, VWAP, LIMIT, and STOP_LIMIT
+            GTD only)
+        display_quote_size: The maximum order size that will show up on venue order books.
+            Specifying a value here effectively makes a LIMIT order into an "iceberg" style
+            order.
+        display_base_size: The maximum order size that will show up on venue order books.
+            Specifying a value here effectively makes a LIMIT order into an "iceberg" style
+            order.
+        stop_price: Specifies the stop price at which the order activates. The order is
+            activated if the last trade price on Coinbase Exchange crosses the stop price
+            specified on the order
+        offset: New peg offset value for PEG orders. 0 means peg to BBO. Only non-negative
+            values are allowed. The order's peg_offset_type is immutable and is reused
+            server-side to interpret this value (PEG orders only)
+        wig_level: New WIG (Would if Good) level for PEG orders - the best price a pegged
+            order would be placed on venues, opposite to limit_price. Cannot be added or
+            removed post-placement (PEG orders only)
+    """
+
+    product_id: str = None
+    orig_client_order_id: str = None
+    client_order_id: str = None
+    base_quantity: str = None
+    quote_value: str = None
+    limit_price: str = None
+    expiry_time: str = None
+    display_quote_size: str = None
+    display_base_size: str = None
+    stop_price: str = None
+    offset: str = None
+    wig_level: str = None
+
+
+@dataclass(kw_only=True)
+class ListTransactionValidatorsRequest:
+    """
+    Attributes:
+        transaction_ids: List of transaction IDs to filter validators by. Maximum of 100
+            transaction IDs allowed per request.
+        cursor: Cursor for pagination
+        limit: Maximum number of transaction-validator associations to return per page.
+            Default is 100, maximum is 1000.
+    """
+
+    transaction_ids: list[str] = None
+    cursor: str = None
+    limit: str = None
+    sort_direction: str = None
+
+
+@dataclass(kw_only=True)
+class OrderPreviewRequest:
+    """
+    Attributes:
+        product_id: The ID of the product being traded for the order (e.g. `BTC-USD`)
+        base_quantity: Order size in base asset units (either `base_quantity` or
+            `quote_value` is required)
+        quote_value: Order size in quote asset units, i.e. the amount the user wants to
+            spend (when buying) or receive (when selling); the quantity in base units will
+            be determined based on the market liquidity and indicated `quote_value` (either
+            `base_quantity` or `quote_value` is required)
+        limit_price: The limit price (required for TWAP, VWAP, LIMIT and STOP_LIMIT orders)
+        start_time: The start time of the order in UTC (TWAP, VWAP only)
+        expiry_time: The expiry time of the order in UTC (TWAP, VWAP, LIMIT and STOP_LIMIT
+            GTD only)
+        is_raise_exact: Raise Exact order flag
+        historical_pov: Historical percentage of volume
+        stop_price: Specifies the stop price at which the order activates. The order is
+            activated if the last trade price on Coinbase Exchange crosses the stop price
+            specified on the order
+        settl_currency: The currency in which the settlement will be made
+        postOnly: Specifies whether the order is treated as a post only order.
+        display_quote_size: The maximum order size that will show up on venue order books
+            (in quote currency).
+        display_base_size: The maximum order size that will show up on venue order books (in
+            base currency).
+        offset: Offset value for PEG orders. 0 means peg to BBO. Only non-negative values
+            are allowed (PEG orders only)
+        wig_level: WIG (Would if Good) level - the best price a pegged order would be placed
+            on venues, opposite to limit_price (PEG orders only)
+        is_buy_exact: Buy Exact order flag. When true, fees for a BUY order sized in
+            quote_value are charged on top of the requested quote_value instead of being
+            carved out of it. Only valid for BUY orders sized in quote_value on SPOT
+            products.
+    """
+
+    product_id: str = None
+    side: str = None
+    type: str = None
+    base_quantity: str = None
+    quote_value: str = None
+    limit_price: str = None
+    start_time: str = None
+    expiry_time: str = None
+    time_in_force: str = None
+    is_raise_exact: bool = None
+    historical_pov: str = None
+    stop_price: str = None
+    settl_currency: str = None
+    postOnly: bool = None
+    display_quote_size: str = None
+    display_base_size: str = None
+    peg_offset_type: str = None
+    offset: str = None
+    wig_level: str = None
+    is_buy_exact: bool = None
+
+
+@dataclass(kw_only=True)
+class PortfolioStakingInitiateRequest:
+    """
+    Attributes:
+        idempotency_key: The client generated idempotency key (uuid required) for requested
+            execution. Subsequent requests using the same key will not create new
+            transactions.
+        currency_symbol: The currency symbol to stake
+        amount: The quantity of the chosen currency to stake
+    """
+
+    idempotency_key: str = None
+    currency_symbol: str = None
+    amount: str = None
+    metadata: PortfolioStakingMetadata = None
+
+
+@dataclass(kw_only=True)
+class PortfolioStakingUnstakeRequest:
+    """
+    Attributes:
+        idempotency_key: The client generated idempotency key (uuid required) for requested
+            execution. Subsequent requests using the same key will not create new
+            transactions.
+        currency_symbol: The currency symbol to unstake
+        amount: The quantity of the chosen currency to unstake
+    """
+
+    idempotency_key: str = None
+    currency_symbol: str = None
+    amount: str = None
+    metadata: PortfolioStakingMetadata = None
+    validator_provider: str = None
+
+
+@dataclass(kw_only=True)
+class PreviewUnstakeRequest:
+    """
+    PreviewUnstakeRequest represents a request to preview an unstaking operation.
+
+    Attributes:
+        amount: Amount to preview unstaking
+    """
+
+    amount: str = None
+
+
+@dataclass(kw_only=True)
+class ScheduleFuturesSweepRequest:
+    """
+    Attributes:
+        amount: Amount. Default to sweep all if not provided
+        currency: Currency. Required
+    """
+
+    amount: str = None
+    currency: str = None
+
+
+@dataclass(kw_only=True)
+class SetAutoSweepRequest:
+    """
+    Attributes:
+        auto_sweep: Auto sweep status, default to false
+    """
+
+    auto_sweep: bool = None
+
+
+@dataclass(kw_only=True)
+class SetFcmSettingsRequest:
+    """
+    Attributes:
+        target_derivatives_excess: Target CFM Excess amount to set. Only non-negative number
+            is allowed
+    """
+
+    target_derivatives_excess: str = None
+
+
+@dataclass(kw_only=True)
+class StakingClaimRewardsRequest:
+    """
+    StakingClaimRewardsRequest represents a request to claim staking rewards. Intentionally omits WalletStakingMetadata; see WalletStakingMetadata for rationale.
+
+    Attributes:
+        idempotency_key: The client generated idempotency key for requested execution. Any
+            subsequent requests with the same key will return the original response
+    """
+
+    idempotency_key: str = None
+    inputs: WalletClaimRewardsInputs = None
+
+
+@dataclass(kw_only=True)
+class StakingInitiateRequest:
+    """
+    StakingInitiateRequest represents a request to initiate a staking operation.
+
+    Attributes:
+        idempotency_key: The client generated idempotency key for requested execution.
+            Subsequent requests using the same key will fail
+    """
+
+    idempotency_key: str = None
+    inputs: WalletStakeInputs = None
+    metadata: WalletStakingMetadata = None
+
+
+@dataclass(kw_only=True)
+class StakingUnstakeRequest:
+    """
+    StakingUnstakeRequest represents a request to initiate an unstaking operation.
+
+    Attributes:
+        idempotency_key: The client generated idempotency key for requested execution.
+            Subsequent requests using the same key will fail
+    """
+
+    idempotency_key: str = None
+    inputs: WalletUnstakeInputs = None
+    metadata: WalletStakingMetadata = None
+
+
+@dataclass(kw_only=True)
+class SubmitDepositTravelRuleDataRequest:
+    """
+    Request to submit travel rule data for an existing deposit transaction
+
+    Attributes:
+        is_self: True if user owns the counterparty address (self-transfer) If false,
+            beneficiary is required
+        opt_out_of_ownership_verification: True to skip wallet ownership verification
+    """
+
+    originator: TravelRuleParty = None
+    beneficiary: TravelRuleParty = None
+    is_self: bool = None
+    opt_out_of_ownership_verification: bool = None
+
+
+@dataclass(kw_only=True)
+class UpdateFundingSettingsRequest:
+    """
+    Attributes:
+        designated_funding_portfolio_id: Set the Derivatives Funding Portfolio that will be
+            used to fund FCM margin calls and receive excess margin sweeps. Only one
+            portfolio per entity.
+        automatic_conversion_enabled: When true, USDC in your Derivatives Funding Portfolio
+            will be converted to USD to meet FCM margin calls (Auto-Convert USDC).
+        automatic_loan_enabled: Deprecated: Auto-Initiate Loans is now always enabled for
+            Financing customers. Any value sent for this field is ignored.
+        automatic_excess_return_enabled: When true, any FCM account balance above your
+            margin requirements will be automatically swept back to your Derivatives funding
+            portfolio. (Auto-Return Excess Margin)
+        excess_funds_target_amount: Weekend Buying Power: Setting a target amount to
+            maintain in your Futures account above margin requirements. You can only
+            withdraw funds in excess of this amount.
+    """
+
+    designated_funding_portfolio_id: str = None
+    automatic_conversion_enabled: bool = None
+    automatic_loan_enabled: bool = None
+    automatic_excess_return_enabled: bool = None
+    excess_funds_target_amount: str = None
+
+
+@dataclass(kw_only=True)
+class UpdateOnchainAddressGroupRequest:
+    """
+    ChangeOnchainAddressGroupRequest is a request to create or update a new onchain address group
+    """
+
+    address_group: AddressGroup = None
+
+
 # Backward-compatible public aliases
 AccountMetadata = ActivityMetadataAccount
 ActivityResponse = GetActivityResponse

@@ -15,24 +15,20 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import EditOrderRequest as _EditOrderRequest
+from ...model import EditOrderResponse as _EditOrderResponse
 
 
-@dataclass
-class EditOrderRequest:
+@dataclass(kw_only=True)
+class EditOrderRequest(_EditOrderRequest):
+    __doc__ = _EditOrderRequest.__doc__
+
     portfolio_id: str
     order_id: str
-    orig_client_order_id: str | None = None
-    client_order_id: str | None = None
-    base_quantity: str | None = None
-    quote_value: str | None = None
-    limit_price: str | None = None
-    expiry_time: str | None = None
-    display_quote_size: str | None = None
-    display_base_size: str | None = None
-    stop_price: str | None = None
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class EditOrderResponse(BaseResponse):
-    order_id: str = None
+class EditOrderResponse(BaseResponse, _EditOrderResponse):
+    __doc__ = _EditOrderResponse.__doc__

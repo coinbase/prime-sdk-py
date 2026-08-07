@@ -15,18 +15,21 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import AddressGroup
+from ...model import ActivityCreationResponse as _ActivityCreationResponse
+from ...model import (
+    UpdateOnchainAddressGroupRequest as _UpdateOnchainAddressGroupRequest,
+)
 
 
-@dataclass
-class UpdateOnchainAddressBookRequest:
+@dataclass(kw_only=True)
+class UpdateOnchainAddressBookRequest(_UpdateOnchainAddressGroupRequest):
+    __doc__ = _UpdateOnchainAddressGroupRequest.__doc__
+
     portfolio_id: str
-    address_group: AddressGroup
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class UpdateOnchainAddressBookResponse(BaseResponse):
-    activity_type: str = None
-    num_approvals_remaining: int = None
-    activity_id: str = None
+class UpdateOnchainAddressBookResponse(BaseResponse, _ActivityCreationResponse):
+    __doc__ = _ActivityCreationResponse.__doc__

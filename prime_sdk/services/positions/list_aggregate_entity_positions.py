@@ -15,8 +15,10 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Position
-from ...utils import Pagination, PaginationParams
+from ...model import (
+    ListAggregateEntityPositionsResponse as _ListAggregateEntityPositionsResponse,
+)
+from ...utils import PaginationParams
 
 
 @dataclass
@@ -27,6 +29,7 @@ class ListAggregateEntityPositionsRequest:
 
 
 @dataclass
-class ListAggregateEntityPositionsResponse(BaseResponse):
-    positions: list[Position] = None
-    pagination: Pagination = None
+class ListAggregateEntityPositionsResponse(
+    BaseResponse, _ListAggregateEntityPositionsResponse
+):
+    __doc__ = _ListAggregateEntityPositionsResponse.__doc__

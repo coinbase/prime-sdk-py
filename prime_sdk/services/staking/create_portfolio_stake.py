@@ -15,6 +15,10 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import PortfolioStakingInitiateRequest as _PortfolioStakingInitiateRequest
+from ...model import (
+    PortfolioStakingInitiateResponse as _PortfolioStakingInitiateResponse,
+)
 
 
 @dataclass
@@ -22,17 +26,15 @@ class StakeMetadata:
     external_id: str | None = None
 
 
-@dataclass
-class CreatePortfolioStakeRequest:
+@dataclass(kw_only=True)
+class CreatePortfolioStakeRequest(_PortfolioStakingInitiateRequest):
+    __doc__ = _PortfolioStakingInitiateRequest.__doc__
+
     portfolio_id: str
-    idempotency_key: str
-    currency_symbol: str
-    amount: str
-    metadata: StakeMetadata | None = None
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class CreatePortfolioStakeResponse(BaseResponse):
-    activity_id: str = None
-    transaction_id: str = None
+class CreatePortfolioStakeResponse(BaseResponse, _PortfolioStakingInitiateResponse):
+    __doc__ = _PortfolioStakingInitiateResponse.__doc__

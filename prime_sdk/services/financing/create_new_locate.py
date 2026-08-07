@@ -15,17 +15,19 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import CreateNewLocatesRequest as _CreateNewLocatesRequest
+from ...model import CreateNewLocatesResponse as _CreateNewLocatesResponse
 
 
-@dataclass
-class CreateNewLocateRequest:
+@dataclass(kw_only=True)
+class CreateNewLocateRequest(_CreateNewLocatesRequest):
+    __doc__ = _CreateNewLocatesRequest.__doc__
+
     portfolio_id: str
-    symbol: str
-    amount: str
-    locate_date: str
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class CreateNewLocateResponse(BaseResponse):
-    locate_id: str = None
+class CreateNewLocateResponse(BaseResponse, _CreateNewLocatesResponse):
+    __doc__ = _CreateNewLocatesResponse.__doc__

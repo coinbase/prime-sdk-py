@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Asset
+from ...model import GetEntityAssetsResponse as _GetEntityAssetsResponse
 
 
 @dataclass
@@ -25,5 +25,5 @@ class ListAssetsRequest:
 
 
 @dataclass
-class ListAssetsResponse(BaseResponse):
-    assets: list[Asset] = None
+class ListAssetsResponse(BaseResponse, _GetEntityAssetsResponse):
+    __doc__ = _GetEntityAssetsResponse.__doc__

@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Conversion
+from ...model import GetMarginConversionsResponse as _GetMarginConversionsResponse
 
 
 @dataclass
@@ -27,5 +27,5 @@ class ListMarginConversionsRequest:
 
 
 @dataclass
-class ListMarginConversionsResponse(BaseResponse):
-    conversions: list[Conversion] = None
+class ListMarginConversionsResponse(BaseResponse, _GetMarginConversionsResponse):
+    __doc__ = _GetMarginConversionsResponse.__doc__

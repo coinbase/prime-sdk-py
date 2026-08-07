@@ -15,6 +15,12 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import (
+    SubmitDepositTravelRuleDataRequest as _SubmitDepositTravelRuleDataRequest,
+)
+from ...model import (
+    SubmitDepositTravelRuleDataResponse as _SubmitDepositTravelRuleDataResponse,
+)
 
 
 @dataclass
@@ -50,17 +56,18 @@ class TravelRuleParty:
     account_id: str | None = None
 
 
-@dataclass
-class SubmitDepositTravelRuleDataRequest:
+@dataclass(kw_only=True)
+class SubmitDepositTravelRuleDataRequest(_SubmitDepositTravelRuleDataRequest):
+    __doc__ = _SubmitDepositTravelRuleDataRequest.__doc__
+
     portfolio_id: str
     transaction_id: str
-    originator: TravelRuleParty | None = None
-    beneficiary: TravelRuleParty | None = None
-    is_self: bool | None = None
-    opt_out_of_ownership_verification: bool | None = None
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class SubmitDepositTravelRuleDataResponse(BaseResponse):
-    ownership_verification_required: bool = None
+class SubmitDepositTravelRuleDataResponse(
+    BaseResponse, _SubmitDepositTravelRuleDataResponse
+):
+    __doc__ = _SubmitDepositTravelRuleDataResponse.__doc__

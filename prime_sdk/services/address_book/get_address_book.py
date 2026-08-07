@@ -15,8 +15,8 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Address
-from ...utils import Pagination, PaginationParams
+from ...model import GetPortfolioAddressBookResponse as _GetPortfolioAddressBookResponse
+from ...utils import PaginationParams
 
 
 @dataclass
@@ -29,6 +29,5 @@ class GetAddressBookRequest:
 
 
 @dataclass
-class GetAddressBookResponse(BaseResponse):
-    addresses: list[Address] = None
-    pagination: Pagination = None
+class GetAddressBookResponse(BaseResponse, _GetPortfolioAddressBookResponse):
+    __doc__ = _GetPortfolioAddressBookResponse.__doc__

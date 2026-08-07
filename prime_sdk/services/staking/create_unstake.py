@@ -15,21 +15,20 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from .create_stake import StakingInputs, WalletStakingMetadata
+from ...model import StakingUnstakeRequest as _StakingUnstakeRequest
+from ...model import StakingUnstakeResponse as _StakingUnstakeResponse
 
 
-@dataclass
-class CreateUnstakeRequest:
+@dataclass(kw_only=True)
+class CreateUnstakeRequest(_StakingUnstakeRequest):
+    __doc__ = _StakingUnstakeRequest.__doc__
+
     portfolio_id: str
     wallet_id: str
-    idempotency_key: str
-    inputs: StakingInputs | None = None
-    metadata: WalletStakingMetadata | None = None
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class CreateUnstakeResponse(BaseResponse):
-    wallet_id: str = None
-    transaction_id: str = None
-    activity_id: str = None
+class CreateUnstakeResponse(BaseResponse, _StakingUnstakeResponse):
+    __doc__ = _StakingUnstakeResponse.__doc__

@@ -15,16 +15,19 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import AdvancedTransfer
+from ...model import CreateAdvancedTransferRequest as _CreateAdvancedTransferRequest
+from ...model import CreateAdvancedTransferResponse as _CreateAdvancedTransferResponse
 
 
-@dataclass
-class CreateAdvancedTransferRequest:
+@dataclass(kw_only=True)
+class CreateAdvancedTransferRequest(_CreateAdvancedTransferRequest):
+    __doc__ = _CreateAdvancedTransferRequest.__doc__
+
     portfolio_id: str
-    advanced_transfer: AdvancedTransfer = None
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class CreateAdvancedTransferResponse(BaseResponse):
-    advanced_transfer: AdvancedTransfer = None
+class CreateAdvancedTransferResponse(BaseResponse, _CreateAdvancedTransferResponse):
+    __doc__ = _CreateAdvancedTransferResponse.__doc__

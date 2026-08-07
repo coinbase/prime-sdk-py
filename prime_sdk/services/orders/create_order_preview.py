@@ -15,55 +15,24 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...enums import OrderSide, OrderType, TimeInForce
+from ...model import OrderPreviewRequest as _OrderPreviewRequest
+from ...model import PostOrderPreviewResponse as _PostOrderPreviewResponse
 
 
-@dataclass
-class CreateOrderPreviewRequest:
+@dataclass(kw_only=True)
+class CreateOrderPreviewRequest(_OrderPreviewRequest):
+    __doc__ = _OrderPreviewRequest.__doc__
+
     portfolio_id: str
-    side: OrderSide
-    product_id: str
-    type: OrderType
-    base_quantity: str | None = None
-    quote_value: str | None = None
-    limit_price: str | None = None
-    start_time: str | None = None
-    expiry_time: str | None = None
-    time_in_force: TimeInForce | None = None
     stp_id: str | None = None
-    display_quote_size: str | None = None
-    display_base_size: str | None = None
-    is_raise_exact: bool | None = None
-    historical_pov: str | None = None
-    stop_price: str | None = None
-    settl_currency: str | None = None
     post_only: bool | None = None
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class CreateOrderPreviewResponse(BaseResponse):
-    portfolio_id: str = None
-    product_id: str = None
-    side: str = None
-    type: str = None
-    base_quantity: str = None
-    quote_value: str = None
-    limit_price: str = None
-    start_time: str = None
-    expiry_time: str = None
-    time_in_force: str = None
-    commission: str = None
-    slippage: str = None
-    best_bid: str = None
-    best_ask: str = None
-    average_filled_price: str = None
-    order_total: str = None
-    historical_pov: str = None
-    stop_price: str = None
-    display_size: str = None
-    display_quote_size: str = None
-    display_base_size: str = None
-    is_raise_exact: bool = None
+class CreateOrderPreviewResponse(BaseResponse, _PostOrderPreviewResponse):
+    __doc__ = _PostOrderPreviewResponse.__doc__
+
     settl_currency: str = None
     post_only: bool = None

@@ -17,8 +17,7 @@ from datetime import datetime
 
 from ...base_response import BaseResponse
 from ...enums import OrderSide, OrderType
-from ...model import Order
-from ...utils import Pagination
+from ...model import GetOpenOrdersResponse as _GetOpenOrdersResponse
 
 
 @dataclass
@@ -34,6 +33,5 @@ class ListOpenOrdersRequest:
 
 
 @dataclass
-class ListOpenOrdersResponse(BaseResponse):
-    orders: list[Order] = None
-    pagination: Pagination = None
+class ListOpenOrdersResponse(BaseResponse, _GetOpenOrdersResponse):
+    __doc__ = _GetOpenOrdersResponse.__doc__

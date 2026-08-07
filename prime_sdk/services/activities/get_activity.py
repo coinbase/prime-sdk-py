@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Activity
+from ...model import GetPortfolioActivityResponse as _GetPortfolioActivityResponse
 
 
 @dataclass
@@ -26,5 +26,5 @@ class GetActivityRequest:
 
 
 @dataclass
-class GetActivityResponse(BaseResponse):
-    activity: Activity = None
+class GetActivityResponse(BaseResponse, _GetPortfolioActivityResponse):
+    __doc__ = _GetPortfolioActivityResponse.__doc__

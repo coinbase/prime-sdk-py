@@ -16,8 +16,8 @@ from dataclasses import dataclass
 
 from ...base_response import BaseResponse
 from ...enums import WalletType
-from ...model import Wallet
-from ...utils import Pagination, PaginationParams
+from ...model import GetWalletsResponse as _GetWalletsResponse
+from ...utils import PaginationParams
 
 
 @dataclass
@@ -30,6 +30,5 @@ class ListWalletsRequest:
 
 
 @dataclass
-class ListWalletsResponse(BaseResponse):
-    wallets: list[Wallet] = None
-    pagination: Pagination = None
+class ListWalletsResponse(BaseResponse, _GetWalletsResponse):
+    __doc__ = _GetWalletsResponse.__doc__

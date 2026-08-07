@@ -15,8 +15,8 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Product
-from ...utils import Pagination, PaginationParams
+from ...model import GetPortfolioProductsResponse as _GetPortfolioProductsResponse
+from ...utils import PaginationParams
 
 
 @dataclass
@@ -27,6 +27,5 @@ class ListProductsRequest:
 
 
 @dataclass
-class ListProductsResponse(BaseResponse):
-    products: list[Product] = None
-    pagination: Pagination = None
+class ListProductsResponse(BaseResponse, _GetPortfolioProductsResponse):
+    __doc__ = _GetPortfolioProductsResponse.__doc__

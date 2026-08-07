@@ -15,8 +15,8 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import AdvancedTransfer
-from ...utils import Pagination, PaginationParams
+from ...model import ListAdvancedTransfersResponse as _ListAdvancedTransfersResponse
+from ...utils import PaginationParams
 
 
 @dataclass
@@ -32,6 +32,5 @@ class ListAdvancedTransfersRequest:
 
 
 @dataclass
-class ListAdvancedTransfersResponse(BaseResponse):
-    advanced_transfers: list[AdvancedTransfer] = None
-    pagination: Pagination = None
+class ListAdvancedTransfersResponse(BaseResponse, _ListAdvancedTransfersResponse):
+    __doc__ = _ListAdvancedTransfersResponse.__doc__

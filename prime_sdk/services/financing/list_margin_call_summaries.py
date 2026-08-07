@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import MarginSummaryRecord
+from ...model import GetMarginSummariesResponse as _GetMarginSummariesResponse
 
 
 @dataclass
@@ -27,5 +27,5 @@ class ListMarginCallSummariesRequest:
 
 
 @dataclass
-class ListMarginCallSummariesResponse(BaseResponse):
-    margin_summaries: list[MarginSummaryRecord] = None
+class ListMarginCallSummariesResponse(BaseResponse, _GetMarginSummariesResponse):
+    __doc__ = _GetMarginSummariesResponse.__doc__

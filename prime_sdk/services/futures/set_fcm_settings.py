@@ -15,15 +15,19 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetFcmSettingsResponse as _GetFcmSettingsResponse
+from ...model import SetFcmSettingsRequest as _SetFcmSettingsRequest
 
 
-@dataclass
-class SetFcmSettingsRequest:
+@dataclass(kw_only=True)
+class SetFcmSettingsRequest(_SetFcmSettingsRequest):
+    __doc__ = _SetFcmSettingsRequest.__doc__
+
     entity_id: str
-    target_derivatives_excess: str
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class SetFcmSettingsResponse(BaseResponse):
-    target_derivatives_excess: str = None
+class SetFcmSettingsResponse(BaseResponse, _GetFcmSettingsResponse):
+    __doc__ = _GetFcmSettingsResponse.__doc__

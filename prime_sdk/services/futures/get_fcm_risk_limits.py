@@ -15,6 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetFcmRiskLimitsResponse as _GetFcmRiskLimitsResponse
 
 
 @dataclass
@@ -24,10 +25,5 @@ class GetFcmRiskLimitsRequest:
 
 
 @dataclass
-class GetFcmRiskLimitsResponse(BaseResponse):
-    cfm_risk_limit: str = None
-    cfm_risk_limit_utilization: str = None
-    cfm_total_margin: str = None
-    cfm_delta_ote: str = None
-    cfm_unsettled_realized_pnl: str = None
-    cfm_unsettled_accrued_funding_pnl: str = None
+class GetFcmRiskLimitsResponse(BaseResponse, _GetFcmRiskLimitsResponse):
+    __doc__ = _GetFcmRiskLimitsResponse.__doc__

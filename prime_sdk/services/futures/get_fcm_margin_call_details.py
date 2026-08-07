@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import FcmMarginCall
+from ...model import GetFcmMarginCallDetailsResponse as _GetFcmMarginCallDetailsResponse
 
 
 @dataclass
@@ -25,5 +25,5 @@ class GetFcmMarginCallDetailsRequest:
 
 
 @dataclass
-class GetFcmMarginCallDetailsResponse(BaseResponse):
-    margin_calls: list[FcmMarginCall] = None
+class GetFcmMarginCallDetailsResponse(BaseResponse, _GetFcmMarginCallDetailsResponse):
+    __doc__ = _GetFcmMarginCallDetailsResponse.__doc__

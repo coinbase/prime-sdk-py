@@ -15,7 +15,9 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Allocation
+from ...model import (
+    GetAllocationsByClientNettingIdResponse as _GetAllocationsByClientNettingIdResponse,
+)
 
 
 @dataclass
@@ -26,5 +28,7 @@ class GetNetAllocationsByNettingIdRequest:
 
 
 @dataclass
-class GetNetAllocationsByNettingIdResponse(BaseResponse):
-    allocations: list[Allocation] = None
+class GetNetAllocationsByNettingIdResponse(
+    BaseResponse, _GetAllocationsByClientNettingIdResponse
+):
+    __doc__ = _GetAllocationsByClientNettingIdResponse.__doc__

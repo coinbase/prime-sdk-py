@@ -16,6 +16,7 @@ from dataclasses import dataclass
 
 from ...base_response import BaseResponse
 from ...enums import StakeType
+from ...model import GetStakingStatusResponse as _GetStakingStatusResponse
 
 
 @dataclass
@@ -41,9 +42,5 @@ class GetStakingStatusRequest:
 
 
 @dataclass
-class GetStakingStatusResponse(BaseResponse):
-    portfolio_id: str = None
-    wallet_id: str = None
-    wallet_address: str = None
-    current_timestamp: str = None
-    validators: list[ValidatorStakingInfo] = None
+class GetStakingStatusResponse(BaseResponse, _GetStakingStatusResponse):
+    __doc__ = _GetStakingStatusResponse.__doc__

@@ -15,28 +15,19 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...enums import OrderSide
+from ...model import CreateQuoteRequest as _CreateQuoteRequest
+from ...model import QuoteResponse as _QuoteResponse
 
 
-@dataclass
-class CreateQuoteRequest:
+@dataclass(kw_only=True)
+class CreateQuoteRequest(_CreateQuoteRequest):
+    __doc__ = _CreateQuoteRequest.__doc__
+
     portfolio_id: str
-    product_id: str
-    side: OrderSide
-    client_quote_id: str
-    limit_price: str
-    base_quantity: str | None = None
-    quote_value: str | None = None
-    settl_currency: str | None = None
-    quote_duration_ms: str | None = None
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class CreateQuoteResponse(BaseResponse):
-    quote_id: str = None
-    expiration_time: str = None
-    best_price: str = None
-    order_total: str = None
-    price_inclusive_of_fees: str = None
-    quote_duration_ms: str = None
+class CreateQuoteResponse(BaseResponse, _QuoteResponse):
+    __doc__ = _QuoteResponse.__doc__

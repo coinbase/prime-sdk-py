@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Activity
+from ...model import GetActivityResponse as _GetActivityResponse
 
 
 @dataclass
@@ -25,5 +25,5 @@ class GetEntityActivityRequest:
 
 
 @dataclass
-class GetEntityActivityResponse(BaseResponse):
-    activity: Activity = None
+class GetEntityActivityResponse(BaseResponse, _GetActivityResponse):
+    __doc__ = _GetActivityResponse.__doc__

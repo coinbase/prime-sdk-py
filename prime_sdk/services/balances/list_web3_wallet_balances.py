@@ -15,8 +15,8 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import DefiBalance, OnchainBalance
-from ...utils import Pagination, PaginationParams
+from ...model import ListWeb3WalletBalancesResponse as _ListWeb3WalletBalancesResponse
+from ...utils import PaginationParams
 
 
 @dataclass
@@ -29,7 +29,5 @@ class ListWeb3WalletBalancesRequest:
 
 
 @dataclass
-class ListWeb3WalletBalancesResponse(BaseResponse):
-    balances: list[OnchainBalance] = None
-    pagination: Pagination = None
-    defi_balances: list[DefiBalance] = None
+class ListWeb3WalletBalancesResponse(BaseResponse, _ListWeb3WalletBalancesResponse):
+    __doc__ = _ListWeb3WalletBalancesResponse.__doc__

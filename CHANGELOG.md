@@ -5,12 +5,16 @@
 ### Changed
 
 - **Models**: `prime_sdk/model.py` is now a compatibility shim over generated dataclasses in `prime_sdk/generated/models.py`. Run `make update-spec` to refresh models from the OpenAPI specification. Existing imports and field names are preserved via `apiSpec/model_config.py` and `prime_sdk/model_manual.py`.
+- **Service models**: Service `*Request` and `*Response` dataclasses now inherit field definitions and docstrings from generated models (via local `as _Internal...` aliases), matching the TypeScript SDK pattern. Five response types remain hand-maintained where the public SDK shape diverges from the spec (`CreatePortfolioAllocationsResponse`, `CreatePortfolioNetAllocationsResponse`, `GetEntityLocateAvailabilitiesResponse`, `GetOrderEditHistoryResponse`, `GetWalletDepositInstructionsResponse`).
 - **`BaseResponse`**: Nested dataclass hydration now unwraps optional type annotations.
 
 ### Added
 
 - **`make update-spec`**, **`make gen-models`**, **`make check-models`**, and **`make promote-titles`** Makefile targets for spec and model regeneration.
+- **Generated request-body models**: Inline OpenAPI path request bodies are emitted into `prime_sdk/generated/models.py` (e.g. `CreateOrderRequest`, `OrderPreviewRequest`).
+- **New optional request fields** on body-backed requests that inherit generated models, including `peg_offset_type`, `offset`, `wig_level`, and `is_buy_exact` on `CreateOrderRequest`.
 - **`tests/test_model_compat.py`**: Guards backward-compatible model surface across spec updates.
+- **`tests/test_service_model_compat.py`**: Guards backward-compatible service request/response field surfaces.
 
 ## [1.9.0] - 2026-JUL-24
 

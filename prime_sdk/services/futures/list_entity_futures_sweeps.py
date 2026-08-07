@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Sweep
+from ...model import GetFuturesSweepsResponse as _GetFuturesSweepsResponse
 
 
 @dataclass
@@ -25,6 +25,5 @@ class ListEntityFuturesSweepsRequest:
 
 
 @dataclass
-class ListEntityFuturesSweepsResponse(BaseResponse):
-    sweeps: list[Sweep] = None
-    auto_sweep: bool = None
+class ListEntityFuturesSweepsResponse(BaseResponse, _GetFuturesSweepsResponse):
+    __doc__ = _GetFuturesSweepsResponse.__doc__

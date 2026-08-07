@@ -15,7 +15,9 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Details
+from ...model import (
+    GetEntityPaymentMethodDetailsResponse as _GetEntityPaymentMethodDetailsResponse,
+)
 
 
 @dataclass
@@ -26,5 +28,7 @@ class GetEntityPaymentMethodRequest:
 
 
 @dataclass
-class GetEntityPaymentMethodResponse(BaseResponse):
-    details: Details = None
+class GetEntityPaymentMethodResponse(
+    BaseResponse, _GetEntityPaymentMethodDetailsResponse
+):
+    __doc__ = _GetEntityPaymentMethodDetailsResponse.__doc__

@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Locate
+from ...model import GetExistingLocatesResponse as _GetExistingLocatesResponse
 
 
 @dataclass
@@ -27,5 +27,5 @@ class ListExistingLocatesRequest:
 
 
 @dataclass
-class ListExistingLocatesResponse(BaseResponse):
-    locates: list[Locate] = None
+class ListExistingLocatesResponse(BaseResponse, _GetExistingLocatesResponse):
+    __doc__ = _GetExistingLocatesResponse.__doc__

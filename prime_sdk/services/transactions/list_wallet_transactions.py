@@ -16,8 +16,8 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from ...base_response import BaseResponse
-from ...model import Transaction
-from ...utils import Pagination, PaginationParams
+from ...model import GetWalletTransactionsResponse as _GetWalletTransactionsResponse
+from ...utils import PaginationParams
 
 
 @dataclass
@@ -32,6 +32,5 @@ class ListWalletTransactionsRequest:
 
 
 @dataclass
-class ListWalletTransactionsResponse(BaseResponse):
-    transactions: list[Transaction] = None
-    pagination: Pagination = None
+class ListWalletTransactionsResponse(BaseResponse, _GetWalletTransactionsResponse):
+    __doc__ = _GetWalletTransactionsResponse.__doc__

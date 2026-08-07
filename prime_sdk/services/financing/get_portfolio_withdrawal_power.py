@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import WithdrawalPower
+from ...model import GetWithdrawalPowerResponse as _GetWithdrawalPowerResponse
 
 
 @dataclass
@@ -26,5 +26,5 @@ class GetPortfolioWithdrawalPowerRequest:
 
 
 @dataclass
-class GetPortfolioWithdrawalPowerResponse(BaseResponse):
-    withdrawal_power: WithdrawalPower = None
+class GetPortfolioWithdrawalPowerResponse(BaseResponse, _GetWithdrawalPowerResponse):
+    __doc__ = _GetWithdrawalPowerResponse.__doc__

@@ -15,6 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import ActivityCreationResponse as _ActivityCreationResponse
 
 
 @dataclass
@@ -25,7 +26,5 @@ class DeleteOnchainAddressGroupRequest:
 
 
 @dataclass
-class DeleteOnchainAddressGroupResponse(BaseResponse):
-    activity_type: str = None
-    num_approvals_remaining: int = None
-    activity_id: str = None
+class DeleteOnchainAddressGroupResponse(BaseResponse, _ActivityCreationResponse):
+    __doc__ = _ActivityCreationResponse.__doc__

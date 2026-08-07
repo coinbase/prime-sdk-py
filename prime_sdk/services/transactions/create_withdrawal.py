@@ -15,7 +15,8 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Blockchain
+from ...model import CreateWalletWithdrawalRequest as _CreateWalletWithdrawalRequest
+from ...model import CreateWalletWithdrawalResponse as _CreateWalletWithdrawalResponse
 
 
 @dataclass
@@ -41,29 +42,16 @@ class Counterparty:
     counterparty_id: str
 
 
-@dataclass
-class CreateWithdrawalRequest:
+@dataclass(kw_only=True)
+class CreateWithdrawalRequest(_CreateWalletWithdrawalRequest):
+    __doc__ = _CreateWalletWithdrawalRequest.__doc__
+
     portfolio_id: str
     wallet_id: str
-    amount: str
-    destination_type: str
-    idempotency_key: str
-    currency_symbol: str
-    payment_method: PaymentMethod | None = None
-    blockchain_address: BlockchainAddress | None = None
-    counterparty: Counterparty | None = None
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class CreateWithdrawalResponse(BaseResponse):
-    activity_id: str = None
-    approval_url: str = None
-    symbol: str = None
-    amount: str = None
-    fee: str = None
-    destination_type: str = None
-    source_type: str = None
-    blockchain_destination: Blockchain = None
-    blockchain_source: Blockchain = None
-    transaction_id: str = None
+class CreateWithdrawalResponse(BaseResponse, _CreateWalletWithdrawalResponse):
+    __doc__ = _CreateWalletWithdrawalResponse.__doc__

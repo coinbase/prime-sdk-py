@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import XMLiquidationDetail
+from ...model import GetXMLiquidationResponse as _GetXMLiquidationResponse
 
 
 @dataclass
@@ -26,5 +26,5 @@ class GetXMLiquidationRequest:
 
 
 @dataclass
-class GetXMLiquidationResponse(BaseResponse):
-    liquidation: XMLiquidationDetail = None
+class GetXMLiquidationResponse(BaseResponse, _GetXMLiquidationResponse):
+    __doc__ = _GetXMLiquidationResponse.__doc__

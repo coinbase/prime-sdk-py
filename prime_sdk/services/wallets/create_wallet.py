@@ -15,23 +15,19 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...enums import WalletType
+from ...model import CreateWalletRequest as _CreateWalletRequest
+from ...model import CreateWalletResponse as _CreateWalletResponse
 
 
-@dataclass
-class CreateWalletRequest:
+@dataclass(kw_only=True)
+class CreateWalletRequest(_CreateWalletRequest):
+    __doc__ = _CreateWalletRequest.__doc__
+
     portfolio_id: str
-    name: str
-    symbol: str
-    idempotency_key: str
-    wallet_type: WalletType
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class CreateWalletResponse(BaseResponse):
-    activity_id: str = None
-    name: str = None
-    symbol: str = None
-    wallet_type: str = None
-    network_family: str = None
+class CreateWalletResponse(BaseResponse, _CreateWalletResponse):
+    __doc__ = _CreateWalletResponse.__doc__

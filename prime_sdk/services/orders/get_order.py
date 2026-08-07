@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Order
+from ...model import GetOrderResponse as _GetOrderResponse
 
 
 @dataclass
@@ -26,5 +26,5 @@ class GetOrderRequest:
 
 
 @dataclass
-class GetOrderResponse(BaseResponse):
-    order: Order = None
+class GetOrderResponse(BaseResponse, _GetOrderResponse):
+    __doc__ = _GetOrderResponse.__doc__

@@ -15,6 +15,8 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import StakingInitiateRequest as _StakingInitiateRequest
+from ...model import StakingInitiateResponse as _StakingInitiateResponse
 from ...model import ValidatorAllocation
 
 
@@ -31,18 +33,16 @@ class WalletStakingMetadata:
     external_id: str | None = None
 
 
-@dataclass
-class CreateStakeRequest:
+@dataclass(kw_only=True)
+class CreateStakeRequest(_StakingInitiateRequest):
+    __doc__ = _StakingInitiateRequest.__doc__
+
     portfolio_id: str
     wallet_id: str
-    idempotency_key: str
-    inputs: StakingInputs | None = None
-    metadata: WalletStakingMetadata | None = None
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class CreateStakeResponse(BaseResponse):
-    wallet_id: str = None
-    transaction_id: str = None
-    activity_id: str = None
+class CreateStakeResponse(BaseResponse, _StakingInitiateResponse):
+    __doc__ = _StakingInitiateResponse.__doc__

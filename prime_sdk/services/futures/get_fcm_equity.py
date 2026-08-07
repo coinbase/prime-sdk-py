@@ -15,6 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetFcmEquityResponse as _GetFcmEquityResponse
 
 
 @dataclass
@@ -24,8 +25,5 @@ class GetFcmEquityRequest:
 
 
 @dataclass
-class GetFcmEquityResponse(BaseResponse):
-    eod_account_equity: str = None
-    eod_unrealized_pnl: str = None
-    current_excess_deficit: str = None
-    available_to_sweep: str = None
+class GetFcmEquityResponse(BaseResponse, _GetFcmEquityResponse):
+    __doc__ = _GetFcmEquityResponse.__doc__

@@ -15,15 +15,20 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import CancelAdvancedTransferRequest as _CancelAdvancedTransferRequest
+from ...model import CancelAdvancedTransferResponse as _CancelAdvancedTransferResponse
 
 
-@dataclass
-class CancelAdvancedTransferRequest:
+@dataclass(kw_only=True)
+class CancelAdvancedTransferRequest(_CancelAdvancedTransferRequest):
+    __doc__ = _CancelAdvancedTransferRequest.__doc__
+
     portfolio_id: str
     advanced_transfer_id: str
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class CancelAdvancedTransferResponse(BaseResponse):
-    advanced_transfer_id: str = None
+class CancelAdvancedTransferResponse(BaseResponse, _CancelAdvancedTransferResponse):
+    __doc__ = _CancelAdvancedTransferResponse.__doc__

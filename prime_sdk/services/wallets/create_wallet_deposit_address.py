@@ -15,19 +15,22 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Network
+from ...model import BlockchainAddress as _BlockchainAddress
+from ...model import (
+    CreateWalletDepositAddressRequest as _CreateWalletDepositAddressRequest,
+)
 
 
-@dataclass
-class CreateWalletDepositAddressRequest:
+@dataclass(kw_only=True)
+class CreateWalletDepositAddressRequest(_CreateWalletDepositAddressRequest):
+    __doc__ = _CreateWalletDepositAddressRequest.__doc__
+
     portfolio_id: str
     wallet_id: str
-    network_id: str
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class CreateWalletDepositAddressResponse(BaseResponse):
-    address: str = None
-    account_identifier: str = None
-    network: Network = None
+class CreateWalletDepositAddressResponse(BaseResponse, _BlockchainAddress):
+    __doc__ = _BlockchainAddress.__doc__

@@ -15,6 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import CancelOrderResponse as _CancelOrderResponse
 
 
 @dataclass
@@ -25,5 +26,5 @@ class CancelOrderRequest:
 
 
 @dataclass
-class CancelOrderResponse(BaseResponse):
-    id: str = None
+class CancelOrderResponse(BaseResponse, _CancelOrderResponse):
+    __doc__ = _CancelOrderResponse.__doc__

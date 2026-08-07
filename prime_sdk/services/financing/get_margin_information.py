@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import MarginInformation
+from ...model import GetMarginInformationResponse as _GetMarginInformationResponse
 
 
 @dataclass
@@ -25,5 +25,5 @@ class GetMarginInformationRequest:
 
 
 @dataclass
-class GetMarginInformationResponse(BaseResponse):
-    margin_information: MarginInformation = None
+class GetMarginInformationResponse(BaseResponse, _GetMarginInformationResponse):
+    __doc__ = _GetMarginInformationResponse.__doc__

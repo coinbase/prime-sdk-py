@@ -15,6 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import GetFcmSettingsResponse as _GetFcmSettingsResponse
 
 
 @dataclass
@@ -24,5 +25,5 @@ class GetFcmSettingsRequest:
 
 
 @dataclass
-class GetFcmSettingsResponse(BaseResponse):
-    target_derivatives_excess: str = None
+class GetFcmSettingsResponse(BaseResponse, _GetFcmSettingsResponse):
+    __doc__ = _GetFcmSettingsResponse.__doc__

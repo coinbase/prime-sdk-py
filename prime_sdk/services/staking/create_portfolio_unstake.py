@@ -15,6 +15,8 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import PortfolioStakingUnstakeRequest as _PortfolioStakingUnstakeRequest
+from ...model import PortfolioStakingUnstakeResponse as _PortfolioStakingUnstakeResponse
 
 
 @dataclass
@@ -22,18 +24,15 @@ class UnstakeMetadata:
     external_id: str | None = None
 
 
-@dataclass
-class CreatePortfolioUnstakeRequest:
+@dataclass(kw_only=True)
+class CreatePortfolioUnstakeRequest(_PortfolioStakingUnstakeRequest):
+    __doc__ = _PortfolioStakingUnstakeRequest.__doc__
+
     portfolio_id: str
-    idempotency_key: str
-    currency_symbol: str
-    amount: str
-    metadata: UnstakeMetadata | None = None
-    validator_provider: str | None = None
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class CreatePortfolioUnstakeResponse(BaseResponse):
-    activity_id: str = None
-    transaction_id: str = None
+class CreatePortfolioUnstakeResponse(BaseResponse, _PortfolioStakingUnstakeResponse):
+    __doc__ = _PortfolioStakingUnstakeResponse.__doc__

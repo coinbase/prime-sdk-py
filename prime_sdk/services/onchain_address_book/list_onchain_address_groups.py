@@ -15,7 +15,9 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import AddressGroup
+from ...model import (
+    ListOnchainAddressGroupsResponse as _ListOnchainAddressGroupsResponse,
+)
 
 
 @dataclass
@@ -25,5 +27,5 @@ class ListOnchainAddressGroupsRequest:
 
 
 @dataclass
-class ListOnchainAddressGroupsResponse(BaseResponse):
-    address_groups: list[AddressGroup] = None
+class ListOnchainAddressGroupsResponse(BaseResponse, _ListOnchainAddressGroupsResponse):
+    __doc__ = _ListOnchainAddressGroupsResponse.__doc__

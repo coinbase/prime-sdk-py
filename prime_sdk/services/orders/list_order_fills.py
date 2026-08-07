@@ -15,8 +15,8 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Fill
-from ...utils import Pagination, PaginationParams
+from ...model import GetOrderFillsResponse as _GetOrderFillsResponse
+from ...utils import PaginationParams
 
 
 @dataclass
@@ -28,6 +28,5 @@ class ListOrderFillsRequest:
 
 
 @dataclass
-class ListOrderFillsResponse(BaseResponse):
-    fills: list[Fill] = None
-    pagination: Pagination = None
+class ListOrderFillsResponse(BaseResponse, _GetOrderFillsResponse):
+    __doc__ = _GetOrderFillsResponse.__doc__

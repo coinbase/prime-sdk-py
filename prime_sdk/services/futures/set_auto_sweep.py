@@ -15,15 +15,19 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import SetAutoSweepRequest as _SetAutoSweepRequest
+from ...model import SetAutoSweepResponse as _SetAutoSweepResponse
 
 
-@dataclass
-class SetAutoSweepRequest:
+@dataclass(kw_only=True)
+class SetAutoSweepRequest(_SetAutoSweepRequest):
+    __doc__ = _SetAutoSweepRequest.__doc__
+
     entity_id: str
-    auto_sweep: bool
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class SetAutoSweepResponse(BaseResponse):
-    success: bool = None
+class SetAutoSweepResponse(BaseResponse, _SetAutoSweepResponse):
+    __doc__ = _SetAutoSweepResponse.__doc__

@@ -15,15 +15,17 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import RotateAPIKeyRequest as _RotateAPIKeyRequest
+from ...model import RotateAPIKeyResponse as _RotateAPIKeyResponse
 
 
-@dataclass
-class RotateApiKeyRequest:
-    duration_seconds: int | None = None
+@dataclass(kw_only=True)
+class RotateApiKeyRequest(_RotateAPIKeyRequest):
+    __doc__ = _RotateAPIKeyRequest.__doc__
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class RotateApiKeyResponse(BaseResponse):
-    encrypted_credentials: str = None
-    activity_id: str = None
+class RotateApiKeyResponse(BaseResponse, _RotateAPIKeyResponse):
+    __doc__ = _RotateAPIKeyResponse.__doc__

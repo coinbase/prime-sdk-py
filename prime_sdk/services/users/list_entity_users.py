@@ -15,8 +15,8 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import User
-from ...utils import Pagination, PaginationParams
+from ...model import GetEntityUsersResponse as _GetEntityUsersResponse
+from ...utils import PaginationParams
 
 
 @dataclass
@@ -27,6 +27,5 @@ class ListEntityUsersRequest:
 
 
 @dataclass
-class ListEntityUsersResponse(BaseResponse):
-    users: list[User] = None
-    pagination: Pagination = None
+class ListEntityUsersResponse(BaseResponse, _GetEntityUsersResponse):
+    __doc__ = _GetEntityUsersResponse.__doc__

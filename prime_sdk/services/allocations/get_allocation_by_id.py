@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Allocation
+from ...model import GetAllocationResponse as _GetAllocationResponse
 
 
 @dataclass
@@ -26,5 +26,5 @@ class GetAllocationByIdRequest:
 
 
 @dataclass
-class GetAllocationByIdResponse(BaseResponse):
-    allocation: Allocation = None
+class GetAllocationByIdResponse(BaseResponse, _GetAllocationResponse):
+    __doc__ = _GetAllocationResponse.__doc__

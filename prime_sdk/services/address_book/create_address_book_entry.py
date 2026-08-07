@@ -15,20 +15,25 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import (
+    CreatePortfolioAddressBookEntryRequest as _CreatePortfolioAddressBookEntryRequest,
+)
+from ...model import (
+    CreatePortfolioAddressBookEntryResponse as _CreatePortfolioAddressBookEntryResponse,
+)
 
 
-@dataclass
-class CreateAddressBookEntryRequest:
+@dataclass(kw_only=True)
+class CreateAddressBookEntryRequest(_CreatePortfolioAddressBookEntryRequest):
+    __doc__ = _CreatePortfolioAddressBookEntryRequest.__doc__
+
     portfolio_id: str
-    address: str
-    currency_symbol: str
-    name: str
-    account_identifier: str | None = None
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class CreateAddressBookEntryResponse(BaseResponse):
-    activity_type: str = None
-    num_approvals_remaining: int = None
-    activity_id: str = None
+class CreateAddressBookEntryResponse(
+    BaseResponse, _CreatePortfolioAddressBookEntryResponse
+):
+    __doc__ = _CreatePortfolioAddressBookEntryResponse.__doc__

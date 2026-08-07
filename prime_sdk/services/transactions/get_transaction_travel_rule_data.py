@@ -15,7 +15,9 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from .submit_deposit_travel_rule_data import TravelRuleParty
+from ...model import (
+    GetTransactionTravelRuleDataResponse as _GetTransactionTravelRuleDataResponse,
+)
 
 
 @dataclass
@@ -26,13 +28,7 @@ class GetTransactionTravelRuleDataRequest:
 
 
 @dataclass
-class GetTransactionTravelRuleDataResponse(BaseResponse):
-    fulfilled: bool = None
-    is_self: bool = None
-    originator: TravelRuleParty = None
-    beneficiary: TravelRuleParty = None
-    amount: str = None
-    amount_currency: str = None
-    fiat_amount: str = None
-    fiat_amount_currency: str = None
-    blockchain_network: str = None
+class GetTransactionTravelRuleDataResponse(
+    BaseResponse, _GetTransactionTravelRuleDataResponse
+):
+    __doc__ = _GetTransactionTravelRuleDataResponse.__doc__

@@ -16,8 +16,8 @@ from dataclasses import dataclass
 
 from ...base_response import BaseResponse
 from ...enums import AggregationType
-from ...model import EntityBalance
-from ...utils import Pagination, PaginationParams
+from ...model import ListEntityBalancesResponse as _ListEntityBalancesResponse
+from ...utils import PaginationParams
 
 
 @dataclass
@@ -30,6 +30,5 @@ class ListEntityBalancesRequest:
 
 
 @dataclass
-class ListEntityBalancesResponse(BaseResponse):
-    balances: list[EntityBalance] = None
-    pagination: Pagination = None
+class ListEntityBalancesResponse(BaseResponse, _ListEntityBalancesResponse):
+    __doc__ = _ListEntityBalancesResponse.__doc__

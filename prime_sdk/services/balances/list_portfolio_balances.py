@@ -16,7 +16,7 @@ from dataclasses import dataclass
 
 from ...base_response import BaseResponse
 from ...enums import BalanceType
-from ...model import Balance, BalanceWithHolds
+from ...model import GetPortfolioBalancesResponse as _GetPortfolioBalancesResponse
 from ...utils import PaginationParams
 
 
@@ -30,9 +30,5 @@ class ListPortfolioBalancesRequest:
 
 
 @dataclass
-class ListPortfolioBalancesResponse(BaseResponse):
-    balances: list[Balance] = None
-    type: str = None
-    trading_balances: BalanceWithHolds = None
-    vault_balances: BalanceWithHolds = None
-    prime_custody_balances: BalanceWithHolds = None
+class ListPortfolioBalancesResponse(BaseResponse, _GetPortfolioBalancesResponse):
+    __doc__ = _GetPortfolioBalancesResponse.__doc__

@@ -15,8 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import MarketData
-from ...utils import Pagination
+from ...model import GetMarketDataResponse as _GetMarketDataResponse
 
 
 @dataclass
@@ -29,6 +28,5 @@ class GetMarketDataRequest:
 
 
 @dataclass
-class GetMarketDataResponse(BaseResponse):
-    market_data: list[MarketData] = None
-    pagination: Pagination = None
+class GetMarketDataResponse(BaseResponse, _GetMarketDataResponse):
+    __doc__ = _GetMarketDataResponse.__doc__

@@ -15,33 +15,19 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...enums import OrderSide, OrderType, TimeInForce
+from ...model import CreateOrderRequest as _CreateOrderRequest
+from ...model import CreateOrderResponse as _CreateOrderResponse
 
 
-@dataclass
-class CreateOrderRequest:
+@dataclass(kw_only=True)
+class CreateOrderRequest(_CreateOrderRequest):
+    __doc__ = _CreateOrderRequest.__doc__
+
     portfolio_id: str
-    side: OrderSide
-    client_order_id: str
-    product_id: str
-    type: OrderType
-    base_quantity: str | None = None
-    quote_value: str | None = None
-    limit_price: str | None = None
-    start_time: str | None = None
-    expiry_time: str | None = None
-    time_in_force: TimeInForce | None = None
-    stp_id: str | None = None
-    display_quote_size: str | None = None
-    display_base_size: str | None = None
-    is_raise_exact: str | None = None
-    historical_pov: str | None = None
-    stop_price: str | None = None
-    settl_currency: str | None = None
-    post_only: bool | None = None
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class CreateOrderResponse(BaseResponse):
-    order_id: str = None
+class CreateOrderResponse(BaseResponse, _CreateOrderResponse):
+    __doc__ = _CreateOrderResponse.__doc__

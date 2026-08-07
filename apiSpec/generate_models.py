@@ -31,6 +31,7 @@ from model_config import (
     EXTRA_FIELDS,
     FIELD_RENAMES,
     LOCATE_REQUEST_CLASS,
+    REQUEST_BODY_CLASS_NAMES,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -75,6 +76,7 @@ SCHEMA_REF_TYPE_OVERRIDES = {
 }
 
 DOCSTRING_WRAP_WIDTH = 88
+REQUEST_BODY_METHODS = frozenset({"post", "put", "patch"})
 
 
 CLASS_NAME_PREFIXES = (
@@ -185,6 +187,60 @@ def schema_property_type(
             )
 
     return "str"
+
+
+def operation_id_to_request_class(operation_id: str) -> str:
+    if operation_id in REQUEST_BODY_CLASS_NAMES:
+        return REQUEST_BODY_CLASS_NAMES[operation_id]
+    name = operation_id
+    for prefix in ("PrimeRESTAPI_", "primeRESTAPI_"):
+        name = name.removeprefix(prefix)
+    if not name.endswith("Request"):
+        name = f"{name}Request"
+    return name
+
+
+def collect_inline_request_bodies(
+    spec: dict[str, Any],
+) -> dict[str, tuple[str, dict[str, Any]]]:
+    request_bodies: dict[str, tuple[str, dict[str, Any]]] = {}
+    for methods in (spec.get("paths") or {}).values():
+        for method, operation in methods.items():
+            if method.lower() not in REQUEST_BODY_METHODS or not isinstance(
+                operation, dict
+            ):
+                continue
+            schema = (
+                operation.get("requestBody", {})
+                .get("content", {})
+                .get("application/json", {})
+                .get("schema")
+            )
+            if not isinstance(schema, dict):
+                continue
+            operation_id = operation.get("operationId")
+            if not operation_id:
+                continue
+            class_name = operation_id_to_request_class(operation_id)
+            request_bodies[class_name] = (operation_id, schema)
+    return request_bodies
+
+
+def collect_inline_fields(
+    class_short: str,
+    schema: dict[str, Any],
+    schemas: dict[str, Any],
+    compat_types: dict[str, dict[str, str]],
+) -> list[tuple[str, str]]:
+    fields: list[tuple[str, str]] = []
+    for spec_name, prop in (schema.get("properties") or {}).items():
+        if not isinstance(prop, dict):
+            continue
+        field_type = schema_property_type(
+            prop, schemas, class_short, spec_name, compat_types
+        )
+        fields.append((spec_name, field_type))
+    return fields
 
 
 def collect_fields(
@@ -350,6 +406,8 @@ def render_class(
     class_short: str,
     fields: list[tuple[str, str]],
     schema: dict[str, Any],
+    *,
+    kw_only: bool = False,
 ) -> str:
     renames = FIELD_RENAMES.get(class_short, {})
     class_summary = collect_class_docstring(schema)
@@ -359,7 +417,8 @@ def render_class(
         class_summary, field_descriptions, field_order
     )
 
-    lines = ["@dataclass", f"class {class_short}:"]
+    decorator = "@dataclass(kw_only=True)" if kw_only else "@dataclass"
+    lines = [decorator, f"class {class_short}:"]
     if docstring_lines:
         lines.append('    """')
         for line in docstring_lines:
@@ -418,6 +477,19 @@ def generate_models() -> str:
             schema_key, schema, schemas, compat_surface, compat_types
         )
         body_parts.append(render_class(class_short, fields, schema))
+        body_parts.append("")
+        emitted.add(class_short)
+
+    request_bodies = collect_inline_request_bodies(spec)
+    if request_bodies:
+        body_parts.append("# Inline request-body models from OpenAPI paths")
+        body_parts.append("")
+    for class_short in sorted(request_bodies):
+        if class_short in emitted:
+            continue
+        _operation_id, schema = request_bodies[class_short]
+        fields = collect_inline_fields(class_short, schema, schemas, compat_types)
+        body_parts.append(render_class(class_short, fields, schema, kw_only=True))
         body_parts.append("")
         emitted.add(class_short)
 

@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Accrual
+from ...model import GetInterestAccrualsResponse as _GetInterestAccrualsResponse
 
 
 @dataclass
@@ -28,6 +28,5 @@ class ListInterestAccrualsRequest:
 
 
 @dataclass
-class ListInterestAccrualsResponse(BaseResponse):
-    accruals: list[Accrual] = None
-    total_notional_accrual: str = None
+class ListInterestAccrualsResponse(BaseResponse, _GetInterestAccrualsResponse):
+    __doc__ = _GetInterestAccrualsResponse.__doc__

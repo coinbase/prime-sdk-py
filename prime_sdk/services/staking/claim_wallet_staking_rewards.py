@@ -15,6 +15,8 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
+from ...model import StakingClaimRewardsRequest as _StakingClaimRewardsRequest
+from ...model import StakingClaimRewardsResponse as _StakingClaimRewardsResponse
 
 
 @dataclass
@@ -22,17 +24,16 @@ class ClaimRewardsInputs:
     amount: str | None = None
 
 
-@dataclass
-class ClaimWalletStakingRewardsRequest:
+@dataclass(kw_only=True)
+class ClaimWalletStakingRewardsRequest(_StakingClaimRewardsRequest):
+    __doc__ = _StakingClaimRewardsRequest.__doc__
+
     portfolio_id: str
     wallet_id: str
-    idempotency_key: str
-    inputs: ClaimRewardsInputs | None = None
+
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
-class ClaimWalletStakingRewardsResponse(BaseResponse):
-    wallet_id: str = None
-    transaction_id: str = None
-    activity_id: str = None
+class ClaimWalletStakingRewardsResponse(BaseResponse, _StakingClaimRewardsResponse):
+    __doc__ = _StakingClaimRewardsResponse.__doc__

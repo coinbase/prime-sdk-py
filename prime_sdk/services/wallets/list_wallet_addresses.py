@@ -15,8 +15,8 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import BlockchainAddress
-from ...utils import Pagination, PaginationParams
+from ...model import ListWalletAddressesResponse as _ListWalletAddressesResponse
+from ...utils import PaginationParams
 
 
 @dataclass
@@ -29,6 +29,5 @@ class ListWalletAddressesRequest:
 
 
 @dataclass
-class ListWalletAddressesResponse(BaseResponse):
-    addresses: list[BlockchainAddress] = None
-    pagination: Pagination = None
+class ListWalletAddressesResponse(BaseResponse, _ListWalletAddressesResponse):
+    __doc__ = _ListWalletAddressesResponse.__doc__

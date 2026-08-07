@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Portfolio
+from ...model import GetPortfolioResponse as _GetPortfolioResponse
 
 
 @dataclass
@@ -25,5 +25,5 @@ class GetPortfolioRequest:
 
 
 @dataclass
-class GetPortfolioResponse(BaseResponse):
-    portfolio: Portfolio = None
+class GetPortfolioResponse(BaseResponse, _GetPortfolioResponse):
+    __doc__ = _GetPortfolioResponse.__doc__

@@ -1,0 +1,1204 @@
+{
+  "GetActivityRequest": [
+    "portfolio_id",
+    "activity_id",
+    "allowed_status_codes"
+  ],
+  "GetActivityResponse": [
+    "activity"
+  ],
+  "GetEntityActivityRequest": [
+    "activity_id",
+    "allowed_status_codes"
+  ],
+  "GetEntityActivityResponse": [
+    "activity"
+  ],
+  "ListActivitiesRequest": [
+    "portfolio_id",
+    "symbols",
+    "categories",
+    "statuses",
+    "start_time",
+    "end_time",
+    "pagination",
+    "allowed_status_codes"
+  ],
+  "ListActivitiesResponse": [
+    "activities",
+    "pagination"
+  ],
+  "ListEntityActivitiesRequest": [
+    "entity_id",
+    "activity_level",
+    "symbols",
+    "categories",
+    "statuses",
+    "start_time",
+    "end_time",
+    "pagination",
+    "allowed_status_codes"
+  ],
+  "ListEntityActivitiesResponse": [
+    "activities",
+    "pagination"
+  ],
+  "CreateAddressBookEntryRequest": [
+    "address",
+    "currency_symbol",
+    "name",
+    "account_identifier",
+    "chain_ids",
+    "portfolio_id",
+    "allowed_status_codes"
+  ],
+  "CreateAddressBookEntryResponse": [
+    "activity_type",
+    "num_approvals_remaining",
+    "activity_id"
+  ],
+  "GetAddressBookRequest": [
+    "portfolio_id",
+    "currency_symbol",
+    "search",
+    "pagination",
+    "allowed_status_codes"
+  ],
+  "GetAddressBookResponse": [
+    "addresses",
+    "pagination"
+  ],
+  "CancelAdvancedTransferRequest": [
+    "portfolio_id",
+    "advanced_transfer_id",
+    "allowed_status_codes"
+  ],
+  "CancelAdvancedTransferResponse": [
+    "advanced_transfer_id"
+  ],
+  "CreateAdvancedTransferRequest": [
+    "advanced_transfer",
+    "portfolio_id",
+    "allowed_status_codes"
+  ],
+  "CreateAdvancedTransferResponse": [
+    "advanced_transfer"
+  ],
+  "ListAdvancedTransferTransactionsRequest": [
+    "portfolio_id",
+    "advanced_transfer_id",
+    "allowed_status_codes"
+  ],
+  "ListAdvancedTransferTransactionsResponse": [
+    "transactions"
+  ],
+  "ListAdvancedTransfersRequest": [
+    "portfolio_id",
+    "state",
+    "type",
+    "start_time",
+    "end_time",
+    "reference_id",
+    "pagination",
+    "allowed_status_codes"
+  ],
+  "ListAdvancedTransfersResponse": [
+    "advanced_transfers",
+    "pagination"
+  ],
+  "CreatePortfolioAllocationsRequest": [
+    "allocation_id",
+    "source_portfolio_id",
+    "product_id",
+    "order_ids",
+    "allocation_legs",
+    "size_type",
+    "remainder_destination_portfolio",
+    "remainder_destination_portfolio_id",
+    "allowed_status_codes"
+  ],
+  "CreatePortfolioAllocationsResponse": [
+    "success",
+    "allocation_id",
+    "failure_reason"
+  ],
+  "CreatePortfolioNetAllocationsRequest": [
+    "source_portfolio_id",
+    "product_id",
+    "order_ids",
+    "allocation_legs",
+    "size_type",
+    "remainder_destination_portfolio",
+    "netting_id",
+    "allocation_id",
+    "remainder_destination_portfolio_id",
+    "allowed_status_codes"
+  ],
+  "CreatePortfolioNetAllocationsResponse": [
+    "success",
+    "netting_id",
+    "buy_allocation_id",
+    "sell_allocation_id",
+    "failure_reason"
+  ],
+  "GetAllocationByIdRequest": [
+    "portfolio_id",
+    "allocation_id",
+    "allowed_status_codes"
+  ],
+  "GetAllocationByIdResponse": [
+    "allocation"
+  ],
+  "GetNetAllocationsByNettingIdRequest": [
+    "portfolio_id",
+    "netting_id",
+    "allowed_status_codes"
+  ],
+  "GetNetAllocationsByNettingIdResponse": [
+    "allocations"
+  ],
+  "ListPortfolioAllocationsRequest": [
+    "portfolio_id",
+    "start_date",
+    "product_ids",
+    "order_side",
+    "end_date",
+    "pagination",
+    "allowed_status_codes"
+  ],
+  "ListPortfolioAllocationsResponse": [
+    "allocations",
+    "pagination"
+  ],
+  "RotateApiKeyRequest": [
+    "duration_seconds",
+    "allowed_status_codes"
+  ],
+  "RotateApiKeyResponse": [
+    "encrypted_credentials",
+    "activity_id"
+  ],
+  "ListAssetsRequest": [
+    "entity_id",
+    "allowed_status_codes"
+  ],
+  "ListAssetsResponse": [
+    "assets"
+  ],
+  "GetWalletBalanceRequest": [
+    "portfolio_id",
+    "wallet_id",
+    "allowed_status_codes"
+  ],
+  "GetWalletBalanceResponse": [
+    "balance"
+  ],
+  "ListEntityBalancesRequest": [
+    "entity_id",
+    "symbols",
+    "pagination",
+    "aggregation_type",
+    "allowed_status_codes"
+  ],
+  "ListEntityBalancesResponse": [
+    "balances",
+    "pagination"
+  ],
+  "ListPortfolioBalancesRequest": [
+    "portfolio_id",
+    "symbols",
+    "balance_type",
+    "pagination",
+    "allowed_status_codes"
+  ],
+  "ListPortfolioBalancesResponse": [
+    "balances",
+    "type",
+    "trading_balances",
+    "vault_balances",
+    "prime_custody_balances"
+  ],
+  "ListWeb3WalletBalancesRequest": [
+    "portfolio_id",
+    "wallet_id",
+    "visibility_statuses",
+    "pagination",
+    "allowed_status_codes"
+  ],
+  "ListWeb3WalletBalancesResponse": [
+    "balances",
+    "pagination",
+    "defi_balances"
+  ],
+  "GetPortfolioCommissionRequest": [
+    "portfolio_id",
+    "allowed_status_codes"
+  ],
+  "GetPortfolioCommissionResponse": [
+    "commission"
+  ],
+  "CreateNewLocateRequest": [
+    "symbol",
+    "amount",
+    "conversion_date",
+    "locate_date",
+    "portfolio_id",
+    "allowed_status_codes"
+  ],
+  "CreateNewLocateResponse": [
+    "locate_id"
+  ],
+  "GetCrossMarginOverviewRequest": [
+    "entity_id",
+    "allowed_status_codes"
+  ],
+  "GetCrossMarginOverviewResponse": [
+    "overview"
+  ],
+  "GetCrossMarginPrimeOverviewRequest": [
+    "entity_id",
+    "allowed_status_codes"
+  ],
+  "GetCrossMarginPrimeOverviewResponse": [
+    "control_status",
+    "margin_level",
+    "evaluated_at",
+    "margin_summary"
+  ],
+  "GetCrossMarginRiskParametersRequest": [
+    "entity_id",
+    "allowed_status_codes"
+  ],
+  "GetCrossMarginRiskParametersResponse": [
+    "risk_parameters",
+    "offset_credit_matrix_long_short",
+    "offset_credit_matrix_long_long",
+    "offset_credit_matrix_short_short",
+    "margin_period_of_risk"
+  ],
+  "GetEntityLocateAvailabilitiesRequest": [
+    "entity_id",
+    "locate_date",
+    "allowed_status_codes"
+  ],
+  "GetEntityLocateAvailabilitiesResponse": [
+    "locate_availability"
+  ],
+  "GetMarginInformationRequest": [
+    "entity_id",
+    "allowed_status_codes"
+  ],
+  "GetMarginInformationResponse": [
+    "margin_information"
+  ],
+  "GetMarketDataRequest": [
+    "entity_id",
+    "cursor",
+    "limit",
+    "sort_direction",
+    "allowed_status_codes"
+  ],
+  "GetMarketDataResponse": [
+    "market_data",
+    "pagination"
+  ],
+  "GetBuyingPowerRequest": [
+    "portfolio_id",
+    "base_currency",
+    "quote_currency",
+    "allowed_status_codes"
+  ],
+  "GetBuyingPowerResponse": [
+    "buying_power"
+  ],
+  "GetPortfolioCreditInformationRequest": [
+    "portfolio_id",
+    "allowed_status_codes"
+  ],
+  "GetPortfolioCreditInformationResponse": [
+    "post_trade_credit"
+  ],
+  "GetPortfolioWithdrawalPowerRequest": [
+    "portfolio_id",
+    "symbol",
+    "allowed_status_codes"
+  ],
+  "GetPortfolioWithdrawalPowerResponse": [
+    "withdrawal_power"
+  ],
+  "GetTradeFinanceTieredPricingFeesRequest": [
+    "entity_id",
+    "effective_at",
+    "allowed_status_codes"
+  ],
+  "GetTradeFinanceTieredPricingFeesResponse": [
+    "fees"
+  ],
+  "GetXMLiquidationRequest": [
+    "entity_id",
+    "liquidation_id",
+    "allowed_status_codes"
+  ],
+  "GetXMLiquidationResponse": [
+    "liquidation"
+  ],
+  "ListExistingLocatesRequest": [
+    "portfolio_id",
+    "locate_ids",
+    "locate_date",
+    "allowed_status_codes"
+  ],
+  "ListExistingLocatesResponse": [
+    "locates"
+  ],
+  "ListFinancingEligibleAssetsRequest": [
+    "allowed_status_codes"
+  ],
+  "ListFinancingEligibleAssetsResponse": [
+    "assets"
+  ],
+  "ListInterestAccrualsRequest": [
+    "entity_id",
+    "portfolio_id",
+    "start_date",
+    "end_date",
+    "allowed_status_codes"
+  ],
+  "ListInterestAccrualsResponse": [
+    "total_notional_accrual",
+    "accruals"
+  ],
+  "ListInterestAccrualsForPortfolioRequest": [
+    "portfolio_id",
+    "start_date",
+    "end_date",
+    "allowed_status_codes"
+  ],
+  "ListInterestAccrualsForPortfolioResponse": [
+    "total_notional_accrual",
+    "accruals"
+  ],
+  "ListMarginCallSummariesRequest": [
+    "entity_id",
+    "start_date",
+    "end_date",
+    "allowed_status_codes"
+  ],
+  "ListMarginCallSummariesResponse": [
+    "margin_summaries"
+  ],
+  "ListMarginConversionsRequest": [
+    "portfolio_id",
+    "start_date",
+    "end_date",
+    "allowed_status_codes"
+  ],
+  "ListMarginConversionsResponse": [
+    "conversions"
+  ],
+  "ListTradeFinanceObligationsRequest": [
+    "entity_id",
+    "allowed_status_codes"
+  ],
+  "ListTradeFinanceObligationsResponse": [
+    "obligations"
+  ],
+  "ListXMLiquidationsRequest": [
+    "entity_id",
+    "cursor",
+    "limit",
+    "sort_direction",
+    "allowed_status_codes"
+  ],
+  "ListXMLiquidationsResponse": [
+    "liquidations",
+    "pagination"
+  ],
+  "SetFundingSettingsRequest": [
+    "designated_funding_portfolio_id",
+    "automatic_conversion_enabled",
+    "automatic_loan_enabled",
+    "automatic_excess_return_enabled",
+    "excess_funds_target_amount",
+    "entity_id",
+    "allowed_status_codes"
+  ],
+  "SetFundingSettingsResponse": [
+    "activity_id",
+    "activity_type",
+    "num_approvals_remaining"
+  ],
+  "CancelEntityFuturesSweepRequest": [
+    "entity_id",
+    "allowed_status_codes"
+  ],
+  "CancelEntityFuturesSweepResponse": [
+    "success",
+    "request_id"
+  ],
+  "GetEntityFcmBalanceRequest": [
+    "entity_id",
+    "allowed_status_codes"
+  ],
+  "GetEntityFcmBalanceResponse": [
+    "portfolio_id",
+    "cfm_usd_balance",
+    "unrealized_pnl",
+    "daily_realized_pnl",
+    "excess_liquidity",
+    "futures_buying_power",
+    "initial_margin",
+    "maintenance_margin",
+    "clearing_account_id",
+    "cfm_unsettled_accrued_funding_pnl"
+  ],
+  "GetEntityPositionsRequest": [
+    "entity_id",
+    "product_id",
+    "allowed_status_codes"
+  ],
+  "GetEntityPositionsResponse": [
+    "positions",
+    "pagination",
+    "clearing_account_id"
+  ],
+  "GetFcmEquityRequest": [
+    "entity_id",
+    "allowed_status_codes"
+  ],
+  "GetFcmEquityResponse": [
+    "eod_account_equity",
+    "eod_unrealized_pnl",
+    "current_excess_deficit",
+    "available_to_sweep"
+  ],
+  "GetFcmMarginCallDetailsRequest": [
+    "entity_id",
+    "allowed_status_codes"
+  ],
+  "GetFcmMarginCallDetailsResponse": [
+    "margin_calls"
+  ],
+  "GetFcmRiskLimitsRequest": [
+    "entity_id",
+    "allowed_status_codes"
+  ],
+  "GetFcmRiskLimitsResponse": [
+    "cfm_risk_limit",
+    "cfm_risk_limit_utilization",
+    "cfm_total_margin",
+    "cfm_delta_ote",
+    "cfm_unsettled_realized_pnl",
+    "cfm_unsettled_accrued_funding_pnl",
+    "margin_utilization_percent",
+    "margin_health_state"
+  ],
+  "GetFcmSettingsRequest": [
+    "entity_id",
+    "allowed_status_codes"
+  ],
+  "GetFcmSettingsResponse": [
+    "target_derivatives_excess"
+  ],
+  "ListEntityFuturesSweepsRequest": [
+    "entity_id",
+    "allowed_status_codes"
+  ],
+  "ListEntityFuturesSweepsResponse": [
+    "sweeps",
+    "auto_sweep"
+  ],
+  "ScheduleEntityFuturesSweepRequest": [
+    "amount",
+    "currency",
+    "entity_id",
+    "allowed_status_codes"
+  ],
+  "ScheduleEntityFuturesSweepResponse": [
+    "success",
+    "request_id"
+  ],
+  "SetAutoSweepRequest": [
+    "auto_sweep",
+    "entity_id",
+    "allowed_status_codes"
+  ],
+  "SetAutoSweepResponse": [
+    "success"
+  ],
+  "SetFcmSettingsRequest": [
+    "target_derivatives_excess",
+    "entity_id",
+    "allowed_status_codes"
+  ],
+  "SetFcmSettingsResponse": [
+    "target_derivatives_excess"
+  ],
+  "ListInvoicesRequest": [
+    "entity_id",
+    "states",
+    "billing_year",
+    "billing_month",
+    "pagination",
+    "allowed_status_codes"
+  ],
+  "ListInvoicesResponse": [
+    "invoices"
+  ],
+  "CreateOnchainAddressBookEntryRequest": [
+    "address_group",
+    "portfolio_id",
+    "allowed_status_codes"
+  ],
+  "CreateOnchainAddressBookEntryResponse": [
+    "activity_type",
+    "num_approvals_remaining",
+    "activity_id"
+  ],
+  "DeleteOnchainAddressGroupRequest": [
+    "portfolio_id",
+    "address_group_id",
+    "allowed_status_codes"
+  ],
+  "DeleteOnchainAddressGroupResponse": [
+    "activity_type",
+    "num_approvals_remaining",
+    "activity_id"
+  ],
+  "ListOnchainAddressGroupsRequest": [
+    "portfolio_id",
+    "allowed_status_codes"
+  ],
+  "ListOnchainAddressGroupsResponse": [
+    "address_groups"
+  ],
+  "UpdateOnchainAddressBookRequest": [
+    "address_group",
+    "portfolio_id",
+    "allowed_status_codes"
+  ],
+  "UpdateOnchainAddressBookResponse": [
+    "activity_type",
+    "num_approvals_remaining",
+    "activity_id"
+  ],
+  "AcceptQuoteRequest": [
+    "product_id",
+    "side",
+    "client_order_id",
+    "quote_id",
+    "settl_currency",
+    "portfolio_id",
+    "allowed_status_codes"
+  ],
+  "AcceptQuoteResponse": [
+    "order_id"
+  ],
+  "CancelOrderRequest": [
+    "portfolio_id",
+    "order_id",
+    "allowed_status_codes"
+  ],
+  "CancelOrderResponse": [
+    "id"
+  ],
+  "CreateOrderRequest": [
+    "product_id",
+    "side",
+    "client_order_id",
+    "type",
+    "base_quantity",
+    "quote_value",
+    "limit_price",
+    "start_time",
+    "expiry_time",
+    "time_in_force",
+    "stp_id",
+    "display_quote_size",
+    "display_base_size",
+    "is_raise_exact",
+    "historical_pov",
+    "stop_price",
+    "settl_currency",
+    "post_only",
+    "peg_offset_type",
+    "offset",
+    "wig_level",
+    "is_buy_exact",
+    "portfolio_id",
+    "allowed_status_codes"
+  ],
+  "CreateOrderResponse": [
+    "order_id"
+  ],
+  "CreateOrderPreviewRequest": [
+    "product_id",
+    "side",
+    "type",
+    "base_quantity",
+    "quote_value",
+    "limit_price",
+    "start_time",
+    "expiry_time",
+    "time_in_force",
+    "is_raise_exact",
+    "historical_pov",
+    "stop_price",
+    "settl_currency",
+    "postOnly",
+    "display_quote_size",
+    "display_base_size",
+    "peg_offset_type",
+    "offset",
+    "wig_level",
+    "is_buy_exact",
+    "portfolio_id",
+    "stp_id",
+    "post_only",
+    "allowed_status_codes"
+  ],
+  "CreateOrderPreviewResponse": [
+    "portfolio_id",
+    "product_id",
+    "side",
+    "type",
+    "base_quantity",
+    "quote_value",
+    "limit_price",
+    "start_time",
+    "expiry_time",
+    "time_in_force",
+    "commission",
+    "slippage",
+    "best_bid",
+    "best_ask",
+    "average_filled_price",
+    "order_total",
+    "historical_pov",
+    "is_raise_exact",
+    "stop_price",
+    "display_size",
+    "display_quote_size",
+    "display_base_size",
+    "is_buy_exact",
+    "settl_currency",
+    "post_only"
+  ],
+  "CreateQuoteRequest": [
+    "product_id",
+    "side",
+    "client_quote_id",
+    "base_quantity",
+    "quote_value",
+    "limit_price",
+    "settl_currency",
+    "quote_duration_ms",
+    "portfolio_id",
+    "allowed_status_codes"
+  ],
+  "CreateQuoteResponse": [
+    "quote_id",
+    "expiration_time",
+    "best_price",
+    "order_total",
+    "price_inclusive_of_fees",
+    "quote_duration_ms"
+  ],
+  "EditOrderRequest": [
+    "product_id",
+    "orig_client_order_id",
+    "client_order_id",
+    "base_quantity",
+    "quote_value",
+    "limit_price",
+    "expiry_time",
+    "display_quote_size",
+    "display_base_size",
+    "stop_price",
+    "offset",
+    "wig_level",
+    "portfolio_id",
+    "order_id",
+    "allowed_status_codes"
+  ],
+  "EditOrderResponse": [
+    "order_id"
+  ],
+  "GetOrderRequest": [
+    "portfolio_id",
+    "order_id",
+    "allowed_status_codes"
+  ],
+  "GetOrderResponse": [
+    "order"
+  ],
+  "GetOrderEditHistoryRequest": [
+    "portfolio_id",
+    "order_id",
+    "allowed_status_codes"
+  ],
+  "GetOrderEditHistoryResponse": [
+    "edits"
+  ],
+  "ListOpenOrdersRequest": [
+    "portfolio_id",
+    "order_statuses",
+    "product_ids",
+    "order_type",
+    "order_side",
+    "start_date",
+    "end_date",
+    "allowed_status_codes"
+  ],
+  "ListOpenOrdersResponse": [
+    "orders",
+    "pagination"
+  ],
+  "ListOrderFillsRequest": [
+    "portfolio_id",
+    "order_id",
+    "pagination",
+    "allowed_status_codes"
+  ],
+  "ListOrderFillsResponse": [
+    "fills",
+    "pagination"
+  ],
+  "ListOrdersRequest": [
+    "portfolio_id",
+    "order_statuses",
+    "product_ids",
+    "order_type",
+    "order_side",
+    "start_date",
+    "end_date",
+    "pagination",
+    "allowed_status_codes"
+  ],
+  "ListOrdersResponse": [
+    "orders",
+    "pagination"
+  ],
+  "ListPortfolioFillsRequest": [
+    "portfolio_id",
+    "start_date",
+    "end_date",
+    "pagination",
+    "allowed_status_codes"
+  ],
+  "ListPortfolioFillsResponse": [
+    "fills",
+    "pagination"
+  ],
+  "GetEntityPaymentMethodRequest": [
+    "entity_id",
+    "payment_method_id",
+    "allowed_status_codes"
+  ],
+  "GetEntityPaymentMethodResponse": [
+    "details"
+  ],
+  "ListEntityPaymentMethodsRequest": [
+    "entity_id",
+    "pagination",
+    "allowed_status_codes"
+  ],
+  "ListEntityPaymentMethodsResponse": [
+    "payment_methods"
+  ],
+  "GetCounterpartyIdRequest": [
+    "portfolio_id",
+    "allowed_status_codes"
+  ],
+  "GetCounterpartyIdResponse": [
+    "counterparty"
+  ],
+  "GetPortfolioRequest": [
+    "portfolio_id",
+    "allowed_status_codes"
+  ],
+  "GetPortfolioResponse": [
+    "portfolio"
+  ],
+  "ListPortfoliosRequest": [
+    "allowed_status_codes"
+  ],
+  "ListPortfoliosResponse": [
+    "portfolios"
+  ],
+  "ListAggregateEntityPositionsRequest": [
+    "entity_id",
+    "pagination",
+    "allowed_status_codes"
+  ],
+  "ListAggregateEntityPositionsResponse": [
+    "positions",
+    "pagination"
+  ],
+  "ListEntityPositionsRequest": [
+    "entity_id",
+    "pagination",
+    "allowed_status_codes"
+  ],
+  "ListEntityPositionsResponse": [
+    "positions",
+    "pagination"
+  ],
+  "GetProductCandlesRequest": [
+    "portfolio_id",
+    "product_id",
+    "granularity",
+    "start_time",
+    "end_time",
+    "allowed_status_codes"
+  ],
+  "GetProductCandlesResponse": [
+    "candles"
+  ],
+  "ListProductsRequest": [
+    "portfolio_id",
+    "pagination",
+    "allowed_status_codes"
+  ],
+  "ListProductsResponse": [
+    "products",
+    "pagination"
+  ],
+  "ClaimWalletStakingRewardsRequest": [
+    "idempotency_key",
+    "inputs",
+    "portfolio_id",
+    "wallet_id",
+    "allowed_status_codes"
+  ],
+  "ClaimWalletStakingRewardsResponse": [
+    "wallet_id",
+    "transaction_id",
+    "activity_id"
+  ],
+  "CreatePortfolioStakeRequest": [
+    "idempotency_key",
+    "currency_symbol",
+    "amount",
+    "metadata",
+    "portfolio_id",
+    "allowed_status_codes"
+  ],
+  "CreatePortfolioStakeResponse": [
+    "activity_id",
+    "transaction_id"
+  ],
+  "CreatePortfolioUnstakeRequest": [
+    "idempotency_key",
+    "currency_symbol",
+    "amount",
+    "metadata",
+    "validator_provider",
+    "portfolio_id",
+    "allowed_status_codes"
+  ],
+  "CreatePortfolioUnstakeResponse": [
+    "activity_id",
+    "transaction_id"
+  ],
+  "CreateStakeRequest": [
+    "idempotency_key",
+    "inputs",
+    "metadata",
+    "portfolio_id",
+    "wallet_id",
+    "allowed_status_codes"
+  ],
+  "CreateStakeResponse": [
+    "wallet_id",
+    "transaction_id",
+    "activity_id"
+  ],
+  "CreateUnstakeRequest": [
+    "idempotency_key",
+    "inputs",
+    "metadata",
+    "portfolio_id",
+    "wallet_id",
+    "allowed_status_codes"
+  ],
+  "CreateUnstakeResponse": [
+    "wallet_id",
+    "transaction_id",
+    "activity_id"
+  ],
+  "GetStakingStatusRequest": [
+    "portfolio_id",
+    "wallet_id",
+    "allowed_status_codes"
+  ],
+  "GetStakingStatusResponse": [
+    "portfolio_id",
+    "wallet_id",
+    "wallet_address",
+    "current_timestamp",
+    "validators"
+  ],
+  "GetUnstakingStatusRequest": [
+    "portfolio_id",
+    "wallet_id",
+    "allowed_status_codes"
+  ],
+  "GetUnstakingStatusResponse": [
+    "portfolio_id",
+    "wallet_id",
+    "wallet_address",
+    "current_timestamp",
+    "validators"
+  ],
+  "PreviewUnstakeRequest": [
+    "amount",
+    "portfolio_id",
+    "wallet_id",
+    "allowed_status_codes"
+  ],
+  "PreviewUnstakeResponse": [
+    "estimated_amount",
+    "wallet_id",
+    "wallet_address",
+    "current_timestamp",
+    "validators"
+  ],
+  "QueryTransactionValidatorsRequest": [
+    "transaction_ids",
+    "cursor",
+    "limit",
+    "sort_direction",
+    "portfolio_id",
+    "allowed_status_codes"
+  ],
+  "QueryTransactionValidatorsResponse": [
+    "transaction_validators",
+    "pagination"
+  ],
+  "CreateConversionRequest": [
+    "amount",
+    "destination",
+    "idempotency_key",
+    "source_symbol",
+    "destination_symbol",
+    "portfolio_id",
+    "wallet_id",
+    "allowed_status_codes"
+  ],
+  "CreateConversionResponse": [
+    "activity_id",
+    "source_symbol",
+    "destination_symbol",
+    "amount",
+    "destination",
+    "source",
+    "transaction_id"
+  ],
+  "CreateOnchainTransactionRequest": [
+    "raw_unsigned_txn",
+    "rpc",
+    "evm_params",
+    "portfolio_id",
+    "wallet_id",
+    "allowed_status_codes"
+  ],
+  "CreateOnchainTransactionResponse": [
+    "transaction_id"
+  ],
+  "CreateTransferRequest": [
+    "amount",
+    "destination",
+    "idempotency_key",
+    "currency_symbol",
+    "portfolio_id",
+    "wallet_id",
+    "allowed_status_codes"
+  ],
+  "CreateTransferResponse": [
+    "activity_id",
+    "approval_url",
+    "symbol",
+    "amount",
+    "fee",
+    "destination_address",
+    "destination_type",
+    "source_address",
+    "source_type",
+    "transaction_id"
+  ],
+  "CreateWithdrawalRequest": [
+    "amount",
+    "destination_type",
+    "idempotency_key",
+    "currency_symbol",
+    "payment_method",
+    "blockchain_address",
+    "counterparty",
+    "travel_rule_data",
+    "portfolio_id",
+    "wallet_id",
+    "allowed_status_codes"
+  ],
+  "CreateWithdrawalResponse": [
+    "activity_id",
+    "approval_url",
+    "symbol",
+    "amount",
+    "fee",
+    "destination_type",
+    "source_type",
+    "blockchain_destination",
+    "counterparty_destination",
+    "blockchain_source",
+    "transaction_id"
+  ],
+  "GetTransactionRequest": [
+    "portfolio_id",
+    "transaction_id",
+    "allowed_status_codes"
+  ],
+  "GetTransactionResponse": [
+    "transaction"
+  ],
+  "GetTransactionTravelRuleDataRequest": [
+    "portfolio_id",
+    "transaction_id",
+    "allowed_status_codes"
+  ],
+  "GetTransactionTravelRuleDataResponse": [
+    "fulfilled",
+    "is_self",
+    "originator",
+    "beneficiary",
+    "amount",
+    "amount_currency",
+    "fiat_amount",
+    "fiat_amount_currency",
+    "blockchain_network"
+  ],
+  "ListPortfolioTransactionsRequest": [
+    "portfolio_id",
+    "symbols",
+    "types",
+    "start",
+    "end",
+    "pagination",
+    "allowed_status_codes"
+  ],
+  "ListPortfolioTransactionsResponse": [
+    "transactions",
+    "pagination"
+  ],
+  "ListWalletTransactionsRequest": [
+    "portfolio_id",
+    "wallet_id",
+    "types",
+    "start",
+    "end",
+    "pagination",
+    "allowed_status_codes"
+  ],
+  "ListWalletTransactionsResponse": [
+    "transactions",
+    "pagination"
+  ],
+  "SubmitDepositTravelRuleDataRequest": [
+    "originator",
+    "beneficiary",
+    "is_self",
+    "opt_out_of_ownership_verification",
+    "portfolio_id",
+    "transaction_id",
+    "allowed_status_codes"
+  ],
+  "SubmitDepositTravelRuleDataResponse": [
+    "ownership_verification_required"
+  ],
+  "ListEntityUsersRequest": [
+    "entity_id",
+    "pagination",
+    "allowed_status_codes"
+  ],
+  "ListEntityUsersResponse": [
+    "users",
+    "pagination"
+  ],
+  "ListPortfolioUsersRequest": [
+    "portfolio_id",
+    "pagination",
+    "allowed_status_codes"
+  ],
+  "ListPortfolioUsersResponse": [
+    "users",
+    "pagination"
+  ],
+  "CreateWalletRequest": [
+    "name",
+    "symbol",
+    "wallet_type",
+    "idempotency_key",
+    "network_family",
+    "network",
+    "portfolio_id",
+    "allowed_status_codes"
+  ],
+  "CreateWalletResponse": [
+    "activity_id",
+    "name",
+    "symbol",
+    "wallet_type",
+    "network_family"
+  ],
+  "CreateWalletDepositAddressRequest": [
+    "network_id",
+    "portfolio_id",
+    "wallet_id",
+    "allowed_status_codes"
+  ],
+  "CreateWalletDepositAddressResponse": [
+    "address",
+    "account_identifier",
+    "network"
+  ],
+  "GetWalletRequest": [
+    "portfolio_id",
+    "wallet_id",
+    "allowed_status_codes"
+  ],
+  "GetWalletResponse": [
+    "wallet"
+  ],
+  "GetWalletDepositInstructionsRequest": [
+    "portfolio_id",
+    "wallet_id",
+    "deposit_type",
+    "allowed_status_codes"
+  ],
+  "GetWalletDepositInstructionsResponse": [
+    "instructions",
+    "crypto_instructions"
+  ],
+  "ListWalletAddressesRequest": [
+    "portfolio_id",
+    "wallet_id",
+    "network_id",
+    "pagination",
+    "allowed_status_codes"
+  ],
+  "ListWalletAddressesResponse": [
+    "addresses",
+    "pagination"
+  ],
+  "ListWalletsRequest": [
+    "portfolio_id",
+    "type",
+    "symbols",
+    "pagination",
+    "allowed_status_codes"
+  ],
+  "ListWalletsResponse": [
+    "wallets",
+    "pagination"
+  ]
+}

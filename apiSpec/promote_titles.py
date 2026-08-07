@@ -100,9 +100,7 @@ def main() -> None:
     with AUGMENTED_SPEC_PATH.open("w", encoding="utf-8") as handle:
         yaml.dump(spec, handle, sort_keys=False)
 
-    print(
-        f"Promoted {count} property title(s) to description in {AUGMENTED_SPEC_PATH}"
-    )
+    print(f"Promoted {count} property title(s) to description in {AUGMENTED_SPEC_PATH}")
 
 
 if __name__ == "__main__":

@@ -15,7 +15,9 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import CrossMarginPrimeMarginSummary
+from ...model import (
+    GetCrossMarginPrimeOverviewResponse as _GetCrossMarginPrimeOverviewResponse,
+)
 
 
 @dataclass
@@ -25,8 +27,7 @@ class GetCrossMarginPrimeOverviewRequest:
 
 
 @dataclass
-class GetCrossMarginPrimeOverviewResponse(BaseResponse):
-    control_status: str = None
-    margin_level: str = None
-    evaluated_at: str = None
-    margin_summary: CrossMarginPrimeMarginSummary = None
+class GetCrossMarginPrimeOverviewResponse(
+    BaseResponse, _GetCrossMarginPrimeOverviewResponse
+):
+    __doc__ = _GetCrossMarginPrimeOverviewResponse.__doc__

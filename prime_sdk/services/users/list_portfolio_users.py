@@ -15,8 +15,8 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import PortfolioUser
-from ...utils import Pagination, PaginationParams
+from ...model import GetPortfolioUsersResponse as _GetPortfolioUsersResponse
+from ...utils import PaginationParams
 
 
 @dataclass
@@ -27,6 +27,5 @@ class ListPortfolioUsersRequest:
 
 
 @dataclass
-class ListPortfolioUsersResponse(BaseResponse):
-    users: list[PortfolioUser] = None
-    pagination: Pagination = None
+class ListPortfolioUsersResponse(BaseResponse, _GetPortfolioUsersResponse):
+    __doc__ = _GetPortfolioUsersResponse.__doc__

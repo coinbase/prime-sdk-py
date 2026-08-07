@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import Transaction
+from ...model import GetTransactionResponse as _GetTransactionResponse
 
 
 @dataclass
@@ -26,5 +26,5 @@ class GetTransactionRequest:
 
 
 @dataclass
-class GetTransactionResponse(BaseResponse):
-    transaction: Transaction = None
+class GetTransactionResponse(BaseResponse, _GetTransactionResponse):
+    __doc__ = _GetTransactionResponse.__doc__
