@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import LocateAvailability
+from ...model import GetLocateAvailabilitiesResponse as _GetLocateAvailabilitiesResponse
 
 
 @dataclass
@@ -26,5 +26,5 @@ class GetEntityLocateAvailabilitiesRequest:
 
 
 @dataclass
-class GetEntityLocateAvailabilitiesResponse(BaseResponse):
-    locate_availability: list[LocateAvailability] = None
+class GetEntityLocateAvailabilitiesResponse(BaseResponse, _GetLocateAvailabilitiesResponse):
+    __doc__ = _GetLocateAvailabilitiesResponse.__doc__

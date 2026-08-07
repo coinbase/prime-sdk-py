@@ -17,6 +17,7 @@ from warnings import warn
 
 from ...base_response import BaseResponse
 from ...model import CreateAllocationRequest as _CreateAllocationRequest
+from ...model import CreateAllocationResponse as _CreateAllocationResponse
 
 
 @dataclass
@@ -47,9 +48,5 @@ class CreatePortfolioAllocationsRequest(_CreateAllocationRequest):
 
 
 @dataclass
-class CreatePortfolioAllocationsResponse(BaseResponse):
-    success: bool = None
-    allocation_id: str = None
-    failure_reason: str = None
-
-    # Intentionally hand-maintained: diverges from the generated spec model for CreatePortfolioAllocationsResponse.
+class CreatePortfolioAllocationsResponse(BaseResponse, _CreateAllocationResponse):
+    __doc__ = _CreateAllocationResponse.__doc__

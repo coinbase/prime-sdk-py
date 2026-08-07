@@ -30,8 +30,8 @@ from model_config import (
     ENUM_NAME_OVERRIDES,
     EXTRA_FIELDS,
     FIELD_RENAMES,
-    LOCATE_REQUEST_CLASS,
     REQUEST_BODY_CLASS_NAMES,
+    SCHEMA_CLASS_OVERRIDES,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -108,10 +108,9 @@ def short_name(schema_key: str) -> str:
 def class_name_for_schema(schema_key: str) -> str:
     if schema_key in ENUM_NAME_OVERRIDES:
         return ENUM_NAME_OVERRIDES[schema_key]
-    name = short_name(schema_key)
-    if name == "Locate" and schema_key.endswith(".Locate"):
-        return LOCATE_REQUEST_CLASS
-    return name
+    if schema_key in SCHEMA_CLASS_OVERRIDES:
+        return SCHEMA_CLASS_OVERRIDES[schema_key]
+    return short_name(schema_key)
 
 
 def load_compat() -> tuple[dict[str, list[str]], dict[str, dict[str, str]]]:

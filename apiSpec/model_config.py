@@ -42,7 +42,6 @@ CLASS_ALIASES: dict[str, str] = {
     "Instructions": "GetWalletDepositInstructionsResponse",
     "Item": "NFTItem",
     "Locate": "ExistingLocate",
-    "LocateAvailability": "LocateRequest",
     "MarginSummaryRecord": "MarginSummaryHistorical",
     "OnchainAddress": "AddressEntry",
     "OnchainBalance": "Web3Balance",
@@ -96,8 +95,10 @@ ENUM_FIELD_IMPORTS: dict[str, dict[str, str]] = {
     "AddressGroup": {"network_type": "NetworkType"},
 }
 
-# Rename generated class for the spec's three-field Locate schema.
-LOCATE_REQUEST_CLASS = "LocateRequest"
+# Schema key -> generated class short-name (when short_name() would collide or misname).
+SCHEMA_CLASS_OVERRIDES: dict[str, str] = {
+    "coinbase.public_rest_api.Locate": "LocateAvailability",
+}
 
 # operationId -> generated request-body class name (defaults strip PrimeRESTAPI_ prefix).
 REQUEST_BODY_CLASS_NAMES: dict[str, str] = {
@@ -114,6 +115,8 @@ SERVICE_RESPONSE_BASES: dict[str, str] = {
     "CreateNewLocateResponse": "CreateNewLocatesResponse",
     "CreateOnchainAddressBookEntryResponse": "ActivityCreationResponse",
     "CreateOrderPreviewResponse": "PostOrderPreviewResponse",
+    "CreatePortfolioAllocationsResponse": "CreateAllocationResponse",
+    "CreatePortfolioNetAllocationsResponse": "CreateNetAllocationResponse",
     "CreatePortfolioStakeResponse": "PortfolioStakingInitiateResponse",
     "CreatePortfolioUnstakeResponse": "PortfolioStakingUnstakeResponse",
     "CreateQuoteResponse": "QuoteResponse",
@@ -129,6 +132,7 @@ SERVICE_RESPONSE_BASES: dict[str, str] = {
     "GetCounterpartyIdResponse": "GetPortfolioCounterpartyIDResponse",
     "GetEntityActivityResponse": "GetActivityResponse",
     "GetEntityFcmBalanceResponse": "GetFcmBalanceResponse",
+    "GetEntityLocateAvailabilitiesResponse": "GetLocateAvailabilitiesResponse",
     "GetEntityPaymentMethodResponse": "GetEntityPaymentMethodDetailsResponse",
     "GetEntityPositionsResponse": "ListEntityPositionsResponse",
     "GetNetAllocationsByNettingIdResponse": "GetAllocationsByClientNettingIdResponse",
@@ -170,15 +174,7 @@ SERVICE_RESPONSE_BASES: dict[str, str] = {
 }
 
 # Service Response classes that intentionally diverge from the generated spec model.
-MANUAL_SERVICE_RESPONSES: frozenset[str] = frozenset(
-    {
-        "CreatePortfolioAllocationsResponse",
-        "CreatePortfolioNetAllocationsResponse",
-        "GetEntityLocateAvailabilitiesResponse",
-        "GetOrderEditHistoryResponse",
-        "GetWalletDepositInstructionsResponse",
-    }
-)
+MANUAL_SERVICE_RESPONSES: frozenset[str] = frozenset()
 
 # Service Request class -> generated request-body class to inherit from (when names differ).
 SERVICE_REQUEST_BASES: dict[str, str] = {

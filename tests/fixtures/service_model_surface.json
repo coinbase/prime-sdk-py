@@ -118,9 +118,7 @@
     "allowed_status_codes"
   ],
   "CreatePortfolioAllocationsResponse": [
-    "success",
-    "allocation_id",
-    "failure_reason"
+    "body"
   ],
   "CreatePortfolioNetAllocationsRequest": [
     "source_portfolio_id",
@@ -135,11 +133,7 @@
     "allowed_status_codes"
   ],
   "CreatePortfolioNetAllocationsResponse": [
-    "success",
-    "netting_id",
-    "buy_allocation_id",
-    "sell_allocation_id",
-    "failure_reason"
+    "body"
   ],
   "GetAllocationByIdRequest": [
     "portfolio_id",
@@ -282,7 +276,7 @@
     "allowed_status_codes"
   ],
   "GetEntityLocateAvailabilitiesResponse": [
-    "locate_availability"
+    "locates"
   ],
   "GetMarginInformationRequest": [
     "entity_id",
@@ -738,7 +732,9 @@
     "allowed_status_codes"
   ],
   "GetOrderEditHistoryResponse": [
-    "edits"
+    "order_id",
+    "edit_history",
+    "order_edit_history"
   ],
   "ListOpenOrdersRequest": [
     "portfolio_id",
@@ -1176,8 +1172,8 @@
     "allowed_status_codes"
   ],
   "GetWalletDepositInstructionsResponse": [
-    "instructions",
-    "crypto_instructions"
+    "crypto_instructions",
+    "fiat_instructions"
   ],
   "ListWalletAddressesRequest": [
     "portfolio_id",

@@ -16,7 +16,9 @@ from dataclasses import dataclass
 
 from ...base_response import BaseResponse
 from ...enums import WalletDepositType
-from ...model import Instructions
+from ...model import (
+    GetWalletDepositInstructionsResponse as _GetWalletDepositInstructionsResponse,
+)
 
 
 @dataclass
@@ -28,8 +30,7 @@ class GetWalletDepositInstructionsRequest:
 
 
 @dataclass
-class GetWalletDepositInstructionsResponse(BaseResponse):
-    instructions: Instructions = None
-    crypto_instructions: dict = None
-
-    # Intentionally hand-maintained: diverges from the generated spec model for GetWalletDepositInstructionsResponse.
+class GetWalletDepositInstructionsResponse(
+    BaseResponse, _GetWalletDepositInstructionsResponse
+):
+    __doc__ = _GetWalletDepositInstructionsResponse.__doc__

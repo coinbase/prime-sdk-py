@@ -925,7 +925,7 @@ class LoanInfo:
 
 
 @dataclass
-class LocateRequest:
+class LocateAvailability:
     """
     Attributes:
         symbol: The currency symbol
@@ -1969,7 +1969,7 @@ class GetEntityAssetsResponse:
 
 @dataclass
 class GetLocateAvailabilitiesResponse:
-    locates: list[LocateRequest] = None
+    locates: list[LocateAvailability] = None
 
 
 @dataclass
@@ -4665,7 +4665,6 @@ FuturesPosition = FcmPosition
 Instructions = GetWalletDepositInstructionsResponse
 Item = NFTItem
 Locate = ExistingLocate
-LocateAvailability = LocateRequest
 MarginSummaryRecord = MarginSummaryHistorical
 OnchainAddress = AddressEntry
 OnchainBalance = Web3Balance

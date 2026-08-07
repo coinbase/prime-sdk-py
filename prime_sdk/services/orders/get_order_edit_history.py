@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...model import OrderEditHistory
+from ...model import GetOrderEditHistoryResponse as _GetOrderEditHistoryResponse
 
 
 @dataclass
@@ -26,5 +26,5 @@ class GetOrderEditHistoryRequest:
 
 
 @dataclass
-class GetOrderEditHistoryResponse(BaseResponse):
-    edits: list[OrderEditHistory] = None
+class GetOrderEditHistoryResponse(BaseResponse, _GetOrderEditHistoryResponse):
+    __doc__ = _GetOrderEditHistoryResponse.__doc__

@@ -16,6 +16,7 @@ from dataclasses import dataclass
 
 from ...base_response import BaseResponse
 from ...model import CreateNetAllocationRequest as _CreateNetAllocationRequest
+from ...model import CreateNetAllocationResponse as _CreateNetAllocationResponse
 
 
 @dataclass
@@ -36,11 +37,5 @@ class CreatePortfolioNetAllocationsRequest(_CreateNetAllocationRequest):
 
 
 @dataclass
-class CreatePortfolioNetAllocationsResponse(BaseResponse):
-    success: bool = None
-    netting_id: str = None
-    buy_allocation_id: str = None
-    sell_allocation_id: str = None
-    failure_reason: str = None
-
-    # Intentionally hand-maintained: diverges from the generated spec model for CreatePortfolioNetAllocationsResponse.
+class CreatePortfolioNetAllocationsResponse(BaseResponse, _CreateNetAllocationResponse):
+    __doc__ = _CreateNetAllocationResponse.__doc__

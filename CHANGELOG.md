@@ -5,7 +5,11 @@
 ### Changed
 
 - **Models**: `prime_sdk/model.py` is now a compatibility shim over generated dataclasses in `prime_sdk/generated/models.py`. Run `make update-spec` to refresh models from the OpenAPI specification. Existing imports and field names are preserved via `apiSpec/model_config.py` and `prime_sdk/model_manual.py`.
-- **Service models**: Service `*Request` and `*Response` dataclasses now inherit field definitions and docstrings from generated models (via local `as _Internal...` aliases), matching the TypeScript SDK pattern. Five response types remain hand-maintained where the public SDK shape diverges from the spec (`CreatePortfolioAllocationsResponse`, `CreatePortfolioNetAllocationsResponse`, `GetEntityLocateAvailabilitiesResponse`, `GetOrderEditHistoryResponse`, `GetWalletDepositInstructionsResponse`).
+- **Service models**: Service `*Request` and `*Response` dataclasses now inherit field definitions and docstrings from generated models (via local `as _Internal...` aliases), matching the TypeScript SDK pattern.
+
+### Fixed
+
+- **Response field shapes** aligned with the OpenAPI spec for allocation create responses (`body` wrapper), locate availabilities (`locates`), order edit history (`order_id`, `edit_history`), and wallet deposit instructions (`crypto_instructions`, `fiat_instructions`).
 - **`BaseResponse`**: Nested dataclass hydration now unwraps optional type annotations.
 
 ### Added
