@@ -21,7 +21,12 @@ from ...model import GetMarketDataResponse as _GetMarketDataResponse
 
 @dataclass(kw_only=True)
 class GetMarketDataRequest(_GetMarketDataRequest):
-    __doc__ = _GetMarketDataRequest.__doc__
+    """
+    Get Market Data
+
+    Attributes:
+        entity_id: Prime Entity ID
+    """
 
     cursor: str | None = None
     limit: int | None = None
@@ -32,4 +37,7 @@ class GetMarketDataRequest(_GetMarketDataRequest):
 
 @dataclass
 class GetMarketDataResponse(BaseResponse, _GetMarketDataResponse):
-    __doc__ = _GetMarketDataResponse.__doc__
+    """
+    Attributes:
+        market_data: List of market data entries
+    """

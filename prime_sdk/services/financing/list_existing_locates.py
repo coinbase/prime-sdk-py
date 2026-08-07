@@ -21,11 +21,19 @@ from ...model import GetExistingLocatesResponse as _GetExistingLocatesResponse
 
 @dataclass(kw_only=True)
 class ListExistingLocatesRequest(_GetExistingLocatesRequest):
-    __doc__ = _GetExistingLocatesRequest.__doc__
+    """
+    List Existing Locates
+
+    Attributes:
+        portfolio_id: The unique ID of the portfolio
+        locate_ids: The IDs of specific locates to filter for
+        conversion_date: Deprecated: Use locate_date instead
+        locate_date: The date of the locates in YYYY-MM-DD format
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListExistingLocatesResponse(BaseResponse, _GetExistingLocatesResponse):
-    __doc__ = _GetExistingLocatesResponse.__doc__
+    """ListExistingLocatesResponse(locates: 'list[ExistingLocate]' = None)"""

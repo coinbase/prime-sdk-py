@@ -23,11 +23,13 @@ from ...model import (
 
 @dataclass(kw_only=True)
 class DeleteOnchainAddressGroupRequest(_DeleteOnchainAddressGroupRequest):
-    __doc__ = _DeleteOnchainAddressGroupRequest.__doc__
+    """
+    Delete Onchain Address Group
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class DeleteOnchainAddressGroupResponse(BaseResponse, _ActivityCreationResponse):
-    __doc__ = _ActivityCreationResponse.__doc__
+    """DeleteOnchainAddressGroupResponse(activity_type: 'str' = None, num_approvals_remaining: 'str' = None, activity_id: 'str' = None)"""

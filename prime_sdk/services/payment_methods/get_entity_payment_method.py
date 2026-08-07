@@ -25,7 +25,9 @@ from ...model import (
 
 @dataclass(kw_only=True)
 class GetEntityPaymentMethodRequest(_GetEntityPaymentMethodDetailsRequest):
-    __doc__ = _GetEntityPaymentMethodDetailsRequest.__doc__
+    """
+    Get Entity Payment Method
+    """
 
     allowed_status_codes: list[int] | None = None
 
@@ -34,4 +36,4 @@ class GetEntityPaymentMethodRequest(_GetEntityPaymentMethodDetailsRequest):
 class GetEntityPaymentMethodResponse(
     BaseResponse, _GetEntityPaymentMethodDetailsResponse
 ):
-    __doc__ = _GetEntityPaymentMethodDetailsResponse.__doc__
+    """GetEntityPaymentMethodResponse(details: 'PaymentMethodDetails' = None)"""

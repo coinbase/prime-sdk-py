@@ -21,11 +21,17 @@ from ...model import GetAllocationResponse as _GetAllocationResponse
 
 @dataclass(kw_only=True)
 class GetAllocationByIdRequest(_GetAllocationRequest):
-    __doc__ = _GetAllocationRequest.__doc__
+    """
+    Get Allocation by ID
+
+    Attributes:
+        portfolio_id: The portfolio ID of the allocation
+        allocation_id: The ID of the allocation
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetAllocationByIdResponse(BaseResponse, _GetAllocationResponse):
-    __doc__ = _GetAllocationResponse.__doc__
+    """GetAllocationByIdResponse(allocation: 'Allocation' = None)"""

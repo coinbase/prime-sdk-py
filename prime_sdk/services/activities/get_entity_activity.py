@@ -21,11 +21,16 @@ from ...model import GetActivityResponse as _GetActivityResponse
 
 @dataclass(kw_only=True)
 class GetEntityActivityRequest(_GetActivityRequest):
-    __doc__ = _GetActivityRequest.__doc__
+    """
+    Get Activity by Activity ID
+
+    Attributes:
+        activity_id: Id of the activity to retrieve
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetEntityActivityResponse(BaseResponse, _GetActivityResponse):
-    __doc__ = _GetActivityResponse.__doc__
+    """GetEntityActivityResponse(activity: 'Activity' = None)"""

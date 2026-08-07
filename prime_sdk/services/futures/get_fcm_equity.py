@@ -21,11 +21,25 @@ from ...model import GetFcmEquityResponse as _GetFcmEquityResponse
 
 @dataclass(kw_only=True)
 class GetFcmEquityRequest(_GetFcmEquityRequest):
-    __doc__ = _GetFcmEquityRequest.__doc__
+    """
+    Get FCM Equity
+
+    Attributes:
+        entity_id: Entity ID
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetFcmEquityResponse(BaseResponse, _GetFcmEquityResponse):
-    __doc__ = _GetFcmEquityResponse.__doc__
+    """
+    Attributes:
+        eod_account_equity: Prior EOD account equity (ending balance + realized P&L +
+            commissions/fees)
+        eod_unrealized_pnl: Prior EOD unrealized P&L on open futures positions
+        current_excess_deficit: Current Derivatives Account Balance minus prior EOD margin
+            requirement. (Positive = excess; negative = deficit)
+        available_to_sweep: Excess funds in the Derivatives account available to transfer
+            ("sweep") to the designated funding portfolio
+    """

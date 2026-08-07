@@ -35,7 +35,15 @@ class WalletStakingMetadata:
 
 @dataclass(kw_only=True)
 class CreateStakeRequest(_StakingInitiateRequest):
-    __doc__ = _StakingInitiateRequest.__doc__
+    """
+    Request to stake or delegate a wallet
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        wallet_id: The wallet ID
+        idempotency_key: The client generated idempotency key for requested execution.
+            Subsequent requests using the same key will fail
+    """
 
     portfolio_id: str
     wallet_id: str
@@ -45,4 +53,12 @@ class CreateStakeRequest(_StakingInitiateRequest):
 
 @dataclass
 class CreateStakeResponse(BaseResponse, _StakingInitiateResponse):
-    __doc__ = _StakingInitiateResponse.__doc__
+    """
+    StakingInitiateResponse contains the response data from initiating a staking operation.
+
+    Attributes:
+        wallet_id: The wallet ID
+        transaction_id: ID of the newly created transaction, can be used to fetch details of
+            the current state of execution
+        activity_id: The ID for the activity generated for this request
+    """

@@ -25,7 +25,17 @@ from ...model import (
 
 @dataclass(kw_only=True)
 class QueryTransactionValidatorsRequest(_ListTransactionValidatorsRequest):
-    __doc__ = _ListTransactionValidatorsRequest.__doc__
+    """
+    List Transaction Validators
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        transaction_ids: List of transaction IDs to filter validators by. Maximum of 100
+            transaction IDs allowed per request.
+        cursor: Cursor for pagination
+        limit: Maximum number of transaction-validator associations to return per page.
+            Default is 100, maximum is 1000.
+    """
 
     portfolio_id: str
 
@@ -36,4 +46,8 @@ class QueryTransactionValidatorsRequest(_ListTransactionValidatorsRequest):
 class QueryTransactionValidatorsResponse(
     BaseResponse, _ListTransactionValidatorsResponse
 ):
-    __doc__ = _ListTransactionValidatorsResponse.__doc__
+    """
+    Attributes:
+        transaction_validators: List of transaction-to-validator associations. Each entry
+            represents one transaction staking to one validator.
+    """

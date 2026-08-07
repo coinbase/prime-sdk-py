@@ -22,7 +22,19 @@ from ...utils import PaginationParams
 
 @dataclass(kw_only=True)
 class ListEntityBalancesRequest(_ListEntityBalancesRequest):
-    __doc__ = _ListEntityBalancesRequest.__doc__
+    """
+    List Entity Balances
+
+    Attributes:
+        entity_id: The entity ID
+        symbols: A list of symbols by which to filter the response
+        aggregation_type: A type by which to filter aggregated balances, defaults to "TOTAL"
+            - UNKNOWN_BALANCE_TYPE: nil - TRADING_BALANCES: Trading balances -
+            VAULT_BALANCES: Vault balances - TOTAL_BALANCES: Total balances (The sum of
+            vault and trading + prime custody) - PRIME_CUSTODY_BALANCES: Prime custody
+            balances - UNIFIED_TOTAL_BALANCES: Unified total balance across networks and
+            wallet types (vault + trading + prime custody)
+    """
 
     pagination: PaginationParams | None = None
 
@@ -31,4 +43,4 @@ class ListEntityBalancesRequest(_ListEntityBalancesRequest):
 
 @dataclass
 class ListEntityBalancesResponse(BaseResponse, _ListEntityBalancesResponse):
-    __doc__ = _ListEntityBalancesResponse.__doc__
+    """ListEntityBalancesResponse(balances: 'list[EntityBalance]' = None, pagination: 'PaginatedResponse' = None)"""

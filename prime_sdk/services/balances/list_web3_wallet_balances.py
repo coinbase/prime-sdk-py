@@ -22,7 +22,16 @@ from ...utils import PaginationParams
 
 @dataclass(kw_only=True)
 class ListWeb3WalletBalancesRequest(_ListWeb3WalletBalancesRequest):
-    __doc__ = _ListWeb3WalletBalancesRequest.__doc__
+    """
+    List Onchain Wallet Balances
+
+    Attributes:
+        portfolio_id: Portfolio to retrieve balances for.
+        wallet_id: Onchain wallet to retrieve balances for.
+        visibility_statuses: Visibility statuses to filter balances on. Leaving this field
+            empty will return only VISIBLE balances. - UNKNOWN_VISIBILITY_STATUS: nil -
+            VISIBLE: Visible - HIDDEN: Hidden - SPAM: Spam
+    """
 
     pagination: PaginationParams | None = None
 
@@ -31,4 +40,9 @@ class ListWeb3WalletBalancesRequest(_ListWeb3WalletBalancesRequest):
 
 @dataclass
 class ListWeb3WalletBalancesResponse(BaseResponse, _ListWeb3WalletBalancesResponse):
-    __doc__ = _ListWeb3WalletBalancesResponse.__doc__
+    """
+    Attributes:
+        balances: List of balances in the onchain wallet
+        defi_balances: DeFi balances only return for the initial request. No pagination
+            support.
+    """

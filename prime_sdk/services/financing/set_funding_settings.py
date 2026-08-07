@@ -21,7 +21,25 @@ from ...model import UpdateFundingSettingsResponse as _UpdateFundingSettingsResp
 
 @dataclass(kw_only=True)
 class SetFundingSettingsRequest(_UpdateFundingSettingsRequest):
-    __doc__ = _UpdateFundingSettingsRequest.__doc__
+    """
+    Update Funding Settings
+
+    Attributes:
+        entity_id: Prime Entity ID
+        designated_funding_portfolio_id: Set the Derivatives Funding Portfolio that will be
+            used to fund FCM margin calls and receive excess margin sweeps. Only one
+            portfolio per entity.
+        automatic_conversion_enabled: When true, USDC in your Derivatives Funding Portfolio
+            will be converted to USD to meet FCM margin calls (Auto-Convert USDC).
+        automatic_loan_enabled: Deprecated: Auto-Initiate Loans is now always enabled for
+            Financing customers. Any value sent for this field is ignored.
+        automatic_excess_return_enabled: When true, any FCM account balance above your
+            margin requirements will be automatically swept back to your Derivatives funding
+            portfolio. (Auto-Return Excess Margin)
+        excess_funds_target_amount: Weekend Buying Power: Setting a target amount to
+            maintain in your Futures account above margin requirements. You can only
+            withdraw funds in excess of this amount.
+    """
 
     entity_id: str
 
@@ -30,4 +48,10 @@ class SetFundingSettingsRequest(_UpdateFundingSettingsRequest):
 
 @dataclass
 class SetFundingSettingsResponse(BaseResponse, _UpdateFundingSettingsResponse):
-    __doc__ = _UpdateFundingSettingsResponse.__doc__
+    """
+    Attributes:
+        activity_id: Identifier for the created activity / proposal
+        activity_type: Type of the activity (e.g. PCS proposal type)
+        num_approvals_remaining: Number of approvals still required before the change
+            applies
+    """

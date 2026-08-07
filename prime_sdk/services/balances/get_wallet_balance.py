@@ -21,11 +21,17 @@ from ...model import GetWalletBalanceResponse as _GetWalletBalanceResponse
 
 @dataclass(kw_only=True)
 class GetWalletBalanceRequest(_GetWalletBalanceRequest):
-    __doc__ = _GetWalletBalanceRequest.__doc__
+    """
+    Get Wallet Balance
+
+    Attributes:
+        portfolio_id: Portfolio ID
+        wallet_id: Wallet ID
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetWalletBalanceResponse(BaseResponse, _GetWalletBalanceResponse):
-    __doc__ = _GetWalletBalanceResponse.__doc__
+    """GetWalletBalanceResponse(balance: 'Balance' = None)"""

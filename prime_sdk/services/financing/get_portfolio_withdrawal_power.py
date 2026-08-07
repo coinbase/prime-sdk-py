@@ -21,11 +21,17 @@ from ...model import GetWithdrawalPowerResponse as _GetWithdrawalPowerResponse
 
 @dataclass(kw_only=True)
 class GetPortfolioWithdrawalPowerRequest(_GetWithdrawalPowerRequest):
-    __doc__ = _GetWithdrawalPowerRequest.__doc__
+    """
+    Get Portfolio Withdrawal Power
+
+    Attributes:
+        portfolio_id: The unique ID of the portfolio
+        symbol: The currency symbol
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetPortfolioWithdrawalPowerResponse(BaseResponse, _GetWithdrawalPowerResponse):
-    __doc__ = _GetWithdrawalPowerResponse.__doc__
+    """GetPortfolioWithdrawalPowerResponse(withdrawal_power: 'WithdrawalPower' = None)"""

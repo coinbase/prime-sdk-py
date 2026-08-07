@@ -28,7 +28,17 @@ class StakeMetadata:
 
 @dataclass(kw_only=True)
 class CreatePortfolioStakeRequest(_PortfolioStakingInitiateRequest):
-    __doc__ = _PortfolioStakingInitiateRequest.__doc__
+    """
+    Request to stake currency in a portfolio
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        idempotency_key: The client generated idempotency key (uuid required) for requested
+            execution. Subsequent requests using the same key will not create new
+            transactions.
+        currency_symbol: The currency symbol to stake
+        amount: The quantity of the chosen currency to stake
+    """
 
     portfolio_id: str
 
@@ -37,4 +47,8 @@ class CreatePortfolioStakeRequest(_PortfolioStakingInitiateRequest):
 
 @dataclass
 class CreatePortfolioStakeResponse(BaseResponse, _PortfolioStakingInitiateResponse):
-    __doc__ = _PortfolioStakingInitiateResponse.__doc__
+    """
+    Attributes:
+        activity_id: The ID for the created activity
+        transaction_id: The ID for the created transaction
+    """

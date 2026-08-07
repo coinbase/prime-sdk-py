@@ -23,7 +23,9 @@ from ...model import (
 
 @dataclass(kw_only=True)
 class CreateOnchainAddressBookEntryRequest(_CreateOnchainAddressGroupRequest):
-    __doc__ = _CreateOnchainAddressGroupRequest.__doc__
+    """
+    Create Onchain Address Book Entry
+    """
 
     portfolio_id: str
 
@@ -32,4 +34,4 @@ class CreateOnchainAddressBookEntryRequest(_CreateOnchainAddressGroupRequest):
 
 @dataclass
 class CreateOnchainAddressBookEntryResponse(BaseResponse, _ActivityCreationResponse):
-    __doc__ = _ActivityCreationResponse.__doc__
+    """CreateOnchainAddressBookEntryResponse(activity_type: 'str' = None, num_approvals_remaining: 'str' = None, activity_id: 'str' = None)"""

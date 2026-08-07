@@ -21,11 +21,19 @@ from ...model import GetInterestAccrualsResponse as _GetInterestAccrualsResponse
 
 @dataclass(kw_only=True)
 class ListInterestAccrualsRequest(_GetInterestAccrualsRequest):
-    __doc__ = _GetInterestAccrualsRequest.__doc__
+    """
+    List Interest Accruals
+
+    Attributes:
+        entity_id: The unique ID of the entity
+        portfolio_id: The unique ID of the portfolio
+        start_date: The start date of the range to query for in RFC3339 format
+        end_date: The end date of the range to query for in RFC3339 format
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListInterestAccrualsResponse(BaseResponse, _GetInterestAccrualsResponse):
-    __doc__ = _GetInterestAccrualsResponse.__doc__
+    """ListInterestAccrualsResponse(total_notional_accrual: 'str' = None, accruals: 'list[Accrual]' = None)"""

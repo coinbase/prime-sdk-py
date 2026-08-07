@@ -21,7 +21,31 @@ from ...model import GetOpenOrdersResponse as _GetOpenOrdersResponse
 
 @dataclass(kw_only=True)
 class ListOpenOrdersRequest(_GetOpenOrdersRequest):
-    __doc__ = _GetOpenOrdersRequest.__doc__
+    """
+    List Open Orders
+
+    Attributes:
+        portfolio_id: Portfolio ID
+        product_ids: List of products by which to filter the response
+        order_type: An order type by which to filter the response - UNKNOWN_ORDER_TYPE: nil
+            value - MARKET: A [market
+            order](https://en.wikipedia.org/wiki/Order_(exchange)#Market_order) - LIMIT: A
+            [limit order](https://en.wikipedia.org/wiki/Order_(exchange)#Limit_order) -
+            TWAP: A [time-weighted average price order](https://en.wikipedia.org/wiki/Time-
+            weighted_average_price) - BLOCK: A [block
+            trade](https://en.wikipedia.org/wiki/Block_trade) - VWAP: A [volume-weighted
+            average price order](https://en.wikipedia.org/wiki/Volume-
+            weighted_average_price) - STOP_LIMIT: A [conditional order combined of stop
+            order and limit order](https://en.wikipedia.org/wiki/Order_(exchange)#Stop-
+            limit_order) - RFQ: A [request for
+            quote](https://en.wikipedia.org/wiki/Request_for_quote) - PEG: A pegged order
+            that dynamically adjust based on market conditions while maintaining execution
+            discretion and avoiding adverse selection
+        start_date: A start date for the orders to be queried from
+        order_side: An order side to filter on. - UNKNOWN_ORDER_SIDE: nil value - BUY: Buy
+            order - SELL: Sell order
+        end_date: An end date for the orders to be queried from
+    """
 
     order_statuses: str | None = None
 
@@ -30,4 +54,7 @@ class ListOpenOrdersRequest(_GetOpenOrdersRequest):
 
 @dataclass
 class ListOpenOrdersResponse(BaseResponse, _GetOpenOrdersResponse):
-    __doc__ = _GetOpenOrdersResponse.__doc__
+    """
+    Attributes:
+        orders: Requested orders
+    """

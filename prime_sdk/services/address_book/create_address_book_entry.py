@@ -25,7 +25,17 @@ from ...model import (
 
 @dataclass(kw_only=True)
 class CreateAddressBookEntryRequest(_CreatePortfolioAddressBookEntryRequest):
-    __doc__ = _CreatePortfolioAddressBookEntryRequest.__doc__
+    """
+    Create Address Book Entry
+
+    Attributes:
+        portfolio_id: Portfolio ID
+        address: Crypto address to add
+        currency_symbol: Currency symbol of address to add
+        name: Name of address book entry
+        account_identifier: Account Identifier (memo/destination tag)
+        chain_ids: List of compatible chain IDs for the address, empty for Solana
+    """
 
     portfolio_id: str
 
@@ -36,4 +46,4 @@ class CreateAddressBookEntryRequest(_CreatePortfolioAddressBookEntryRequest):
 class CreateAddressBookEntryResponse(
     BaseResponse, _CreatePortfolioAddressBookEntryResponse
 ):
-    __doc__ = _CreatePortfolioAddressBookEntryResponse.__doc__
+    """CreateAddressBookEntryResponse(activity_type: 'str' = None, num_approvals_remaining: 'str' = None, activity_id: 'str' = None)"""

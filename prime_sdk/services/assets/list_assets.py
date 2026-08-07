@@ -21,11 +21,19 @@ from ...model import GetEntityAssetsResponse as _GetEntityAssetsResponse
 
 @dataclass(kw_only=True)
 class ListAssetsRequest(_GetEntityAssetsRequest):
-    __doc__ = _GetEntityAssetsRequest.__doc__
+    """
+    List Assets
+
+    Attributes:
+        entity_id: The entity ID
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListAssetsResponse(BaseResponse, _GetEntityAssetsResponse):
-    __doc__ = _GetEntityAssetsResponse.__doc__
+    """
+    Attributes:
+        assets: List of assets
+    """

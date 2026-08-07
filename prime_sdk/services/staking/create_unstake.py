@@ -21,7 +21,15 @@ from ...model import StakingUnstakeResponse as _StakingUnstakeResponse
 
 @dataclass(kw_only=True)
 class CreateUnstakeRequest(_StakingUnstakeRequest):
-    __doc__ = _StakingUnstakeRequest.__doc__
+    """
+    Request to unstake a wallet
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        wallet_id: The wallet ID
+        idempotency_key: The client generated idempotency key for requested execution.
+            Subsequent requests using the same key will fail
+    """
 
     portfolio_id: str
     wallet_id: str
@@ -31,4 +39,12 @@ class CreateUnstakeRequest(_StakingUnstakeRequest):
 
 @dataclass
 class CreateUnstakeResponse(BaseResponse, _StakingUnstakeResponse):
-    __doc__ = _StakingUnstakeResponse.__doc__
+    """
+    StakingUnstakeResponse contains the response data from initiating an unstaking operation.
+
+    Attributes:
+        wallet_id: The wallet ID
+        transaction_id: ID of the newly created transaction, can be used to fetch details of
+            the current state of execution
+        activity_id: The ID for the activity generated for this request
+    """

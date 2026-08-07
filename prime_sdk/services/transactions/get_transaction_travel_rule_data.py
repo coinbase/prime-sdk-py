@@ -25,7 +25,13 @@ from ...model import (
 
 @dataclass(kw_only=True)
 class GetTransactionTravelRuleDataRequest(_GetTransactionTravelRuleDataRequest):
-    __doc__ = _GetTransactionTravelRuleDataRequest.__doc__
+    """
+    Get Transaction Travel Rule Data
+
+    Attributes:
+        portfolio_id: The portfolio ID that owns the transaction
+        transaction_id: The transaction ID to look up travel rule data for
+    """
 
     allowed_status_codes: list[int] | None = None
 
@@ -34,4 +40,15 @@ class GetTransactionTravelRuleDataRequest(_GetTransactionTravelRuleDataRequest):
 class GetTransactionTravelRuleDataResponse(
     BaseResponse, _GetTransactionTravelRuleDataResponse
 ):
-    __doc__ = _GetTransactionTravelRuleDataResponse.__doc__
+    """
+    Response containing fulfilled travel rule data for a transaction
+
+    Attributes:
+        fulfilled: Whether data requirements are fulfilled
+        is_self: Whether the transfer is to/from a self-owned wallet
+        amount: The crypto amount of the transaction (e.g. "1.23 BTC")
+        amount_currency: The currency of the crypto amount
+        fiat_amount: The fiat amount of the transaction (e.g. "123.45 USD")
+        fiat_amount_currency: The currency of the fiat amount
+        blockchain_network: The blockchain network for the transaction
+    """

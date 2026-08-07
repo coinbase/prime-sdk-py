@@ -21,11 +21,16 @@ from ...model import GetPortfoliosResponse as _GetPortfoliosResponse
 
 @dataclass
 class ListPortfoliosRequest(_GetPortfoliosRequest):
-    __doc__ = _GetPortfoliosRequest.__doc__
+    """
+    List Portfolios
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListPortfoliosResponse(BaseResponse, _GetPortfoliosResponse):
-    __doc__ = _GetPortfoliosResponse.__doc__
+    """
+    Attributes:
+        portfolios: A list of portfolios.
+    """

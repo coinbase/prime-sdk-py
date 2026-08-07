@@ -21,11 +21,17 @@ from ...model import GetOrderResponse as _GetOrderResponse
 
 @dataclass(kw_only=True)
 class GetOrderRequest(_GetOrderRequest):
-    __doc__ = _GetOrderRequest.__doc__
+    """
+    Get Order by Order ID
+
+    Attributes:
+        portfolio_id: Portfolio ID
+        order_id: Order ID
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetOrderResponse(BaseResponse, _GetOrderResponse):
-    __doc__ = _GetOrderResponse.__doc__
+    """GetOrderResponse(order: 'Order' = None)"""

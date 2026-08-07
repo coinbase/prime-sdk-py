@@ -21,11 +21,17 @@ from ...model import GetWalletResponse as _GetWalletResponse
 
 @dataclass(kw_only=True)
 class GetWalletRequest(_GetWalletRequest):
-    __doc__ = _GetWalletRequest.__doc__
+    """
+    Get Wallet by Wallet ID
+
+    Attributes:
+        portfolio_id: Portfolio ID
+        wallet_id: Wallet ID
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetWalletResponse(BaseResponse, _GetWalletResponse):
-    __doc__ = _GetWalletResponse.__doc__
+    """GetWalletResponse(wallet: 'Wallet' = None)"""

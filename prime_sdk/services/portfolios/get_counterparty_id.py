@@ -25,11 +25,16 @@ from ...model import (
 
 @dataclass(kw_only=True)
 class GetCounterpartyIdRequest(_GetPortfolioCounterpartyIDRequest):
-    __doc__ = _GetPortfolioCounterpartyIDRequest.__doc__
+    """
+    Get Portfolio Counterparty ID
+
+    Attributes:
+        portfolio_id: The portfolio ID
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetCounterpartyIdResponse(BaseResponse, _GetPortfolioCounterpartyIDResponse):
-    __doc__ = _GetPortfolioCounterpartyIDResponse.__doc__
+    """GetCounterpartyIdResponse(counterparty: 'Counterparty' = None)"""

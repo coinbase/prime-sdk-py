@@ -21,7 +21,14 @@ from ...model import ScheduleFuturesSweepResponse as _ScheduleFuturesSweepRespon
 
 @dataclass(kw_only=True)
 class ScheduleEntityFuturesSweepRequest(_ScheduleFuturesSweepRequest):
-    __doc__ = _ScheduleFuturesSweepRequest.__doc__
+    """
+    Schedule Entity Futures Sweep
+
+    Attributes:
+        entity_id: Entity ID
+        amount: Amount. Default to sweep all if not provided
+        currency: Currency. Required
+    """
 
     entity_id: str
 
@@ -30,4 +37,8 @@ class ScheduleEntityFuturesSweepRequest(_ScheduleFuturesSweepRequest):
 
 @dataclass
 class ScheduleEntityFuturesSweepResponse(BaseResponse, _ScheduleFuturesSweepResponse):
-    __doc__ = _ScheduleFuturesSweepResponse.__doc__
+    """
+    Attributes:
+        success: Success
+        request_id: Request ID
+    """

@@ -25,7 +25,13 @@ from ...model import (
 
 @dataclass(kw_only=True)
 class GetNetAllocationsByNettingIdRequest(_GetAllocationsByClientNettingIdRequest):
-    __doc__ = _GetAllocationsByClientNettingIdRequest.__doc__
+    """
+    Get Net Allocations by Netting ID
+
+    Attributes:
+        portfolio_id: The portfolio ID of the allocation
+        netting_id: The allocation netting ID
+    """
 
     allowed_status_codes: list[int] | None = None
 
@@ -34,4 +40,4 @@ class GetNetAllocationsByNettingIdRequest(_GetAllocationsByClientNettingIdReques
 class GetNetAllocationsByNettingIdResponse(
     BaseResponse, _GetAllocationsByClientNettingIdResponse
 ):
-    __doc__ = _GetAllocationsByClientNettingIdResponse.__doc__
+    """GetNetAllocationsByNettingIdResponse(allocations: 'list[Allocation]' = None)"""

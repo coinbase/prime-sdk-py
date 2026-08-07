@@ -21,11 +21,16 @@ from ...model import GetFuturesSweepsResponse as _GetFuturesSweepsResponse
 
 @dataclass(kw_only=True)
 class ListEntityFuturesSweepsRequest(_GetFuturesSweepsRequest):
-    __doc__ = _GetFuturesSweepsRequest.__doc__
+    """
+    List Entity Futures Sweeps
+
+    Attributes:
+        entity_id: Entity ID
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListEntityFuturesSweepsResponse(BaseResponse, _GetFuturesSweepsResponse):
-    __doc__ = _GetFuturesSweepsResponse.__doc__
+    """ListEntityFuturesSweepsResponse(sweeps: 'list[FcmFuturesSweep]' = None, auto_sweep: 'bool' = None)"""

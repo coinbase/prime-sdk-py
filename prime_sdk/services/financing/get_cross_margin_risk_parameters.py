@@ -25,7 +25,12 @@ from ...model import (
 
 @dataclass(kw_only=True)
 class GetCrossMarginRiskParametersRequest(_GetCrossMarginRiskParametersRequest):
-    __doc__ = _GetCrossMarginRiskParametersRequest.__doc__
+    """
+    Get Cross Margin Risk Parameters
+
+    Attributes:
+        entity_id: XM customer Prime Entity ID.
+    """
 
     allowed_status_codes: list[int] | None = None
 
@@ -34,4 +39,13 @@ class GetCrossMarginRiskParametersRequest(_GetCrossMarginRiskParametersRequest):
 class GetCrossMarginRiskParametersResponse(
     BaseResponse, _GetCrossMarginRiskParametersResponse
 ):
-    __doc__ = _GetCrossMarginRiskParametersResponse.__doc__
+    """
+    Attributes:
+        risk_parameters: Current XM tier risk parameters for the entity's client tier.
+        offset_credit_matrix_long_short: Offset credit rate matrix for long/short tier
+            pairs.
+        offset_credit_matrix_long_long: Offset credit rate matrix for long/long tier pairs.
+        offset_credit_matrix_short_short: Offset credit rate matrix for short/short tier
+            pairs.
+        margin_period_of_risk: Margin period of risk (number of days).
+    """

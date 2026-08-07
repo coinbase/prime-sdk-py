@@ -21,11 +21,21 @@ from ...model import ListTFObligationsResponse as _ListTFObligationsResponse
 
 @dataclass(kw_only=True)
 class ListTradeFinanceObligationsRequest(_ListTFObligationsRequest):
-    __doc__ = _ListTFObligationsRequest.__doc__
+    """
+    List Trade Finance Obligations
+
+    Attributes:
+        entity_id: The entity ID to retrieve obligations for
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListTradeFinanceObligationsResponse(BaseResponse, _ListTFObligationsResponse):
-    __doc__ = _ListTFObligationsResponse.__doc__
+    """
+    Response containing trade finance obligations for an entity
+
+    Attributes:
+        obligations: The list of obligations (loans) for the entity.
+    """

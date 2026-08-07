@@ -25,7 +25,9 @@ from ...model import (
 
 @dataclass
 class ListFinancingEligibleAssetsRequest(_ListFinancingEligibleAssetsRequest):
-    __doc__ = _ListFinancingEligibleAssetsRequest.__doc__
+    """
+    List Financing Eligible Assets
+    """
 
     allowed_status_codes: list[int] | None = None
 
@@ -34,4 +36,9 @@ class ListFinancingEligibleAssetsRequest(_ListFinancingEligibleAssetsRequest):
 class ListFinancingEligibleAssetsResponse(
     BaseResponse, _ListFinancingEligibleAssetsResponse
 ):
-    __doc__ = _ListFinancingEligibleAssetsResponse.__doc__
+    """
+    ListFinancingEligibleAssetsResponse contains the list of financing eligible assets with their details
+
+    Attributes:
+        assets: List of assets eligible for Trade Finance
+    """

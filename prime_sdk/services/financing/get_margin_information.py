@@ -21,11 +21,16 @@ from ...model import GetMarginInformationResponse as _GetMarginInformationRespon
 
 @dataclass(kw_only=True)
 class GetMarginInformationRequest(_GetMarginInformationRequest):
-    __doc__ = _GetMarginInformationRequest.__doc__
+    """
+    Get Margin Information
+
+    Attributes:
+        entity_id: The unique ID of the entity
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetMarginInformationResponse(BaseResponse, _GetMarginInformationResponse):
-    __doc__ = _GetMarginInformationResponse.__doc__
+    """GetMarginInformationResponse(margin_information: 'MarginInformation' = None)"""

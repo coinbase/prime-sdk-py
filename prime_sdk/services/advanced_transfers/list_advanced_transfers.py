@@ -22,7 +22,19 @@ from ...utils import PaginationParams
 
 @dataclass(kw_only=True)
 class ListAdvancedTransfersRequest(_ListAdvancedTransfersRequest):
-    __doc__ = _ListAdvancedTransfersRequest.__doc__
+    """
+    List Advanced Transfers
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        state: The state of the Advanced Transfer to filter by
+        type: The type of the Advanced Transfer to filter by
+        start_time: UTC timestamp of creation from which to filter the response (inclusive,
+            ISO-8601 format)
+        end_time: UTC timestamp of creation until which to filter the response (exclusive,
+            ISO-8601 format)
+        reference_id: The reference ID of the Advanced Transfer to filter by
+    """
 
     pagination: PaginationParams | None = None
 
@@ -31,4 +43,6 @@ class ListAdvancedTransfersRequest(_ListAdvancedTransfersRequest):
 
 @dataclass
 class ListAdvancedTransfersResponse(BaseResponse, _ListAdvancedTransfersResponse):
-    __doc__ = _ListAdvancedTransfersResponse.__doc__
+    """
+    ListAdvancedTransfersResponse contains the list of advanced transfers and pagination info.
+    """

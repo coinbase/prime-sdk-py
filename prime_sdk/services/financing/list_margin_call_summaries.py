@@ -21,11 +21,19 @@ from ...model import GetMarginSummariesResponse as _GetMarginSummariesResponse
 
 @dataclass(kw_only=True)
 class ListMarginCallSummariesRequest(_GetMarginSummariesRequest):
-    __doc__ = _GetMarginSummariesRequest.__doc__
+    """
+    List Margin Call Summaries
+
+    Attributes:
+        entity_id: The unique ID of the entity
+        start_date: The start date of the range to query for in RFC3339 format. Must be
+            within the last 3 months
+        end_date: The end date of the range to query for in RFC3339 format
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListMarginCallSummariesResponse(BaseResponse, _GetMarginSummariesResponse):
-    __doc__ = _GetMarginSummariesResponse.__doc__
+    """ListMarginCallSummariesResponse(margin_summaries: 'list[MarginSummaryHistorical]' = None)"""

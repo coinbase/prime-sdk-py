@@ -22,7 +22,9 @@ from ...utils import PaginationParams
 
 @dataclass(kw_only=True)
 class ListEntityPaymentMethodsRequest(_GetEntityPaymentMethodsRequest):
-    __doc__ = _GetEntityPaymentMethodsRequest.__doc__
+    """
+    List Entity Payment Methods
+    """
 
     pagination: PaginationParams | None = None
 
@@ -31,4 +33,4 @@ class ListEntityPaymentMethodsRequest(_GetEntityPaymentMethodsRequest):
 
 @dataclass
 class ListEntityPaymentMethodsResponse(BaseResponse, _GetEntityPaymentMethodsResponse):
-    __doc__ = _GetEntityPaymentMethodsResponse.__doc__
+    """ListEntityPaymentMethodsResponse(payment_methods: 'list[PaymentMethodSummary]' = None)"""

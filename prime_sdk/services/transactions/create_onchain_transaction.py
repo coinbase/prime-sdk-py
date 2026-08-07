@@ -36,7 +36,14 @@ class EvmParams:
 
 @dataclass(kw_only=True)
 class CreateOnchainTransactionRequest(_CreateOnchainTransactionRequest):
-    __doc__ = _CreateOnchainTransactionRequest.__doc__
+    """
+    Create Onchain Transaction
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        wallet_id: The wallet ID
+        raw_unsigned_txn: Raw unsigned transaction in Hex format (Supports EVM and Solana)
+    """
 
     portfolio_id: str
     wallet_id: str
@@ -46,4 +53,7 @@ class CreateOnchainTransactionRequest(_CreateOnchainTransactionRequest):
 
 @dataclass
 class CreateOnchainTransactionResponse(BaseResponse, _CreateOnchainTransactionResponse):
-    __doc__ = _CreateOnchainTransactionResponse.__doc__
+    """
+    Attributes:
+        transaction_id: Unique identifier for the created transaction
+    """

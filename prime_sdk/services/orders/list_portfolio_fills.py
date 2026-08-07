@@ -22,7 +22,14 @@ from ...utils import PaginationParams
 
 @dataclass(kw_only=True)
 class ListPortfolioFillsRequest(_GetPortfolioFillsRequest):
-    __doc__ = _GetPortfolioFillsRequest.__doc__
+    """
+    List Portfolio Fills
+
+    Attributes:
+        portfolio_id: The portfolio ID associated with the order
+        start_date: A start date for the fills to be queried from
+        end_date: An end date for the fills to be queried until
+    """
 
     pagination: PaginationParams | None = None
 
@@ -31,4 +38,7 @@ class ListPortfolioFillsRequest(_GetPortfolioFillsRequest):
 
 @dataclass
 class ListPortfolioFillsResponse(BaseResponse, _GetPortfolioFillsResponse):
-    __doc__ = _GetPortfolioFillsResponse.__doc__
+    """
+    Attributes:
+        fills: Fills associated with the portfolio
+    """

@@ -25,7 +25,13 @@ from ...model import (
 
 @dataclass(kw_only=True)
 class ListAdvancedTransferTransactionsRequest(_ListAdvancedTransferTransactionsRequest):
-    __doc__ = _ListAdvancedTransferTransactionsRequest.__doc__
+    """
+    List transactions associated with an Advanced Transfer
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        advanced_transfer_id: The ID of the Advanced Transfer
+    """
 
     allowed_status_codes: list[int] | None = None
 
@@ -34,4 +40,9 @@ class ListAdvancedTransferTransactionsRequest(_ListAdvancedTransferTransactionsR
 class ListAdvancedTransferTransactionsResponse(
     BaseResponse, _ListAdvancedTransferTransactionsResponse
 ):
-    __doc__ = _ListAdvancedTransferTransactionsResponse.__doc__
+    """
+    ListAdvancedTransferTransactionsResponse contains the transactions associated with an advanced transfer.
+
+    Attributes:
+        transactions: The transactions associated with an Advanced Transfer
+    """

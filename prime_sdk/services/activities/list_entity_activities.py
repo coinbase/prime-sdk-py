@@ -22,7 +22,21 @@ from ...utils import PaginationParams
 
 @dataclass(kw_only=True)
 class ListEntityActivitiesRequest(_GetEntityActivitiesRequest):
-    __doc__ = _GetEntityActivitiesRequest.__doc__
+    """
+    List Entity Activities
+
+    Attributes:
+        entity_id: Entity to retrieve activities for
+        activity_level: Activity level to retrieve activities for
+        symbols: Filter by list of currencies
+        categories: Filter by list of activity categories [order, transaction, account,
+            allocation, lending]
+        statuses: Filter by list of statuses
+        start_time: Filter created time by start date (RFC3339 format)
+        end_time: Filter created time by end date (RFC3339 format)
+        get_network_unified_activities: Flag to request retrieval of all activities across
+            all networks for a given symbol
+    """
 
     pagination: PaginationParams | None = None
 
@@ -31,4 +45,4 @@ class ListEntityActivitiesRequest(_GetEntityActivitiesRequest):
 
 @dataclass
 class ListEntityActivitiesResponse(BaseResponse, _GetEntityActivitiesResponse):
-    __doc__ = _GetEntityActivitiesResponse.__doc__
+    """ListEntityActivitiesResponse(activities: 'list[Activity]' = None, pagination: 'PaginatedResponse' = None)"""

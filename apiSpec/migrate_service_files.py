@@ -19,7 +19,6 @@ from __future__ import annotations
 import ast
 import dataclasses
 import glob
-import re
 import sys
 from pathlib import Path
 
@@ -59,6 +58,31 @@ def _generated_field_names(class_name: str) -> set[str]:
     if not isinstance(obj, type) or not dataclasses.is_dataclass(obj):
         return set()
     return {field.name for field in dataclasses.fields(obj)}
+
+
+def _doc_literal(base_name: str, class_name: str) -> str:
+    """Render the base model's docstring as a literal, so IDEs can show it on hover.
+
+    Baking the text in at generation time (rather than doing
+    ``__doc__ = _Base.__doc__`` at runtime) keeps a single source of truth -
+    the generated model's docstring - while still producing a real docstring
+    literal that static analyzers/IDEs can pick up. The generated docstrings
+    are already indented to match a top-level class body, so no reindentation
+    is needed here.
+
+    Models without a spec description don't get a hand-written docstring;
+    ``@dataclass`` instead auto-generates one as ``f"{base_name}(field: type
+    = default, ...)"``. In that case the base class's own name is swapped for
+    the alias's ``class_name`` so the doc doesn't reference the wrong class.
+    """
+    obj = getattr(generated_models, base_name, None)
+    doc = getattr(obj, "__doc__", None) or ""
+    if not doc:
+        return ""
+    if doc.startswith(f"{base_name}("):
+        doc = f"{class_name}{doc[len(base_name) :]}"
+    quote = "'''" if '"""' in doc else '"""'
+    return f"    {quote}{doc}{quote}"
 
 
 def _annotation_source(node: ast.AnnAssign) -> str:
@@ -126,7 +150,7 @@ def _render_request_class(class_name: str, field_lines: dict[str, str]) -> str:
     parts = [
         decorator,
         f"class {class_name}(_{base_name}):",
-        f"    __doc__ = _{base_name}.__doc__",
+        _doc_literal(base_name, class_name),
         "",
     ]
     if kw_only:
@@ -157,7 +181,7 @@ def _render_response_class(class_name: str, field_lines: dict[str, str]) -> str:
     parts = [
         "@dataclass",
         f"class {class_name}(BaseResponse, _{base_name}):",
-        f"    __doc__ = _{base_name}.__doc__",
+        _doc_literal(base_name, class_name),
     ]
     if extra_lines:
         parts.extend(["", *extra_lines])
@@ -203,7 +227,9 @@ def migrate_file(path: Path) -> bool:
     )
     header = "\n".join(lines[:first_import]).rstrip()
     original_imports = [
-        line for line in lines[first_import:] if line.startswith(("from ", "import "))
+        (ast.get_source_segment(source, node) or "").strip()
+        for node in tree.body
+        if isinstance(node, (ast.Import, ast.ImportFrom))
     ]
     body_nodes = [
         node for node in tree.body if not isinstance(node, (ast.Import, ast.ImportFrom))
@@ -275,30 +301,32 @@ def migrate_file(path: Path) -> bool:
         import_lines.append(f"from ...model import {base_name} as _{base_name}")
 
     model_import_names = {f"_{name}" for name in model_imports}
-    skip_until_blank = False
-    for line in original_imports:
-        if skip_until_blank:
-            if line.strip() == "" or line.strip() == ")":
-                skip_until_blank = False
+    for statement in original_imports:
+        if statement in import_lines:
             continue
-        if line in import_lines:
+        if statement == "from dataclasses import dataclass":
             continue
-        if line == "from dataclasses import dataclass":
+        if statement == "from ...base_response import BaseResponse":
             continue
-        if line == "from ...base_response import BaseResponse":
-            continue
-        if line.startswith("from ...model import "):
-            if line.rstrip().endswith("("):
-                skip_until_blank = True
-                continue
-            imported = line.removeprefix("from ...model import ").split(" as ")[0]
-            imported_names = [part.strip() for part in imported.split(",")]
+        if statement.startswith("from ...model import "):
+            # Handles both single-line (`from ...model import Foo as _Foo`)
+            # and parenthesized multi-line forms of the same statement.
+            body = statement.removeprefix("from ...model import ").strip()
+            body = body.removeprefix("(").removesuffix(")").strip()
+            entries = [
+                entry.strip()
+                for entry in body.replace("\n", " ").split(",")
+                if entry.strip()
+            ]
+            imported_names = [entry.split(" as ")[0].strip() for entry in entries]
+            aliases = {
+                entry.split(" as ")[1].strip() for entry in entries if " as " in entry
+            }
             if all(name in model_imports for name in imported_names):
                 continue
-            alias_match = re.search(r" as (_\w+)", line)
-            if alias_match and alias_match.group(1) in model_import_names:
+            if aliases & model_import_names:
                 continue
-        import_lines.append(line)
+        import_lines.append(statement)
 
     output = header + "\n\n"
     output += "\n".join(import_lines) + "\n\n"

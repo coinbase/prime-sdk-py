@@ -23,7 +23,9 @@ from ...model import (
 
 @dataclass(kw_only=True)
 class UpdateOnchainAddressBookRequest(_UpdateOnchainAddressGroupRequest):
-    __doc__ = _UpdateOnchainAddressGroupRequest.__doc__
+    """
+    Update Onchain Address Book Entry
+    """
 
     portfolio_id: str
 
@@ -32,4 +34,4 @@ class UpdateOnchainAddressBookRequest(_UpdateOnchainAddressGroupRequest):
 
 @dataclass
 class UpdateOnchainAddressBookResponse(BaseResponse, _ActivityCreationResponse):
-    __doc__ = _ActivityCreationResponse.__doc__
+    """UpdateOnchainAddressBookResponse(activity_type: 'str' = None, num_approvals_remaining: 'str' = None, activity_id: 'str' = None)"""

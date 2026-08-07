@@ -21,11 +21,17 @@ from ...model import GetPortfolioActivityResponse as _GetPortfolioActivityRespon
 
 @dataclass(kw_only=True)
 class GetActivityRequest(_GetPortfolioActivityRequest):
-    __doc__ = _GetPortfolioActivityRequest.__doc__
+    """
+    Get Portfolio Activity by Activity ID
+
+    Attributes:
+        portfolio_id: Portfolio to retrieve activity for.
+        activity_id: Id of the activity to retrieve
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetActivityResponse(BaseResponse, _GetPortfolioActivityResponse):
-    __doc__ = _GetPortfolioActivityResponse.__doc__
+    """GetActivityResponse(activity: 'Activity' = None)"""

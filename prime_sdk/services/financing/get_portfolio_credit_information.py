@@ -21,11 +21,16 @@ from ...model import GetPostTradeCreditResponse as _GetPostTradeCreditResponse
 
 @dataclass(kw_only=True)
 class GetPortfolioCreditInformationRequest(_GetPostTradeCreditRequest):
-    __doc__ = _GetPostTradeCreditRequest.__doc__
+    """
+    Get Portfolio Credit Information
+
+    Attributes:
+        portfolio_id: The portfolio ID
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetPortfolioCreditInformationResponse(BaseResponse, _GetPostTradeCreditResponse):
-    __doc__ = _GetPostTradeCreditResponse.__doc__
+    """GetPortfolioCreditInformationResponse(post_trade_credit: 'PostTradeCreditInformation' = None)"""

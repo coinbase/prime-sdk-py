@@ -22,7 +22,15 @@ from ...utils import PaginationParams
 
 @dataclass(kw_only=True)
 class GetAddressBookRequest(_GetPortfolioAddressBookRequest):
-    __doc__ = _GetPortfolioAddressBookRequest.__doc__
+    """
+    Get Address Book
+
+    Attributes:
+        portfolio_id: Portfolio ID
+        currency_symbol: Cryptocurrency symbol -- if nothing is passed, all addresses are
+            returned
+        search: Query string that matches the address name
+    """
 
     pagination: PaginationParams | None = None
 
@@ -31,4 +39,7 @@ class GetAddressBookRequest(_GetPortfolioAddressBookRequest):
 
 @dataclass
 class GetAddressBookResponse(BaseResponse, _GetPortfolioAddressBookResponse):
-    __doc__ = _GetPortfolioAddressBookResponse.__doc__
+    """
+    Attributes:
+        addresses: List of addresses added to Address Book
+    """

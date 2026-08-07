@@ -21,7 +21,12 @@ from ...model import CreateAdvancedTransferResponse as _CreateAdvancedTransferRe
 
 @dataclass(kw_only=True)
 class CreateAdvancedTransferRequest(_CreateAdvancedTransferRequest):
-    __doc__ = _CreateAdvancedTransferRequest.__doc__
+    """
+    Create Advanced Transfer
+
+    Attributes:
+        portfolio_id: The portfolio ID
+    """
 
     portfolio_id: str
 
@@ -30,4 +35,6 @@ class CreateAdvancedTransferRequest(_CreateAdvancedTransferRequest):
 
 @dataclass
 class CreateAdvancedTransferResponse(BaseResponse, _CreateAdvancedTransferResponse):
-    __doc__ = _CreateAdvancedTransferResponse.__doc__
+    """
+    CreateAdvancedTransferResponse is the response after creating an advanced transfer.
+    """

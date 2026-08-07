@@ -21,11 +21,17 @@ from ...model import GetTransactionResponse as _GetTransactionResponse
 
 @dataclass(kw_only=True)
 class GetTransactionRequest(_GetTransactionRequest):
-    __doc__ = _GetTransactionRequest.__doc__
+    """
+    Get Transaction by Transaction ID
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        transaction_id: The transaction ID
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetTransactionResponse(BaseResponse, _GetTransactionResponse):
-    __doc__ = _GetTransactionResponse.__doc__
+    """GetTransactionResponse(transaction: 'Transaction' = None)"""

@@ -58,7 +58,16 @@ class TravelRuleParty:
 
 @dataclass(kw_only=True)
 class SubmitDepositTravelRuleDataRequest(_SubmitDepositTravelRuleDataRequest):
-    __doc__ = _SubmitDepositTravelRuleDataRequest.__doc__
+    """
+    Submit Deposit Travel Rule Data
+
+    Attributes:
+        portfolio_id: The portfolio ID that owns the transaction
+        transaction_id: The transaction ID associated with the entry
+        is_self: True if user owns the counterparty address (self-transfer) If false,
+            beneficiary is required
+        opt_out_of_ownership_verification: True to skip wallet ownership verification
+    """
 
     portfolio_id: str
     transaction_id: str
@@ -70,4 +79,10 @@ class SubmitDepositTravelRuleDataRequest(_SubmitDepositTravelRuleDataRequest):
 class SubmitDepositTravelRuleDataResponse(
     BaseResponse, _SubmitDepositTravelRuleDataResponse
 ):
-    __doc__ = _SubmitDepositTravelRuleDataResponse.__doc__
+    """
+    Response after submitting travel rule data for a deposit
+
+    Attributes:
+        ownership_verification_required: Whether additional ownership verification is
+            required
+    """

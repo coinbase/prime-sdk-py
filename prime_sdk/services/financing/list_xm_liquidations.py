@@ -21,7 +21,20 @@ from ...model import ListXMLiquidationsResponse as _ListXMLiquidationsResponse
 
 @dataclass(kw_only=True)
 class ListXMLiquidationsRequest(_ListXMLiquidationsRequest):
-    __doc__ = _ListXMLiquidationsRequest.__doc__
+    """
+    List Cross Margin Liquidations
+
+    Attributes:
+        entity_id: XM customer Prime Entity ID
+        status: Filter results by liquidation status -
+            XM_LIQUIDATION_STATUS_PRE_LIQUIDATION: Liquidation is in the pre-liquidation
+            phase - XM_LIQUIDATION_STATUS_LIQUIDATING: Liquidation is actively in progress -
+            XM_LIQUIDATION_STATUS_LIQUIDATED: Liquidation has completed successfully -
+            XM_LIQUIDATION_STATUS_CANCELED: Liquidation was canceled -
+            XM_LIQUIDATION_STATUS_FAILED: Liquidation failed
+        start_time: Filter results to liquidations created at or after this time
+        end_time: Filter results to liquidations created at or before this time
+    """
 
     cursor: str | None = None
     limit: int | None = None
@@ -32,4 +45,9 @@ class ListXMLiquidationsRequest(_ListXMLiquidationsRequest):
 
 @dataclass
 class ListXMLiquidationsResponse(BaseResponse, _ListXMLiquidationsResponse):
-    __doc__ = _ListXMLiquidationsResponse.__doc__
+    """
+    ListXMLiquidationsResponse contains a paginated list of XM liquidation summaries
+
+    Attributes:
+        liquidations: List of XM liquidation summaries
+    """

@@ -22,7 +22,28 @@ from ...utils import PaginationParams
 
 @dataclass(kw_only=True)
 class ListProductsRequest(_GetPortfolioProductsRequest):
-    __doc__ = _GetPortfolioProductsRequest.__doc__
+    """
+    List Portfolio Products
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        product_type: Filter by product type (SPOT, FUTURE). If unset, returns all types
+            available for your portfolio. Futures products require additional entitlements.
+            - UNKNOWN_PRODUCT_TYPE: Unknown product type - SPOT: Spot product - FUTURE:
+            Future product - OPTION: Option product
+        contract_expiry_type: Filter by contract expiry type (EXPIRING or PERPETUAL). Only
+            applicable when product_type = FUTURE. If unset, returns all futures kinds. -
+            CONTRACT_EXPIRY_TYPE_UNSPECIFIED: Unspecified contract expiry type -
+            CONTRACT_EXPIRY_TYPE_EXPIRING: Expiring futures contract -
+            CONTRACT_EXPIRY_TYPE_PERPETUAL: Perpetual futures contract (no expiry)
+        expiring_contract_status: Filter by expiry status for expiring futures. If unset,
+            returns all expiring futures. - EXPIRING_CONTRACT_STATUS_UNKNOWN: Unknown/unset
+            — returns all expiring contracts (backward compatible default) -
+            EXPIRING_CONTRACT_STATUS_UNEXPIRED: Only unexpired contracts (contract_expiry is
+            in the future) - EXPIRING_CONTRACT_STATUS_EXPIRED: Only expired contracts
+            (contract_expiry is in the past) - EXPIRING_CONTRACT_STATUS_ALL: All contracts
+            regardless of expiry status
+    """
 
     pagination: PaginationParams | None = None
 
@@ -31,4 +52,4 @@ class ListProductsRequest(_GetPortfolioProductsRequest):
 
 @dataclass
 class ListProductsResponse(BaseResponse, _GetPortfolioProductsResponse):
-    __doc__ = _GetPortfolioProductsResponse.__doc__
+    """ListProductsResponse(products: 'list[Product]' = None, pagination: 'PaginatedResponse' = None)"""

@@ -21,7 +21,16 @@ from ...model import CreateNewLocatesResponse as _CreateNewLocatesResponse
 
 @dataclass(kw_only=True)
 class CreateNewLocateRequest(_CreateNewLocatesRequest):
-    __doc__ = _CreateNewLocatesRequest.__doc__
+    """
+    Create New Locates
+
+    Attributes:
+        portfolio_id: The unique ID of the portfolio
+        symbol: Currency symbol
+        amount: Locate Amount
+        conversion_date: Deprecated: Use locate_date instead
+        locate_date: The target date of the locate (YYYY-MM-DD)
+    """
 
     portfolio_id: str
 
@@ -30,4 +39,4 @@ class CreateNewLocateRequest(_CreateNewLocatesRequest):
 
 @dataclass
 class CreateNewLocateResponse(BaseResponse, _CreateNewLocatesResponse):
-    __doc__ = _CreateNewLocatesResponse.__doc__
+    """CreateNewLocateResponse(locate_id: 'str' = None)"""

@@ -25,7 +25,12 @@ from ...model import (
 
 @dataclass(kw_only=True)
 class GetCrossMarginPrimeOverviewRequest(_GetCrossMarginPrimeOverviewRequest):
-    __doc__ = _GetCrossMarginPrimeOverviewRequest.__doc__
+    """
+    Get Prime Cross Margin Overview
+
+    Attributes:
+        entity_id: Prime entity ID for the XM (cross-margin) customer.
+    """
 
     allowed_status_codes: list[int] | None = None
 
@@ -34,4 +39,7 @@ class GetCrossMarginPrimeOverviewRequest(_GetCrossMarginPrimeOverviewRequest):
 class GetCrossMarginPrimeOverviewResponse(
     BaseResponse, _GetCrossMarginPrimeOverviewResponse
 ):
-    __doc__ = _GetCrossMarginPrimeOverviewResponse.__doc__
+    """
+    Attributes:
+        evaluated_at: When margin metrics were evaluated.
+    """

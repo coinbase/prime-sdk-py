@@ -21,11 +21,18 @@ from ...model import GetBuyingPowerResponse as _GetBuyingPowerResponse
 
 @dataclass(kw_only=True)
 class GetBuyingPowerRequest(_GetBuyingPowerRequest):
-    __doc__ = _GetBuyingPowerRequest.__doc__
+    """
+    Get Portfolio Buying Power
+
+    Attributes:
+        portfolio_id: The unique ID of the portfolio
+        base_currency: The symbol for the base currency
+        quote_currency: The symbol for the quote currency
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetBuyingPowerResponse(BaseResponse, _GetBuyingPowerResponse):
-    __doc__ = _GetBuyingPowerResponse.__doc__
+    """GetBuyingPowerResponse(buying_power: 'BuyingPower' = None)"""

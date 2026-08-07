@@ -37,11 +37,24 @@ class ValidatorStakingInfo:
 
 @dataclass(kw_only=True)
 class GetStakingStatusRequest(_GetStakingStatusRequest):
-    __doc__ = _GetStakingStatusRequest.__doc__
+    """
+    Get Staking Status
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        wallet_id: The wallet ID
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetStakingStatusResponse(BaseResponse, _GetStakingStatusResponse):
-    __doc__ = _GetStakingStatusResponse.__doc__
+    """
+    Attributes:
+        portfolio_id: The portfolio ID
+        wallet_id: The wallet ID
+        wallet_address: The wallet address
+        current_timestamp: Current timestamp at time of API call
+        validators: List of validators with staking information for this wallet
+    """

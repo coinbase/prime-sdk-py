@@ -26,7 +26,15 @@ class ClaimRewardsInputs:
 
 @dataclass(kw_only=True)
 class ClaimWalletStakingRewardsRequest(_StakingClaimRewardsRequest):
-    __doc__ = _StakingClaimRewardsRequest.__doc__
+    """
+    Claim Wallet Staking Rewards (Alpha)
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        wallet_id: The wallet ID
+        idempotency_key: The client generated idempotency key for requested execution. Any
+            subsequent requests with the same key will return the original response
+    """
 
     portfolio_id: str
     wallet_id: str
@@ -36,4 +44,10 @@ class ClaimWalletStakingRewardsRequest(_StakingClaimRewardsRequest):
 
 @dataclass
 class ClaimWalletStakingRewardsResponse(BaseResponse, _StakingClaimRewardsResponse):
-    __doc__ = _StakingClaimRewardsResponse.__doc__
+    """
+    Attributes:
+        wallet_id: The wallet ID
+        transaction_id: ID of the newly created transaction, can be used to fetch details of
+            the current state of execution
+        activity_id: The ID for the activity generated for this request
+    """

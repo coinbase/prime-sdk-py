@@ -21,11 +21,20 @@ from ...model import GetXMLiquidationResponse as _GetXMLiquidationResponse
 
 @dataclass(kw_only=True)
 class GetXMLiquidationRequest(_GetXMLiquidationRequest):
-    __doc__ = _GetXMLiquidationRequest.__doc__
+    """
+    Get Cross Margin Liquidation
+
+    Attributes:
+        entity_id: XM customer Prime Entity ID
+        liquidation_id: Financing liquidation UUID. If omitted, returns the active or most
+            recent liquidation.
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetXMLiquidationResponse(BaseResponse, _GetXMLiquidationResponse):
-    __doc__ = _GetXMLiquidationResponse.__doc__
+    """
+    GetXMLiquidationResponse contains detailed information about an XM liquidation
+    """

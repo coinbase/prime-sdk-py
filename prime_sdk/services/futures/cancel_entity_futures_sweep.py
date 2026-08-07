@@ -21,11 +21,20 @@ from ...model import CancelFuturesSweepResponse as _CancelFuturesSweepResponse
 
 @dataclass(kw_only=True)
 class CancelEntityFuturesSweepRequest(_CancelFuturesSweepRequest):
-    __doc__ = _CancelFuturesSweepRequest.__doc__
+    """
+    Cancel Entity Futures Sweep
+
+    Attributes:
+        entity_id: Entity ID
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class CancelEntityFuturesSweepResponse(BaseResponse, _CancelFuturesSweepResponse):
-    __doc__ = _CancelFuturesSweepResponse.__doc__
+    """
+    Attributes:
+        success: Success
+        request_id: Request ID
+    """

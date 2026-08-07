@@ -22,7 +22,17 @@ from ...utils import PaginationParams
 
 @dataclass(kw_only=True)
 class ListPortfolioAllocationsRequest(_GetPortfolioAllocationsRequest):
-    __doc__ = _GetPortfolioAllocationsRequest.__doc__
+    """
+    List Portfolio Allocations
+
+    Attributes:
+        portfolio_id: Portfolio to retrieve allocations for.
+        product_ids: List of products by which to filter the response.
+        order_side: An order side to filter allocations on. - UNKNOWN_ORDER_SIDE: nil value
+            - BUY: Buy order - SELL: Sell order
+        start_date: A start date for the allocations to be queried from.
+        end_date: An end date for the orders to be queried from.
+    """
 
     pagination: PaginationParams | None = None
 
@@ -31,4 +41,7 @@ class ListPortfolioAllocationsRequest(_GetPortfolioAllocationsRequest):
 
 @dataclass
 class ListPortfolioAllocationsResponse(BaseResponse, _GetPortfolioAllocationsResponse):
-    __doc__ = _GetPortfolioAllocationsResponse.__doc__
+    """
+    Attributes:
+        allocations: List of allocations.
+    """

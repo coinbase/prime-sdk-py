@@ -21,11 +21,16 @@ from ...model import GetPortfolioResponse as _GetPortfolioResponse
 
 @dataclass(kw_only=True)
 class GetPortfolioRequest(_GetPortfolioRequest):
-    __doc__ = _GetPortfolioRequest.__doc__
+    """
+    Get Portfolio by Portfolio ID
+
+    Attributes:
+        portfolio_id: The portfolio ID
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetPortfolioResponse(BaseResponse, _GetPortfolioResponse):
-    __doc__ = _GetPortfolioResponse.__doc__
+    """GetPortfolioResponse(portfolio: 'Portfolio' = None)"""

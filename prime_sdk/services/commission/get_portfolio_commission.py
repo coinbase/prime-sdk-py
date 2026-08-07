@@ -21,11 +21,16 @@ from ...model import GetPortfolioCommissionResponse as _GetPortfolioCommissionRe
 
 @dataclass(kw_only=True)
 class GetPortfolioCommissionRequest(_GetPortfolioCommissionRequest):
-    __doc__ = _GetPortfolioCommissionRequest.__doc__
+    """
+    Get Portfolio Commission
+
+    Attributes:
+        product_id: Specific trading pair to check commission (e.g BTC-USD)
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetPortfolioCommissionResponse(BaseResponse, _GetPortfolioCommissionResponse):
-    __doc__ = _GetPortfolioCommissionResponse.__doc__
+    """GetPortfolioCommissionResponse(commission: 'Commission' = None)"""

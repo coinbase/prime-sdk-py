@@ -21,7 +21,18 @@ from ...model import CreateConversionResponse as _CreateConversionResponse
 
 @dataclass(kw_only=True)
 class CreateConversionRequest(_CreateConversionRequest):
-    __doc__ = _CreateConversionRequest.__doc__
+    """
+    Create Conversion
+
+    Attributes:
+        portfolio_id: The ID of the portfolio
+        wallet_id: The wallet ID that the conversion will originate from
+        amount: The amount in whole units to convert
+        destination: The UUID of the destination wallet
+        idempotency_key: The idempotency key associated with this conversion
+        source_symbol: The currency symbol to convert from
+        destination_symbol: The currency symbol to convert to
+    """
 
     portfolio_id: str
     wallet_id: str
@@ -31,4 +42,13 @@ class CreateConversionRequest(_CreateConversionRequest):
 
 @dataclass
 class CreateConversionResponse(BaseResponse, _CreateConversionResponse):
-    __doc__ = _CreateConversionResponse.__doc__
+    """
+    Attributes:
+        activity_id: The activity ID for the conversion
+        source_symbol: The currency symbol to convert from
+        destination_symbol: The currency symbol to convert to
+        amount: The amount in whole units to convert
+        destination: The UUID of the destination wallet
+        source: The UUID of the source wallet
+        transaction_id: The UUID of the conversion transaction
+    """

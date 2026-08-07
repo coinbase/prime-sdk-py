@@ -22,7 +22,15 @@ from ...utils import PaginationParams
 
 @dataclass(kw_only=True)
 class ListWalletAddressesRequest(_ListWalletAddressesRequest):
-    __doc__ = _ListWalletAddressesRequest.__doc__
+    """
+    List Wallet Addresses
+
+    Attributes:
+        portfolio_id: The portfolio ID associated with the wallet
+        wallet_id: The wallet ID for which to retrieve all deposit addresses
+        network_id: The blockchain network name and type, provide an empty network to
+            retrieve addresses across all networks for this wallet
+    """
 
     pagination: PaginationParams | None = None
 
@@ -31,4 +39,7 @@ class ListWalletAddressesRequest(_ListWalletAddressesRequest):
 
 @dataclass
 class ListWalletAddressesResponse(BaseResponse, _ListWalletAddressesResponse):
-    __doc__ = _ListWalletAddressesResponse.__doc__
+    """
+    Attributes:
+        addresses: Addresses
+    """

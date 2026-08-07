@@ -21,11 +21,25 @@ from ...model import GetOrderEditHistoryResponse as _GetOrderEditHistoryResponse
 
 @dataclass(kw_only=True)
 class GetOrderEditHistoryRequest(_GetOrderEditHistoryRequest):
-    __doc__ = _GetOrderEditHistoryRequest.__doc__
+    """
+    List Order Edit History
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        order_id: The order ID
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetOrderEditHistoryResponse(BaseResponse, _GetOrderEditHistoryResponse):
-    __doc__ = _GetOrderEditHistoryResponse.__doc__
+    """
+    Order Edit History by Order ID and Portfolio ID
+
+    Attributes:
+        order_id: The order ID
+        order_edit_history: The history of order edits (deprecated: use edit_history
+            instead)
+        edit_history: The history of order edits
+    """

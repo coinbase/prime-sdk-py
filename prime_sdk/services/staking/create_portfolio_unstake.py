@@ -26,7 +26,17 @@ class UnstakeMetadata:
 
 @dataclass(kw_only=True)
 class CreatePortfolioUnstakeRequest(_PortfolioStakingUnstakeRequest):
-    __doc__ = _PortfolioStakingUnstakeRequest.__doc__
+    """
+    Request to unstake currency across a portfolio
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        idempotency_key: The client generated idempotency key (uuid required) for requested
+            execution. Subsequent requests using the same key will not create new
+            transactions.
+        currency_symbol: The currency symbol to unstake
+        amount: The quantity of the chosen currency to unstake
+    """
 
     portfolio_id: str
 
@@ -35,4 +45,8 @@ class CreatePortfolioUnstakeRequest(_PortfolioStakingUnstakeRequest):
 
 @dataclass
 class CreatePortfolioUnstakeResponse(BaseResponse, _PortfolioStakingUnstakeResponse):
-    __doc__ = _PortfolioStakingUnstakeResponse.__doc__
+    """
+    Attributes:
+        activity_id: The ID for the created activity
+        transaction_id: The ID for the created transaction
+    """

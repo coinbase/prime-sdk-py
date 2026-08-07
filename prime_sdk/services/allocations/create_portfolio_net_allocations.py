@@ -28,7 +28,16 @@ class NetAllocationLeg:
 
 @dataclass(kw_only=True)
 class CreatePortfolioNetAllocationsRequest(_CreateNetAllocationRequest):
-    __doc__ = _CreateNetAllocationRequest.__doc__
+    """
+    Attributes:
+        source_portfolio_id: The source portfolio id for the allocation
+        product_id: The product for the allocation
+        order_ids: The list of order ids in the allocation
+        allocation_legs: The list of allocation_legs for the allocation
+        remainder_destination_portfolio: The portfolio where to allocate the remainder of
+            the size
+        netting_id: The ID to identify an in-flight net allocation.
+    """
 
     allocation_id: str
     remainder_destination_portfolio_id: str
@@ -38,4 +47,4 @@ class CreatePortfolioNetAllocationsRequest(_CreateNetAllocationRequest):
 
 @dataclass
 class CreatePortfolioNetAllocationsResponse(BaseResponse, _CreateNetAllocationResponse):
-    __doc__ = _CreateNetAllocationResponse.__doc__
+    """CreatePortfolioNetAllocationsResponse(body: 'CreateNetAllocationResponseBody' = None)"""

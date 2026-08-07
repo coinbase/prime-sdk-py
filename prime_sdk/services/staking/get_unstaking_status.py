@@ -39,11 +39,24 @@ class ValidatorUnstakeStatus:
 
 @dataclass(kw_only=True)
 class GetUnstakingStatusRequest(_GetUnstakingStatusRequest):
-    __doc__ = _GetUnstakingStatusRequest.__doc__
+    """
+    Get Unstaking Status
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        wallet_id: The wallet ID
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetUnstakingStatusResponse(BaseResponse, _GetUnstakingStatusResponse):
-    __doc__ = _GetUnstakingStatusResponse.__doc__
+    """
+    Attributes:
+        portfolio_id: The portfolio ID
+        wallet_id: The wallet ID
+        wallet_address: The wallet address
+        current_timestamp: Current timestamp at time of API call
+        validators: List of validators with unstaking information for this wallet
+    """

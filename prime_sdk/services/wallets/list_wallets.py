@@ -22,7 +22,18 @@ from ...utils import PaginationParams
 
 @dataclass(kw_only=True)
 class ListWalletsRequest(_GetWalletsRequest):
-    __doc__ = _GetWalletsRequest.__doc__
+    """
+    List Portfolio Wallets
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        type: The wallet type - VAULT: A crypto vault - TRADING: A trading wallet -
+            WALLET_TYPE_OTHER: Other wallet types (like consumer, etc) - QC: A QC Wallet -
+            ONCHAIN: An Onchain wallet
+        symbols: The wallet symbol
+        get_network_unified_wallets: Flag to request retrieval of all wallets across all
+            networks for a given symbol
+    """
 
     pagination: PaginationParams | None = None
 
@@ -31,4 +42,4 @@ class ListWalletsRequest(_GetWalletsRequest):
 
 @dataclass
 class ListWalletsResponse(BaseResponse, _GetWalletsResponse):
-    __doc__ = _GetWalletsResponse.__doc__
+    """ListWalletsResponse(wallets: 'list[Wallet]' = None, pagination: 'PaginatedResponse' = None)"""

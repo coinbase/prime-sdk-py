@@ -25,7 +25,17 @@ from ...model import (
 
 @dataclass(kw_only=True)
 class GetWalletDepositInstructionsRequest(_GetWalletDepositInstructionsRequest):
-    __doc__ = _GetWalletDepositInstructionsRequest.__doc__
+    """
+    Get Wallet Deposit Instructions
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        wallet_id: The wallet ID
+        deposit_type: The deposit type - UNKNOWN_WALLET_DEPOSIT_TYPE: nil value - CRYPTO: A
+            cryptocurrency deposit - WIRE: A wire deposit - SEN: DEPRECATED. A Silvergate
+            Exchange Network deposit - SWIFT: A SWIFT deposit - SEPA: A SEPA deposit (Single
+            Euro Payments Area)
+    """
 
     allowed_status_codes: list[int] | None = None
 
@@ -34,4 +44,4 @@ class GetWalletDepositInstructionsRequest(_GetWalletDepositInstructionsRequest):
 class GetWalletDepositInstructionsResponse(
     BaseResponse, _GetWalletDepositInstructionsResponse
 ):
-    __doc__ = _GetWalletDepositInstructionsResponse.__doc__
+    """GetWalletDepositInstructionsResponse(crypto_instructions: 'CryptoInstructions' = None, fiat_instructions: 'FiatInstructions' = None)"""

@@ -21,11 +21,19 @@ from ...model import GetFcmSettingsResponse as _GetFcmSettingsResponse
 
 @dataclass(kw_only=True)
 class GetFcmSettingsRequest(_GetFcmSettingsRequest):
-    __doc__ = _GetFcmSettingsRequest.__doc__
+    """
+    Get FCM Settings
+
+    Attributes:
+        entity_id: Entity ID
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetFcmSettingsResponse(BaseResponse, _GetFcmSettingsResponse):
-    __doc__ = _GetFcmSettingsResponse.__doc__
+    """
+    Attributes:
+        target_derivatives_excess: Target derivatives excess in the FCM
+    """

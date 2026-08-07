@@ -22,7 +22,20 @@ from ...utils import PaginationParams
 
 @dataclass(kw_only=True)
 class ListActivitiesRequest(_GetPortfolioActivitiesRequest):
-    __doc__ = _GetPortfolioActivitiesRequest.__doc__
+    """
+    List Activities
+
+    Attributes:
+        portfolio_id: Portfolio to retrieve activities for.
+        symbols: Filter by list of currencies
+        categories: Filter by list of activity categories [order, transaction, account,
+            allocation, lending]
+        statuses: Filter by list of statuses
+        start_time: Filter created time by start date (RFC3339 format)
+        end_time: Filter created time by end date (RFC3339 format)
+        get_network_unified_activities: Flag to request retrieval of all activities across
+            all networks for a given symbol
+    """
 
     pagination: PaginationParams | None = None
 
@@ -31,4 +44,4 @@ class ListActivitiesRequest(_GetPortfolioActivitiesRequest):
 
 @dataclass
 class ListActivitiesResponse(BaseResponse, _GetPortfolioActivitiesResponse):
-    __doc__ = _GetPortfolioActivitiesResponse.__doc__
+    """ListActivitiesResponse(activities: 'list[Activity]' = None, pagination: 'PaginatedResponse' = None)"""

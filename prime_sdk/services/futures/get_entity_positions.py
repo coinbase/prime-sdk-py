@@ -21,7 +21,12 @@ from ...model import ListEntityPositionsResponse as _ListEntityPositionsResponse
 
 @dataclass(kw_only=True)
 class GetEntityPositionsRequest(_ListEntityPositionsRequest):
-    __doc__ = _ListEntityPositionsRequest.__doc__
+    """
+    List Entity Positions
+
+    Attributes:
+        entity_id: The unique ID of the entity
+    """
 
     product_id: str | None = None
 
@@ -30,6 +35,6 @@ class GetEntityPositionsRequest(_ListEntityPositionsRequest):
 
 @dataclass
 class GetEntityPositionsResponse(BaseResponse, _ListEntityPositionsResponse):
-    __doc__ = _ListEntityPositionsResponse.__doc__
+    """GetEntityPositionsResponse(positions: 'list[Position]' = None, pagination: 'PaginatedResponse' = None)"""
 
     clearing_account_id: str = None

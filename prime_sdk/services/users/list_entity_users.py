@@ -22,7 +22,12 @@ from ...utils import PaginationParams
 
 @dataclass(kw_only=True)
 class ListEntityUsersRequest(_GetEntityUsersRequest):
-    __doc__ = _GetEntityUsersRequest.__doc__
+    """
+    List Users
+
+    Attributes:
+        entity_id: The entity ID
+    """
 
     pagination: PaginationParams | None = None
 
@@ -31,4 +36,7 @@ class ListEntityUsersRequest(_GetEntityUsersRequest):
 
 @dataclass
 class ListEntityUsersResponse(BaseResponse, _GetEntityUsersResponse):
-    __doc__ = _GetEntityUsersResponse.__doc__
+    """
+    Attributes:
+        users: The entity users.
+    """

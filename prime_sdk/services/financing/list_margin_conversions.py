@@ -21,11 +21,18 @@ from ...model import GetMarginConversionsResponse as _GetMarginConversionsRespon
 
 @dataclass(kw_only=True)
 class ListMarginConversionsRequest(_GetMarginConversionsRequest):
-    __doc__ = _GetMarginConversionsRequest.__doc__
+    """
+    List Margin Conversions
+
+    Attributes:
+        portfolio_id: The unique ID of the portfolio
+        start_date: The start date of the range to query for in RFC3339 format
+        end_date: The end date of the range to query for in RFC3339 format
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListMarginConversionsResponse(BaseResponse, _GetMarginConversionsResponse):
-    __doc__ = _GetMarginConversionsResponse.__doc__
+    """ListMarginConversionsResponse(conversions: 'list[Conversion]' = None)"""

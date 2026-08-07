@@ -21,7 +21,13 @@ from ...model import SetAutoSweepResponse as _SetAutoSweepResponse
 
 @dataclass(kw_only=True)
 class SetAutoSweepRequest(_SetAutoSweepRequest):
-    __doc__ = _SetAutoSweepRequest.__doc__
+    """
+    Set Auto Sweep
+
+    Attributes:
+        entity_id: Entity ID
+        auto_sweep: Auto sweep status, default to false
+    """
 
     entity_id: str
 
@@ -30,4 +36,7 @@ class SetAutoSweepRequest(_SetAutoSweepRequest):
 
 @dataclass
 class SetAutoSweepResponse(BaseResponse, _SetAutoSweepResponse):
-    __doc__ = _SetAutoSweepResponse.__doc__
+    """
+    Attributes:
+        success: Success
+    """

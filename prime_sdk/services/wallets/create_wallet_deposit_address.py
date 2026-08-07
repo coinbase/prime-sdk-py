@@ -23,7 +23,14 @@ from ...model import (
 
 @dataclass(kw_only=True)
 class CreateWalletDepositAddressRequest(_CreateWalletDepositAddressRequest):
-    __doc__ = _CreateWalletDepositAddressRequest.__doc__
+    """
+    Create Wallet Deposit Address
+
+    Attributes:
+        portfolio_id: The ID of the portfolio that owns the wallet
+        wallet_id: The wallet ID for which to create the deposit address
+        network_id: The network name and type
+    """
 
     portfolio_id: str
     wallet_id: str
@@ -33,4 +40,9 @@ class CreateWalletDepositAddressRequest(_CreateWalletDepositAddressRequest):
 
 @dataclass
 class CreateWalletDepositAddressResponse(BaseResponse, _BlockchainAddress):
-    __doc__ = _BlockchainAddress.__doc__
+    """
+    Attributes:
+        address: The address on the network
+        account_identifier: The account identifier (used on some chains to distinguish
+            accounts using the same address)
+    """

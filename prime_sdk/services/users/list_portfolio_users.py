@@ -22,7 +22,12 @@ from ...utils import PaginationParams
 
 @dataclass(kw_only=True)
 class ListPortfolioUsersRequest(_GetPortfolioUsersRequest):
-    __doc__ = _GetPortfolioUsersRequest.__doc__
+    """
+    List Portfolio Users
+
+    Attributes:
+        portfolio_id: The portfolio ID.
+    """
 
     pagination: PaginationParams | None = None
 
@@ -31,4 +36,7 @@ class ListPortfolioUsersRequest(_GetPortfolioUsersRequest):
 
 @dataclass
 class ListPortfolioUsersResponse(BaseResponse, _GetPortfolioUsersResponse):
-    __doc__ = _GetPortfolioUsersResponse.__doc__
+    """
+    Attributes:
+        users: The portfolio users.
+    """

@@ -44,7 +44,16 @@ class Counterparty:
 
 @dataclass(kw_only=True)
 class CreateWithdrawalRequest(_CreateWalletWithdrawalRequest):
-    __doc__ = _CreateWalletWithdrawalRequest.__doc__
+    """
+    Create Withdrawal
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        wallet_id: The wallet ID
+        amount: The amount in whole units of the withdrawal
+        idempotency_key: The idempotency key associated with the withdrawal
+        currency_symbol: The currency symbol for the withdrawal
+    """
 
     portfolio_id: str
     wallet_id: str
@@ -54,4 +63,14 @@ class CreateWithdrawalRequest(_CreateWalletWithdrawalRequest):
 
 @dataclass
 class CreateWithdrawalResponse(BaseResponse, _CreateWalletWithdrawalResponse):
-    __doc__ = _CreateWalletWithdrawalResponse.__doc__
+    """
+    Attributes:
+        activity_id: The activity ID associated with the withdrawal
+        approval_url: A URL to the activity in the Prime application
+        symbol: The currency symbol associated with the withdrawal
+        amount: The amount of the withdrawal
+        fee: The network fee associated with the withdrawal
+        destination_type: The destination type used for the withdrawal
+        source_type: The source type used for the withdrawal
+        transaction_id: The id of the just created transaction
+    """

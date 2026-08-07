@@ -21,11 +21,19 @@ from ...model import GetFcmMarginCallDetailsResponse as _GetFcmMarginCallDetails
 
 @dataclass(kw_only=True)
 class GetFcmMarginCallDetailsRequest(_GetFcmMarginCallDetailsRequest):
-    __doc__ = _GetFcmMarginCallDetailsRequest.__doc__
+    """
+    Get FCM Margin Call Details
+
+    Attributes:
+        entity_id: Entity ID
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetFcmMarginCallDetailsResponse(BaseResponse, _GetFcmMarginCallDetailsResponse):
-    __doc__ = _GetFcmMarginCallDetailsResponse.__doc__
+    """
+    Attributes:
+        margin_calls: List of margin calls
+    """

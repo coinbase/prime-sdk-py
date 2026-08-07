@@ -21,7 +21,14 @@ from ...model import SetFcmSettingsRequest as _SetFcmSettingsRequest
 
 @dataclass(kw_only=True)
 class SetFcmSettingsRequest(_SetFcmSettingsRequest):
-    __doc__ = _SetFcmSettingsRequest.__doc__
+    """
+    Set FCM Settings
+
+    Attributes:
+        entity_id: Entity ID
+        target_derivatives_excess: Target CFM Excess amount to set. Only non-negative number
+            is allowed
+    """
 
     entity_id: str
 
@@ -30,4 +37,7 @@ class SetFcmSettingsRequest(_SetFcmSettingsRequest):
 
 @dataclass
 class SetFcmSettingsResponse(BaseResponse, _GetFcmSettingsResponse):
-    __doc__ = _GetFcmSettingsResponse.__doc__
+    """
+    Attributes:
+        target_derivatives_excess: Target derivatives excess in the FCM
+    """

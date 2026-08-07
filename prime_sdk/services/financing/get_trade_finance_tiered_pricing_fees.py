@@ -21,7 +21,13 @@ from ...model import GetTFTieredPricingFeesResponse as _GetTFTieredPricingFeesRe
 
 @dataclass(kw_only=True)
 class GetTradeFinanceTieredPricingFeesRequest(_GetTFTieredPricingFeesRequest):
-    __doc__ = _GetTFTieredPricingFeesRequest.__doc__
+    """
+    Get Trade Finance Tiered Pricing Fees
+
+    Attributes:
+        entity_id: The unique ID of the entity
+        effective_at: The fees on a specific effective date in RFC3339 format
+    """
 
     allowed_status_codes: list[int] | None = None
 
@@ -30,4 +36,4 @@ class GetTradeFinanceTieredPricingFeesRequest(_GetTFTieredPricingFeesRequest):
 class GetTradeFinanceTieredPricingFeesResponse(
     BaseResponse, _GetTFTieredPricingFeesResponse
 ):
-    __doc__ = _GetTFTieredPricingFeesResponse.__doc__
+    """GetTradeFinanceTieredPricingFeesResponse(fees: 'list[TieredPricingFee]' = None)"""

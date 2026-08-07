@@ -40,7 +40,16 @@ class AllocationLeg:
 
 @dataclass(kw_only=True)
 class CreatePortfolioAllocationsRequest(_CreateAllocationRequest):
-    __doc__ = _CreateAllocationRequest.__doc__
+    """
+    Attributes:
+        allocation_id: The ID of the allocation
+        source_portfolio_id: The source portfolio id for the allocation
+        product_id: The product for the allocation
+        order_ids: The list of order ids in the allocation
+        allocation_legs: The list of allocation_legs for the allocation
+        remainder_destination_portfolio: The portfolio where to allocate the remainder of
+            the size
+    """
 
     remainder_destination_portfolio_id: str
 
@@ -49,4 +58,4 @@ class CreatePortfolioAllocationsRequest(_CreateAllocationRequest):
 
 @dataclass
 class CreatePortfolioAllocationsResponse(BaseResponse, _CreateAllocationResponse):
-    __doc__ = _CreateAllocationResponse.__doc__
+    """CreatePortfolioAllocationsResponse(body: 'CreateAllocationResponseBody' = None)"""

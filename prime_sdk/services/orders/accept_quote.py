@@ -21,7 +21,16 @@ from ...model import AcceptQuoteResponse as _AcceptQuoteResponse
 
 @dataclass(kw_only=True)
 class AcceptQuoteRequest(_AcceptQuoteRequest):
-    __doc__ = _AcceptQuoteRequest.__doc__
+    """
+    Accept Quote
+
+    Attributes:
+        portfolio_id: The ID of the portfolio that owns the order
+        product_id: The ID of the product being traded for the order (e.g. `BTC-USD`)
+        client_order_id: A client-generated ID used for reference purposes (note: order will
+            be rejected if this ID is not unique among all currently active orders)
+        quote_id: A quote id that was returned from the quote request
+    """
 
     portfolio_id: str
 
@@ -30,4 +39,4 @@ class AcceptQuoteRequest(_AcceptQuoteRequest):
 
 @dataclass
 class AcceptQuoteResponse(BaseResponse, _AcceptQuoteResponse):
-    __doc__ = _AcceptQuoteResponse.__doc__
+    """AcceptQuoteResponse(order_id: 'str' = None)"""

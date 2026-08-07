@@ -21,11 +21,29 @@ from ...model import GetFcmBalanceResponse as _GetFcmBalanceResponse
 
 @dataclass(kw_only=True)
 class GetEntityFcmBalanceRequest(_GetFcmBalanceRequest):
-    __doc__ = _GetFcmBalanceRequest.__doc__
+    """
+    Get Entity FCM Balance
+
+    Attributes:
+        entity_id: Entity ID
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetEntityFcmBalanceResponse(BaseResponse, _GetFcmBalanceResponse):
-    __doc__ = _GetFcmBalanceResponse.__doc__
+    """
+    Attributes:
+        portfolio_id: Portfolio ID
+        cfm_usd_balance: CFM USD balance
+        unrealized_pnl: Unrealized PNL
+        daily_realized_pnl: Daily realized PNL
+        excess_liquidity: Excess liquidity
+        futures_buying_power: Futures buying power
+        initial_margin: Initial margin
+        maintenance_margin: Maintenance margin
+        clearing_account_id: Clearing account ID
+        cfm_unsettled_accrued_funding_pnl: Unsettled accrued funding PNL from the last
+            settlement
+    """

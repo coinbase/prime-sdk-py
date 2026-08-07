@@ -22,7 +22,16 @@ from ...utils import PaginationParams
 
 @dataclass(kw_only=True)
 class ListInvoicesRequest(_GetInvoicesRequest):
-    __doc__ = _GetInvoicesRequest.__doc__
+    """
+    List Invoices
+
+    Attributes:
+        entity_id: The entity ID
+        states: Invoice states to filter the response
+        billing_year: Filter invoices by year
+        billing_month: Integer representing the month to filter by, 1 for January, 12 for
+            December
+    """
 
     pagination: PaginationParams | None = None
 
@@ -31,4 +40,4 @@ class ListInvoicesRequest(_GetInvoicesRequest):
 
 @dataclass
 class ListInvoicesResponse(BaseResponse, _GetInvoicesResponse):
-    __doc__ = _GetInvoicesResponse.__doc__
+    """ListInvoicesResponse(invoices: 'list[Invoice]' = None)"""

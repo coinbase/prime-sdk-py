@@ -21,7 +21,16 @@ from ...model import CreateWalletResponse as _CreateWalletResponse
 
 @dataclass(kw_only=True)
 class CreateWalletRequest(_CreateWalletRequest):
-    __doc__ = _CreateWalletRequest.__doc__
+    """
+    Create Wallet
+
+    Attributes:
+        portfolio_id: Portfolio ID
+        name: The name of the wallet
+        symbol: The asset stored in the wallet. Should not be specified when wallet_type is
+            ONCHAIN
+        idempotency_key: idem
+    """
 
     portfolio_id: str
 
@@ -30,4 +39,9 @@ class CreateWalletRequest(_CreateWalletRequest):
 
 @dataclass
 class CreateWalletResponse(BaseResponse, _CreateWalletResponse):
-    __doc__ = _CreateWalletResponse.__doc__
+    """
+    Attributes:
+        activity_id: The id of activity
+        name: The name of the wallet
+        symbol: The asset stored in the wallet
+    """

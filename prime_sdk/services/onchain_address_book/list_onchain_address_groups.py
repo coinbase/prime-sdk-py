@@ -23,11 +23,16 @@ from ...model import (
 
 @dataclass(kw_only=True)
 class ListOnchainAddressGroupsRequest(_ListOnchainAddressGroupsRequest):
-    __doc__ = _ListOnchainAddressGroupsRequest.__doc__
+    """
+    List Onchain Address Groups
+
+    Attributes:
+        portfolio_id: Portfolio ID
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class ListOnchainAddressGroupsResponse(BaseResponse, _ListOnchainAddressGroupsResponse):
-    __doc__ = _ListOnchainAddressGroupsResponse.__doc__
+    """ListOnchainAddressGroupsResponse(address_groups: 'list[AddressGroup]' = None)"""

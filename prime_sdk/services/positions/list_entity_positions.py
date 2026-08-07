@@ -22,7 +22,12 @@ from ...utils import PaginationParams
 
 @dataclass(kw_only=True)
 class ListEntityPositionsRequest(_ListEntityPositionsRequest):
-    __doc__ = _ListEntityPositionsRequest.__doc__
+    """
+    List Entity Positions
+
+    Attributes:
+        entity_id: The unique ID of the entity
+    """
 
     pagination: PaginationParams | None = None
 
@@ -31,4 +36,4 @@ class ListEntityPositionsRequest(_ListEntityPositionsRequest):
 
 @dataclass
 class ListEntityPositionsResponse(BaseResponse, _ListEntityPositionsResponse):
-    __doc__ = _ListEntityPositionsResponse.__doc__
+    """ListEntityPositionsResponse(positions: 'list[Position]' = None, pagination: 'PaginatedResponse' = None)"""

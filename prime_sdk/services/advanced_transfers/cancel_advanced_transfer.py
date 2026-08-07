@@ -21,7 +21,13 @@ from ...model import CancelAdvancedTransferResponse as _CancelAdvancedTransferRe
 
 @dataclass
 class CancelAdvancedTransferRequest(_CancelAdvancedTransferRequest):
-    __doc__ = _CancelAdvancedTransferRequest.__doc__
+    """
+    Cancel Advanced Transfer
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        advanced_transfer_id: The ID of the canceled Advanced Transfer
+    """
 
     portfolio_id: str
     advanced_transfer_id: str
@@ -30,4 +36,9 @@ class CancelAdvancedTransferRequest(_CancelAdvancedTransferRequest):
 
 @dataclass
 class CancelAdvancedTransferResponse(BaseResponse, _CancelAdvancedTransferResponse):
-    __doc__ = _CancelAdvancedTransferResponse.__doc__
+    """
+    CancelAdvancedTransferResponse is the response after canceling an advanced transfer.
+
+    Attributes:
+        advanced_transfer_id: The ID of the canceled Advanced Transfer
+    """

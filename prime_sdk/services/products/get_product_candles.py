@@ -21,11 +21,22 @@ from ...model import GetCandlesResponse as _GetCandlesResponse
 
 @dataclass(kw_only=True)
 class GetProductCandlesRequest(_GetCandlesRequest):
-    __doc__ = _GetCandlesRequest.__doc__
+    """
+    Get Public Product Candles (Beta)
+
+    Attributes:
+        portfolio_id: The portfolio id requesting market data.
+        product_id: The trading pair.
+        start_time: Timestamp for starting range of aggregations
+        end_time: Timestamp for ending range of aggregations
+        granularity: The timeframe each candle represents.
+    """
 
     allowed_status_codes: list[int] | None = None
 
 
 @dataclass
 class GetProductCandlesResponse(BaseResponse, _GetCandlesResponse):
-    __doc__ = _GetCandlesResponse.__doc__
+    """
+    Candle response structure
+    """
