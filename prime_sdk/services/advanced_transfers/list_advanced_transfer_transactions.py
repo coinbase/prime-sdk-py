@@ -23,12 +23,10 @@ from ...model import (
 )
 
 
-@dataclass
+@dataclass(kw_only=True)
 class ListAdvancedTransferTransactionsRequest(_ListAdvancedTransferTransactionsRequest):
     __doc__ = _ListAdvancedTransferTransactionsRequest.__doc__
 
-    portfolio_id: str
-    advanced_transfer_id: str
     allowed_status_codes: list[int] | None = None
 
 

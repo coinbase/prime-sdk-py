@@ -15,7 +15,6 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...enums import WalletDepositType
 from ...model import (
     GetWalletDepositInstructionsRequest as _GetWalletDepositInstructionsRequest,
 )
@@ -24,13 +23,10 @@ from ...model import (
 )
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetWalletDepositInstructionsRequest(_GetWalletDepositInstructionsRequest):
     __doc__ = _GetWalletDepositInstructionsRequest.__doc__
 
-    portfolio_id: str
-    wallet_id: str
-    deposit_type: WalletDepositType
     allowed_status_codes: list[int] | None = None
 
 

@@ -19,11 +19,10 @@ from ...model import GetEntityAssetsRequest as _GetEntityAssetsRequest
 from ...model import GetEntityAssetsResponse as _GetEntityAssetsResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class ListAssetsRequest(_GetEntityAssetsRequest):
     __doc__ = _GetEntityAssetsRequest.__doc__
 
-    entity_id: str
     allowed_status_codes: list[int] | None = None
 
 

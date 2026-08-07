@@ -23,12 +23,10 @@ from ...model import (
 )
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetTransactionTravelRuleDataRequest(_GetTransactionTravelRuleDataRequest):
     __doc__ = _GetTransactionTravelRuleDataRequest.__doc__
 
-    portfolio_id: str
-    transaction_id: str
     allowed_status_codes: list[int] | None = None
 
 

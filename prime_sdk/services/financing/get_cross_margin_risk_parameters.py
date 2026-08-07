@@ -23,11 +23,10 @@ from ...model import (
 )
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetCrossMarginRiskParametersRequest(_GetCrossMarginRiskParametersRequest):
     __doc__ = _GetCrossMarginRiskParametersRequest.__doc__
 
-    entity_id: str
     allowed_status_codes: list[int] | None = None
 
 

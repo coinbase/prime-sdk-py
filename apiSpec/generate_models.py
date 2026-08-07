@@ -28,6 +28,7 @@ from model_config import (
     CLASS_ALIASES,
     ENUM_FIELD_IMPORTS,
     ENUM_NAME_OVERRIDES,
+    EXCLUDED_PARAM_NAMES,
     EXTRA_FIELDS,
     FIELD_RENAMES,
     REQUEST_CLASS_NAME_OVERRIDES,
@@ -198,6 +199,10 @@ def operation_id_to_class_name(operation_id: str) -> str:
     return name
 
 
+def is_valid_param_field_name(name: str) -> bool:
+    return name.isidentifier() and name not in EXCLUDED_PARAM_NAMES
+
+
 def collect_operation_parameter_names(operation: dict[str, Any]) -> list[str]:
     names: list[str] = []
     for param in operation.get("parameters") or []:
@@ -206,9 +211,42 @@ def collect_operation_parameter_names(operation: dict[str, Any]) -> list[str]:
         if param.get("in") not in ("path", "query"):
             continue
         name = param.get("name")
-        if isinstance(name, str):
+        if isinstance(name, str) and is_valid_param_field_name(name):
             names.append(name)
     return names
+
+
+def collect_operation_parameter_fields(
+    operation: dict[str, Any],
+    schemas: dict[str, Any],
+    compat_types: dict[str, dict[str, str]],
+    class_short: str,
+) -> list[tuple[str, str]]:
+    renames = FIELD_RENAMES.get(class_short, {})
+    fields: list[tuple[str, str]] = []
+    seen: set[str] = set()
+
+    for param in operation.get("parameters") or []:
+        if not isinstance(param, dict):
+            continue
+        if param.get("in") not in ("path", "query"):
+            continue
+        spec_name = param.get("name")
+        if not isinstance(spec_name, str) or not is_valid_param_field_name(spec_name):
+            continue
+        public_name = renames.get(spec_name, spec_name)
+        if public_name in seen:
+            continue
+        seen.add(public_name)
+        schema = param.get("schema")
+        if not isinstance(schema, dict):
+            schema = {}
+        field_type = schema_property_type(
+            schema, schemas, class_short, public_name, compat_types
+        )
+        fields.append((public_name, field_type))
+
+    return fields
 
 
 def collect_operation_docs(
@@ -228,7 +266,7 @@ def collect_operation_docs(
             continue
         name = param.get("name")
         description = param.get("description")
-        if not isinstance(name, str):
+        if not isinstance(name, str) or not is_valid_param_field_name(name):
             continue
         field_order.append(name)
         if description:
@@ -515,8 +553,9 @@ def generate_models() -> str:
         for field_map in ENUM_FIELD_IMPORTS.values()
         for import_name in field_map.values()
     }
-    imports = ["from typing import Any\n"] if enum_imports else []
+    imports: list[str] = []
     if enum_imports:
+        imports.append("from typing import Any\n")
         imports.append("from prime_sdk.enums import " + ", ".join(sorted(enum_imports)))
         imports.append("")
 
@@ -550,7 +589,9 @@ def generate_models() -> str:
                 class_short, body_schema, schemas, compat_types
             )
         else:
-            fields = []
+            fields = collect_operation_parameter_fields(
+                operation, schemas, compat_types, class_short
+            )
         body_parts.append(
             render_class(
                 class_short,
@@ -569,13 +610,11 @@ def generate_models() -> str:
     for public_name, generated_name in sorted(CLASS_ALIASES.items()):
         alias_lines.append(f"{public_name} = {generated_name}")
 
-    return (
-        FILE_HEADER
-        + "\n".join(imports)
-        + "\n".join(body_parts)
-        + "\n".join(alias_lines)
-        + "\n"
-    )
+    body_text = "\n".join(body_parts)
+    if ": datetime" in body_text:
+        imports.insert(0, "from datetime import datetime\n")
+
+    return FILE_HEADER + "\n".join(imports) + body_text + "\n".join(alias_lines) + "\n"
 
 
 def main() -> None:

@@ -19,13 +19,10 @@ from ...model import GetBuyingPowerRequest as _GetBuyingPowerRequest
 from ...model import GetBuyingPowerResponse as _GetBuyingPowerResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetBuyingPowerRequest(_GetBuyingPowerRequest):
     __doc__ = _GetBuyingPowerRequest.__doc__
 
-    portfolio_id: str
-    base_currency: str | None = None
-    quote_currency: str | None = None
     allowed_status_codes: list[int] | None = None
 
 

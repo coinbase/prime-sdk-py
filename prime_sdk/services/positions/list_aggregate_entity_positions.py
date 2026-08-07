@@ -24,12 +24,12 @@ from ...model import (
 from ...utils import PaginationParams
 
 
-@dataclass
+@dataclass(kw_only=True)
 class ListAggregateEntityPositionsRequest(_ListAggregateEntityPositionsRequest):
     __doc__ = _ListAggregateEntityPositionsRequest.__doc__
 
-    entity_id: str
     pagination: PaginationParams | None = None
+
     allowed_status_codes: list[int] | None = None
 
 

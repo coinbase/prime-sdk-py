@@ -15,20 +15,17 @@
 from dataclasses import dataclass
 
 from ...base_response import BaseResponse
-from ...enums import BalanceType
 from ...model import GetPortfolioBalancesRequest as _GetPortfolioBalancesRequest
 from ...model import GetPortfolioBalancesResponse as _GetPortfolioBalancesResponse
 from ...utils import PaginationParams
 
 
-@dataclass
+@dataclass(kw_only=True)
 class ListPortfolioBalancesRequest(_GetPortfolioBalancesRequest):
     __doc__ = _GetPortfolioBalancesRequest.__doc__
 
-    portfolio_id: str
-    symbols: str | None = None
-    balance_type: BalanceType | None = None
     pagination: PaginationParams | None = None
+
     allowed_status_codes: list[int] | None = None
 
 

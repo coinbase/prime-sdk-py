@@ -19,13 +19,10 @@ from ...model import GetExistingLocatesRequest as _GetExistingLocatesRequest
 from ...model import GetExistingLocatesResponse as _GetExistingLocatesResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class ListExistingLocatesRequest(_GetExistingLocatesRequest):
     __doc__ = _GetExistingLocatesRequest.__doc__
 
-    portfolio_id: str
-    locate_ids: list[str] | None = None
-    locate_date: str | None = None
     allowed_status_codes: list[int] | None = None
 
 

@@ -13,25 +13,18 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from datetime import datetime
 
 from ...base_response import BaseResponse
-from ...enums import OrderSide, OrderType
 from ...model import GetOpenOrdersRequest as _GetOpenOrdersRequest
 from ...model import GetOpenOrdersResponse as _GetOpenOrdersResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class ListOpenOrdersRequest(_GetOpenOrdersRequest):
     __doc__ = _GetOpenOrdersRequest.__doc__
 
-    portfolio_id: str
     order_statuses: str | None = None
-    product_ids: str | None = None
-    order_type: OrderType | None = None
-    order_side: OrderSide | None = None
-    start_date: datetime = None
-    end_date: datetime | None = None
+
     allowed_status_codes: list[int] | None = None
 
 

@@ -19,12 +19,10 @@ from ...model import GetXMLiquidationRequest as _GetXMLiquidationRequest
 from ...model import GetXMLiquidationResponse as _GetXMLiquidationResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetXMLiquidationRequest(_GetXMLiquidationRequest):
     __doc__ = _GetXMLiquidationRequest.__doc__
 
-    entity_id: str
-    liquidation_id: str | None = None
     allowed_status_codes: list[int] | None = None
 
 

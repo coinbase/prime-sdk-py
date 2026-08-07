@@ -19,12 +19,10 @@ from ...model import GetOrderEditHistoryRequest as _GetOrderEditHistoryRequest
 from ...model import GetOrderEditHistoryResponse as _GetOrderEditHistoryResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetOrderEditHistoryRequest(_GetOrderEditHistoryRequest):
     __doc__ = _GetOrderEditHistoryRequest.__doc__
 
-    portfolio_id: str
-    order_id: str
     allowed_status_codes: list[int] | None = None
 
 

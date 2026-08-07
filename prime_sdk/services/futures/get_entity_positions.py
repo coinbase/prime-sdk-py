@@ -19,12 +19,12 @@ from ...model import ListEntityPositionsRequest as _ListEntityPositionsRequest
 from ...model import ListEntityPositionsResponse as _ListEntityPositionsResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetEntityPositionsRequest(_ListEntityPositionsRequest):
     __doc__ = _ListEntityPositionsRequest.__doc__
 
-    entity_id: str
     product_id: str | None = None
+
     allowed_status_codes: list[int] | None = None
 
 

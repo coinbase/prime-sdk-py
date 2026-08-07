@@ -20,14 +20,12 @@ from ...model import ListWalletAddressesResponse as _ListWalletAddressesResponse
 from ...utils import PaginationParams
 
 
-@dataclass
+@dataclass(kw_only=True)
 class ListWalletAddressesRequest(_ListWalletAddressesRequest):
     __doc__ = _ListWalletAddressesRequest.__doc__
 
-    portfolio_id: str
-    wallet_id: str
-    network_id: str
     pagination: PaginationParams | None = None
+
     allowed_status_codes: list[int] | None = None
 
 

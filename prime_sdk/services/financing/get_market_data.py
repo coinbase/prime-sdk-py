@@ -19,14 +19,14 @@ from ...model import GetMarketDataRequest as _GetMarketDataRequest
 from ...model import GetMarketDataResponse as _GetMarketDataResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetMarketDataRequest(_GetMarketDataRequest):
     __doc__ = _GetMarketDataRequest.__doc__
 
-    entity_id: str
     cursor: str | None = None
     limit: int | None = None
     sort_direction: str | None = None
+
     allowed_status_codes: list[int] | None = None
 
 

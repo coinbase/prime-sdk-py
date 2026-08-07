@@ -23,11 +23,10 @@ from ...model import (
 )
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetCounterpartyIdRequest(_GetPortfolioCounterpartyIDRequest):
     __doc__ = _GetPortfolioCounterpartyIDRequest.__doc__
 
-    portfolio_id: str
     allowed_status_codes: list[int] | None = None
 
 

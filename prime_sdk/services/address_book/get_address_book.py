@@ -20,14 +20,12 @@ from ...model import GetPortfolioAddressBookResponse as _GetPortfolioAddressBook
 from ...utils import PaginationParams
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetAddressBookRequest(_GetPortfolioAddressBookRequest):
     __doc__ = _GetPortfolioAddressBookRequest.__doc__
 
-    portfolio_id: str
-    currency_symbol: str | None = None
-    search: str | None = None
     pagination: PaginationParams | None = None
+
     allowed_status_codes: list[int] | None = None
 
 

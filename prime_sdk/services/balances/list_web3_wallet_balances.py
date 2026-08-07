@@ -20,14 +20,12 @@ from ...model import ListWeb3WalletBalancesResponse as _ListWeb3WalletBalancesRe
 from ...utils import PaginationParams
 
 
-@dataclass
+@dataclass(kw_only=True)
 class ListWeb3WalletBalancesRequest(_ListWeb3WalletBalancesRequest):
     __doc__ = _ListWeb3WalletBalancesRequest.__doc__
 
-    portfolio_id: str
-    wallet_id: str
-    visibility_statuses: str | None = None
     pagination: PaginationParams | None = None
+
     allowed_status_codes: list[int] | None = None
 
 

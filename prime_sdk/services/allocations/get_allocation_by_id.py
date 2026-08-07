@@ -19,12 +19,10 @@ from ...model import GetAllocationRequest as _GetAllocationRequest
 from ...model import GetAllocationResponse as _GetAllocationResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetAllocationByIdRequest(_GetAllocationRequest):
     __doc__ = _GetAllocationRequest.__doc__
 
-    portfolio_id: str
-    allocation_id: str
     allowed_status_codes: list[int] | None = None
 
 

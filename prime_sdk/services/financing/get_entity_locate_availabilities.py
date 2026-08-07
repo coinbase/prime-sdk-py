@@ -19,12 +19,10 @@ from ...model import GetLocateAvailabilitiesRequest as _GetLocateAvailabilitiesR
 from ...model import GetLocateAvailabilitiesResponse as _GetLocateAvailabilitiesResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetEntityLocateAvailabilitiesRequest(_GetLocateAvailabilitiesRequest):
     __doc__ = _GetLocateAvailabilitiesRequest.__doc__
 
-    entity_id: str
-    locate_date: str | None = None
     allowed_status_codes: list[int] | None = None
 
 

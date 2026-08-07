@@ -19,11 +19,10 @@ from ...model import GetFcmBalanceRequest as _GetFcmBalanceRequest
 from ...model import GetFcmBalanceResponse as _GetFcmBalanceResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetEntityFcmBalanceRequest(_GetFcmBalanceRequest):
     __doc__ = _GetFcmBalanceRequest.__doc__
 
-    entity_id: str
     allowed_status_codes: list[int] | None = None
 
 

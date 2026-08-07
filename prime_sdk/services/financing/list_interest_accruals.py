@@ -19,14 +19,10 @@ from ...model import GetInterestAccrualsRequest as _GetInterestAccrualsRequest
 from ...model import GetInterestAccrualsResponse as _GetInterestAccrualsResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class ListInterestAccrualsRequest(_GetInterestAccrualsRequest):
     __doc__ = _GetInterestAccrualsRequest.__doc__
 
-    entity_id: str
-    portfolio_id: str | None = None
-    start_date: str | None = None
-    end_date: str | None = None
     allowed_status_codes: list[int] | None = None
 
 

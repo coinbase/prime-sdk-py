@@ -493,6 +493,29 @@
     "usd_amount_owed": "float",
     "invoice_items": "list"
   },
+  "GetInvoicesRequest": {
+    "billing_year": "int"
+  },
+  "GetOrdersRequest": {
+    "start_date": "datetime",
+    "end_date": "datetime"
+  },
+  "GetOpenOrdersRequest": {
+    "start_date": "datetime",
+    "end_date": "datetime"
+  },
+  "GetPortfolioActivitiesRequest": {
+    "start_time": "datetime",
+    "end_time": "datetime"
+  },
+  "GetEntityActivitiesRequest": {
+    "start_time": "datetime",
+    "end_time": "datetime"
+  },
+  "GetPortfolioAllocationsRequest": {
+    "start_date": "datetime",
+    "end_date": "datetime"
+  },
   "InvoiceItem": {
     "description": "str",
     "currency_symbol": "str",

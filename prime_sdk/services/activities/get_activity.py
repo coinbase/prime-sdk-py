@@ -19,12 +19,10 @@ from ...model import GetPortfolioActivityRequest as _GetPortfolioActivityRequest
 from ...model import GetPortfolioActivityResponse as _GetPortfolioActivityResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetActivityRequest(_GetPortfolioActivityRequest):
     __doc__ = _GetPortfolioActivityRequest.__doc__
 
-    portfolio_id: str
-    activity_id: str
     allowed_status_codes: list[int] | None = None
 
 

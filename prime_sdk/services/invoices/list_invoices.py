@@ -20,15 +20,12 @@ from ...model import GetInvoicesResponse as _GetInvoicesResponse
 from ...utils import PaginationParams
 
 
-@dataclass
+@dataclass(kw_only=True)
 class ListInvoicesRequest(_GetInvoicesRequest):
     __doc__ = _GetInvoicesRequest.__doc__
 
-    entity_id: str
-    states: str | None = None
-    billing_year: int | None = None
-    billing_month: str | None = None
     pagination: PaginationParams | None = None
+
     allowed_status_codes: list[int] | None = None
 
 

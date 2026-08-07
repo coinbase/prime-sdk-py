@@ -21,12 +21,10 @@ from ...model import (
 )
 
 
-@dataclass
+@dataclass(kw_only=True)
 class DeleteOnchainAddressGroupRequest(_DeleteOnchainAddressGroupRequest):
     __doc__ = _DeleteOnchainAddressGroupRequest.__doc__
 
-    portfolio_id: str
-    address_group_id: str
     allowed_status_codes: list[int] | None = None
 
 

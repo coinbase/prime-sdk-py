@@ -19,11 +19,10 @@ from ...model import GetCrossMarginOverviewRequest as _GetCrossMarginOverviewReq
 from ...model import GetCrossMarginOverviewResponse as _GetCrossMarginOverviewResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetCrossMarginOverviewRequest(_GetCrossMarginOverviewRequest):
     __doc__ = _GetCrossMarginOverviewRequest.__doc__
 
-    entity_id: str
     allowed_status_codes: list[int] | None = None
 
 

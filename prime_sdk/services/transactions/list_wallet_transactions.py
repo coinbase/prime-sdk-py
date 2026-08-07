@@ -21,16 +21,14 @@ from ...model import GetWalletTransactionsResponse as _GetWalletTransactionsResp
 from ...utils import PaginationParams
 
 
-@dataclass
+@dataclass(kw_only=True)
 class ListWalletTransactionsRequest(_GetWalletTransactionsRequest):
     __doc__ = _GetWalletTransactionsRequest.__doc__
 
-    portfolio_id: str
-    wallet_id: str
-    types: str | None = None
     start: datetime | None = None
     end: datetime | None = None
     pagination: PaginationParams | None = None
+
     allowed_status_codes: list[int] | None = None
 
 

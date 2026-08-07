@@ -19,11 +19,10 @@ from ...model import GetActivityRequest as _GetActivityRequest
 from ...model import GetActivityResponse as _GetActivityResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetEntityActivityRequest(_GetActivityRequest):
     __doc__ = _GetActivityRequest.__doc__
 
-    activity_id: str
     allowed_status_codes: list[int] | None = None
 
 

@@ -13,25 +13,19 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from datetime import datetime
 
 from ...base_response import BaseResponse
-from ...enums import OrderSide
 from ...model import GetPortfolioAllocationsRequest as _GetPortfolioAllocationsRequest
 from ...model import GetPortfolioAllocationsResponse as _GetPortfolioAllocationsResponse
 from ...utils import PaginationParams
 
 
-@dataclass
+@dataclass(kw_only=True)
 class ListPortfolioAllocationsRequest(_GetPortfolioAllocationsRequest):
     __doc__ = _GetPortfolioAllocationsRequest.__doc__
 
-    portfolio_id: str
-    start_date: datetime
-    product_ids: str | None = None
-    order_side: OrderSide | None = None
-    end_date: datetime | None = None
     pagination: PaginationParams | None = None
+
     allowed_status_codes: list[int] | None = None
 
 

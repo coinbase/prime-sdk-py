@@ -90,9 +90,27 @@ ENUM_NAME_OVERRIDES: dict[str, str] = {
     "coinbase.public_rest_api.ActivityType": "PrimeActivityType",
 }
 
+# Query/path parameter names excluded from generated request models because the
+# service layer consolidates them into PaginationParams.
+EXCLUDED_PARAM_NAMES: frozenset[str] = frozenset({"cursor", "limit", "sort_direction"})
+
 # Fields that should import types from prime_sdk.enums instead of str.
 ENUM_FIELD_IMPORTS: dict[str, dict[str, str]] = {
     "AddressGroup": {"network_type": "NetworkType"},
+    "GetEntityActivitiesRequest": {"activity_level": "ActivityLevel"},
+    "GetOpenOrdersRequest": {
+        "order_side": "OrderSide",
+        "order_type": "OrderType",
+    },
+    "GetOrdersRequest": {
+        "order_side": "OrderSide",
+        "order_type": "OrderType",
+    },
+    "GetPortfolioAllocationsRequest": {"order_side": "OrderSide"},
+    "GetPortfolioBalancesRequest": {"balance_type": "BalanceType"},
+    "GetWalletDepositInstructionsRequest": {"deposit_type": "WalletDepositType"},
+    "GetWalletsRequest": {"type": "WalletType"},
+    "ListEntityBalancesRequest": {"aggregation_type": "AggregationType"},
 }
 
 # Schema key -> generated class short-name (when short_name() would collide or misname).

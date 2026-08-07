@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from datetime import datetime
 
 from ...base_response import BaseResponse
 from ...model import GetPortfolioActivitiesRequest as _GetPortfolioActivitiesRequest
@@ -21,17 +20,12 @@ from ...model import GetPortfolioActivitiesResponse as _GetPortfolioActivitiesRe
 from ...utils import PaginationParams
 
 
-@dataclass
+@dataclass(kw_only=True)
 class ListActivitiesRequest(_GetPortfolioActivitiesRequest):
     __doc__ = _GetPortfolioActivitiesRequest.__doc__
 
-    portfolio_id: str
-    symbols: str | None = None
-    categories: str | None = None
-    statuses: str | None = None
-    start_time: datetime | None = None
-    end_time: datetime | None = None
     pagination: PaginationParams | None = None
+
     allowed_status_codes: list[int] | None = None
 
 

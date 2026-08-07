@@ -20,12 +20,12 @@ from ...model import GetEntityPaymentMethodsResponse as _GetEntityPaymentMethods
 from ...utils import PaginationParams
 
 
-@dataclass
+@dataclass(kw_only=True)
 class ListEntityPaymentMethodsRequest(_GetEntityPaymentMethodsRequest):
     __doc__ = _GetEntityPaymentMethodsRequest.__doc__
 
-    entity_id: str
     pagination: PaginationParams | None = None
+
     allowed_status_codes: list[int] | None = None
 
 

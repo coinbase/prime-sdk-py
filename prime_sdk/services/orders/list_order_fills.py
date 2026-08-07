@@ -20,13 +20,12 @@ from ...model import GetOrderFillsResponse as _GetOrderFillsResponse
 from ...utils import PaginationParams
 
 
-@dataclass
+@dataclass(kw_only=True)
 class ListOrderFillsRequest(_GetOrderFillsRequest):
     __doc__ = _GetOrderFillsRequest.__doc__
 
-    portfolio_id: str
-    order_id: str
     pagination: PaginationParams | None = None
+
     allowed_status_codes: list[int] | None = None
 
 

@@ -19,12 +19,10 @@ from ...model import GetTFTieredPricingFeesRequest as _GetTFTieredPricingFeesReq
 from ...model import GetTFTieredPricingFeesResponse as _GetTFTieredPricingFeesResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetTradeFinanceTieredPricingFeesRequest(_GetTFTieredPricingFeesRequest):
     __doc__ = _GetTFTieredPricingFeesRequest.__doc__
 
-    entity_id: str
-    effective_at: str | None = None
     allowed_status_codes: list[int] | None = None
 
 

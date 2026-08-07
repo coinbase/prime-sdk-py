@@ -19,11 +19,10 @@ from ...model import ListTFObligationsRequest as _ListTFObligationsRequest
 from ...model import ListTFObligationsResponse as _ListTFObligationsResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class ListTradeFinanceObligationsRequest(_ListTFObligationsRequest):
     __doc__ = _ListTFObligationsRequest.__doc__
 
-    entity_id: str
     allowed_status_codes: list[int] | None = None
 
 

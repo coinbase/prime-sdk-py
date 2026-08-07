@@ -19,13 +19,12 @@ from ...model import CancelAdvancedTransferRequest as _CancelAdvancedTransferReq
 from ...model import CancelAdvancedTransferResponse as _CancelAdvancedTransferResponse
 
 
-@dataclass(kw_only=True)
+@dataclass
 class CancelAdvancedTransferRequest(_CancelAdvancedTransferRequest):
     __doc__ = _CancelAdvancedTransferRequest.__doc__
 
     portfolio_id: str
     advanced_transfer_id: str
-
     allowed_status_codes: list[int] | None = None
 
 

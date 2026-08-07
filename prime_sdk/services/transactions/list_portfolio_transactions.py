@@ -23,16 +23,14 @@ from ...model import (
 from ...utils import PaginationParams
 
 
-@dataclass
+@dataclass(kw_only=True)
 class ListPortfolioTransactionsRequest(_GetPortfolioTransactionsRequest):
     __doc__ = _GetPortfolioTransactionsRequest.__doc__
 
-    portfolio_id: str
-    symbols: str | None = None
-    types: str | None = None
     start: datetime | None = None
     end: datetime | None = None
     pagination: PaginationParams | None = None
+
     allowed_status_codes: list[int] | None = None
 
 

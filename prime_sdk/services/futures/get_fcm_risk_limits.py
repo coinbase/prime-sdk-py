@@ -19,11 +19,10 @@ from ...model import GetFcmRiskLimitsRequest as _GetFcmRiskLimitsRequest
 from ...model import GetFcmRiskLimitsResponse as _GetFcmRiskLimitsResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetFcmRiskLimitsRequest(_GetFcmRiskLimitsRequest):
     __doc__ = _GetFcmRiskLimitsRequest.__doc__
 
-    entity_id: str
     allowed_status_codes: list[int] | None = None
 
 

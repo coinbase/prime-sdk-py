@@ -18,6 +18,7 @@ These responses previously used incorrect field names or shapes in the Python SD
 - **Models**: `prime_sdk/model.py` is now a compatibility shim over generated dataclasses in `prime_sdk/generated/models.py`. Run `make update-spec` to refresh models from the OpenAPI specification. Existing imports and field names are preserved via `apiSpec/model_config.py` and `prime_sdk/model_manual.py`.
 - **Service models**: Service `*Request` and `*Response` dataclasses now inherit field definitions and docstrings from generated models (via local `as _Internal...` aliases), matching the TypeScript SDK pattern.
 - **Request docstrings**: All service `*Request` classes now inherit OpenAPI-derived docstrings from generated stub models. JSON-body requests document path/query parameters alongside body fields.
+- **Generated path/query parameters**: Body-less request models in `prime_sdk/generated/models.py` now include path and query parameter fields (not just docstrings). Service `*Request` subclasses keep only SDK-specific extras such as `allowed_status_codes` and `pagination`.
 - **Examples**: Wallet example scripts fall back to `PRIME_WALLET_ID` and `PRIME_ONCHAIN_WALLET_ID` when `--wallet-id` is omitted; see `.env.example` and README.
 
 ### Fixed

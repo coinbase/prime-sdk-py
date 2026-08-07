@@ -35,12 +35,10 @@ class ValidatorStakingInfo:
     statuses: list[StakingStatus]
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetStakingStatusRequest(_GetStakingStatusRequest):
     __doc__ = _GetStakingStatusRequest.__doc__
 
-    portfolio_id: str
-    wallet_id: str
     allowed_status_codes: list[int] | None = None
 
 

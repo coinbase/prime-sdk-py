@@ -19,11 +19,10 @@ from ...model import GetPortfolioCommissionRequest as _GetPortfolioCommissionReq
 from ...model import GetPortfolioCommissionResponse as _GetPortfolioCommissionResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetPortfolioCommissionRequest(_GetPortfolioCommissionRequest):
     __doc__ = _GetPortfolioCommissionRequest.__doc__
 
-    portfolio_id: str
     allowed_status_codes: list[int] | None = None
 
 

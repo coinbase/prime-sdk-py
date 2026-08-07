@@ -37,12 +37,10 @@ class ValidatorUnstakeStatus:
     statuses: list[UnstakeStatusDetail]
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetUnstakingStatusRequest(_GetUnstakingStatusRequest):
     __doc__ = _GetUnstakingStatusRequest.__doc__
 
-    portfolio_id: str
-    wallet_id: str
     allowed_status_codes: list[int] | None = None
 
 

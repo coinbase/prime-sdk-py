@@ -20,12 +20,12 @@ from ...model import GetPortfolioUsersResponse as _GetPortfolioUsersResponse
 from ...utils import PaginationParams
 
 
-@dataclass
+@dataclass(kw_only=True)
 class ListPortfolioUsersRequest(_GetPortfolioUsersRequest):
     __doc__ = _GetPortfolioUsersRequest.__doc__
 
-    portfolio_id: str
     pagination: PaginationParams | None = None
+
     allowed_status_codes: list[int] | None = None
 
 

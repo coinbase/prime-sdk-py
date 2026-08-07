@@ -20,17 +20,12 @@ from ...model import ListAdvancedTransfersResponse as _ListAdvancedTransfersResp
 from ...utils import PaginationParams
 
 
-@dataclass
+@dataclass(kw_only=True)
 class ListAdvancedTransfersRequest(_ListAdvancedTransfersRequest):
     __doc__ = _ListAdvancedTransfersRequest.__doc__
 
-    portfolio_id: str
-    state: str | None = None
-    type: str | None = None
-    start_time: str | None = None
-    end_time: str | None = None
-    reference_id: str | None = None
     pagination: PaginationParams | None = None
+
     allowed_status_codes: list[int] | None = None
 
 

@@ -23,13 +23,10 @@ from ...model import (
 )
 
 
-@dataclass
+@dataclass(kw_only=True)
 class ListInterestAccrualsForPortfolioRequest(_GetPortfolioInterestAccrualsRequest):
     __doc__ = _GetPortfolioInterestAccrualsRequest.__doc__
 
-    portfolio_id: str
-    start_date: str | None = None
-    end_date: str | None = None
     allowed_status_codes: list[int] | None = None
 
 

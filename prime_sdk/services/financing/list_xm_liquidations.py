@@ -19,14 +19,14 @@ from ...model import ListXMLiquidationsRequest as _ListXMLiquidationsRequest
 from ...model import ListXMLiquidationsResponse as _ListXMLiquidationsResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class ListXMLiquidationsRequest(_ListXMLiquidationsRequest):
     __doc__ = _ListXMLiquidationsRequest.__doc__
 
-    entity_id: str
     cursor: str | None = None
     limit: int | None = None
     sort_direction: str | None = None
+
     allowed_status_codes: list[int] | None = None
 
 

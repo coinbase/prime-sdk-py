@@ -13,27 +13,19 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from datetime import datetime
 
 from ...base_response import BaseResponse
-from ...enums import ActivityLevel
 from ...model import GetEntityActivitiesRequest as _GetEntityActivitiesRequest
 from ...model import GetEntityActivitiesResponse as _GetEntityActivitiesResponse
 from ...utils import PaginationParams
 
 
-@dataclass
+@dataclass(kw_only=True)
 class ListEntityActivitiesRequest(_GetEntityActivitiesRequest):
     __doc__ = _GetEntityActivitiesRequest.__doc__
 
-    entity_id: str
-    activity_level: ActivityLevel | None = None
-    symbols: str | None = None
-    categories: str | None = None
-    statuses: str | None = None
-    start_time: datetime | None = None
-    end_time: datetime | None = None
     pagination: PaginationParams | None = None
+
     allowed_status_codes: list[int] | None = None
 
 

@@ -23,11 +23,10 @@ from ...model import (
 )
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetCrossMarginPrimeOverviewRequest(_GetCrossMarginPrimeOverviewRequest):
     __doc__ = _GetCrossMarginPrimeOverviewRequest.__doc__
 
-    entity_id: str
     allowed_status_codes: list[int] | None = None
 
 

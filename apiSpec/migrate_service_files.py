@@ -218,21 +218,20 @@ def migrate_file(path: Path) -> bool:
     for node in body_nodes:
         if isinstance(node, ast.ClassDef):
             if node.name.endswith("Request") and _should_migrate_request(node.name):
-                if _is_already_migrated_request(node, node.name):
-                    rendered_blocks.append(_node_source(source, node))
-                    needs_dataclass = True
-                    base_name = _request_base_name(node.name)
-                    if base_name is not None:
-                        model_imports.add(base_name)
-                    continue
                 base_name = _request_base_name(node.name)
                 assert base_name is not None
                 model_imports.add(base_name)
-                rendered_blocks.append(
-                    _render_request_class(node.name, _field_lines(node))
-                )
+                if _is_already_migrated_request(node, node.name):
+                    rendered = _render_request_class(node.name, _field_lines(node))
+                    if rendered != _node_source(source, node).strip():
+                        changed = True
+                    rendered_blocks.append(rendered)
+                else:
+                    rendered_blocks.append(
+                        _render_request_class(node.name, _field_lines(node))
+                    )
+                    changed = True
                 needs_dataclass = True
-                changed = True
                 continue
             if node.name.endswith("Response") and _should_migrate_response(node.name):
                 base_name = _response_base_name(node.name)

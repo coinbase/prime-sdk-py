@@ -19,12 +19,10 @@ from ...model import GetTransactionRequest as _GetTransactionRequest
 from ...model import GetTransactionResponse as _GetTransactionResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetTransactionRequest(_GetTransactionRequest):
     __doc__ = _GetTransactionRequest.__doc__
 
-    portfolio_id: str
-    transaction_id: str
     allowed_status_codes: list[int] | None = None
 
 

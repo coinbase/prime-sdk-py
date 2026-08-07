@@ -19,11 +19,10 @@ from ...model import GetMarginInformationRequest as _GetMarginInformationRequest
 from ...model import GetMarginInformationResponse as _GetMarginInformationResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetMarginInformationRequest(_GetMarginInformationRequest):
     __doc__ = _GetMarginInformationRequest.__doc__
 
-    entity_id: str
     allowed_status_codes: list[int] | None = None
 
 

@@ -19,12 +19,10 @@ from ...model import GetWalletRequest as _GetWalletRequest
 from ...model import GetWalletResponse as _GetWalletResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetWalletRequest(_GetWalletRequest):
     __doc__ = _GetWalletRequest.__doc__
 
-    portfolio_id: str
-    wallet_id: str
     allowed_status_codes: list[int] | None = None
 
 

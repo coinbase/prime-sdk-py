@@ -19,12 +19,10 @@ from ...model import GetWalletBalanceRequest as _GetWalletBalanceRequest
 from ...model import GetWalletBalanceResponse as _GetWalletBalanceResponse
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GetWalletBalanceRequest(_GetWalletBalanceRequest):
     __doc__ = _GetWalletBalanceRequest.__doc__
 
-    portfolio_id: str
-    wallet_id: str
     allowed_status_codes: list[int] | None = None
 
 
