@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **Models**: `prime_sdk/model.py` is now a compatibility shim over generated dataclasses in `prime_sdk/generated/models.py`. Run `make update-spec` to refresh models from the OpenAPI specification. Existing imports and field names are preserved via `apiSpec/model_config.py` and `prime_sdk/model_manual.py`.
+- **`BaseResponse`**: Nested dataclass hydration now unwraps optional type annotations.
+
+### Added
+
+- **`make update-spec`**, **`make gen-models`**, **`make check-models`**, and **`make promote-titles`** Makefile targets for spec and model regeneration.
+- **`tests/test_model_compat.py`**: Guards backward-compatible model surface across spec updates.
+
 ## [1.9.0] - 2026-JUL-24
 
 ### Added

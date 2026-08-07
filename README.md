@@ -249,14 +249,25 @@ This installs the SDK in "editable" mode, meaning changes to the source code wil
 #### 3. Running Tests
 
 ```bash
-# Install test dependencies
-pip install pytest
+# Install development dependencies
+make dev-deps
 
 # Run tests
 pytest tests/
 ```
 
-#### 4. Code Structure
+#### 4. Updating the OpenAPI Spec
+
+Models are generated from the Prime OpenAPI specification. To fetch the latest spec and regenerate models:
+
+```bash
+make dev-deps
+make update-spec
+```
+
+Use `make gen-models` to regenerate models from the committed spec without re-fetching from the network. CI uses `make check-models` to verify committed generated output matches the spec.
+
+#### 5. Code Structure
 
 The SDK follows this structure:
 
@@ -266,13 +277,23 @@ prime_sdk/
 ├── client.py              # HTTP client
 ├── base_response.py       # Base response classes
 ├── utils.py               # Utility functions
-├── enums.py               # Common enumerations
+├── enums.py               # Hand-curated enumerations
+├── model.py               # Public model re-exports (backward-compatible)
+├── model_manual.py        # Hand-maintained model extensions
+├── generated/
+│   └── models.py          # Generated dataclasses from OpenAPI (do not edit)
 └── services/              # Service modules
     ├── portfolios/        # Portfolio operations
     ├── orders/            # Order management
     ├── transactions/      # Transaction operations
     ├── wallets/           # Wallet management
     └── ...                # Other services
+
+apiSpec/
+├── prime-public-api-spec.yaml
+├── promote_titles.py      # Promotes spec titles to descriptions
+├── generate_models.py     # Generates prime_sdk/generated/models.py
+└── model_config.py        # Backward-compatibility aliases and field rules
 ```
 
 Each service directory contains:

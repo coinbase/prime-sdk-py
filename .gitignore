@@ -35,3 +35,5 @@ venv.bak/
 
 ai-docs/
 .ruff_cache/
+apiSpec/.prime-public-api-spec.augmented.yaml
+apiSpec/generated/

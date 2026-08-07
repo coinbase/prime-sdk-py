@@ -1,4 +1,4 @@
-# Copyright 2025-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,12 +12,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Public model surface for the Prime Python SDK.
-
-Models are generated from the OpenAPI specification. Run `make update-spec` to
-refresh them. This module re-exports generated models and backward-compatible
-aliases so existing imports continue to work.
-"""
-
-from prime_sdk.generated.models import *  # noqa: F403, RUF100
-from prime_sdk.model_manual import *  # noqa: F403, RUF100
+"""Generated models from the Prime OpenAPI specification."""

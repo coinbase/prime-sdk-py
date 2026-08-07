@@ -1,0 +1,1013 @@
+{
+  "AccountMetadata": [
+    "consensus"
+  ],
+  "Accrual": [
+    "accrual_id",
+    "date",
+    "portfolio_id",
+    "symbol",
+    "loan_type",
+    "interest_rate",
+    "nominal_accrual",
+    "notional_accrual",
+    "conversion_rate",
+    "loan_amount",
+    "benchmark",
+    "benchmark_rate",
+    "spread",
+    "rate_type",
+    "loan_amount_notional",
+    "nominal_open_borrow_sod",
+    "notional_open_borrow_sod"
+  ],
+  "ActiveLiquidationSummary": [
+    "liquidation_id",
+    "status",
+    "shortfall_amount"
+  ],
+  "Activity": [
+    "id",
+    "reference_id",
+    "category",
+    "type",
+    "secondary_type",
+    "status",
+    "created_by",
+    "title",
+    "description",
+    "user_actions",
+    "transactions_metadata",
+    "account_metadata",
+    "symbols",
+    "created_at",
+    "updated_at",
+    "hierarchy_type"
+  ],
+  "ActivityResponse": [
+    "activity"
+  ],
+  "Add": [
+    "id",
+    "name",
+    "avatar_url"
+  ],
+  "Address": [
+    "id",
+    "currency_symbol",
+    "name",
+    "address",
+    "account_identifier",
+    "account_identifier_name",
+    "state",
+    "explorer_link",
+    "last_used_at",
+    "added_at",
+    "added_by",
+    "type",
+    "counterparty_id"
+  ],
+  "AddressGroup": [
+    "id",
+    "name",
+    "network_type",
+    "addresses",
+    "added_at"
+  ],
+  "AdvancedTransfer": [
+    "id",
+    "type",
+    "state",
+    "fund_movements",
+    "blind_match_metadata"
+  ],
+  "Allocation": [
+    "root_id",
+    "reversal_id",
+    "allocation_completed_at",
+    "user_id",
+    "product_id",
+    "side",
+    "avg_price",
+    "base_quantity",
+    "quote_value",
+    "fees_allocated",
+    "status",
+    "source",
+    "order_ids",
+    "destinations",
+    "netting_id"
+  ],
+  "AmountDue": [
+    "currency",
+    "amount",
+    "due_date"
+  ],
+  "Asset": [
+    "name",
+    "symbol",
+    "decimal_precision",
+    "trading_supported",
+    "explorer_url",
+    "networks"
+  ],
+  "AssetBalance": [
+    "portfolio_id",
+    "symbol",
+    "amount",
+    "notional_amount",
+    "conversion_rate"
+  ],
+  "AssetChange": [
+    "type",
+    "symbol",
+    "amount",
+    "collection",
+    "item"
+  ],
+  "AssetNetwork": [
+    "network",
+    "name",
+    "max_decimals",
+    "default",
+    "trading_supported",
+    "vault_supported",
+    "prime_custody_supported",
+    "destination_tag_required",
+    "network_link",
+    "network_scoped_symbol",
+    "min_withdrawal_amount",
+    "max_withdrawal_amount",
+    "min_deposit_amount"
+  ],
+  "Balance": [
+    "symbol",
+    "amount",
+    "holds",
+    "bonded_amount",
+    "reserved_amount",
+    "unbonding_amount",
+    "unvested_amount",
+    "pending_rewards_amount",
+    "past_rewards_amount",
+    "bondable_amount",
+    "withdrawable_amount",
+    "fiat_amount",
+    "unbondable_amount",
+    "claimable_rewards_amount"
+  ],
+  "BalanceWithHolds": [
+    "total",
+    "holds"
+  ],
+  "BlindMatchMetadata": [
+    "reference_id",
+    "settlement_date",
+    "trade_date",
+    "settlement_time"
+  ],
+  "Blockchain": [
+    "address",
+    "account_identifier",
+    "network"
+  ],
+  "BlockchainAddress": [
+    "address",
+    "account_identifier",
+    "network"
+  ],
+  "BuyingPower": [
+    "portfolio_id",
+    "base_currency",
+    "quote_currency",
+    "base_buying_power",
+    "quote_buying_power"
+  ],
+  "Candle": [
+    "timestamp",
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume"
+  ],
+  "Collection": [
+    "name"
+  ],
+  "Commission": [
+    "type",
+    "rate",
+    "trading_volume"
+  ],
+  "CommissionDetailTotal": [
+    "total_commission",
+    "client_commission",
+    "venue_commission",
+    "ces_commission",
+    "financing_commission",
+    "regulatory_commission",
+    "clearing_commission"
+  ],
+  "ConsensusMetadata": [
+    "approval_deadline",
+    "has_passed_consensus"
+  ],
+  "Conversion": [
+    "conversion_details",
+    "short_collateral",
+    "conversion_datetime",
+    "portfolio_id"
+  ],
+  "ConversionDetail": [
+    "symbol",
+    "tf_balance",
+    "notional_tf_balance",
+    "converted_balance",
+    "notional_converted_balance",
+    "interest_rate",
+    "conversion_rate"
+  ],
+  "Counterparty": [
+    "counterparty_id"
+  ],
+  "CrossMarginCall": [
+    "margin_call_id",
+    "currency",
+    "initial_notional_amount",
+    "outstanding_notional_amount",
+    "margin_call_type",
+    "margin_call_status",
+    "called_with_margin_level",
+    "called_with_margin_summary",
+    "due_at",
+    "created_at",
+    "updated_at"
+  ],
+  "CrossMarginLoan": [
+    "loan_id",
+    "loan_party",
+    "principal_currency",
+    "principal_currency_market_price",
+    "initial_principal_amount",
+    "outstanding_principal_amount",
+    "created_at",
+    "updated_at"
+  ],
+  "CrossMarginOverview": [
+    "control_status",
+    "call_status",
+    "margin_level",
+    "margin_summary",
+    "active_margin_calls",
+    "active_loans",
+    "active_liquidation"
+  ],
+  "CrossMarginPrimeFuturesEquityBreakdown": [
+    "cash_balance",
+    "unrealized_pnl",
+    "realized_pnl",
+    "accrued_funding_pnl"
+  ],
+  "CrossMarginPrimeMarginSummary": [
+    "margin_requirement",
+    "margin_requirement_type",
+    "account_equity",
+    "margin_excess_shortfall",
+    "consumed_credit",
+    "xm_credit_limit",
+    "xm_margin_limit",
+    "consumed_margin_limit",
+    "spot_equity",
+    "futures_equity",
+    "gross_market_value",
+    "net_market_value",
+    "net_exposure",
+    "gross_leverage",
+    "spot_equity_breakdown",
+    "futures_equity_breakdown",
+    "risk_netting_info",
+    "health_status",
+    "equity_ratio",
+    "deficit_ratio",
+    "margin_thresholds",
+    "fcm_excess_available_to_return"
+  ],
+  "CrossMarginPrimeRiskNettingInfo": [
+    "dco_margin_requirement",
+    "portfolio_margin_requirement",
+    "integrated_portfolio_margin_requirement",
+    "ineligible_futures_margin_requirement",
+    "pmr_breakdown",
+    "ipmr_breakdown",
+    "portfolio_margin_offset_credit_breakdown",
+    "integrated_portfolio_margin_offset_credit_breakdown",
+    "xm_positions"
+  ],
+  "CrossMarginPrimeSpotEquityBreakdown": [
+    "cash_balance",
+    "long_market_value",
+    "short_market_value",
+    "short_collateral",
+    "pending_transfers"
+  ],
+  "CrossMarginPrimeXMPosition": [
+    "currency",
+    "market_price",
+    "spot_balance",
+    "spot_balance_notional",
+    "futures_balance",
+    "futures_balance_notional",
+    "base_requirement",
+    "total_position_margin",
+    "basis_credit",
+    "futures_netted_notional",
+    "futures_netting_margin",
+    "long_amount",
+    "short_amount",
+    "volatility_addon",
+    "liquidity_addon"
+  ],
+  "CrossMarginRiskParameters": [
+    "asset_tier",
+    "base_ratio_long",
+    "base_ratio_short",
+    "volatility_rate_long",
+    "volatility_rate_short",
+    "volatility_low_threshold",
+    "volatility_high_threshold",
+    "liquidity_a_long",
+    "liquidity_a_short",
+    "liquidity_b_short",
+    "liquidity_threshold",
+    "basis_offset_credit_rate"
+  ],
+  "CrossMarginSummary": [
+    "margin_requirement",
+    "account_equity",
+    "margin_excess_shortfall",
+    "consumed_credit",
+    "xm_credit_limit",
+    "xm_margin_limit",
+    "consumed_margin_limit",
+    "spot_equity",
+    "futures_equity",
+    "risk_netting_info"
+  ],
+  "CryptoInstructions": [
+    "id",
+    "name",
+    "type",
+    "address",
+    "account_identifier",
+    "account_identifier_name",
+    "network"
+  ],
+  "CustomStablecoinAsset": [
+    "symbol"
+  ],
+  "CustomStablecoinRewardDetails": [
+    "start_date",
+    "end_date",
+    "asset"
+  ],
+  "DefiBalance": [
+    "network",
+    "protocol",
+    "net_usd_value"
+  ],
+  "Destination": [
+    "leg_id",
+    "portfolio_id",
+    "allocation_base",
+    "allocation_quote",
+    "fees_allocated_leg"
+  ],
+  "Details": [
+    "id",
+    "symbol",
+    "payment_method_type",
+    "bank_name",
+    "account_number",
+    "bank_name_2",
+    "name",
+    "bank_code"
+  ],
+  "EditHistory": [
+    "price",
+    "base_quantity",
+    "quote_value",
+    "display_quote_size",
+    "display_base_size",
+    "stop_price",
+    "expiry_time",
+    "accept_time",
+    "client_order_id"
+  ],
+  "EntityBalance": [
+    "symbol",
+    "long_amount",
+    "long_notional",
+    "short_amount",
+    "short_notional"
+  ],
+  "EstimatedNetworkFees": [
+    "lower_bound",
+    "upper_bound"
+  ],
+  "FcmMarginCall": [
+    "type",
+    "state",
+    "initial_amount",
+    "remaining_amount",
+    "business_date",
+    "cure_deadline"
+  ],
+  "FcmRiskLimits": [
+    "cfm_risk_limit",
+    "cfm_risk_limit_utilization",
+    "cfm_total_margin",
+    "cfm_delta_ote",
+    "cfm_unsettled_realized_pnl",
+    "cfm_unsettled_accrued_funding_pnl"
+  ],
+  "Fee": [
+    "symbol",
+    "fee"
+  ],
+  "FiatInstructions": [
+    "id",
+    "name",
+    "type",
+    "account_number",
+    "routing_number",
+    "reference_code"
+  ],
+  "Fill": [
+    "id",
+    "order_id",
+    "product_id",
+    "client_product_id",
+    "side",
+    "filled_quantity",
+    "filled_value",
+    "price",
+    "time",
+    "commission",
+    "venue",
+    "venue_fees",
+    "ces_commission"
+  ],
+  "FundMovement": [
+    "id",
+    "source",
+    "target",
+    "currency",
+    "amount"
+  ],
+  "FuturesPosition": [
+    "product_id",
+    "side",
+    "number_of_contracts",
+    "daily_realized_pnl",
+    "unrealized_pnl",
+    "current_price",
+    "avg_entry_price",
+    "expiration_time",
+    "symbol",
+    "long",
+    "short",
+    "position_reference"
+  ],
+  "Instructions": [
+    "crypto_instructions",
+    "fiat_instructions"
+  ],
+  "Invoice": [
+    "id",
+    "billing_month",
+    "billing_year",
+    "due_date",
+    "invoice_number",
+    "state",
+    "usd_amount_paid",
+    "usd_amount_owed",
+    "invoice_items"
+  ],
+  "InvoiceItem": [
+    "description",
+    "currency_symbol",
+    "invoice_type",
+    "rate",
+    "quantity",
+    "price",
+    "average_auc",
+    "total"
+  ],
+  "Item": [
+    "name"
+  ],
+  "Locate": [
+    "locate_id",
+    "entity_id",
+    "portfolio_id",
+    "symbol",
+    "requested_amount",
+    "interest_rate",
+    "status",
+    "approved_amount",
+    "conversion_date",
+    "created_at",
+    "locate_date"
+  ],
+  "LocateAvailability": [
+    "symbol",
+    "quantity",
+    "rate"
+  ],
+  "MarginCall": [
+    "id",
+    "initial_notional_amount",
+    "outstanding_notional_amount",
+    "created_at",
+    "due_at"
+  ],
+  "MarginCallRecord": [
+    "margin_call_id",
+    "initial_notional_amount",
+    "outstanding_notional_amount",
+    "created_at",
+    "due_at"
+  ],
+  "MarginInformation": [
+    "margin_call_records",
+    "margin_summary"
+  ],
+  "MarginSummary": [
+    "entity_id",
+    "margin_equity",
+    "margin_requirement",
+    "excess_deficit",
+    "pm_credit_consumed",
+    "tf_credit_limit",
+    "tf_credit_consumed",
+    "tf_adjusted_asset_value",
+    "tf_adjusted_liability_value",
+    "tf_adjusted_credit_consumed",
+    "tf_adjusted_equity",
+    "frozen",
+    "frozen_reason",
+    "tf_enabled",
+    "pm_enabled",
+    "market_rates",
+    "asset_balances",
+    "tf_loans",
+    "pm_loans",
+    "short_collateral",
+    "gross_market_value",
+    "net_market_value",
+    "long_market_value",
+    "non_marginable_long_market_value",
+    "short_market_value",
+    "gross_leverage",
+    "net_exposure",
+    "portfolio_stress_triggered",
+    "pm_asset_info",
+    "pm_credit_limit",
+    "pm_margin_limit",
+    "pm_margin_consumed"
+  ],
+  "MarginSummaryRecord": [
+    "conversion_datetime",
+    "conversion_date",
+    "margin_summary"
+  ],
+  "MarketData": [
+    "symbol",
+    "vol_5d",
+    "vol_30d",
+    "vol_90d",
+    "adv_30d",
+    "weighted_vol"
+  ],
+  "MarketRate": [
+    "symbol",
+    "rate"
+  ],
+  "MatchMetadata": [
+    "reference_id",
+    "settlement_date"
+  ],
+  "Network": [
+    "id",
+    "type"
+  ],
+  "OnchainAddress": [
+    "name",
+    "address",
+    "chain_ids"
+  ],
+  "OnchainBalance": [
+    "asset",
+    "amount",
+    "visibility_status"
+  ],
+  "OnchainDetails": [
+    "signed_transaction",
+    "risk_assessment",
+    "chain_id",
+    "nonce",
+    "replaced_transaction_id",
+    "destination_address",
+    "skip_broadcast",
+    "failure_reason",
+    "signing_status"
+  ],
+  "Order": [
+    "id",
+    "user_id",
+    "portfolio_id",
+    "product_id",
+    "side",
+    "client_order_id",
+    "type",
+    "base_quantity",
+    "quote_value",
+    "limit_price",
+    "start_time",
+    "expiry_time",
+    "status",
+    "time_in_force",
+    "created_at",
+    "filled_quantity",
+    "filled_value",
+    "average_filled_price",
+    "commission",
+    "exchange_fee",
+    "historical_pov",
+    "stop_price",
+    "net_average_filled_price",
+    "user_context",
+    "client_product_id",
+    "post_only",
+    "order_edit_history",
+    "is_raise_exact",
+    "display_size",
+    "display_quote_size",
+    "display_base_size",
+    "edit_history",
+    "peg_offset_type",
+    "offset",
+    "wig_level",
+    "product_type",
+    "commission_detail_total"
+  ],
+  "OrderEditHistory": [
+    "price",
+    "size",
+    "display_size",
+    "stop_price",
+    "stop_limit_price",
+    "end_time",
+    "accept_time"
+  ],
+  "PmAssetInfo": [
+    "symbol",
+    "amount",
+    "price",
+    "notional_amount",
+    "asset_tier",
+    "margin_eligible",
+    "base_margin_requirement",
+    "base_margin_requirement_notional",
+    "adv_30d",
+    "hist_5d_vol",
+    "hist_30d_vol",
+    "hist_90d_vol",
+    "volatility_addon",
+    "liquidity_addon",
+    "total_position_margin",
+    "short_nominal",
+    "long_nominal"
+  ],
+  "PmLoan": [
+    "portfolio_id",
+    "symbol",
+    "amount",
+    "notional_amount",
+    "due_date"
+  ],
+  "Portfolio": [
+    "id",
+    "name",
+    "entity_id",
+    "organization_id",
+    "entity_name"
+  ],
+  "PortfolioStressTriggered": [
+    "amount",
+    "add_on_type"
+  ],
+  "PortfolioUser": [
+    "id",
+    "name",
+    "email",
+    "portfolio_id",
+    "entity_id",
+    "role"
+  ],
+  "Position": [
+    "symbol",
+    "long",
+    "short",
+    "position_reference"
+  ],
+  "PostTradeCredit": [
+    "portfolio_id",
+    "currency",
+    "limit",
+    "utilized",
+    "available",
+    "frozen",
+    "frozen_reason",
+    "amounts_due",
+    "enabled",
+    "adjusted_credit_utilized",
+    "adjusted_portfolio_equity"
+  ],
+  "PrimeXMMarginCallThresholds": [
+    "deficit_threshold",
+    "warning_threshold",
+    "critical_threshold",
+    "liquidation_threshold",
+    "margin_thresholds"
+  ],
+  "PrimeXMMarginRequirementBreakdown": [
+    "base_margin",
+    "volatility_addon",
+    "liquidity_addon",
+    "offset_credit",
+    "futures_margin"
+  ],
+  "PrimeXMMarginThreshold": [
+    "margin_level",
+    "threshold_type",
+    "threshold_value"
+  ],
+  "PrimeXMOffsetCreditBreakdown": [
+    "basis_credit",
+    "long_short_credit",
+    "long_long_credit",
+    "short_short_credit",
+    "same_tier_credit",
+    "total_credit"
+  ],
+  "ProcessRequirements": [
+    "travel_rule_status"
+  ],
+  "Product": [
+    "id",
+    "base_increment",
+    "quote_increment",
+    "base_min_size",
+    "quote_min_size",
+    "base_max_size",
+    "quote_max_size",
+    "permissions",
+    "price_increment",
+    "rfq_product_details"
+  ],
+  "Reference": [
+    "id",
+    "type"
+  ],
+  "RequestedAmount": [
+    "currency",
+    "amount"
+  ],
+  "RewardMetadata": [
+    "subtype",
+    "custom_stablecoin_reward_details"
+  ],
+  "RfqProductDetails": [
+    "tradable",
+    "min_notional_size",
+    "max_notional_size",
+    "min_base_size",
+    "max_base_size",
+    "min_quote_size",
+    "max_quote_size"
+  ],
+  "RiskAssessment": [
+    "compliance_risk_detected",
+    "security_risk_detected"
+  ],
+  "RiskNettingInfo": [
+    "dco_margin_requirement",
+    "portfolio_margin_requirement",
+    "integrated_portfolio_margin_requirement",
+    "ineligible_futures_margin_requirement",
+    "position_margin_requirement",
+    "portfolio_margin_addon",
+    "integrated_position_margin_requirement",
+    "integrated_portfolio_margin_addon",
+    "netted_futures_notional",
+    "total_gmv_basis",
+    "ipm_cash_balance",
+    "integrated_scenario_addon",
+    "all_integrated_scenario_addons",
+    "xm_positions"
+  ],
+  "ScenarioAddon": [
+    "amount",
+    "add_on_type"
+  ],
+  "ShortCollateral": [
+    "old_balance",
+    "new_balance",
+    "loan_interest_rate",
+    "collateral_interest_rate"
+  ],
+  "Sweep": [
+    "id",
+    "requested_amount",
+    "should_sweep_all",
+    "status",
+    "scheduled_time"
+  ],
+  "TFAsset": [
+    "symbol",
+    "asset_adjustment",
+    "liability_adjustment"
+  ],
+  "TFObligation": [
+    "portfolio_id",
+    "symbol",
+    "amount_due",
+    "notional_amount",
+    "due_date"
+  ],
+  "TfLoan": [
+    "portfolio_id",
+    "symbol",
+    "amount",
+    "notional_amount",
+    "due_date"
+  ],
+  "TierPairRateEntry": [
+    "tier_a",
+    "tier_b",
+    "rate"
+  ],
+  "Transaction": [
+    "id",
+    "wallet_id",
+    "portfolio_id",
+    "type",
+    "status",
+    "symbol",
+    "created_at",
+    "completed_at",
+    "amount",
+    "transfer_from",
+    "transfer_to",
+    "network_fees",
+    "fees",
+    "fee_symbol",
+    "blockchain_ids",
+    "transaction_id",
+    "destination_symbol",
+    "estimated_network_fees",
+    "network",
+    "estimated_asset_changes",
+    "metadata",
+    "idempotency_key",
+    "onchain_details",
+    "network_info",
+    "process_requirements"
+  ],
+  "TransactionMetadata": [
+    "match_metadata",
+    "web3_transaction_metadata",
+    "reward_metadata"
+  ],
+  "TransactionValidator": [
+    "transaction_id",
+    "validator_address",
+    "validator_status"
+  ],
+  "TransactionsMetadata": [
+    "consensus"
+  ],
+  "TransferLocation": [
+    "type",
+    "value",
+    "address",
+    "account_identifier"
+  ],
+  "User": [
+    "id",
+    "name",
+    "email",
+    "entity_id",
+    "role"
+  ],
+  "UserAction": [
+    "action",
+    "user_id",
+    "timestamp"
+  ],
+  "ValidatorAllocation": [
+    "validator_address",
+    "amount"
+  ],
+  "ValidatorUnstakePreview": [
+    "validator_address",
+    "estimated_unstaking_amount",
+    "unstake_time_estimate_in_hours",
+    "estimated_unstake_date"
+  ],
+  "Wallet": [
+    "id",
+    "name",
+    "symbol",
+    "type",
+    "created_at",
+    "address",
+    "visibility",
+    "network"
+  ],
+  "Web3TransactionMetadata": [
+    "label",
+    "confirmed_asset_changes"
+  ],
+  "WithdrawalPower": [
+    "symbol",
+    "amount"
+  ],
+  "XMLiquidatedAsset": [
+    "asset",
+    "liquidated_amount",
+    "liquidated_notional",
+    "remaining_amount",
+    "remaining_notional"
+  ],
+  "XMLiquidationDetail": [
+    "liquidation_id",
+    "status",
+    "shortfall_amount",
+    "pre_liquidation_start_time",
+    "margin_summary",
+    "liquidation_start_time",
+    "filled_amount",
+    "remaining_amount",
+    "liquidation_finish_time",
+    "asset_breakdown"
+  ],
+  "XMLiquidationSummary": [
+    "liquidation_id",
+    "status",
+    "shortfall_amount",
+    "filled_amount",
+    "remaining_amount",
+    "created_at",
+    "completed_at"
+  ],
+  "XMSummary": [
+    "margin_requirement",
+    "account_equity",
+    "margin_excess_shortfall",
+    "consumed_credit",
+    "xm_credit_limit",
+    "xm_margin_limit",
+    "spot_equity",
+    "futures_equity",
+    "risk_netting_info"
+  ],
+  "XmPosition": [
+    "currency",
+    "market_price",
+    "margin_eligible",
+    "market_cap",
+    "adv30_days",
+    "hist5d_vol",
+    "hist30d_vol",
+    "hist90d_vol",
+    "margin_requirement",
+    "spot_balance",
+    "spot_balance_notional",
+    "spot_total_position_margin",
+    "futures_balance",
+    "futures_balance_notional",
+    "futures_total_position_margin",
+    "gmv_basis",
+    "base_requirement",
+    "liq_shorts_add_on",
+    "liq_longs_add_on",
+    "vol_shorts_add_on",
+    "vol_longs_add_on",
+    "vol5days_add_on",
+    "vol30days_add_on",
+    "vol90days_add_on",
+    "total_position_margin"
+  ]
+}
