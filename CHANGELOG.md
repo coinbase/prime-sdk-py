@@ -2,15 +2,26 @@
 
 ## [Unreleased]
 
+## [1.10.0] - 2026-AUG-07
+
+### Breaking Changes
+
+These responses previously used incorrect field names or shapes in the Python SDK. They now match the OpenAPI spec (and the live API). Update any code that reads the old attributes:
+
+- **`CreatePortfolioAllocationsResponse`** / **`CreatePortfolioNetAllocationsResponse`**: success/allocation fields are nested under `body` (e.g. `response.body.allocation_id` instead of `response.allocation_id`).
+- **`GetEntityLocateAvailabilitiesResponse`**: `locate_availability` renamed to `locates`.
+- **`GetOrderEditHistoryResponse`**: `edits` replaced by `order_id`, `edit_history`, and deprecated `order_edit_history`.
+- **`GetWalletDepositInstructionsResponse`**: removed top-level `instructions`; use `crypto_instructions` and `fiat_instructions` (`CryptoInstructions` / `FiatInstructions` models).
+
 ### Changed
 
 - **Models**: `prime_sdk/model.py` is now a compatibility shim over generated dataclasses in `prime_sdk/generated/models.py`. Run `make update-spec` to refresh models from the OpenAPI specification. Existing imports and field names are preserved via `apiSpec/model_config.py` and `prime_sdk/model_manual.py`.
 - **Service models**: Service `*Request` and `*Response` dataclasses now inherit field definitions and docstrings from generated models (via local `as _Internal...` aliases), matching the TypeScript SDK pattern.
 - **Request docstrings**: All service `*Request` classes now inherit OpenAPI-derived docstrings from generated stub models. JSON-body requests document path/query parameters alongside body fields.
+- **Examples**: Wallet example scripts fall back to `PRIME_WALLET_ID` and `PRIME_ONCHAIN_WALLET_ID` when `--wallet-id` is omitted; see `.env.example` and README.
 
 ### Fixed
 
-- **Response field shapes** aligned with the OpenAPI spec for allocation create responses (`body` wrapper), locate availabilities (`locates`), order edit history (`order_id`, `edit_history`), and wallet deposit instructions (`crypto_instructions`, `fiat_instructions`).
 - **`BaseResponse`**: Nested dataclass hydration now unwraps optional type annotations.
 
 ### Added
