@@ -23,8 +23,24 @@ from dataclasses import dataclass
 from typing import Any
 
 from prime_sdk.enums import NetworkType
+
+
 @dataclass
 class LimitOrderEdit:
+    """
+    LimitOrderEdit represents an order edit that is accepted
+
+    Attributes:
+        price: New price for the edited order
+        size: New size for the edited order
+        display_size: New display size for the edited order
+        stop_price: New stop price for the edited order
+        stop_limit_price: New stop limit price for the edited order
+        end_time: New end time for the edited order
+        accept_time: Time when the edit was accepted
+        client_order_id: Client order id of the order being replaced
+    """
+
     price: str = None
     size: str = None
     display_size: str = None
@@ -34,62 +50,140 @@ class LimitOrderEdit:
     accept_time: str = None
     client_order_id: str = None
 
+
 @dataclass
 class DisplayUser:
+    """
+    Attributes:
+        id: User UUID
+        name: User full name
+        avatar_url: User avatar URL
+    """
+
     id: str = None
     name: str = None
     avatar_url: str = None
+
 
 @dataclass
 class AcceptQuoteResponse:
     order_id: str = None
 
+
 @dataclass
 class ActivityMetadataConsensus:
+    """
+    Attributes:
+        approval_deadline: Deadline for approval of an activity
+        has_passed_consensus: If activity has passed consensus threshold
+    """
+
     approval_deadline: str = None
     has_passed_consensus: bool = None
+
 
 @dataclass
 class ActivityMetadataOrders:
     pass
 
+
 @dataclass
 class ActivityMetadataTransactions:
     consensus: ConsensusMetadata = None
 
+
 @dataclass
 class AddressEntry:
+    """
+    Attributes:
+        chain_ids: List of compatible chain IDs for a given address, empty for Solana
+    """
+
     name: str = None
     address: str = None
     chain_ids: list[str] = None
+
 
 @dataclass
 class AggregatedFiatBalance:
     total: str = None
     holds: str = None
 
+
 @dataclass
 class AllocationLeg:
+    """
+    Attributes:
+        allocation_leg_id: The ID of the portfolio of the allocation leg
+        destination_portfolio_id: The ID of the destination portfolio of the allocation leg
+        amount: The amount size for the allocation leg
+    """
+
     allocation_leg_id: str = None
     destination_portfolio_id: str = None
     amount: str = None
 
+
 @dataclass
 class AmountDue:
+    """
+    Attributes:
+        currency: The currency this loan is due in
+        amount: The amount due
+        due_date: The date this settlement is due, expressed in UTC
+    """
+
     currency: str = None
     amount: str = None
     due_date: str = None
 
+
 @dataclass
 class AssetBalance:
+    """
+    Attributes:
+        portfolio_id: The unique ID of the portfolio
+        symbol: The currency symbol
+        amount: Balance amount
+        notional_amount: Notional balance amount
+        conversion_rate: Conversion rate
+    """
+
     portfolio_id: str = None
     symbol: str = None
     amount: str = None
     notional_amount: str = None
     conversion_rate: str = None
 
+
 @dataclass
 class Balance:
+    """
+    Attributes:
+        symbol: The display symbol for the asset
+        amount: The total amount in whole units with full precision. Includes the `holds`
+            amount.
+        holds: Amount that is currently held in obligation to an open order's position or a
+            pending withdrawal
+        bonded_amount: Amount that is currently locked due to bonding/staking, potentially
+            subject to an unbonding period, in whole units
+        reserved_amount: Amount that must remain in the wallet due to the protocol, in whole
+            units
+        unbonding_amount: Amount that is in the process of unbonding, in whole units
+        unvested_amount: Unrealized amount subject to a vesting schedule, in whole units
+        pending_rewards_amount: Pending bonding/staking rewards that have not yet been
+            realized, in whole units
+        past_rewards_amount: Previously realized bonding/staking rewards, in whole units
+        bondable_amount: Amount available for bonding/staking, in whole units
+        withdrawable_amount: Amount available to withdraw, in whole units
+        fiat_amount: The total amount in fiat unit
+        unbondable_amount: Amount available for unbonding/unstaking, in whole units
+        claimable_rewards_amount: ETH staking rewards currently available to claim, in whole
+            units. This field is returned only in GetWalletBalance responses for ETH
+            wallets. It is omitted or empty for portfolio-level responses and for non-ETH
+            assets; use pending_rewards_amount where applicable.
+    """
+
     symbol: str = None
     amount: str = None
     holds: str = None
@@ -105,36 +199,94 @@ class Balance:
     unbondable_amount: str = None
     claimable_rewards_amount: str = None
 
+
 @dataclass
 class BlindMatchMetadata:
+    """
+    BlindMatchMetadata contains metadata specific to blind match advanced transfers.
+
+    Attributes:
+        settlement_date: The intended time of Transfer settlement in YYYYMMDD format. The
+            Settlement Date represents the date contractually agreed upon by the transacting
+            parties; actual settlement will occur upon completion of the transfer, which may
+            differ from such agreed date.
+        trade_date: Optional date of the original Trade in YYYYMMMDD format
+        settlement_time: Optional time of transfer settlement in HHMM format in UTC. If not
+            provided, it defaults to 09:30 Eastern Time.
+    """
+
     reference_id: str = None
     settlement_date: str = None
     trade_date: str = None
     settlement_time: str = None
 
+
 @dataclass
 class BuyingPower:
+    """
+    Attributes:
+        portfolio_id: The unique ID of the portfolio
+        base_currency: The symbol for the base currency
+        quote_currency: The symbol for the quote currency
+        base_buying_power: The buying power for the base currency
+        quote_buying_power: The buying power for the quote currency
+    """
+
     portfolio_id: str = None
     base_currency: str = None
     quote_currency: str = None
     base_buying_power: str = None
     quote_buying_power: str = None
 
+
 @dataclass
 class CancelAdvancedTransferResponse:
+    """
+    CancelAdvancedTransferResponse is the response after canceling an advanced transfer.
+
+    Attributes:
+        advanced_transfer_id: The ID of the canceled Advanced Transfer
+    """
+
     advanced_transfer_id: str = None
+
 
 @dataclass
 class CancelFuturesSweepResponse:
+    """
+    Attributes:
+        success: Success
+        request_id: Request ID
+    """
+
     success: bool = None
     request_id: str = None
 
+
 @dataclass
 class CancelOrderResponse:
+    """
+    Attributes:
+        id: The unique UUID for the order
+    """
+
     id: str = None
+
 
 @dataclass
 class Candle:
+    """
+    Represents a single candle data point
+
+    Attributes:
+        timestamp: Timestamp for the start of the candle period
+        open: Opening price for the period
+        high: Highest price during the period
+        low: Lowest price during the period
+        close: Closing price for the period
+        volume: Volume traded during the period
+    """
+
     timestamp: str = None
     open: str = None
     high: str = None
@@ -142,14 +294,35 @@ class Candle:
     close: str = None
     volume: str = None
 
+
 @dataclass
 class Commission:
+    """
+    Attributes:
+        type: Fee model (all_in or cost_plus)
+        rate: Commission rate (in whole percentage. Commission of 15bps is "0.0015")
+        trading_volume: Average 30 days over past 3 months (e.g. 90 days divided by 3)
+    """
+
     type: str = None
     rate: str = None
     trading_volume: str = None
 
+
 @dataclass
 class CommissionDetailTotal:
+    """
+    Attributes:
+        total_commission: Total commission amount charged for the order This is the sum of
+            all commission charged on the order
+        client_commission: CB fee
+        venue_commission: Exchange fees
+        ces_commission: CES Commission
+        financing_commission: Financing Commission
+        regulatory_commission: NFA fees
+        clearing_commission: Clearing fees
+    """
+
     total_commission: str = None
     client_commission: str = None
     venue_commission: str = None
@@ -158,8 +331,20 @@ class CommissionDetailTotal:
     regulatory_commission: str = None
     clearing_commission: str = None
 
+
 @dataclass
 class ConversionDetail:
+    """
+    Attributes:
+        symbol: The currency symbol
+        tf_balance: Trade finance balance after the conversion
+        notional_tf_balance: Notional trade finance balance after the conversion
+        converted_balance: Converted balance
+        notional_converted_balance: Notional converted balance
+        interest_rate: Interest rate
+        conversion_rate: Conversion rate
+    """
+
     symbol: str = None
     tf_balance: str = None
     notional_tf_balance: str = None
@@ -168,22 +353,56 @@ class ConversionDetail:
     interest_rate: str = None
     conversion_rate: str = None
 
+
 @dataclass
 class Counterparty:
+    """
+    Attributes:
+        counterparty_id: The unique counterparty ID for the portfolio
+    """
+
     counterparty_id: str = None
+
 
 @dataclass
 class CounterpartyDestination:
+    """
+    Represents a destination for a counterparty payment
+
+    Attributes:
+        counterparty_id: The counterparty ID to pay out
+    """
+
     counterparty_id: str = None
+
 
 @dataclass
 class CreateAllocationResponseBody:
+    """
+    Attributes:
+        success: The success boolean for the post allocation
+        allocation_id: The allocation id for the post allocation
+        failure_reason: The failure reason for the post allocation
+    """
+
     success: bool = None
     allocation_id: str = None
     failure_reason: str = None
 
+
 @dataclass
 class CreateConversionResponse:
+    """
+    Attributes:
+        activity_id: The activity ID for the conversion
+        source_symbol: The currency symbol to convert from
+        destination_symbol: The currency symbol to convert to
+        amount: The amount in whole units to convert
+        destination: The UUID of the destination wallet
+        source: The UUID of the source wallet
+        transaction_id: The UUID of the conversion transaction
+    """
+
     activity_id: str = None
     source_symbol: str = None
     destination_symbol: str = None
@@ -192,40 +411,103 @@ class CreateConversionResponse:
     source: str = None
     transaction_id: str = None
 
+
 @dataclass
 class CreateNetAllocationResponseBody:
+    """
+    Attributes:
+        success: The success boolean for the post net allocation
+        netting_id: The netting_id for the post net allocation
+        buy_allocation_id: The allocation id of the buy allocation in net allocation
+        sell_allocation_id: The allocation id of the sell allocation in net allocation
+        failure_reason: The failure reason for the post net allocation
+    """
+
     success: bool = None
     netting_id: str = None
     buy_allocation_id: str = None
     sell_allocation_id: str = None
     failure_reason: str = None
 
+
 @dataclass
 class CreateNewLocatesResponse:
     locate_id: str = None
 
+
 @dataclass
 class EvmParams:
+    """
+    Attributes:
+        disable_dynamic_gas: Option to disable dynamic gas price adjustment for EVM
+            transactions prior to signing and broadcast. Defaults to false.
+        disable_dynamic_nonce: Option to disable dynamic nonce when creating a transaction.
+            Defaults to false.
+        replaced_transaction_id: Transaction ID to replace (for speed-up/cancel operations).
+            Common use cases: 1) Gas Price Adjustments: When a transaction is stuck due to
+            low gas price, a new transaction with the same nonce but higher gas price can be
+            submitted to replace it. 2) Transaction Cancellation: A user might want to
+            cancel a pending transaction by replacing it with a new transaction (often a
+            0-value transfer to themselves with higher gas price). Note: When using this
+            field, the disable_dynamic_nonce option must be set to false because the nonce
+            would be automatically managed by the system.
+        chain_id: Chain ID for EVM transactions. (EVM-only)
+        network_name: Network name for EVM transactions. (EVM-only)
+    """
+
     disable_dynamic_gas: bool = None
     disable_dynamic_nonce: bool = None
     replaced_transaction_id: str = None
     chain_id: str = None
     network_name: str = None
 
+
 @dataclass
 class CreateOnchainTransactionResponse:
+    """
+    Attributes:
+        transaction_id: Unique identifier for the created transaction
+    """
+
     transaction_id: str = None
+
 
 @dataclass
 class CreateOptionComboResponse:
+    """
+    Attributes:
+        combo_id: combo id returned by deribit
+    """
+
     combo_id: str = None
+
 
 @dataclass
 class CreateOrderResponse:
+    """
+    Attributes:
+        order_id: The order ID generated by Coinbase
+    """
+
     order_id: str = None
+
 
 @dataclass
 class CreateWalletTransferResponse:
+    """
+    Attributes:
+        activity_id: The activity ID for the transfer
+        approval_url: A URL to the activity associated with this transfer for approval
+        symbol: The currency symbol of the transfer
+        amount: The amount of the transfer
+        fee: The network fee associated with the transfer
+        destination_address: The destination address of the transfer
+        destination_type: The destination type of the transfer
+        source_address: The source address used for the transfer
+        source_type: The source type used for the transfer
+        transaction_id: The id of the just created transaction
+    """
+
     activity_id: str = None
     approval_url: str = None
     symbol: str = None
@@ -237,23 +519,68 @@ class CreateWalletTransferResponse:
     source_type: str = None
     transaction_id: str = None
 
+
 @dataclass
 class CrossMarginPrimeDerivativesEquityBreakdown:
+    """
+    Breakdown of the components of derivatives equity.
+
+    Attributes:
+        cash_balance: Derivatives cash balance component.
+        unrealized_pnl: Unrealized PnL component of derivatives equity.
+        realized_pnl: Realized PnL component of derivatives equity.
+        accrued_funding_pnl: Accrued funding PnL component of derivatives equity.
+    """
+
     cash_balance: str = None
     unrealized_pnl: str = None
     realized_pnl: str = None
     accrued_funding_pnl: str = None
 
+
 @dataclass
 class CrossMarginPrimeSpotEquityBreakdown:
+    """
+    Breakdown of the components of spot equity.
+
+    Attributes:
+        cash_balance: PM cash balance component of spot equity.
+        long_market_value: Long market value component of spot equity.
+        short_market_value: Short market value component of spot equity.
+        short_collateral: Short collateral component of spot equity.
+        pending_transfers: Pending transfers affecting spot equity.
+    """
+
     cash_balance: str = None
     long_market_value: str = None
     short_market_value: str = None
     short_collateral: str = None
     pending_transfers: str = None
 
+
 @dataclass
 class CrossMarginPrimeXMPosition:
+    """
+    CrossMarginPrimeXMPosition is a single per-asset XM row (proto-backed fields from XMPositionDetails).
+
+    Attributes:
+        currency: Position currency
+        market_price: Current market price
+        spot_balance: XM spot balance nominal
+        spot_balance_notional: XM spot balance notional
+        futures_balance: XM futures balance nominal
+        futures_balance_notional: XM futures balance notional
+        base_requirement: Base margin requirement notional
+        total_position_margin: Total margin required
+        basis_credit: Basis offset credit applied to this asset row.
+        futures_netted_notional: Post-netting USD notional for futures on this asset
+        futures_netting_margin: Margin attributed to futures netting for this asset row.
+        long_amount: Per-asset long amount from position_summary.
+        short_amount: Per-asset short amount from position_summary.
+        volatility_addon: Volatility margin add-on for this asset.
+        liquidity_addon: Liquidity margin add-on for this asset.
+    """
+
     currency: str = None
     market_price: str = None
     spot_balance: str = None
@@ -270,8 +597,27 @@ class CrossMarginPrimeXMPosition:
     volatility_addon: str = None
     liquidity_addon: str = None
 
+
 @dataclass
 class CrossMarginRiskParameters:
+    """
+    XM 2.0 risk parameters for an asset tier.
+
+    Attributes:
+        asset_tier: Asset tier identifier.
+        base_ratio_long: Base ratio for long positions.
+        base_ratio_short: Base ratio for short positions.
+        volatility_rate_long: Volatility rate for long positions.
+        volatility_rate_short: Volatility rate for short positions.
+        volatility_low_threshold: Volatility low threshold.
+        volatility_high_threshold: Volatility high threshold.
+        liquidity_a_long: Liquidity A for long positions.
+        liquidity_a_short: Liquidity A for short positions.
+        liquidity_b_short: Liquidity B for short positions.
+        liquidity_threshold: Liquidity threshold.
+        basis_offset_credit_rate: Basis offset credit rate.
+    """
+
     asset_tier: str = None
     base_ratio_long: str = None
     base_ratio_short: str = None
@@ -285,32 +631,84 @@ class CrossMarginRiskParameters:
     liquidity_threshold: str = None
     basis_offset_credit_rate: str = None
 
+
 @dataclass
 class CustomStablecoinAsset:
+    """
+    Currency metadata of the custom stablecoin asset for the reward program
+
+    Attributes:
+        symbol: The asset symbol (e.g. USDC, USDF)
+    """
+
     symbol: str = None
+
 
 @dataclass
 class CustomStablecoinRewardDetails:
+    """
+    Details for a custom stablecoin reward payout transaction
+
+    Attributes:
+        start_date: ISO-formatted start date of the reward period (e.g.
+            2025-02-01T00:00:00Z)
+        end_date: ISO-formatted end date of the reward period (e.g. 2025-02-28T00:00:00Z)
+    """
+
     start_date: str = None
     end_date: str = None
     asset: CustomStablecoinAsset = None
 
+
 @dataclass
 class DefiBalance:
+    """
+    Attributes:
+        network: Network this asset is on (ie "ethereum-mainnet")
+        protocol: a set of rules and standards that define how data is exchanged (ie "Aave
+            V4 ")
+        net_usd_value: Total USD value
+    """
+
     network: str = None
     protocol: str = None
     net_usd_value: str = None
 
+
 @dataclass
 class DestinationAlloc:
+    """
+    Attributes:
+        leg_id: The ID unique to each leg of an allocation.
+        portfolio_id: Portfolio ID of the source portfolio.
+        allocation_base: Amount allocated in base asset units.
+        allocation_quote: Amount allocated in quote asset units.
+        fees_allocated_leg: Pro rata fees for each leg. Adding up the fees for each leg will
+            sum up to equal the total allocation level fees.
+    """
+
     leg_id: str = None
     portfolio_id: str = None
     allocation_base: str = None
     allocation_quote: str = None
     fees_allocated_leg: str = None
 
+
 @dataclass
 class DetailedAddress:
+    """
+    Detailed address information
+
+    Attributes:
+        address_1: Primary address line
+        address_2: Secondary address line (optional)
+        address_3: Tertiary address line (optional)
+        city: City name
+        state: State or province
+        country_code: ISO 3166-1 alpha-2 country code
+        postal_code: Postal/ZIP code
+    """
+
     address_1: str = None
     address_2: str = None
     address_3: str = None
@@ -319,25 +717,64 @@ class DetailedAddress:
     country_code: str = None
     postal_code: str = None
 
+
 @dataclass
 class EditOrderResponse:
+    """
+    Attributes:
+        order_id: The ID of the order being edited
+    """
+
     order_id: str = None
+
 
 @dataclass
 class EntityBalance:
+    """
+    Attributes:
+        symbol: The display symbol for the asset
+        long_amount: The long balance
+        long_notional: The long balance in notional value
+        short_amount: The short balance
+        short_notional: The short balance in notional value
+    """
+
     symbol: str = None
     long_amount: str = None
     long_notional: str = None
     short_amount: str = None
     short_notional: str = None
 
+
 @dataclass
 class EstimatedNetworkFees:
+    """
+    Attributes:
+        lower_bound: Estimated lower bound for networks fees (in whole units)
+        upper_bound: Estimated upper bound for network fees (in whole units)
+    """
+
     lower_bound: str = None
     upper_bound: str = None
 
+
 @dataclass
 class ExistingLocate:
+    """
+    Attributes:
+        locate_id: The locate ID
+        entity_id: The unique ID of the entity
+        portfolio_id: The unique ID of the portfolio
+        symbol: The currency symbol
+        requested_amount: The requested locate amount
+        interest_rate: The interest rate of PM loan
+        status: The locate status
+        approved_amount: The approved locate amount
+        conversion_date: Deprecated: Use locate_date instead
+        created_at: The date when the locate was submitted in RFC3339 format
+        locate_date: The locate date from the CreateNewLocatesRequest in RFC3339 format
+    """
+
     locate_id: str = None
     entity_id: str = None
     portfolio_id: str = None
@@ -350,30 +787,69 @@ class ExistingLocate:
     created_at: str = None
     locate_date: str = None
 
+
 @dataclass
 class RequestAmount:
+    """
+    Attributes:
+        currency: Currency
+        amount: Amount
+    """
+
     currency: str = None
     amount: str = None
 
+
 @dataclass
 class FcmScheduledMaintenance:
+    """
+    FcmScheduledMaintenance contains scheduled maintenance window information
+
+    Attributes:
+        start_time: Maintenance window start time
+        end_time: Maintenance window end time
+    """
+
     start_time: str = None
     end_time: str = None
+
 
 @dataclass
 class GetBuyingPowerResponse:
     buying_power: BuyingPower = None
 
+
 @dataclass
 class GetCandlesResponse:
+    """
+    Candle response structure
+    """
+
     candles: list[Candle] = None
+
 
 @dataclass
 class GetExistingLocatesResponse:
     locates: list[ExistingLocate] = None
 
+
 @dataclass
 class GetFcmBalanceResponse:
+    """
+    Attributes:
+        portfolio_id: Portfolio ID
+        cfm_usd_balance: CFM USD balance
+        unrealized_pnl: Unrealized PNL
+        daily_realized_pnl: Daily realized PNL
+        excess_liquidity: Excess liquidity
+        futures_buying_power: Futures buying power
+        initial_margin: Initial margin
+        maintenance_margin: Maintenance margin
+        clearing_account_id: Clearing account ID
+        cfm_unsettled_accrued_funding_pnl: Unsettled accrued funding PNL from the last
+            settlement
+    """
+
     portfolio_id: str = None
     cfm_usd_balance: str = None
     unrealized_pnl: str = None
@@ -385,53 +861,116 @@ class GetFcmBalanceResponse:
     clearing_account_id: str = None
     cfm_unsettled_accrued_funding_pnl: str = None
 
+
 @dataclass
 class GetFcmEquityResponse:
+    """
+    Attributes:
+        eod_account_equity: Prior EOD account equity (ending balance + realized P&L +
+            commissions/fees)
+        eod_unrealized_pnl: Prior EOD unrealized P&L on open futures positions
+        current_excess_deficit: Current Derivatives Account Balance minus prior EOD margin
+            requirement. (Positive = excess; negative = deficit)
+        available_to_sweep: Excess funds in the Derivatives account available to transfer
+            ("sweep") to the designated funding portfolio
+    """
+
     eod_account_equity: str = None
     eod_unrealized_pnl: str = None
     current_excess_deficit: str = None
     available_to_sweep: str = None
 
+
 @dataclass
 class GetFcmSettingsResponse:
+    """
+    Attributes:
+        target_derivatives_excess: Target derivatives excess in the FCM
+    """
+
     target_derivatives_excess: str = None
+
 
 @dataclass
 class GetPortfolioCommissionResponse:
     commission: Commission = None
 
+
 @dataclass
 class GetPortfolioCounterpartyIDResponse:
     counterparty: Counterparty = None
+
 
 @dataclass
 class GetWalletBalanceResponse:
     balance: Balance = None
 
+
 @dataclass
 class LoanInfo:
+    """
+    Attributes:
+        portfolio_id: The unique ID of the portfolio
+        symbol: The currency symbol
+        amount: Balance amount
+        notional_amount: Notional balance amount
+        due_date: Settlement due date
+    """
+
     portfolio_id: str = None
     symbol: str = None
     amount: str = None
     notional_amount: str = None
     due_date: str = None
 
+
 @dataclass
 class LocateRequest:
+    """
+    Attributes:
+        symbol: The currency symbol
+        quantity: The available quantity located
+        rate: The interest rate for located symbol
+    """
+
     symbol: str = None
     quantity: str = None
     rate: str = None
 
+
 @dataclass
 class MarginCallRecord:
+    """
+    Attributes:
+        margin_call_id: The unique ID of the margin call
+        initial_notional_amount: The initial margin call amount in notional value
+        outstanding_notional_amount: The outstanding margin call amount in notional value
+        created_at: The time the margin call is created in RFC3330 format
+        due_at: The time the margin call is due in RFC3339 format
+    """
+
     margin_call_id: str = None
     initial_notional_amount: str = None
     outstanding_notional_amount: str = None
     created_at: str = None
     due_at: str = None
 
+
 @dataclass
 class MarketData:
+    """
+    Attributes:
+        symbol: Base asset symbol (e.g., BTC, ETH, SOL)
+        vol_5d: Daily historical volatility over trailing 5 days (decimal, e.g., 0.65 = 65%)
+        vol_30d: Daily historical volatility over trailing 30 days (decimal, e.g., 0.65 =
+            65%)
+        vol_90d: Daily historical volatility over trailing 90 days (decimal, e.g., 0.65 =
+            65%)
+        adv_30d: Average daily trading volume over trailing 30 days (USD)
+        weighted_vol: Weighted blend of the most recent vol_5d and the max vol_5d over last
+            30 days into a single volatility measure (decimal).
+    """
+
     symbol: str = None
     vol_5d: str = None
     vol_30d: str = None
@@ -439,37 +978,103 @@ class MarketData:
     adv_30d: str = None
     weighted_vol: str = None
 
+
 @dataclass
 class MarketRate:
+    """
+    Attributes:
+        symbol: The currency symbol
+        rate: The current market rate of currency
+    """
+
     symbol: str = None
     rate: str = None
 
+
 @dataclass
 class MatchMetadata:
+    """
+    Attributes:
+        reference_id: The reference id of the match
+        settlement_date: The settlement date of the match
+    """
+
     reference_id: str = None
     settlement_date: str = None
 
+
 @dataclass
 class NFTCollection:
+    """
+    Attributes:
+        name: NFT collection name
+    """
+
     name: str = None
+
 
 @dataclass
 class NFTItem:
+    """
+    Attributes:
+        name: NFT item name
+    """
+
     name: str = None
+
 
 @dataclass
 class NaturalPersonName:
+    """
+    Natural person name components
+
+    Attributes:
+        first_name: Given/first name
+        middle_name: optional middle name (currently unused)
+        last_name: Family/last name
+    """
+
     first_name: str = None
     middle_name: str = None
     last_name: str = None
 
+
 @dataclass
 class Network:
+    """
+    Attributes:
+        id: The network id: base, bitcoin, ethereum, solana etc
+        type: The network type: mainnet, testnet, etc
+    """
+
     id: str = None
     type: str = None
 
+
 @dataclass
 class NetworkDetails:
+    """
+    Attributes:
+        name: The name of the network
+        max_decimals: The maximum number of decimals supported for this network
+        default: Indicates whether this network is the default network for the asset
+        trading_supported: Indicates whether this network supports trading
+        vault_supported: Indicates whether this network supports vault
+        prime_custody_supported: Indicates whether this network supports prime custody
+        destination_tag_required: Indicates whether this network requires a destination tag
+        network_link: Base URL to our recommended block explorer (crypto only)
+        network_scoped_symbol: Indicates the symbol that can be used to query other
+            endpoints, related to transactions, wallets, and activities, to get information
+            particularly for this asset on the network
+        min_withdrawal_amount: The minimum withdrawal amount for this network. Applies to
+            trading, prime custody, and vault wallets.
+        max_withdrawal_amount: The platform maximum withdrawal amount for this network.
+            Applies to trading, prime custody, and vault wallets. Note that Prime Transfer
+            policies may override this value.
+        min_deposit_amount: The minimum deposit amount for this network. Applies to trading,
+            prime custody, and vault wallets.
+    """
+
     network: Network = None
     name: str = None
     max_decimals: str = None
@@ -484,8 +1089,27 @@ class NetworkDetails:
     max_withdrawal_amount: str = None
     min_deposit_amount: str = None
 
+
 @dataclass
 class OrderEdit:
+    """
+    Attributes:
+        price: New price for the edited order
+        base_quantity: New base quantity for the edited order, populated if order is in base
+            size
+        quote_value: New quote value for the edited order, populated if order is in quote
+            size
+        display_quote_size: Display quote size for the edited order, populated if order is
+            in quote size
+        display_base_size: Display base size for the edited order, populated if order is in
+            base size
+        stop_price: New stop price for the edited order
+        expiry_time: New expiry/end time for the edited order
+        accept_time: Time when the edit was accepted
+        client_order_id: The new client order identifier that the order adopted after the
+            replacement was successfully accepted
+    """
+
     price: str = None
     base_quantity: str = None
     quote_value: str = None
@@ -496,8 +1120,31 @@ class OrderEdit:
     accept_time: str = None
     client_order_id: str = None
 
+
 @dataclass
 class PMAssetInfo:
+    """
+    Attributes:
+        symbol: The currency symbol
+        amount: Nominal amount of the currency
+        price: Spot price for the currency
+        notional_amount: Notional amount of the currency
+        asset_tier: Asset tier of the currency
+        margin_eligible: Whether the currency is margin eligible
+        base_margin_requirement: Base margin requirement of the currency
+        base_margin_requirement_notional: Notional amount of the currency's base margin
+            requirement
+        adv_30d: The 30d adv of the currency
+        hist_5d_vol: Historic 5d volatility of the currency
+        hist_30d_vol: Historic 30d volatility of the currency
+        hist_90d_vol: Historic 90d volatility of the currency
+        volatility_addon: Volatility margin addon of the currency position
+        liquidity_addon: Liquidity margin addon of the currency position
+        total_position_margin: Total position margin of the currency
+        short_nominal: Nominal short position of the currency
+        long_nominal: Nominal long position of the currency
+    """
+
     symbol: str = None
     amount: str = None
     price: str = None
@@ -516,42 +1163,107 @@ class PMAssetInfo:
     short_nominal: str = None
     long_nominal: str = None
 
+
 @dataclass
 class PaymentMethodDestination:
+    """
+    Attributes:
+        payment_method_id: The payment method id to pay out
+    """
+
     payment_method_id: str = None
+
 
 @dataclass
 class PerpetualProductDetails:
+    """
+    PerpetualProductDetails contains details specific to perpetual futures products
+
+    Attributes:
+        open_interest: Open interest
+        funding_rate: Current funding rate
+        funding_time: Next funding time
+        max_leverage: Maximum leverage allowed
+        underlying_type: The type of underlying for the perpetual product
+    """
+
     open_interest: str = None
     funding_rate: str = None
     funding_time: str = None
     max_leverage: str = None
     underlying_type: str = None
 
+
 @dataclass
 class Portfolio:
+    """
+    Attributes:
+        id: The unique ID of the portfolio
+        name: The name of the portfolio
+        entity_id: The ID of the entity to which the portfolio is associated
+        organization_id: The ID of the organization to which the portfolio is associated
+        entity_name: The name of the entity to which the portfolio is associated
+    """
+
     id: str = None
     name: str = None
     entity_id: str = None
     organization_id: str = None
     entity_name: str = None
 
+
 @dataclass
 class PortfolioStakingInitiateResponse:
+    """
+    Attributes:
+        activity_id: The ID for the created activity
+        transaction_id: The ID for the created transaction
+    """
+
     activity_id: str = None
     transaction_id: str = None
+
 
 @dataclass
 class PortfolioStakingMetadata:
+    """
+    Attributes:
+        external_id: An optional custom identifier (up to 255 characters) to attach to the
+            transaction. This is not a searchable transaction field.
+    """
+
     external_id: str = None
+
 
 @dataclass
 class PortfolioStakingUnstakeResponse:
+    """
+    Attributes:
+        activity_id: The ID for the created activity
+        transaction_id: The ID for the created transaction
+    """
+
     activity_id: str = None
     transaction_id: str = None
 
+
 @dataclass
 class PostTradeCreditInformation:
+    """
+    Attributes:
+        portfolio_id: The unique ID of the portfolio
+        currency: The currency symbol credit is denoted in
+        limit: The maximum credit limit
+        utilized: The amount of credit used
+        available: The amount of credit available
+        frozen: Whether or not a portfolio is frozen due to balance outstanding or other
+            reason
+        frozen_reason: The reason why the portfolio is frozen
+        enabled: Whether the portfolio has credit enabled
+        adjusted_credit_utilized: The amount of adjusted credit used
+        adjusted_portfolio_equity: The amount of adjusted portfolio equity
+    """
+
     portfolio_id: str = None
     currency: str = None
     limit: str = None
@@ -564,16 +1276,38 @@ class PostTradeCreditInformation:
     adjusted_credit_utilized: str = None
     adjusted_portfolio_equity: str = None
 
+
 @dataclass
 class PrimeXMMarginRequirementBreakdown:
+    """
+    Attributes:
+        base_margin: Base margin requirement component.
+        volatility_addon: Volatility add-on component.
+        liquidity_addon: Liquidity add-on component.
+        offset_credit: Credits that offset margin charges due to portfolio composition.
+        futures_margin: Futures margin charge applied for any futures trades of the opposing
+            direction but of the same underlying.
+    """
+
     base_margin: str = None
     volatility_addon: str = None
     liquidity_addon: str = None
     offset_credit: str = None
     futures_margin: str = None
 
+
 @dataclass
 class PrimeXMOffsetCreditBreakdown:
+    """
+    Attributes:
+        basis_credit: Basis offset credit component.
+        long_short_credit: Long/short tier-pair offset credit.
+        long_long_credit: Long/long tier-pair offset credit.
+        short_short_credit: Short/short tier-pair offset credit.
+        same_tier_credit: Same-tier offset credit.
+        total_credit: Total offset credit.
+    """
+
     basis_credit: str = None
     long_short_credit: str = None
     long_long_credit: str = None
@@ -581,8 +1315,19 @@ class PrimeXMOffsetCreditBreakdown:
     same_tier_credit: str = None
     total_credit: str = None
 
+
 @dataclass
 class QuoteResponse:
+    """
+    Copied from https://github.cbhq.net/institutional/trading/blob/3e6da61aceb64c7cbe6f0c0f8fbdb98fd3e868dc/proxy/trading/protos/coinbase/brokerage/proxy/trading/api/orderentry.proto#L366-L370
+
+    Attributes:
+        order_total: total quote amount for previewing
+        quote_duration_ms: Echo of the quote_duration_ms supplied in the request. 0 if the
+            client did not supply a value, in which case the server applies the default of
+            3000 ms (3 seconds).
+    """
+
     quote_id: str = None
     expiration_time: str = None
     best_price: str = None
@@ -590,8 +1335,20 @@ class QuoteResponse:
     price_inclusive_of_fees: str = None
     quote_duration_ms: str = None
 
+
 @dataclass
 class RFQProductDetails:
+    """
+    Attributes:
+        tradable: Whether the product is tradable via RFQ
+        min_notional_size: Deprecated: Value will be an empty string
+        max_notional_size: Deprecated: Value will be an empty string
+        min_base_size: Minimum base size for RFQ
+        max_base_size: Maximum base size for RFQ
+        min_quote_size: Minimum quote size for RFQ
+        max_quote_size: Maximum quote size for RFQ
+    """
+
     tradable: bool = None
     min_notional_size: str = None
     max_notional_size: str = None
@@ -600,153 +1357,438 @@ class RFQProductDetails:
     min_quote_size: str = None
     max_quote_size: str = None
 
+
 @dataclass
 class RiskAssessment:
+    """
+    New message for risk assessment details
+
+    Attributes:
+        compliance_risk_detected: Indicates if the transaction has been flagged for
+            compliance concerns
+        security_risk_detected: Indicates if the transaction has been flagged for security
+            concerns
+    """
+
     compliance_risk_detected: bool = None
     security_risk_detected: bool = None
 
+
 @dataclass
 class RotateAPIKeyRequest:
+    """
+    Attributes:
+        duration_seconds: How long the old key remains active after the new key is approved,
+            in seconds. Set to 0 for immediate expiry on approval. Cannot extend beyond the
+            original key's expiry.
+    """
+
     duration_seconds: str = None
+
 
 @dataclass
 class RotateAPIKeyResponse:
+    """
+    Attributes:
+        encrypted_credentials: Base64-encoded encrypted payload containing the new API key
+            credentials. Decrypt using your current secret_key with HKDF-SHA256 +
+            AES-256-GCM.
+        activity_id: The Prime activity ID tracking the consensus approval for this
+            rotation. Use with the Activities endpoints to monitor approval status.
+    """
+
     encrypted_credentials: str = None
     activity_id: str = None
 
+
 @dataclass
 class RpcConfig:
+    """
+    Attributes:
+        skip_broadcast: If true, transaction will not be broadcast to the network
+        url: Custom blockchain node RPC URL. (EVM-only)
+    """
+
     skip_broadcast: bool = None
     url: str = None
 
+
 @dataclass
 class ScheduleFuturesSweepResponse:
+    """
+    Attributes:
+        success: Success
+        request_id: Request ID
+    """
+
     success: bool = None
     request_id: str = None
 
+
 @dataclass
 class SetAutoSweepResponse:
+    """
+    Attributes:
+        success: Success
+    """
+
     success: bool = None
+
 
 @dataclass
 class SetFcmSettingsResponse:
+    """
+    Attributes:
+        success: Success
+    """
+
     success: bool = None
+
 
 @dataclass
 class ShortCollateral:
+    """
+    Attributes:
+        old_balance: Existing short collateral balance
+        new_balance: New short collateral balance required
+        loan_interest_rate: Loan interest rate
+        collateral_interest_rate: Collateral interest rate
+    """
+
     old_balance: str = None
     new_balance: str = None
     loan_interest_rate: str = None
     collateral_interest_rate: str = None
 
+
 @dataclass
 class StakingClaimRewardsResponse:
+    """
+    Attributes:
+        wallet_id: The wallet ID
+        transaction_id: ID of the newly created transaction, can be used to fetch details of
+            the current state of execution
+        activity_id: The ID for the activity generated for this request
+    """
+
     wallet_id: str = None
     transaction_id: str = None
     activity_id: str = None
+
 
 @dataclass
 class StakingInitiateResponse:
+    """
+    StakingInitiateResponse contains the response data from initiating a staking operation.
+
+    Attributes:
+        wallet_id: The wallet ID
+        transaction_id: ID of the newly created transaction, can be used to fetch details of
+            the current state of execution
+        activity_id: The ID for the activity generated for this request
+    """
+
     wallet_id: str = None
     transaction_id: str = None
     activity_id: str = None
+
 
 @dataclass
 class StakingUnstakeResponse:
+    """
+    StakingUnstakeResponse contains the response data from initiating an unstaking operation.
+
+    Attributes:
+        wallet_id: The wallet ID
+        transaction_id: ID of the newly created transaction, can be used to fetch details of
+            the current state of execution
+        activity_id: The ID for the activity generated for this request
+    """
+
     wallet_id: str = None
     transaction_id: str = None
     activity_id: str = None
 
+
 @dataclass
 class SubmitDepositTravelRuleDataResponse:
+    """
+    Response after submitting travel rule data for a deposit
+
+    Attributes:
+        ownership_verification_required: Whether additional ownership verification is
+            required
+    """
+
     ownership_verification_required: bool = None
+
 
 @dataclass
 class TFAsset:
+    """
+    TFAsset represents an asset eligible for Trade Finance with adjustment factors
+
+    Attributes:
+        symbol: The asset symbol
+        asset_adjustment: The asset adjustment factor for Trade Finance
+        liability_adjustment: The liability adjustment factor for Trade Finance
+    """
+
     symbol: str = None
     asset_adjustment: str = None
     liability_adjustment: str = None
 
+
 @dataclass
 class TFObligation:
+    """
+    Trade finance obligation information
+
+    Attributes:
+        portfolio_id: The unique ID of the portfolio
+        symbol: The currency symbol
+        amount_due: Current amount due
+        notional_amount: Loan notional amount
+        due_date: Settlement due date
+    """
+
     portfolio_id: str = None
     symbol: str = None
     amount_due: str = None
     notional_amount: str = None
     due_date: str = None
 
+
 @dataclass
 class TierPairRateEntry:
+    """
+    TierPairRateEntry represents a single (tier_a, tier_b) -> rate entry in an offset credit matrix.
+
+    Attributes:
+        tier_a: First tier in the pair.
+        tier_b: Second tier in the pair.
+        rate: Credit rate for this tier pair.
+    """
+
     tier_a: str = None
     tier_b: str = None
     rate: str = None
 
+
 @dataclass
 class TieredPricingFee:
+    """
+    Attributes:
+        symbol: Asset symbol
+        fee: The fee in bps
+    """
+
     symbol: str = None
     fee: str = None
 
+
 @dataclass
 class UpdateFundingSettingsResponse:
+    """
+    Attributes:
+        activity_id: Identifier for the created activity / proposal
+        activity_type: Type of the activity (e.g. PCS proposal type)
+        num_approvals_remaining: Number of approvals still required before the change
+            applies
+    """
+
     activity_id: str = None
     activity_type: str = None
     num_approvals_remaining: str = None
 
+
 @dataclass
 class ValidatorAllocation:
+    """
+    ValidatorAllocation specifies the validator and amount for staking or unstaking. Used for granular ETH V2 validator-level staking or unstaking operations.
+
+    Attributes:
+        validator_address: The validator address for performing staking operations
+        amount: Amount for performing staking operations with this validator
+    """
+
     validator_address: str = None
     amount: str = None
 
+
 @dataclass
 class ValidatorUnstakePreview:
+    """
+    ValidatorUnstakePreview contains the per-validator breakdown for an unstake preview.
+
+    Attributes:
+        validator_address: Public address of the validator being unstaked from
+        estimated_unstaking_amount: Estimated amount that would be unstaked from this
+            validator (in ETH)
+        unstake_time_estimate_in_hours: Estimated time until this validator's unstake
+            completes, in hours
+        estimated_unstake_date: Estimated date when this validator's unstake will complete
+            (ISO 8601)
+    """
+
     validator_address: str = None
     estimated_unstaking_amount: str = None
     unstake_time_estimate_in_hours: float = None
     estimated_unstake_date: str = None
 
+
 @dataclass
 class WalletClaimRewardsInputs:
+    """
+    WalletClaimRewardsInputs contains the custom inputs for claim rewards operations on a wallet. Requirements and supported fields vary by asset type.
+
+    Attributes:
+        amount: Optional amount to claim rewards (ETH only). If omitted, the wallet will
+            claim the maximum amount available
+    """
+
     amount: str = None
+
 
 @dataclass
 class WalletStakeInputs:
+    """
+    WalletStakeInputs contains the custom inputs for staking operations on a wallet. Requirements and supported fields vary by asset type.
+
+    Attributes:
+        amount: Optional amount to stake (ETH only). If omitted, the wallet will stake the
+            maximum amount available
+        validator_address: Optional validator address, defaults to Coinbase validator. For
+            SOL, must be the vote account address. Ignored for ETH.
+        end_date: Optional delegation end date in ISO date format (e.g. 2026-07-15).
+            Required for AVAX; minimum 14-day delegation period applies.
+    """
+
     amount: str = None
     validator_address: str = None
     end_date: str = None
 
+
 @dataclass
 class WalletStakingMetadata:
+    """
+    WalletStakingMetadata contains optional metadata for wallet staking requests. external_id tags the discrete TWS transaction stake/unstake create; automatic reward crediting (e.g. SOL inflation) does not produce one. StakingClaimRewardsRequest intentionally omits this field; add metadata to claim rewards only if a supported network's claim flow creates a discrete TWS transaction clients need to tag.
+
+    Attributes:
+        external_id: An optional custom identifier (up to 255 bytes) to attach to the
+            transaction. This is not a searchable transaction field. Retries with the same
+            idempotency_key must use the same external_id; a differing value on retry will
+            be silently ignored.
+    """
+
     external_id: str = None
+
 
 @dataclass
 class WalletUnstakeInputs:
+    """
+    WalletUnstakeInputs contains the custom inputs for unstaking operations on a wallet. Requirements and supported fields vary by asset type.
+
+    Attributes:
+        amount: Optional amount to unstake (ETH only). If omitted, the wallet will unstake
+            the maximum amount available
+        validator_allocations: (Alpha) Optional validator-level allocations for ETH V2
+            unstaking. Allows specifying which validators to unstake from and how much. This
+            feature is in alpha. Please reach out to your Coinbase Prime account manager for
+            more information
+        validator_address: Optional validator address to unstake from. Only supported for a
+            subset of protocols.
+    """
+
     amount: str = None
     validator_allocations: list[ValidatorAllocation] = None
     validator_address: str = None
 
+
 @dataclass
 class Web3Asset:
+    """
+    Attributes:
+        network: Network this asset is on (ie "ethereum-mainnet")
+        contract_address: Contract Address of this asset (empty for native assets).
+        symbol: Symbol of this asset.
+        token_id: Token ID of this asset (empty for non NFT assets).
+        name: Name of this asset, either the name of the crypto token or the NFT collection
+            name.
+    """
+
     network: str = None
     contract_address: str = None
     symbol: str = None
     token_id: str = None
     name: str = None
 
+
 @dataclass
 class WithdrawalPower:
+    """
+    Attributes:
+        symbol: The currency symbol
+        amount: Withdrawal power
+    """
+
     symbol: str = None
     amount: str = None
 
+
 @dataclass
 class XMLiquidatedAsset:
+    """
+    XMLiquidatedAsset provides per-asset detail for a liquidation
+
+    Attributes:
+        asset: Asset currency
+        liquidated_amount: Amount (nominal) of the asset that has been liquidated
+        liquidated_notional: USD notional value of the liquidated amount
+        remaining_amount: Amount (nominal) of the asset remaining to be liquidated
+        remaining_notional: USD notional value of the remaining amount
+    """
+
     asset: str = None
     liquidated_amount: str = None
     liquidated_notional: str = None
     remaining_amount: str = None
     remaining_notional: str = None
 
+
 @dataclass
 class XMPosition:
+    """
+    XMPosition
+
+    Attributes:
+        currency: Position currency
+        market_price: Current market price
+        margin_eligible: True if margin eligible, false otherwise
+        market_cap: Total market capitalization
+        adv30_days: Average daily volume calculated over a 30-day period
+        hist5d_vol: Historic volatility calculated over a 5-day period
+        hist30d_vol: Historic volatility calculated over a 30-day period
+        hist90d_vol: Historic volatility calculated over a 90-day period
+        margin_requirement: Base margin requirement for the specific asset
+        spot_balance: XM spot balance nominal
+        spot_balance_notional: XM spot balance notional
+        spot_total_position_margin: Pre-netted spot total position margin
+        futures_balance: XM futures balance nominal
+        futures_balance_notional: XM futures balance notional
+        futures_total_position_margin: Pre-netted futures total position margin
+        gmv_basis: Basis GMV = |futures| + |spot| - |unnetted position|
+        base_requirement: Base margin requirement notional
+        liq_shorts_add_on: Effective liquidity add-on for the short positions
+        liq_longs_add_on: Effective liquidity add-on for the long positions
+        vol_shorts_add_on: Effective volatility add-on for the short positions
+        vol_longs_add_on: Effective volatility add-on for the long positions
+        vol5days_add_on: 5-day volatility add-on
+        vol30days_add_on: 30-day volatility add-on
+        vol90days_add_on: 90-day volatility add-on
+        total_position_margin: Total margin required
+    """
+
     currency: str = None
     market_price: str = None
     margin_eligible: str = None
@@ -773,12 +1815,24 @@ class XMPosition:
     vol90days_add_on: str = None
     total_position_margin: str = None
 
+
 @dataclass
 class ActivityMetadataAccount:
     consensus: ConsensusMetadata = None
 
+
 @dataclass
 class Asset:
+    """
+    Attributes:
+        name: The name of the asset
+        symbol: The mutable series of letters used to identify the asset
+        decimal_precision: The number of decimals supported for the asset
+        trading_supported: Indicates whether this asset can be traded
+        explorer_url: Base URL to our recommended block explorer (crypto only)
+        networks: List of networks supported by this asset
+    """
+
     name: str = None
     symbol: str = None
     decimal_precision: str = None
@@ -786,29 +1840,60 @@ class Asset:
     explorer_url: str = None
     networks: list[NetworkDetails] = None
 
+
 @dataclass
 class BlockchainAddress:
+    """
+    Attributes:
+        address: The address on the network
+        account_identifier: The account identifier (used on some chains to distinguish
+            accounts using the same address)
+    """
+
     address: str = None
     account_identifier: str = None
     network: Network = None
 
+
 @dataclass
 class Conversion:
+    """
+    Attributes:
+        conversion_details: Conversion details
+        conversion_datetime: The UTC date time used for conversion
+        portfolio_id: Portfolio Id
+    """
+
     conversion_details: list[ConversionDetail] = None
     short_collateral: ShortCollateral = None
     conversion_datetime: str = None
     portfolio_id: str = None
 
+
 @dataclass
 class CreateAllocationResponse:
     body: CreateAllocationResponseBody = None
+
 
 @dataclass
 class CreateNetAllocationResponse:
     body: CreateNetAllocationResponseBody = None
 
+
 @dataclass
 class CreateWalletWithdrawalResponse:
+    """
+    Attributes:
+        activity_id: The activity ID associated with the withdrawal
+        approval_url: A URL to the activity in the Prime application
+        symbol: The currency symbol associated with the withdrawal
+        amount: The amount of the withdrawal
+        fee: The network fee associated with the withdrawal
+        destination_type: The destination type used for the withdrawal
+        source_type: The source type used for the withdrawal
+        transaction_id: The id of the just created transaction
+    """
+
     activity_id: str = None
     approval_url: str = None
     symbol: str = None
@@ -821,8 +1906,26 @@ class CreateWalletWithdrawalResponse:
     blockchain_source: BlockchainAddress = None
     transaction_id: str = None
 
+
 @dataclass
 class CrossMarginPrimeRiskNettingInfo:
+    """
+    Groups XM margin requirement components, offset credits, and per-asset rows.
+
+    Attributes:
+        dco_margin_requirement: Derivatives Clearing Organization Margin Requirement (DMR)
+            is the margin requirement for all futures positions, derived from the
+            Derivatives Clearing Organization model
+        portfolio_margin_requirement: Portfolio Margin Requirement (PMR) is the margin
+            requirement for all spot positions, derived from the XM model
+        integrated_portfolio_margin_requirement: Integrated Portfolio Margin Requirement
+            (IPMR) is the margin requirement for all spot positions + futures positions with
+            underlying assets eligible in Portfolio Margin.
+        ineligible_futures_margin_requirement: Ineligible Futures Margin Requirement (IFMR)
+            is the margin requirement for IPMR-ineligible futures contracts
+        xm_positions: Netted positions used in the model calculation.
+    """
+
     dco_margin_requirement: str = None
     portfolio_margin_requirement: str = None
     integrated_portfolio_margin_requirement: str = None
@@ -833,70 +1936,156 @@ class CrossMarginPrimeRiskNettingInfo:
     integrated_portfolio_margin_offset_credit_breakdown: PrimeXMOffsetCreditBreakdown = None
     xm_positions: list[CrossMarginPrimeXMPosition] = None
 
+
 @dataclass
 class GetCrossMarginRiskParametersResponse:
+    """
+    Attributes:
+        risk_parameters: Current XM tier risk parameters for the entity's client tier.
+        offset_credit_matrix_long_short: Offset credit rate matrix for long/short tier
+            pairs.
+        offset_credit_matrix_long_long: Offset credit rate matrix for long/long tier pairs.
+        offset_credit_matrix_short_short: Offset credit rate matrix for short/short tier
+            pairs.
+        margin_period_of_risk: Margin period of risk (number of days).
+    """
+
     risk_parameters: list[CrossMarginRiskParameters] = None
     offset_credit_matrix_long_short: list[TierPairRateEntry] = None
     offset_credit_matrix_long_long: list[TierPairRateEntry] = None
     offset_credit_matrix_short_short: list[TierPairRateEntry] = None
     margin_period_of_risk: str = None
 
+
 @dataclass
 class GetEntityAssetsResponse:
+    """
+    Attributes:
+        assets: List of assets
+    """
+
     assets: list[Asset] = None
+
 
 @dataclass
 class GetLocateAvailabilitiesResponse:
     locates: list[LocateRequest] = None
 
+
 @dataclass
 class GetMarginConversionsResponse:
     conversions: list[Conversion] = None
 
+
 @dataclass
 class GetOrderEditHistoryResponse:
+    """
+    Order Edit History by Order ID and Portfolio ID
+
+    Attributes:
+        order_id: The order ID
+        order_edit_history: The history of order edits (deprecated: use edit_history
+            instead)
+        edit_history: The history of order edits
+    """
+
     order_id: str = None
     order_edit_history: list[LimitOrderEdit] = None
     edit_history: list[OrderEdit] = None
+
 
 @dataclass
 class GetPortfolioResponse:
     portfolio: Portfolio = None
 
+
 @dataclass
 class GetPortfoliosResponse:
+    """
+    Attributes:
+        portfolios: A list of portfolios.
+    """
+
     portfolios: list[Portfolio] = None
+
 
 @dataclass
 class GetPostTradeCreditResponse:
     post_trade_credit: PostTradeCreditInformation = None
 
+
 @dataclass
 class GetTFTieredPricingFeesResponse:
     fees: list[TieredPricingFee] = None
+
 
 @dataclass
 class GetWithdrawalPowerResponse:
     withdrawal_power: WithdrawalPower = None
 
+
 @dataclass
 class ListFinancingEligibleAssetsResponse:
+    """
+    ListFinancingEligibleAssetsResponse contains the list of financing eligible assets with their details
+
+    Attributes:
+        assets: List of assets eligible for Trade Finance
+    """
+
     assets: list[TFAsset] = None
+
 
 @dataclass
 class ListTFObligationsResponse:
+    """
+    Response containing trade finance obligations for an entity
+
+    Attributes:
+        obligations: The list of obligations (loans) for the entity.
+    """
+
     obligations: list[TFObligation] = None
+
 
 @dataclass
 class PreviewUnstakeResponse:
+    """
+    PreviewUnstakeResponse contains the response data from previewing an unstaking operation.
+
+    Attributes:
+        estimated_amount: Estimated amount that would be unstaked
+        wallet_id: The wallet ID
+        wallet_address: The blockchain address of the wallet
+        current_timestamp: Timestamp at which this preview was generated (ISO 8601)
+        validators: Per-validator breakdown of the unstake simulation
+    """
+
     estimated_amount: str = None
     wallet_id: str = None
     wallet_address: str = None
     current_timestamp: str = None
     validators: list[ValidatorUnstakePreview] = None
 
+
 @dataclass
 class AddressBookEntry:
+    """
+    Attributes:
+        id: UUID identifying this address book entry
+        currency_symbol: Currency symbol
+        name: Name for this address book entry
+        address: Cryptocurrency address
+        account_identifier: Memo or destination tag for currencies which support them
+        account_identifier_name: Name of the account identifier. For instance Destination
+            Tag
+        state: State of this address book entry
+        explorer_link: Link to a blockchain explorer
+        last_used_at: When this entry was last used for a transaction
+        added_at: When this entry was added to the address book
+        counterparty_id: counterparty id
+    """
+
     id: str = None
     currency_symbol: str = None
     name: str = None
@@ -911,8 +2100,28 @@ class AddressBookEntry:
     type: str = None
     counterparty_id: str = None
 
+
 @dataclass
 class Accrual:
+    """
+    Attributes:
+        accrual_id: The accrual ID
+        date: The date of accrual in UTC
+        portfolio_id: The unique ID of the portfolio
+        symbol: The currency symbol
+        interest_rate: The daily or annualized interest rate for the loan, see rate_type
+        nominal_accrual: Daily accrual amount in the principal currency
+        notional_accrual: Daily USD accrued interest
+        conversion_rate: Accrual rate used to convert from principal to USD accrual
+        loan_amount: Outstanding principal of the loan
+        benchmark_rate: Daily interest rate fetched from the benchmark source
+        spread: Daily spread offset from the benchmark rate
+        loan_amount_notional: Outstanding principal of the loan in USD
+        nominal_open_borrow_sod: Settled open borrow as of start-of-day in the principal
+            currency
+        notional_open_borrow_sod: Settled open borrow as of start-of-day in USD
+    """
+
     accrual_id: str = None
     date: str = None
     portfolio_id: str = None
@@ -931,14 +2140,37 @@ class Accrual:
     nominal_open_borrow_sod: str = None
     notional_open_borrow_sod: str = None
 
+
 @dataclass
 class ActiveLiquidationSummary:
+    """
+    ActiveLiquidationSummary provides a summary of the active or most recent XM liquidation
+
+    Attributes:
+        liquidation_id: Financing liquidation UUID
+        shortfall_amount: USD notional shortfall amount that triggered the liquidation
+    """
+
     liquidation_id: str = None
     status: str = None
     shortfall_amount: str = None
 
+
 @dataclass
 class Activity:
+    """
+    Attributes:
+        id: A unique id for the account activity
+        reference_id: A reference for orders and transactions, n/a for other category types
+        created_by: Id of user who created the activity
+        title: Title of the activity
+        description: Description detail of the activity
+        user_actions: Actions related to the Activity
+        symbols: List of currencies included in an activity
+        created_at: Time activity was created at
+        updated_at: Time for latest status update of account activity
+    """
+
     id: str = None
     reference_id: str = None
     category: str = None
@@ -957,30 +2189,67 @@ class Activity:
     hierarchy_type: str = None
     orders_metadata: ActivityMetadataOrders = None
 
+
 @dataclass
 class ActivityCreationResponse:
     activity_type: str = None
     num_approvals_remaining: str = None
     activity_id: str = None
 
+
 @dataclass
 class AddressGroup:
+    """
+    Attributes:
+        addresses: A list of addresses within the group
+    """
+
     id: str = None
     name: str = None
     network_type: NetworkType = None
     addresses: list[AddressEntry] = None
     added_at: str = None
 
+
 @dataclass
 class AdvancedTransfer:
+    """
+    AdvancedTransfer represents a complex transfer operation such as a blind match settlement.
+    """
+
     id: str = None
     type: str = None
     state: str = None
     fund_movements: list[FundMovement] = None
     blind_match_metadata: BlindMatchMetadata = None
 
+
 @dataclass
 class Allocation:
+    """
+    Attributes:
+        root_id: The ID that ties together an allocation and all of its legs.
+        reversal_id: The ID of the allocation if this allocation is a reversal. In this
+            case, the root_id would be the original allocation ID.
+        allocation_completed_at: Time the final leg of the root allocation was completed.
+        user_id: The ID of the user that created the allocation.
+        product_id: The ID of the product of the orders allocated.
+        avg_price: Price the allocation was done at.
+        base_quantity: Amount allocated in base asset units.
+        quote_value: Amount allocated in quote asset units.
+        fees_allocated: Fees from original trade execution allocated in quote asset units.
+        source: Portfolio ID of the source portfolio.
+        order_ids: All order IDs that were aggregated to calculate the avg_price, quantity
+            to allocate in each leg. Each order_id should tie back to the single allocation
+            root_id.
+        destinations: Array of objects, each containing the leg ID, destination portfolio ID
+            and amount in chosen units allocated to each portfolio: [{leg_id, portfolio_id,
+            allocation_base, allocation_quote}, {leg_id, portfolio_id, allocation_base,
+            allocation_quote}...]
+        netting_id: The netting ID of the allocation, not empty if the allocation was
+            submitted as part of a net allocation
+    """
+
     root_id: str = None
     reversal_id: str = None
     allocation_completed_at: str = None
@@ -997,26 +2266,59 @@ class Allocation:
     destinations: list[DestinationAlloc] = None
     netting_id: str = None
 
+
 @dataclass
 class AssetChange:
+    """
+    Attributes:
+        symbol: The currency symbol associated with the balance operation
+        amount: The amount in whole units being transferred or approved
+    """
+
     type: str = None
     symbol: str = None
     amount: str = None
     collection: Collection = None
     item: Item = None
 
+
 @dataclass
 class ComboLeg:
+    """
+    ComboLeg describes a single leg within an options combo order.
+
+    Attributes:
+        product_id: The product identifier for the options instrument (e.g.,
+            "BTC-28MAR25-50000-C").
+    """
+
     product_id: str = None
     quantity: str = None
     side: str = None
 
+
 @dataclass
 class CreateAdvancedTransferResponse:
+    """
+    CreateAdvancedTransferResponse is the response after creating an advanced transfer.
+    """
+
     advanced_transfer: AdvancedTransfer = None
+
 
 @dataclass
 class CreateAllocationRequest:
+    """
+    Attributes:
+        allocation_id: The ID of the allocation
+        source_portfolio_id: The source portfolio id for the allocation
+        product_id: The product for the allocation
+        order_ids: The list of order ids in the allocation
+        allocation_legs: The list of allocation_legs for the allocation
+        remainder_destination_portfolio: The portfolio where to allocate the remainder of
+            the size
+    """
+
     allocation_id: str = None
     source_portfolio_id: str = None
     product_id: str = None
@@ -1025,22 +2327,38 @@ class CreateAllocationRequest:
     size_type: str = None
     remainder_destination_portfolio: str = None
 
+
 @dataclass
 class CreatePortfolioAddressBookEntryResponse:
     activity_type: str = None
     num_approvals_remaining: str = None
     activity_id: str = None
 
+
 @dataclass
 class CreateWalletResponse:
+    """
+    Attributes:
+        activity_id: The id of activity
+        name: The name of the wallet
+        symbol: The asset stored in the wallet
+    """
+
     activity_id: str = None
     name: str = None
     symbol: str = None
     wallet_type: str = None
     network_family: str = None
 
+
 @dataclass
 class CrossMarginOverview:
+    """
+    Attributes:
+        active_margin_calls: List of active XM margin calls
+        active_loans: List of active XM loans
+    """
+
     control_status: str = None
     call_status: str = None
     margin_level: str = None
@@ -1049,8 +2367,32 @@ class CrossMarginOverview:
     active_loans: list[XMLoan] = None
     active_liquidation: ActiveLiquidationSummary = None
 
+
 @dataclass
 class CrossMarginPrimeMarginSummary:
+    """
+    Cross-margin account summary and nested breakdowns.
+
+    Attributes:
+        margin_requirement: Cross Margin Margin Requirement (XMMR) notional.
+        account_equity: Equity notional.
+        margin_excess_shortfall: Equity - XMMR (margin excess is > 0).
+        consumed_credit: Credit consumed from Cross Margin Credit Limit (XMCL).
+        xm_credit_limit: XM Credit Limit (XMCL) is the maximum notional USD of total fiat
+            and digital asset loans.
+        xm_margin_limit: XM Margin Limit (XMML) is the maximum notional USD deficit.
+        consumed_margin_limit: Amount of the XM margin limit consumed by excess deficit.
+        spot_equity: Equity attributed by spot.
+        futures_equity: Equity attributed by futures.
+        gross_market_value: Gross market value.
+        net_market_value: Net market value.
+        net_exposure: Net exposure.
+        gross_leverage: Gross leverage.
+        equity_ratio: Equity ratio.
+        deficit_ratio: Deficit ratio.
+        fcm_excess_available_to_return: FCM excess available to return.
+    """
+
     margin_requirement: str = None
     margin_requirement_type: str = None
     account_equity: str = None
@@ -1074,8 +2416,19 @@ class CrossMarginPrimeMarginSummary:
     margin_thresholds: PrimeXMMarginCallThresholds = None
     fcm_excess_available_to_return: str = None
 
+
 @dataclass
 class EntityUser:
+    """
+    Attributes:
+        id: The unique ID of the user
+        name: The name of the user
+        email: The email of the user
+        entity_id: The entity to which this user and associated permissions are identified
+        roles: All primary roles assigned to the user.
+        secondary_permissions: All secondary permissions assigned to the user.
+    """
+
     id: str = None
     name: str = None
     email: str = None
@@ -1084,8 +2437,17 @@ class EntityUser:
     roles: list[str] = None
     secondary_permissions: list[str] = None
 
+
 @dataclass
 class FCMMarginCall:
+    """
+    Attributes:
+        initial_amount: Initial margin call amount to settle
+        remaining_amount: Remaining margin call amount to settle
+        business_date: Business date when the margin call was opened
+        cure_deadline: The deadline by which the margin call must be satisfied
+    """
+
     type: str = None
     state: str = None
     initial_amount: str = None
@@ -1093,16 +2455,36 @@ class FCMMarginCall:
     business_date: str = None
     cure_deadline: str = None
 
+
 @dataclass
 class FcmFuturesSweep:
+    """
+    Attributes:
+        id: Sweep ID
+        should_sweep_all: Should sweep all
+        scheduled_time: Scheduled time
+    """
+
     id: str = None
     requested_amount: RequestedAmount = None
     should_sweep_all: bool = None
     status: str = None
     scheduled_time: str = None
 
+
 @dataclass
 class FcmPosition:
+    """
+    Attributes:
+        product_id: Product ID
+        number_of_contracts: Number of contracts
+        daily_realized_pnl: Daily realized PNL
+        unrealized_pnl: Unrealized PNL
+        current_price: Current price of position
+        avg_entry_price: Average entry price
+        expiration_time: Expiration time of position
+    """
+
     product_id: str = None
     side: str = None
     number_of_contracts: str = None
@@ -1116,8 +2498,21 @@ class FcmPosition:
     short: str = None
     position_reference: str = None
 
+
 @dataclass
 class FcmTradingSessionDetails:
+    """
+    FcmTradingSessionDetails contains trading session details for FCM products
+
+    Attributes:
+        session_open: Whether the trading session is currently open
+        open_time: Trading session open time
+        close_time: Trading session close time
+        after_hours_order_entry_disabled: Whether after-hours order entry is disabled
+        settlement_timestamp: Settlement timestamp from previous trading day
+        settlement_price: Settlement price from previous trading day
+    """
+
     session_open: bool = None
     open_time: str = None
     close_time: str = None
@@ -1128,8 +2523,26 @@ class FcmTradingSessionDetails:
     settlement_timestamp: str = None
     settlement_price: str = None
 
+
 @dataclass
 class Fill:
+    """
+    Attributes:
+        id: The unique ID of the fill
+        order_id: The order ID of the fill
+        product_id: The product ID of the fill
+        client_product_id: The client product ID of the fill indictating the settlment
+            currency
+        filled_quantity: Filled size (in base asset units)
+        filled_value: Filled value (in quote asset units)
+        price: The price of the fill
+        time: The date and time of the fill
+        commission: The commission incurred for the fill
+        venue: The name of the venue
+        venue_fees: The venue fees incurred for the fill
+        ces_commission: The CES commission incurred for the fill
+    """
+
     id: str = None
     order_id: str = None
     product_id: str = None
@@ -1146,16 +2559,36 @@ class Fill:
     product_type: str = None
     commission_detail_total: CommissionDetailTotal = None
 
+
 @dataclass
 class FundMovement:
+    """
+    FundMovement represents a single movement of funds between two counterparties.
+    """
+
     id: str = None
     source: TransferLocation = None
     target: TransferLocation = None
     currency: str = None
     amount: str = None
 
+
 @dataclass
 class FutureProductDetails:
+    """
+    FutureProductDetails contains details specific to futures products
+
+    Attributes:
+        contract_code: Contract code identifier
+        contract_size: Contract size
+        contract_expiry: Contract expiry timestamp
+        contract_root_unit: Contract root unit (underlying asset)
+        venue: The venue this product trades on
+        group_description: Descriptive name for the product group
+        contract_expiry_timezone: IANA time zone for contract expiration
+        group_short_description: Short version of the group description
+    """
+
     contract_code: str = None
     contract_size: str = None
     contract_expiry: str = None
@@ -1168,53 +2601,93 @@ class FutureProductDetails:
     group_short_description: str = None
     perpetual_details: PerpetualProductDetails = None
 
+
 @dataclass
 class GetActivityResponse:
     activity: Activity = None
+
 
 @dataclass
 class GetAllocationResponse:
     allocation: Allocation = None
 
+
 @dataclass
 class GetAllocationsByClientNettingIdResponse:
     allocations: list[Allocation] = None
+
 
 @dataclass
 class GetCrossMarginOverviewResponse:
     overview: CrossMarginOverview = None
 
+
 @dataclass
 class GetCrossMarginPrimeOverviewResponse:
+    """
+    Attributes:
+        evaluated_at: When margin metrics were evaluated.
+    """
+
     control_status: str = None
     margin_level: str = None
     evaluated_at: str = None
     margin_summary: CrossMarginPrimeMarginSummary = None
+
 
 @dataclass
 class GetEntityActivitiesResponse:
     activities: list[Activity] = None
     pagination: PaginatedResponse = None
 
+
 @dataclass
 class GetEntityPaymentMethodDetailsResponse:
     details: PaymentMethodDetails = None
+
 
 @dataclass
 class GetEntityPaymentMethodsResponse:
     payment_methods: list[PaymentMethodSummary] = None
 
+
 @dataclass
 class GetEntityUsersResponse:
+    """
+    Attributes:
+        users: The entity users.
+    """
+
     users: list[EntityUser] = None
     pagination: PaginatedResponse = None
 
+
 @dataclass
 class GetFcmMarginCallDetailsResponse:
+    """
+    Attributes:
+        margin_calls: List of margin calls
+    """
+
     margin_calls: list[FCMMarginCall] = None
+
 
 @dataclass
 class GetFcmRiskLimitsResponse:
+    """
+    Attributes:
+        cfm_risk_limit: Risk Limit set for a client
+        cfm_risk_limit_utilization: Limit utilization calculated based on total margin and
+            PnLs
+        cfm_total_margin: The total margin required for both positions and open orders
+        cfm_delta_ote: Open Trade Equity accrued during the current trading session
+        cfm_unsettled_realized_pnl: Unsettled realized PNL for positions closed intraday
+        cfm_unsettled_accrued_funding_pnl: Unsettled accrued funding PNL from the last
+            settlement
+        margin_utilization_percent: Margin utilization as a decimal percentage between 0 and
+            1 (e.g. 0.5 means 50%)
+    """
+
     cfm_risk_limit: str = None
     cfm_risk_limit_utilization: str = None
     cfm_total_margin: str = None
@@ -1224,123 +2697,219 @@ class GetFcmRiskLimitsResponse:
     margin_utilization_percent: str = None
     margin_health_state: str = None
 
+
 @dataclass
 class GetFuturesSweepsResponse:
     sweeps: list[FcmFuturesSweep] = None
     auto_sweep: bool = None
+
 
 @dataclass
 class GetInterestAccrualsResponse:
     total_notional_accrual: str = None
     accruals: list[Accrual] = None
 
+
 @dataclass
 class GetInvoicesResponse:
     invoices: list[Invoice] = None
+
 
 @dataclass
 class GetMarginInformationResponse:
     margin_information: MarginInformation = None
 
+
 @dataclass
 class GetMarginSummariesResponse:
     margin_summaries: list[MarginSummaryHistorical] = None
 
+
 @dataclass
 class GetMarketDataResponse:
+    """
+    Attributes:
+        market_data: List of market data entries
+    """
+
     market_data: list[MarketData] = None
     pagination: PaginatedResponse = None
 
+
 @dataclass
 class GetOpenOrdersResponse:
+    """
+    Attributes:
+        orders: Requested orders
+    """
+
     orders: list[Order] = None
     pagination: PaginatedResponse = None
 
+
 @dataclass
 class GetOrderFillsResponse:
+    """
+    Attributes:
+        fills: Fills associated with the order
+    """
+
     fills: list[Fill] = None
     pagination: PaginatedResponse = None
+
 
 @dataclass
 class GetOrderResponse:
     order: Order = None
 
+
 @dataclass
 class GetOrdersResponse:
+    """
+    Attributes:
+        orders: List of orders
+    """
+
     orders: list[Order] = None
     pagination: PaginatedResponse = None
+
 
 @dataclass
 class GetPortfolioActivitiesResponse:
     activities: list[Activity] = None
     pagination: PaginatedResponse = None
 
+
 @dataclass
 class GetPortfolioActivityResponse:
     activity: Activity = None
 
+
 @dataclass
 class GetPortfolioAddressBookResponse:
+    """
+    Attributes:
+        addresses: List of addresses added to Address Book
+    """
+
     addresses: list[AddressBookEntry] = None
     pagination: PaginatedResponse = None
 
+
 @dataclass
 class GetPortfolioAllocationsResponse:
+    """
+    Attributes:
+        allocations: List of allocations.
+    """
+
     allocations: list[Allocation] = None
     pagination: PaginatedResponse = None
 
+
 @dataclass
 class GetPortfolioBalancesResponse:
+    """
+    Attributes:
+        balances: A list of balances.
+    """
+
     balances: list[Balance] = None
     type: str = None
     trading_balances: AggregatedFiatBalance = None
     vault_balances: AggregatedFiatBalance = None
     prime_custody_balances: AggregatedFiatBalance = None
 
+
 @dataclass
 class GetPortfolioFillsResponse:
+    """
+    Attributes:
+        fills: Fills associated with the portfolio
+    """
+
     fills: list[Fill] = None
     pagination: PaginatedResponse = None
+
 
 @dataclass
 class GetPortfolioInterestAccrualsResponse:
     total_notional_accrual: str = None
     accruals: list[Accrual] = None
 
+
 @dataclass
 class GetPortfolioProductsResponse:
     products: list[Product] = None
     pagination: PaginatedResponse = None
+
 
 @dataclass
 class GetPortfolioTransactionsResponse:
     transactions: list[Transaction] = None
     pagination: PaginatedResponse = None
 
+
 @dataclass
 class GetPortfolioUsersResponse:
+    """
+    Attributes:
+        users: The portfolio users.
+    """
+
     users: list[PortfolioUser] = None
     pagination: PaginatedResponse = None
 
+
 @dataclass
 class GetPositionsResponse:
+    """
+    Attributes:
+        clearing_account_id: Clearing account ID
+    """
+
     positions: list[FcmPosition] = None
     clearing_account_id: str = None
 
+
 @dataclass
 class GetStakingStatusResponse:
+    """
+    Attributes:
+        portfolio_id: The portfolio ID
+        wallet_id: The wallet ID
+        wallet_address: The wallet address
+        current_timestamp: Current timestamp at time of API call
+        validators: List of validators with staking information for this wallet
+    """
+
     portfolio_id: str = None
     wallet_id: str = None
     wallet_address: str = None
     current_timestamp: str = None
     validators: list[ValidatorStakingInfo] = None
 
+
 @dataclass
 class GetTransactionResponse:
     transaction: Transaction = None
 
+
 @dataclass
 class GetTransactionTravelRuleDataResponse:
+    """
+    Response containing fulfilled travel rule data for a transaction
+
+    Attributes:
+        fulfilled: Whether data requirements are fulfilled
+        is_self: Whether the transfer is to/from a self-owned wallet
+        amount: The crypto amount of the transaction (e.g. "1.23 BTC")
+        amount_currency: The currency of the crypto amount
+        fiat_amount: The fiat amount of the transaction (e.g. "123.45 USD")
+        fiat_amount_currency: The currency of the fiat amount
+        blockchain_network: The blockchain network for the transaction
+    """
+
     fulfilled: bool = None
     is_self: bool = None
     originator: TravelRuleParty = None
@@ -1351,39 +2920,63 @@ class GetTransactionTravelRuleDataResponse:
     fiat_amount_currency: str = None
     blockchain_network: str = None
 
+
 @dataclass
 class GetUnstakingStatusResponse:
+    """
+    Attributes:
+        portfolio_id: The portfolio ID
+        wallet_id: The wallet ID
+        wallet_address: The wallet address
+        current_timestamp: Current timestamp at time of API call
+        validators: List of validators with unstaking information for this wallet
+    """
+
     portfolio_id: str = None
     wallet_id: str = None
     wallet_address: str = None
     current_timestamp: str = None
     validators: list[ValidatorUnstakingInfo] = None
 
+
 @dataclass
 class GetWalletDepositInstructionsResponse:
     crypto_instructions: CryptoInstructions = None
     fiat_instructions: FiatInstructions = None
 
+
 @dataclass
 class GetWalletResponse:
     wallet: Wallet = None
+
 
 @dataclass
 class GetWalletTransactionsResponse:
     transactions: list[Transaction] = None
     pagination: PaginatedResponse = None
 
+
 @dataclass
 class GetWalletsResponse:
     wallets: list[Wallet] = None
     pagination: PaginatedResponse = None
 
+
 @dataclass
 class GetXMLiquidationResponse:
+    """
+    GetXMLiquidationResponse contains detailed information about an XM liquidation
+    """
+
     liquidation: XMLiquidationDetail = None
+
 
 @dataclass
 class Invoice:
+    """
+    Invoice
+    """
+
     id: str = None
     billing_month: int = None
     billing_year: int = None
@@ -1394,8 +2987,13 @@ class Invoice:
     usd_amount_owed: float = None
     invoice_items: list[InvoiceItem] = None
 
+
 @dataclass
 class InvoiceItem:
+    """
+    Invoice item
+    """
+
     description: str = None
     currency_symbol: str = None
     invoice_type: str = None
@@ -1405,67 +3003,173 @@ class InvoiceItem:
     average_auc: float = None
     total: float = None
 
+
 @dataclass
 class ListAdvancedTransferTransactionsResponse:
+    """
+    ListAdvancedTransferTransactionsResponse contains the transactions associated with an advanced transfer.
+
+    Attributes:
+        transactions: The transactions associated with an Advanced Transfer
+    """
+
     transactions: list[Transaction] = None
+
 
 @dataclass
 class ListAdvancedTransfersResponse:
+    """
+    ListAdvancedTransfersResponse contains the list of advanced transfers and pagination info.
+    """
+
     advanced_transfers: list[AdvancedTransfer] = None
     pagination: PaginatedResponse = None
+
 
 @dataclass
 class ListAggregateEntityPositionsResponse:
     positions: list[Position] = None
     pagination: PaginatedResponse = None
 
+
 @dataclass
 class ListEntityBalancesResponse:
     balances: list[EntityBalance] = None
     pagination: PaginatedResponse = None
+
 
 @dataclass
 class ListEntityPositionsResponse:
     positions: list[Position] = None
     pagination: PaginatedResponse = None
 
+
 @dataclass
 class ListOnchainAddressGroupsResponse:
     address_groups: list[AddressGroup] = None
 
+
 @dataclass
 class ListTransactionValidatorsResponse:
+    """
+    Attributes:
+        transaction_validators: List of transaction-to-validator associations. Each entry
+            represents one transaction staking to one validator.
+    """
+
     transaction_validators: list[TransactionValidator] = None
     pagination: PaginatedResponse = None
 
+
 @dataclass
 class ListWalletAddressesResponse:
+    """
+    Attributes:
+        addresses: Addresses
+    """
+
     addresses: list[BlockchainAddress] = None
     pagination: PaginatedResponse = None
 
+
 @dataclass
 class ListWeb3WalletBalancesResponse:
+    """
+    Attributes:
+        balances: List of balances in the onchain wallet
+        defi_balances: DeFi balances only return for the initial request. No pagination
+            support.
+    """
+
     balances: list[Web3Balance] = None
     pagination: PaginatedResponse = None
     defi_balances: list[DefiBalance] = None
 
+
 @dataclass
 class ListXMLiquidationsResponse:
+    """
+    ListXMLiquidationsResponse contains a paginated list of XM liquidation summaries
+
+    Attributes:
+        liquidations: List of XM liquidation summaries
+    """
+
     liquidations: list[XMLiquidationSummary] = None
     pagination: PaginatedResponse = None
 
+
 @dataclass
 class MarginAddOn:
+    """
+    Attributes:
+        amount: margin add on amount
+    """
+
     amount: str = None
     add_on_type: str = None
 
+
 @dataclass
 class MarginInformation:
+    """
+    Attributes:
+        margin_call_records: The current margin call records
+    """
+
     margin_call_records: list[MarginCallRecord] = None
     margin_summary: MarginSummary = None
 
+
 @dataclass
 class MarginSummary:
+    """
+    Attributes:
+        entity_id: The unique ID of the entity
+        margin_equity: The margin equity at the entity level. Margin Equity = LMV + SMV +
+            Trading Cash Balance + Short Collateral - Pending Withdrawals
+        margin_requirement: USD notional value of required equity in entity portfolios
+        excess_deficit: margin_equity - margin_requirement
+        pm_credit_consumed: The raw amount of portfolio margin credit used
+        tf_credit_limit: The maximum trade finance credit limit. This field is deprecated
+            and will be removed in the future.
+        tf_credit_consumed: The amount of trade finance credit used (USD). This field is
+            deprecated and will be removed in the future.
+        tf_adjusted_asset_value: TF Asset Adjusted Value (USD). This field is deprecated and
+            will be removed in the future.
+        tf_adjusted_liability_value: TF Adjusted Liability Value (USD). This field is
+            deprecated and will be removed in the future.
+        tf_adjusted_credit_consumed: The amount of adjusted credit used. This field is
+            deprecated and will be removed in the future.
+        tf_adjusted_equity: The amount of adjusted equity. This field is deprecated and will
+            be removed in the future.
+        frozen: Whether or not a entity is frozen due to balance outstanding or other reason
+        frozen_reason: The reason why a entity is frozen
+        tf_enabled: Whether TF is enabled for the entity. This field is deprecated and will
+            be removed in the future.
+        pm_enabled: Whether PM is enabled for the entity
+        market_rates: Market rates for the list of assets
+        asset_balances: Asset Balances across portfolios
+        tf_loans: Trade finance debit loan amounts. This field is deprecated and will be
+            removed in the future.
+        pm_loans: Portfolio Margin debit loan amounts
+        short_collateral: Short collateral amounts
+        gross_market_value: Gross market value (GMV) = LMV + Abs (SMV)
+        net_market_value: Net Market Value (NMV) = LMV + SMV
+        long_market_value: Long Market Value (LMV) = Sum of positive notional for all assets
+        non_marginable_long_market_value: Non_Marginable LMV: Sum of positive notional for
+            each non-margin eligible coin
+        short_market_value: Short Market Value (SMV) = Sum of negative notional for each
+            margin eligible coin
+        gross_leverage: Gross Leverage = GMV / Margin Requirement
+        net_exposure: Net Exposure = (LMV + SMV) / GMV
+        pm_asset_info: PM asset info netted across the entity
+        pm_credit_limit: PM limit that monitors gross notional borrowings (crypto + fiat)
+        pm_margin_limit: PM limit that monitors excess deficit
+        pm_margin_consumed: The amount of the margin limit that is consumed by the excess
+            deficit
+    """
+
     entity_id: str = None
     margin_equity: str = None
     margin_requirement: str = None
@@ -1499,14 +3203,35 @@ class MarginSummary:
     pm_margin_limit: str = None
     pm_margin_consumed: str = None
 
+
 @dataclass
 class MarginSummaryHistorical:
+    """
+    Attributes:
+        conversion_datetime: The UTC date time used for conversion
+        conversion_date: The date used for conversion
+    """
+
     conversion_datetime: str = None
     conversion_date: str = None
     margin_summary: MarginSummary = None
 
+
 @dataclass
 class OnchainTransactionDetails:
+    """
+    Attributes:
+        signed_transaction: The signed transaction data
+        chain_id: The blockchain network chain ID. Will be empty for Solana transactions.
+        nonce: The transaction nonce. Only present for EVM-based blockchain transactions.
+        replaced_transaction_id: The ID of the transaction that this transaction replaced
+        destination_address: The destination address for the transaction
+        skip_broadcast: If set to true, the transaction will not be broadcast to the
+            network. You can still retrieve the signed transaction from the GetTransaction
+            endpoint by transaction ID once the transaction is created.
+        failure_reason: Reason for transaction failure if applicable
+    """
+
     signed_transaction: str = None
     risk_assessment: RiskAssessment = None
     chain_id: str = None
@@ -1517,8 +3242,66 @@ class OnchainTransactionDetails:
     failure_reason: str = None
     signing_status: str = None
 
+
 @dataclass
 class Order:
+    """
+    Attributes:
+        id: The unique order ID generated by Coinbase
+        user_id: The ID of the user that created the order
+        portfolio_id: The ID of the portfolio that owns the order
+        product_id: The ID of the product being traded by the order
+        client_order_id: A client-generated order ID used for reference purposes (note:
+            order will be rejected if this ID is not unique among all currently active
+            orders)
+        base_quantity: Order size in base asset units (either `base_quantity` or
+            `quote_value` is required)
+        quote_value: Order size in quote asset units, i.e. the amount the user wants to
+            spend (when buying) or receive (when selling); the quantity in base units will
+            be determined based on the market liquidity and indicated `quote_value`. Either
+            `base_quantity` or `quote_value` is required
+        limit_price: The limit price (required for TWAP, VWAP, LIMIT and STOP_LIMIT orders)
+        start_time: The start time of the order in UTC (only applies to TWAP, VWAP orders.)
+        expiry_time: The expiry time of the order in UTC (applies to TWAP, VWAP, LIMIT, and
+            STOP_LIMIT orders with `time_in_force` set to `GTD`)
+        created_at: The order creation time as a UTC timestamp
+        filled_quantity: Size filled (in base asset units)
+        filled_value: Market value filled (in quote asset units)
+        average_filled_price: Indicates the average `filled_price`
+        commission: Total commission paid on this order (in quote asset units) -- only
+            applicable for partially- or fully-filled orders
+        exchange_fee: Fee charged by the exchange for Cost Plus commission configurations.
+            Exchange fee will be 0 for All In commission configurations.
+        historical_pov: historical pov for the order
+        stop_price: Specifies the stop price at which the order activates. The order is
+            activated if the last trade price on Coinbase Exchange crosses the stop price
+            specified on the order
+        net_average_filled_price: Indicates the average `filled_price` net of commissions
+            and fees
+        user_context: Indicates a user friendly message for regarding various aspects of the
+            order such as cancellation or rejection reasons
+        client_product_id: The client product ID of the fill indictating the settlment
+            currency
+        post_only: Post-only flag - indicates whether the order was placed as post-only
+        order_edit_history: The history of order edits (deprecated: use edit_history
+            instead)
+        is_raise_exact: Indicates if this was a raise exact order (size inclusive of fees
+            for sell orders in quote)
+        display_size: Display size for the order
+        display_quote_size: The maximum order size that will show up on venue order books
+            (in quote currency).
+        display_base_size: The maximum order size that will show up on venue order books (in
+            base currency).
+        edit_history: The history of order edits
+        peg_offset_type: The peg offset type for PEG orders (PRICE, BASIS_POINTS, or
+            CUMULATIVE_DEPTH_IN_BASE_UNITS)
+        offset: The offset value for PEG orders
+        wig_level: The wig (would if good) level for PEG orders - best price opposite to
+            limit_price
+        is_buy_exact: Indicates if this was a buy exact order (fees charged on top of quote
+            size for BUY orders sized in quote)
+    """
+
     id: str = None
     user_id: str = None
     portfolio_id: str = None
@@ -1558,11 +3341,20 @@ class Order:
     commission_detail_total: CommissionDetailTotal = None
     is_buy_exact: bool = None
 
+
 @dataclass
 class PaginatedResponse:
+    """
+    Attributes:
+        next_cursor: Cursor to navigate to next page
+        has_next: A boolean value indicating whether there are more items to paginate
+            through
+    """
+
     next_cursor: str = None
     sort_direction: str = None
     has_next: bool = None
+
 
 @dataclass
 class PaymentMethodDetails:
@@ -1575,6 +3367,7 @@ class PaymentMethodDetails:
     name: str = None
     bank_code: str = None
 
+
 @dataclass
 class PaymentMethodSummary:
     id: str = None
@@ -1584,8 +3377,21 @@ class PaymentMethodSummary:
     account_number: str = None
     bank_name_2: str = None
 
+
 @dataclass
 class PortfolioUser:
+    """
+    Attributes:
+        id: The unique ID of the user.
+        name: The name of the user.
+        email: The email of the user.
+        portfolio_id: The portfolio to which this user and associated permissions are
+            identified.
+        entity_id: The entity to which this user and associated permissions are identified.
+        roles: All primary roles assigned to the user.
+        secondary_permissions: All secondary permissions assigned to the user.
+    """
+
     id: str = None
     name: str = None
     email: str = None
@@ -1595,20 +3401,70 @@ class PortfolioUser:
     roles: list[str] = None
     secondary_permissions: list[str] = None
 
+
 @dataclass
 class Position:
+    """
+    Attributes:
+        symbol: Asset symbol
+        long: The long position based on 'reference' value
+        short: The short position based on 'reference' value
+    """
+
     symbol: str = None
     long: str = None
     short: str = None
     position_reference: Reference = None
 
+
 @dataclass
 class PositionReference:
+    """
+    Attributes:
+        id: Reference ID
+    """
+
     id: str = None
     type: str = None
 
+
 @dataclass
 class PostOrderPreviewResponse:
+    """
+    Attributes:
+        portfolio_id: The ID of the portfolio that owns the order
+        product_id: The ID of the product being traded by the order
+        base_quantity: Order size in base asset units (either `base_quantity` or
+            `quote_value` is required)
+        quote_value: Order size in quote asset units, i.e. the amount the user wants to
+            spend (when buying) or receive (when selling); the quantity in base units will
+            be determined based on the market liquidity and indicated `quote_value`. Either
+            `base_quantity` or `quote_value` is required
+        limit_price: The limit price (required for TWAP, VWAP, LIMIT, and STOP_LIMIT orders)
+        start_time: The start time of the order in UTC (only applies to TWAP orders.)
+        expiry_time: The expiry time of the order in UTC (TWAP, VWAP, LIMIT and STOP_LIMIT
+            GTD only). Required for TWAP and VWAP orders if historical_pov is unspecified
+        commission: Indicate the total commission paid on this order in quote currency -
+            only applicable if the order has any fills
+        slippage: How much slippage is expected
+        best_bid: Current best bid for order book
+        best_ask: Current best ask for order book
+        average_filled_price: Indicate expected average filled price based on the current
+            order book
+        order_total: Order quantity + fees
+        historical_pov: The estimated participation rate for a TWAP/VWAP order. This field
+            can be specified instead of expiry time, and will be used to compute the expiry
+            time of the order based on historical participation rate.
+        is_raise_exact: Raise Exact order flag
+        stop_price: Stop price for the order
+        display_size: The maximum order size that will show up on venue order books.
+        display_quote_size: The maximum order size that will show up on venue order books
+            (in quote currency).
+        display_base_size: The maximum order size that will show up on venue order books (in
+            base currency).
+        is_buy_exact: Buy Exact order flag
+    """
+
     portfolio_id: str = None
     product_id: str = None
     side: str = None
@@ -1633,13 +3489,24 @@ class PostOrderPreviewResponse:
     display_base_size: str = None
     is_buy_exact: bool = None
 
+
 @dataclass
 class PrimeXMMarginCallThresholds:
+    """
+    Attributes:
+        deficit_threshold: Deficit threshold (DT).
+        warning_threshold: Warning threshold (WT).
+        critical_threshold: Urgent margin call threshold (UMCT).
+        liquidation_threshold: Liquidation threshold (LT).
+        margin_thresholds: Structured margin thresholds by margin level.
+    """
+
     deficit_threshold: str = None
     warning_threshold: str = None
     critical_threshold: str = None
     liquidation_threshold: str = None
     margin_thresholds: list[PrimeXMMarginThreshold] = None
+
 
 @dataclass
 class PrimeXMMarginThreshold:
@@ -1647,12 +3514,37 @@ class PrimeXMMarginThreshold:
     threshold_type: str = None
     threshold_value: str = None
 
+
 @dataclass
 class ProcessRequirements:
+    """
+    Represents the status of various process requirements for a transaction
+    """
+
     travel_rule_status: str = None
+
 
 @dataclass
 class Product:
+    """
+    Attributes:
+        id: The product ID, written as `BASE-QUOTE`
+        base_increment: The smallest permitted unit of denomination for the base asset
+            (varies by product)
+        quote_increment: The smallest permitted unit of denomination for the quote asset
+            (varies by product)
+        base_min_size: The minimum size (in base asset units) for which an order can be
+            placed
+        quote_min_size: The minimum size (in quote asset units) for which an order can be
+            placed
+        base_max_size: The maximum size (in base asset units) for which an order can be
+            placed
+        quote_max_size: The maximum size (in quote asset units) for which an order can be
+            placed
+        permissions: Permissions given to the user for a product
+        price_increment: The smallest permitted price increment for the product
+    """
+
     id: str = None
     base_increment: str = None
     quote_increment: str = None
@@ -1667,21 +3559,55 @@ class Product:
     fcm_trading_session_details: FcmTradingSessionDetails = None
     future_product_details: FutureProductDetails = None
 
+
 @dataclass
 class RewardMetadata:
     subtype: str = None
     custom_stablecoin_reward_details: CustomStablecoinRewardDetails = None
 
+
 @dataclass
 class StakingStatus:
+    """
+    Attributes:
+        amount: Amount being staked (whole amount, e.g., 16 ETH)
+        estimated_stake_date: Estimated date when staking will complete (ISO 8601 format)
+        estimated_hours_to_stake: Estimated hours until this staking request completes
+        requested_at: Timestamp when the stake request was originally created
+    """
+
     amount: str = None
     stake_type: str = None
     estimated_stake_date: str = None
     estimated_hours_to_stake: str = None
     requested_at: str = None
 
+
 @dataclass
 class Transaction:
+    """
+    Attributes:
+        id: The ID of the transaction
+        wallet_id: The wallet ID of the transaction
+        portfolio_id: The portfolio ID of the transaction
+        symbol: The asset symbol
+        created_at: The transaction creation time (as a UTC timestamp)
+        completed_at: The transaction completion time (as a UTC timestamp)
+        amount: The transaction amount in whole units
+        network_fees: The blockchain network fees (in whole units) required in order to
+            broadcast the transaction
+        fees: The fees that the customer paid for the transaction (in whole units)
+        fee_symbol: The asset in which fees will be paid
+        blockchain_ids: The cryptocurrency network transaction hashes/IDs generated upon
+            broadcast
+        transaction_id: The 8 character alphanumeric short form id for the transaction
+        destination_symbol: The destination asset symbol
+        network: The network name specific to web3/onchain wallet transactions
+        estimated_asset_changes: The estimated asset changes (web3)
+        idempotency_key: The idempotency key associated with the transaction creation
+            request
+    """
+
     id: str = None
     wallet_id: str = None
     portfolio_id: str = None
@@ -1708,27 +3634,59 @@ class Transaction:
     network_info: Network = None
     process_requirements: ProcessRequirements = None
 
+
 @dataclass
 class TransactionMetadata:
     match_metadata: MatchMetadata = None
     web3_transaction_metadata: Web3TransactionMetadata = None
     reward_metadata: RewardMetadata = None
 
+
 @dataclass
 class TransactionValidator:
+    """
+    Attributes:
+        transaction_id: The ID of the transaction which staked to this validator
+        validator_address: The address (public key) of the validator
+    """
+
     transaction_id: str = None
     validator_address: str = None
     validator_status: str = None
 
+
 @dataclass
 class TransferLocation:
+    """
+    Attributes:
+        value: The value of the transfer location: payment method ID, wallet ID or crypto
+            address
+        address: The crypto address of the transfer location
+        account_identifier: The tag/memo of the address, if applicable -- required for
+            certain assets (e.g. XRP, XLM, etc.)
+    """
+
     type: str = None
     value: str = None
     address: str = None
     account_identifier: str = None
 
+
 @dataclass
 class TravelRuleData:
+    """
+    Data object used for withdrawals.
+
+    Attributes:
+        is_self: True if user owns the counterparty address (self-transfer)
+        is_intermediary: True if Coinbase is being used as an intermediary for a customer
+            transfer.
+        opt_out_of_ownership_verification: True to skip wallet ownership verification
+        attest_verified_wallet_ownership: Whether the originating VASP attests to verified
+            wallet ownership. When true with is_intermediary, enables automatic VASP data
+            enrichment from the legal entity.
+    """
+
     beneficiary: TravelRuleParty = None
     originator: TravelRuleParty = None
     is_self: bool = None
@@ -1736,8 +3694,24 @@ class TravelRuleData:
     opt_out_of_ownership_verification: bool = None
     attest_verified_wallet_ownership: bool = None
 
+
 @dataclass
 class TravelRuleParty:
+    """
+    Represents a party in a travel rule transfer (originator or beneficiary).
+
+    Attributes:
+        name: Legal name (for entities or simple name format)
+        vasp_id: VASP identifier when wallet_type is VASP
+        vasp_name: VASP name fallback when vasp_id is unknown
+        personal_id: Personal identifier for travel rule compliance. For individuals:
+            passport number, national ID, driver's license. For institutions: LEI (Legal
+            Entity Identifier).
+        telephone_number: Telephone number for contact purposes.
+        account_id: Account identifier for travel rule compliance. If not provided, defaults
+            to portfolio ID.
+    """
+
     name: str = None
     natural_person_name: NaturalPersonName = None
     address: DetailedAddress = None
@@ -1750,8 +3724,19 @@ class TravelRuleParty:
     account_id: str = None
     vasp_address: DetailedAddress = None
 
+
 @dataclass
 class UnstakingStatus:
+    """
+    Attributes:
+        amount: Amount being unstaked (whole amount, e.g., 16 ETH)
+        finishing_at: Estimated date when unstaking will complete (ISO 8601 format)
+        remaining_hours: Estimated hours until this unstaking request completes
+        requested_at: Timestamp when the unstake request was originally created
+        estimate_description: Detailed explanation of the estimate status for display to
+            users.
+    """
+
     amount: str = None
     unstake_type: str = None
     finishing_at: str = None
@@ -1760,24 +3745,55 @@ class UnstakingStatus:
     estimate_type: str = None
     estimate_description: str = None
 
+
 @dataclass
 class UserAction:
+    """
+    Attributes:
+        user_id: Id of the user who executed the action
+        timestamp: Time the action was taken
+    """
+
     action: str = None
     user_id: str = None
     timestamp: str = None
 
+
 @dataclass
 class ValidatorStakingInfo:
+    """
+    Attributes:
+        validator_address: The validator address (public key)
+        statuses: List of active staking requests for this validator
+    """
+
     validator_address: str = None
     statuses: list[StakingStatus] = None
 
+
 @dataclass
 class ValidatorUnstakingInfo:
+    """
+    Attributes:
+        validator_address: The validator address (public key)
+        statuses: List of active unstaking requests for this validator
+    """
+
     validator_address: str = None
     statuses: list[UnstakingStatus] = None
 
+
 @dataclass
 class Wallet:
+    """
+    Attributes:
+        id: The unique UUID for the wallet
+        name: The name of the wallet
+        symbol: The asset stored in the wallet
+        created_at: The UTC timestamp when this wallet was created
+        address: The active address of the wallet
+    """
+
     id: str = None
     name: str = None
     symbol: str = None
@@ -1787,8 +3803,21 @@ class Wallet:
     visibility: str = None
     network: Network = None
 
+
 @dataclass
 class WalletCryptoDepositInstructions:
+    """
+    Attributes:
+        id: The ID of the wallet
+        name: The name of the wallet
+        address: The address of the wallet
+        account_identifier: The tag/memo of the address, if applicable -- required for
+            certain assets (e.g. XRP, XLM, etc.)
+        account_identifier_name: The blockchain network's terminology for the unique
+            identifier used to identify the receiver of the transaction (different
+            blockchain networks use different names, such as `destination_tag` or `memo`)
+    """
+
     id: str = None
     name: str = None
     type: str = None
@@ -1797,8 +3826,18 @@ class WalletCryptoDepositInstructions:
     account_identifier_name: str = None
     network: Network = None
 
+
 @dataclass
 class WalletFiatDepositInstructions:
+    """
+    Attributes:
+        id: The id of the wallet
+        name: The name of the wallet
+        account_number: The fiat account number
+        routing_number: The fiat routing number
+        reference_code: Reference code to be used as a memo/description
+    """
+
     id: str = None
     name: str = None
     type: str = None
@@ -1806,19 +3845,47 @@ class WalletFiatDepositInstructions:
     routing_number: str = None
     reference_code: str = None
 
+
 @dataclass
 class Web3Balance:
+    """
+    Attributes:
+        amount: The total amount in whole units with full precision.
+    """
+
     asset: Asset = None
     amount: str = None
     visibility_status: str = None
 
+
 @dataclass
 class Web3TransactionMetadata:
+    """
+    Attributes:
+        label: The transaction type label of the confirmed transaction post settlement
+        confirmed_asset_changes: The confirmed asset changes (onchain)
+    """
+
     label: str = None
     confirmed_asset_changes: list[AssetChange] = None
 
+
 @dataclass
 class XMLiquidationDetail:
+    """
+    XMLiquidationDetail provides detailed information about a single XM liquidation
+
+    Attributes:
+        liquidation_id: Financing liquidation UUID
+        shortfall_amount: USD notional shortfall amount that triggered the liquidation
+        pre_liquidation_start_time: Timestamp when the pre-liquidation phase started
+        liquidation_start_time: Timestamp when active liquidation started
+        filled_amount: USD notional amount that has been filled so far
+        remaining_amount: USD notional amount remaining to be liquidated
+        liquidation_finish_time: Timestamp when the liquidation finished
+        asset_breakdown: Per-asset breakdown of liquidated amounts
+    """
+
     liquidation_id: str = None
     status: str = None
     shortfall_amount: str = None
@@ -1830,8 +3897,21 @@ class XMLiquidationDetail:
     liquidation_finish_time: str = None
     asset_breakdown: list[XMLiquidatedAsset] = None
 
+
 @dataclass
 class XMLiquidationSummary:
+    """
+    XMLiquidationSummary provides a summary of a single XM liquidation
+
+    Attributes:
+        liquidation_id: Financing liquidation UUID
+        shortfall_amount: USD notional shortfall amount that triggered the liquidation
+        filled_amount: USD notional amount that has been filled so far
+        remaining_amount: USD notional amount remaining to be liquidated
+        created_at: Timestamp when the liquidation was created
+        completed_at: Timestamp when the liquidation was completed
+    """
+
     liquidation_id: str = None
     status: str = None
     shortfall_amount: str = None
@@ -1840,8 +3920,22 @@ class XMLiquidationSummary:
     created_at: str = None
     completed_at: str = None
 
+
 @dataclass
 class XMLoan:
+    """
+    XMLoan contains details about a Cross Margin loan
+
+    Attributes:
+        loan_id: Financing loan UUID
+        principal_currency: Loan principal currency
+        principal_currency_market_price: Loan principal currency market price
+        initial_principal_amount: Principal amount (nominal) as of loan initiation
+        outstanding_principal_amount: Current outstanding amount (nominal)
+        created_at: Timestamp when the loan was created / initiated
+        updated_at: Timestamp when the loan was last updated
+    """
+
     loan_id: str = None
     loan_party: str = None
     principal_currency: str = None
@@ -1851,8 +3945,22 @@ class XMLoan:
     created_at: str = None
     updated_at: str = None
 
+
 @dataclass
 class XMMarginCall:
+    """
+    XMMarginCall contains details about a margin call in Cross Margin
+
+    Attributes:
+        margin_call_id: Financing margin call UUID
+        currency: Margin call currency
+        initial_notional_amount: Call amount (notional) as of the margin call creation
+        outstanding_notional_amount: Current outstanding call amount (notional)
+        due_at: Timestamp when the margin call settlement is due
+        created_at: Timestamp when the margin call was created
+        updated_at: Timestamp when the margin call was last updated
+    """
+
     margin_call_id: str = None
     currency: str = None
     initial_notional_amount: str = None
@@ -1865,8 +3973,36 @@ class XMMarginCall:
     created_at: str = None
     updated_at: str = None
 
+
 @dataclass
 class XMRiskNettingInfo:
+    """
+    Attributes:
+        dco_margin_requirement: Derivatives Clearing Organization Margin Requirement (DMR)
+            is the margin requirement for all futures positions, derived from the
+            Derivatives Clearing Organization model
+        portfolio_margin_requirement: Portfolio Margin Requirement (PMR) is the margin
+            requirement for all spot positions, derived from the XM model
+        integrated_portfolio_margin_requirement: Integrated Portfolio Margin Requirement
+            (IPMR) is the margin requirement for all spot positions + futures positions with
+            underlying assets eligible in Portfolio Margin, via the XM model with one-leg
+            netting
+        ineligible_futures_margin_requirement: Ineligible Futures Margin Requirement (IFMR)
+            is the margin requirement for IPMR-ineligible futures contracts
+        position_margin_requirement: Position margin requirement for all spot positions
+        portfolio_margin_addon: Portfolio margin addon for all spot positions
+        integrated_position_margin_requirement: Position margin requirement for spot +
+            futures positions
+        integrated_portfolio_margin_addon: Portfolio margin addon for spot + futures
+            positions
+        netted_futures_notional: Post-netting USD notional for all futures positions
+        total_gmv_basis: Total basis gross market value of all XM-eligible positions (i.e.
+            crypto underliers)
+        ipm_cash_balance: Integrated Portfolio Margin cash balance
+        all_integrated_scenario_addons: All integrated scenario add-ons
+        xm_positions: Netted positions used in the model calculation
+    """
+
     dco_margin_requirement: str = None
     portfolio_margin_requirement: str = None
     integrated_portfolio_margin_requirement: str = None
@@ -1882,8 +4018,24 @@ class XMRiskNettingInfo:
     all_integrated_scenario_addons: list[MarginAddOn] = None
     xm_positions: list[XMPosition] = None
 
+
 @dataclass
 class XMSummary:
+    """
+    XMSummary is the realtime evaluated XM margin model, containing positions and netting info
+
+    Attributes:
+        margin_requirement: Cross Margin Margin Requirement (XMMR) notional
+        account_equity: Equity notional
+        margin_excess_shortfall: Equity - XMMR (margin excess is > 0)
+        consumed_credit: Credit consumed from Cross Margin Credit Limit (XMCL)
+        xm_credit_limit: XM Credit Limit (XMCL) is the maximum notional USD of total fiat
+            and digital asset loans
+        xm_margin_limit: XM Margin Limit (XMML) is the maximum notional USD deficit
+        spot_equity: Equity attributed by spot
+        futures_equity: Equity attributed by futures
+    """
+
     margin_requirement: str = None
     account_equity: str = None
     margin_excess_shortfall: str = None
@@ -1894,8 +4046,20 @@ class XMSummary:
     futures_equity: str = None
     risk_netting_info: RiskNettingInfo = None
 
+
 @dataclass
 class CreateNetAllocationRequest:
+    """
+    Attributes:
+        source_portfolio_id: The source portfolio id for the allocation
+        product_id: The product for the allocation
+        order_ids: The list of order ids in the allocation
+        allocation_legs: The list of allocation_legs for the allocation
+        remainder_destination_portfolio: The portfolio where to allocate the remainder of
+            the size
+        netting_id: The ID to identify an in-flight net allocation.
+    """
+
     source_portfolio_id: str = None
     product_id: str = None
     order_ids: list[str] = None
@@ -1903,6 +4067,7 @@ class CreateNetAllocationRequest:
     size_type: str = None
     remainder_destination_portfolio: str = None
     netting_id: str = None
+
 
 # Backward-compatible public aliases
 AccountMetadata = ActivityMetadataAccount

@@ -13,6 +13,7 @@ promote-titles:
 
 gen-models: promote-titles
 	cd apiSpec && python3 generate_models.py
+	ruff format prime_sdk/generated/models.py
 
 update-spec: fetch-spec gen-models
 
