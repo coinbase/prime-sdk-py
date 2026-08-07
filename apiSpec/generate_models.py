@@ -344,15 +344,37 @@ def collect_inline_fields(
     schemas: dict[str, Any],
     compat_types: dict[str, dict[str, str]],
 ) -> list[tuple[str, str]]:
+    renames = FIELD_RENAMES.get(class_short, {})
     fields: list[tuple[str, str]] = []
     for spec_name, prop in (schema.get("properties") or {}).items():
         if not isinstance(prop, dict):
             continue
+        public_name = renames.get(spec_name, spec_name)
         field_type = schema_property_type(
-            prop, schemas, class_short, spec_name, compat_types
+            prop, schemas, class_short, public_name, compat_types
         )
-        fields.append((spec_name, field_type))
+        fields.append((public_name, field_type))
     return fields
+
+
+def append_extra_operation_fields(
+    class_short: str,
+    fields: list[tuple[str, str]],
+    compat_types: dict[str, dict[str, str]],
+) -> list[tuple[str, str]]:
+    extra_fields = EXTRA_FIELDS.get(class_short)
+    if not extra_fields:
+        return fields
+    alias_targets = {v: k for k, v in CLASS_ALIASES.items()}
+    public_class = alias_targets.get(class_short, class_short)
+    existing = {name for name, _ in fields}
+    result = list(fields)
+    for extra_name, extra_type in extra_fields.items():
+        if extra_name in existing:
+            continue
+        pinned = compat_types.get(public_class, {}).get(extra_name, extra_type)
+        result.append((extra_name, pinned))
+    return result
 
 
 def collect_fields(
@@ -638,6 +660,7 @@ def generate_models() -> str:
                 operation, schemas, compat_types, class_short
             )
             field_locations = None
+        fields = append_extra_operation_fields(class_short, fields, compat_types)
         body_parts.append(
             render_class(
                 class_short,

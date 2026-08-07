@@ -40,9 +40,6 @@ class CreatePortfolioNetAllocationsRequest(BaseRequest, _CreateNetAllocationRequ
         netting_id: The ID to identify an in-flight net allocation.
     """
 
-    allocation_id: str
-    remainder_destination_portfolio_id: str
-
 
 @dataclass
 class CreatePortfolioNetAllocationsResponse(BaseResponse, _CreateNetAllocationResponse):

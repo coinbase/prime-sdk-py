@@ -5618,6 +5618,7 @@ class ListEntityPositionsRequest:
     """
 
     entity_id: str = None
+    product_id: str = None
 
 
 @dataclass(kw_only=True)

@@ -31,8 +31,6 @@ class GetEntityPositionsRequest(
         entity_id: The unique ID of the entity
     """
 
-    product_id: str | None = None
-
 
 @dataclass
 class GetEntityPositionsResponse(BaseResponse, _ListEntityPositionsResponse):

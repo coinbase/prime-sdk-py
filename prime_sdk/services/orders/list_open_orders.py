@@ -48,8 +48,6 @@ class ListOpenOrdersRequest(BasePaginatedRequest, _GetOpenOrdersRequest):
         end_date: An end date for the orders to be queried from
     """
 
-    order_statuses: str | None = None
-
 
 @dataclass
 class ListOpenOrdersResponse(BaseResponse, _GetOpenOrdersResponse):

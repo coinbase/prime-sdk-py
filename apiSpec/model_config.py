@@ -78,6 +78,9 @@ EXTRA_FIELDS: dict[str, dict[str, str]] = {
         "short": "str",
         "position_reference": "str",
     },
+    "ListEntityPositionsRequest": {
+        "product_id": "str",
+    },
     "PaymentMethodDetails": {
         "bank_name": "str",
         "bank_name_2": "str",

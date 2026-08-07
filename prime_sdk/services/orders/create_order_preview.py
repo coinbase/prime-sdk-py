@@ -59,9 +59,6 @@ class CreateOrderPreviewRequest(BaseRequest, _OrderPreviewRequest):
             products.
     """
 
-    stp_id: str | None = None
-    post_only: bool | None = None
-
 
 @dataclass
 class CreateOrderPreviewResponse(BaseResponse, _PostOrderPreviewResponse):
@@ -99,6 +96,3 @@ class CreateOrderPreviewResponse(BaseResponse, _PostOrderPreviewResponse):
             base currency).
         is_buy_exact: Buy Exact order flag
     """
-
-    settl_currency: str = None
-    post_only: bool = None

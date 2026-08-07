@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from datetime import datetime
 
 from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
@@ -78,9 +77,6 @@ class ListPortfolioTransactionsRequest(
         travel_rule_status: (Alpha) Filter for status of returned transactions' travel rule
             submissions - an inclusive OR filter
     """
-
-    start: datetime | None = None
-    end: datetime | None = None
 
 
 @dataclass

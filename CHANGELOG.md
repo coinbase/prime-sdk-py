@@ -6,12 +6,14 @@
 
 These responses previously used incorrect field names or shapes in the Python SDK. They now match the OpenAPI spec (and the live API). Update any code that reads the old attributes:
 
+
 - **`CreatePortfolioAllocationsResponse`** / **`CreatePortfolioNetAllocationsResponse`**: success/allocation fields are nested under `body` (e.g. `response.body.allocation_id` instead of `response.allocation_id`).
 - **`GetEntityLocateAvailabilitiesResponse`**: `locate_availability` renamed to `locates`.
 - **`GetOrderEditHistoryResponse`**: `edits` replaced by `order_id`, `edit_history`, and deprecated `order_edit_history`.
 - **`GetWalletDepositInstructionsResponse`**: removed top-level `instructions`; use `crypto_instructions` and `fiat_instructions` (`CryptoInstructions` / `FiatInstructions` models).
 - **`ListPortfolioBalancesRequest`** and **`ListEntityPaymentMethodsRequest`**: removed the `pagination` field. The OpenAPI spec does not document cursor pagination for these endpoints.
 - **Cursor+limit paginated requests** (`ListEntityBalancesRequest`, `ListWeb3WalletBalancesRequest`, `ListInvoicesRequest`, `ListAggregateEntityPositionsRequest`, `ListEntityPositionsRequest`, `ListWalletAddressesRequest`, and `GetEntityPositionsRequest`): `pagination` is now typed as `CursorLimitPaginationParams` (cursor and limit only) instead of `PaginationParams`, matching the spec.
+- **Legacy request field removals**: Removed invalid or duplicate manual fields from service `*Request` classes in favor of generated/spec-aligned names: `CreateOrderPreviewRequest` (`stp_id`, `post_only`), `CreatePortfolioAllocationsRequest` / `CreatePortfolioNetAllocationsRequest` (`remainder_destination_portfolio_id`; net create no longer accepts `allocation_id`), `ListOpenOrdersRequest` (`order_statuses`), and `ListPortfolioTransactionsRequest` / `ListWalletTransactionsRequest` (`start`/`end` — use `start_time`/`end_time`).
 
 ### Changed
 
@@ -23,6 +25,8 @@ These responses previously used incorrect field names or shapes in the Python SD
 - **Examples**: Wallet example scripts fall back to `PRIME_WALLET_ID` and `PRIME_ONCHAIN_WALLET_ID` when `--wallet-id` is omitted; see `.env.example` and README.
 - Service `*Request` classes now inherit SDK control fields (`allowed_status_codes`, `pagination`) from base mixins instead of declaring them per file. Pagination tier (full vs cursor+limit) is determined from the OpenAPI spec at generation time.
 - **`GetMarketDataRequest`** and **`ListXMLiquidationsRequest`**: replaced raw `cursor`/`limit`/`sort_direction` fields with the standard `pagination: PaginationParams` field.
+- **`ListPortfolioTransactionsRequest`** / **`ListWalletTransactionsRequest`**: transaction list services now send `start_time` and `end_time` query parameters per the OpenAPI spec (previously sent legacy `start`/`end`).
+- **`GetEntityPositionsRequest`**: `product_id` is now on the generated base model as an SDK extension for optional position filtering.
 
 ### Fixed
 

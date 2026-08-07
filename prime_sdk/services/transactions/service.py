@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from prime_sdk.client import Client
-from prime_sdk.utils import append_pagination_params, to_body_dict
+from prime_sdk.utils import append_pagination_params, append_query_param, to_body_dict
 
 from .create_conversion import CreateConversionRequest, CreateConversionResponse
 from .create_onchain_transaction import (
@@ -113,18 +113,10 @@ class TransactionsService:
                 if query_params
                 else f"types={request.types}"
             )
-        if request.start:
-            query_params = (
-                f"{query_params}&start={request.start.isoformat()}"
-                if query_params
-                else f"start={request.start.isoformat()}"
-            )
-        if request.end:
-            query_params = (
-                f"{query_params}&end={request.end.isoformat()}"
-                if query_params
-                else f"end={request.end.isoformat()}"
-            )
+        query_params = append_query_param(
+            query_params, "start_time", request.start_time
+        )
+        query_params = append_query_param(query_params, "end_time", request.end_time)
         response = self.client.request(
             "GET",
             path,
@@ -144,18 +136,10 @@ class TransactionsService:
                 if query_params
                 else f"types={request.types}"
             )
-        if request.start:
-            query_params = (
-                f"{query_params}&start={request.start.isoformat()}"
-                if query_params
-                else f"start={request.start.isoformat()}"
-            )
-        if request.end:
-            query_params = (
-                f"{query_params}&end={request.end.isoformat()}"
-                if query_params
-                else f"end={request.end.isoformat()}"
-            )
+        query_params = append_query_param(
+            query_params, "start_time", request.start_time
+        )
+        query_params = append_query_param(query_params, "end_time", request.end_time)
         response = self.client.request(
             "GET",
             path,

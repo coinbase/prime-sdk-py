@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from datetime import datetime
 
 from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
@@ -72,9 +71,6 @@ class ListWalletTransactionsRequest(
         end_time: UTC timestamp until which to filter the response (exclusive, ISO-8601
             format)
     """
-
-    start: datetime | None = None
-    end: datetime | None = None
 
 
 @dataclass

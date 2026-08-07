@@ -52,8 +52,6 @@ class CreatePortfolioAllocationsRequest(BaseRequest, _CreateAllocationRequest):
             the size
     """
 
-    remainder_destination_portfolio_id: str
-
 
 @dataclass
 class CreatePortfolioAllocationsResponse(BaseResponse, _CreateAllocationResponse):
