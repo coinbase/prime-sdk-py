@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import UpdateFundingSettingsRequest as _UpdateFundingSettingsRequest
 from ...model import UpdateFundingSettingsResponse as _UpdateFundingSettingsResponse
 
 
 @dataclass(kw_only=True)
-class SetFundingSettingsRequest(_UpdateFundingSettingsRequest):
+class SetFundingSettingsRequest(BaseRequest, _UpdateFundingSettingsRequest):
     """
     Update Funding Settings
 
@@ -42,8 +43,6 @@ class SetFundingSettingsRequest(_UpdateFundingSettingsRequest):
     """
 
     entity_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

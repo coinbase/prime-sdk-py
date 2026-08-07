@@ -14,14 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
 from ...model import GetPortfolioAddressBookRequest as _GetPortfolioAddressBookRequest
 from ...model import GetPortfolioAddressBookResponse as _GetPortfolioAddressBookResponse
-from ...utils import PaginationParams
 
 
 @dataclass(kw_only=True)
-class GetAddressBookRequest(_GetPortfolioAddressBookRequest):
+class GetAddressBookRequest(BasePaginatedRequest, _GetPortfolioAddressBookRequest):
     """
     Get Address Book
 
@@ -31,10 +31,6 @@ class GetAddressBookRequest(_GetPortfolioAddressBookRequest):
             returned
         search: Query string that matches the address name
     """
-
-    pagination: PaginationParams | None = None
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

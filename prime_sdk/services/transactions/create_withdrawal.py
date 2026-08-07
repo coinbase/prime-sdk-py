@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import CreateWalletWithdrawalRequest as _CreateWalletWithdrawalRequest
 from ...model import CreateWalletWithdrawalResponse as _CreateWalletWithdrawalResponse
@@ -43,7 +44,7 @@ class Counterparty:
 
 
 @dataclass(kw_only=True)
-class CreateWithdrawalRequest(_CreateWalletWithdrawalRequest):
+class CreateWithdrawalRequest(BaseRequest, _CreateWalletWithdrawalRequest):
     """
     Create Withdrawal
 
@@ -57,8 +58,6 @@ class CreateWithdrawalRequest(_CreateWalletWithdrawalRequest):
 
     portfolio_id: str
     wallet_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

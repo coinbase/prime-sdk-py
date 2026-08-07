@@ -14,21 +14,20 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetPortfolioCommissionRequest as _GetPortfolioCommissionRequest
 from ...model import GetPortfolioCommissionResponse as _GetPortfolioCommissionResponse
 
 
 @dataclass(kw_only=True)
-class GetPortfolioCommissionRequest(_GetPortfolioCommissionRequest):
+class GetPortfolioCommissionRequest(BaseRequest, _GetPortfolioCommissionRequest):
     """
     Get Portfolio Commission
 
     Attributes:
         product_id: Specific trading pair to check commission (e.g BTC-USD)
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

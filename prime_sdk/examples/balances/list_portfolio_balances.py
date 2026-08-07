@@ -21,7 +21,6 @@ import os
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.enums import BalanceType
 from prime_sdk.services.balances import ListPortfolioBalancesRequest
-from prime_sdk.utils import PaginationParams
 
 
 def main():
@@ -37,8 +36,6 @@ def main():
         choices=[bt.value for bt in BalanceType],
         help="Balance type filter",
     )
-    parser.add_argument("--limit", type=int, help="Number of results to return")
-    parser.add_argument("--cursor", help="Pagination cursor")
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
@@ -50,11 +47,6 @@ def main():
         )
         return
 
-    # Set up pagination if provided
-    pagination = None
-    if args.limit or args.cursor:
-        pagination = PaginationParams(limit=args.limit, cursor=args.cursor)
-
     # Parse balance type if provided
     balance_type = None
     if args.balance_type:
@@ -64,7 +56,6 @@ def main():
         portfolio_id=portfolio_id,
         symbols=args.symbols,
         balance_type=balance_type,
-        pagination=pagination,
     )
 
     try:

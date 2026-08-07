@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import (
     GetTransactionTravelRuleDataRequest as _GetTransactionTravelRuleDataRequest,
@@ -24,7 +25,9 @@ from ...model import (
 
 
 @dataclass(kw_only=True)
-class GetTransactionTravelRuleDataRequest(_GetTransactionTravelRuleDataRequest):
+class GetTransactionTravelRuleDataRequest(
+    BaseRequest, _GetTransactionTravelRuleDataRequest
+):
     """
     Get Transaction Travel Rule Data
 
@@ -32,8 +35,6 @@ class GetTransactionTravelRuleDataRequest(_GetTransactionTravelRuleDataRequest):
         portfolio_id: The portfolio ID that owns the transaction
         transaction_id: The transaction ID to look up travel rule data for
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import (
     GetPortfolioInterestAccrualsRequest as _GetPortfolioInterestAccrualsRequest,
@@ -24,7 +25,9 @@ from ...model import (
 
 
 @dataclass(kw_only=True)
-class ListInterestAccrualsForPortfolioRequest(_GetPortfolioInterestAccrualsRequest):
+class ListInterestAccrualsForPortfolioRequest(
+    BaseRequest, _GetPortfolioInterestAccrualsRequest
+):
     """
     List Interest Accruals For Portfolio
 
@@ -33,8 +36,6 @@ class ListInterestAccrualsForPortfolioRequest(_GetPortfolioInterestAccrualsReque
         start_date: The start date of the range to query for in RFC3339 format
         end_date: The end date of the range to query for in RFC3339 format
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

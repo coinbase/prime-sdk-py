@@ -14,14 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
 from ...model import ListAdvancedTransfersRequest as _ListAdvancedTransfersRequest
 from ...model import ListAdvancedTransfersResponse as _ListAdvancedTransfersResponse
-from ...utils import PaginationParams
 
 
 @dataclass(kw_only=True)
-class ListAdvancedTransfersRequest(_ListAdvancedTransfersRequest):
+class ListAdvancedTransfersRequest(BasePaginatedRequest, _ListAdvancedTransfersRequest):
     """
     List Advanced Transfers
 
@@ -35,10 +35,6 @@ class ListAdvancedTransfersRequest(_ListAdvancedTransfersRequest):
             ISO-8601 format)
         reference_id: The reference ID of the Advanced Transfer to filter by
     """
-
-    pagination: PaginationParams | None = None
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

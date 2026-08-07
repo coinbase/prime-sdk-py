@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetAllocationRequest as _GetAllocationRequest
 from ...model import GetAllocationResponse as _GetAllocationResponse
 
 
 @dataclass(kw_only=True)
-class GetAllocationByIdRequest(_GetAllocationRequest):
+class GetAllocationByIdRequest(BaseRequest, _GetAllocationRequest):
     """
     Get Allocation by ID
 
@@ -28,8 +29,6 @@ class GetAllocationByIdRequest(_GetAllocationRequest):
         portfolio_id: The portfolio ID of the allocation
         allocation_id: The ID of the allocation
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

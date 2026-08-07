@@ -14,21 +14,20 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetFuturesSweepsRequest as _GetFuturesSweepsRequest
 from ...model import GetFuturesSweepsResponse as _GetFuturesSweepsResponse
 
 
 @dataclass(kw_only=True)
-class ListEntityFuturesSweepsRequest(_GetFuturesSweepsRequest):
+class ListEntityFuturesSweepsRequest(BaseRequest, _GetFuturesSweepsRequest):
     """
     List Entity Futures Sweeps
 
     Attributes:
         entity_id: Entity ID
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

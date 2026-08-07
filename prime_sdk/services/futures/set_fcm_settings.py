@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetFcmSettingsResponse as _GetFcmSettingsResponse
 from ...model import SetFcmSettingsRequest as _SetFcmSettingsRequest
 
 
 @dataclass(kw_only=True)
-class SetFcmSettingsRequest(_SetFcmSettingsRequest):
+class SetFcmSettingsRequest(BaseRequest, _SetFcmSettingsRequest):
     """
     Set FCM Settings
 
@@ -31,8 +32,6 @@ class SetFcmSettingsRequest(_SetFcmSettingsRequest):
     """
 
     entity_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

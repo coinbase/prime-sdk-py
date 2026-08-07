@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetInterestAccrualsRequest as _GetInterestAccrualsRequest
 from ...model import GetInterestAccrualsResponse as _GetInterestAccrualsResponse
 
 
 @dataclass(kw_only=True)
-class ListInterestAccrualsRequest(_GetInterestAccrualsRequest):
+class ListInterestAccrualsRequest(BaseRequest, _GetInterestAccrualsRequest):
     """
     List Interest Accruals
 
@@ -30,8 +31,6 @@ class ListInterestAccrualsRequest(_GetInterestAccrualsRequest):
         start_date: The start date of the range to query for in RFC3339 format
         end_date: The end date of the range to query for in RFC3339 format
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

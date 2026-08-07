@@ -14,21 +14,20 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import ListTFObligationsRequest as _ListTFObligationsRequest
 from ...model import ListTFObligationsResponse as _ListTFObligationsResponse
 
 
 @dataclass(kw_only=True)
-class ListTradeFinanceObligationsRequest(_ListTFObligationsRequest):
+class ListTradeFinanceObligationsRequest(BaseRequest, _ListTFObligationsRequest):
     """
     List Trade Finance Obligations
 
     Attributes:
         entity_id: The entity ID to retrieve obligations for
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

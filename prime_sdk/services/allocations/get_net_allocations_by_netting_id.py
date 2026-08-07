@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import (
     GetAllocationsByClientNettingIdRequest as _GetAllocationsByClientNettingIdRequest,
@@ -24,7 +25,9 @@ from ...model import (
 
 
 @dataclass(kw_only=True)
-class GetNetAllocationsByNettingIdRequest(_GetAllocationsByClientNettingIdRequest):
+class GetNetAllocationsByNettingIdRequest(
+    BaseRequest, _GetAllocationsByClientNettingIdRequest
+):
     """
     Get Net Allocations by Netting ID
 
@@ -32,8 +35,6 @@ class GetNetAllocationsByNettingIdRequest(_GetAllocationsByClientNettingIdReques
         portfolio_id: The portfolio ID of the allocation
         netting_id: The allocation netting ID
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

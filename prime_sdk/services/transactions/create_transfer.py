@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import CreateWalletTransferRequest as _CreateWalletTransferRequest
 from ...model import CreateWalletTransferResponse as _CreateWalletTransferResponse
 
 
 @dataclass(kw_only=True)
-class CreateTransferRequest(_CreateWalletTransferRequest):
+class CreateTransferRequest(BaseRequest, _CreateWalletTransferRequest):
     """
     Create Transfer
 
@@ -35,8 +36,6 @@ class CreateTransferRequest(_CreateWalletTransferRequest):
 
     portfolio_id: str
     wallet_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

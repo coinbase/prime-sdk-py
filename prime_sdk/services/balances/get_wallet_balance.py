@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetWalletBalanceRequest as _GetWalletBalanceRequest
 from ...model import GetWalletBalanceResponse as _GetWalletBalanceResponse
 
 
 @dataclass(kw_only=True)
-class GetWalletBalanceRequest(_GetWalletBalanceRequest):
+class GetWalletBalanceRequest(BaseRequest, _GetWalletBalanceRequest):
     """
     Get Wallet Balance
 
@@ -28,8 +29,6 @@ class GetWalletBalanceRequest(_GetWalletBalanceRequest):
         portfolio_id: Portfolio ID
         wallet_id: Wallet ID
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

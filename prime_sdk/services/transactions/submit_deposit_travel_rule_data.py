@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import (
     SubmitDepositTravelRuleDataRequest as _SubmitDepositTravelRuleDataRequest,
@@ -57,7 +58,9 @@ class TravelRuleParty:
 
 
 @dataclass(kw_only=True)
-class SubmitDepositTravelRuleDataRequest(_SubmitDepositTravelRuleDataRequest):
+class SubmitDepositTravelRuleDataRequest(
+    BaseRequest, _SubmitDepositTravelRuleDataRequest
+):
     """
     Submit Deposit Travel Rule Data
 
@@ -71,8 +74,6 @@ class SubmitDepositTravelRuleDataRequest(_SubmitDepositTravelRuleDataRequest):
 
     portfolio_id: str
     transaction_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

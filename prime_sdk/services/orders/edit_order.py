@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import EditOrderRequest as _EditOrderRequest
 from ...model import EditOrderResponse as _EditOrderResponse
 
 
 @dataclass(kw_only=True)
-class EditOrderRequest(_EditOrderRequest):
+class EditOrderRequest(BaseRequest, _EditOrderRequest):
     """
     Edit Order (Beta)
 
@@ -58,8 +59,6 @@ class EditOrderRequest(_EditOrderRequest):
 
     portfolio_id: str
     order_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

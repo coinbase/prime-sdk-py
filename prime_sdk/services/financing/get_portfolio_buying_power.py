@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetBuyingPowerRequest as _GetBuyingPowerRequest
 from ...model import GetBuyingPowerResponse as _GetBuyingPowerResponse
 
 
 @dataclass(kw_only=True)
-class GetBuyingPowerRequest(_GetBuyingPowerRequest):
+class GetBuyingPowerRequest(BaseRequest, _GetBuyingPowerRequest):
     """
     Get Portfolio Buying Power
 
@@ -29,8 +30,6 @@ class GetBuyingPowerRequest(_GetBuyingPowerRequest):
         base_currency: The symbol for the base currency
         quote_currency: The symbol for the quote currency
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

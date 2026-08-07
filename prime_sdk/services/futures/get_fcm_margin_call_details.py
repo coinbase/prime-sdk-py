@@ -14,21 +14,20 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetFcmMarginCallDetailsRequest as _GetFcmMarginCallDetailsRequest
 from ...model import GetFcmMarginCallDetailsResponse as _GetFcmMarginCallDetailsResponse
 
 
 @dataclass(kw_only=True)
-class GetFcmMarginCallDetailsRequest(_GetFcmMarginCallDetailsRequest):
+class GetFcmMarginCallDetailsRequest(BaseRequest, _GetFcmMarginCallDetailsRequest):
     """
     Get FCM Margin Call Details
 
     Attributes:
         entity_id: Entity ID
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import StakingClaimRewardsRequest as _StakingClaimRewardsRequest
 from ...model import StakingClaimRewardsResponse as _StakingClaimRewardsResponse
@@ -25,7 +26,7 @@ class ClaimRewardsInputs:
 
 
 @dataclass(kw_only=True)
-class ClaimWalletStakingRewardsRequest(_StakingClaimRewardsRequest):
+class ClaimWalletStakingRewardsRequest(BaseRequest, _StakingClaimRewardsRequest):
     """
     Claim Wallet Staking Rewards (Alpha)
 
@@ -38,8 +39,6 @@ class ClaimWalletStakingRewardsRequest(_StakingClaimRewardsRequest):
 
     portfolio_id: str
     wallet_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

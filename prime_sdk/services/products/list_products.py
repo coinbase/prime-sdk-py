@@ -14,14 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
 from ...model import GetPortfolioProductsRequest as _GetPortfolioProductsRequest
 from ...model import GetPortfolioProductsResponse as _GetPortfolioProductsResponse
-from ...utils import PaginationParams
 
 
 @dataclass(kw_only=True)
-class ListProductsRequest(_GetPortfolioProductsRequest):
+class ListProductsRequest(BasePaginatedRequest, _GetPortfolioProductsRequest):
     """
     List Portfolio Products
 
@@ -44,10 +44,6 @@ class ListProductsRequest(_GetPortfolioProductsRequest):
             (contract_expiry is in the past) - EXPIRING_CONTRACT_STATUS_ALL: All contracts
             regardless of expiry status
     """
-
-    pagination: PaginationParams | None = None
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

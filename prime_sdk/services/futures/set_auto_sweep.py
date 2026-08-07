@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import SetAutoSweepRequest as _SetAutoSweepRequest
 from ...model import SetAutoSweepResponse as _SetAutoSweepResponse
 
 
 @dataclass(kw_only=True)
-class SetAutoSweepRequest(_SetAutoSweepRequest):
+class SetAutoSweepRequest(BaseRequest, _SetAutoSweepRequest):
     """
     Set Auto Sweep
 
@@ -30,8 +31,6 @@ class SetAutoSweepRequest(_SetAutoSweepRequest):
     """
 
     entity_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

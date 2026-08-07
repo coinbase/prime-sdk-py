@@ -22,10 +22,14 @@ import glob
 import sys
 from pathlib import Path
 
+import yaml
+
 ROOT = Path(__file__).resolve().parents[1]
+SPEC_PATH = Path(__file__).parent / "prime-public-api-spec.yaml"
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(Path(__file__).parent))
 
+from generate_models import collect_all_operations
 from model_config import (
     MANUAL_SERVICE_RESPONSES,
     SERVICE_REQUEST_BASES,
@@ -35,6 +39,15 @@ from model_config import (
 import prime_sdk.generated.models as generated_models
 
 GENERATED_REQUEST_NAMES: set[str] | None = None
+FULL_PAGINATION_REQUEST_NAMES: set[str] | None = None
+CURSOR_LIMIT_REQUEST_NAMES: set[str] | None = None
+
+CONTROL_FIELD_NAMES = frozenset(
+    {"allowed_status_codes", "pagination", "cursor", "limit", "sort_direction"}
+)
+BASE_REQUEST_MIXINS = frozenset(
+    {"BaseRequest", "BasePaginatedRequest", "BaseCursorLimitPaginatedRequest"}
+)
 
 
 def _generated_request_names() -> set[str]:
@@ -51,6 +64,56 @@ def _generated_request_names() -> set[str]:
                 names.add(name)
         GENERATED_REQUEST_NAMES = names
     return GENERATED_REQUEST_NAMES
+
+
+def _operation_param_names(operation: dict) -> set[str]:
+    names: set[str] = set()
+    for param in operation.get("parameters") or []:
+        if not isinstance(param, dict):
+            continue
+        if param.get("in") not in ("path", "query"):
+            continue
+        name = param.get("name")
+        if isinstance(name, str):
+            names.add(name)
+    return names
+
+
+def _load_pagination_request_names() -> tuple[set[str], set[str]]:
+    global FULL_PAGINATION_REQUEST_NAMES, CURSOR_LIMIT_REQUEST_NAMES
+    if (
+        FULL_PAGINATION_REQUEST_NAMES is not None
+        and CURSOR_LIMIT_REQUEST_NAMES is not None
+    ):
+        return FULL_PAGINATION_REQUEST_NAMES, CURSOR_LIMIT_REQUEST_NAMES
+
+    with SPEC_PATH.open(encoding="utf-8") as handle:
+        spec = yaml.safe_load(handle)
+    operations = collect_all_operations(spec)
+
+    full: set[str] = set()
+    cursor_limit: set[str] = set()
+    for class_name, (_, operation, _) in operations.items():
+        param_names = _operation_param_names(operation)
+        if "cursor" not in param_names:
+            continue
+        if "sort_direction" in param_names:
+            full.add(class_name)
+        else:
+            cursor_limit.add(class_name)
+
+    FULL_PAGINATION_REQUEST_NAMES = full
+    CURSOR_LIMIT_REQUEST_NAMES = cursor_limit
+    return full, cursor_limit
+
+
+def _request_mixin_name(base_name: str) -> str:
+    full, cursor_limit = _load_pagination_request_names()
+    if base_name in full:
+        return "BasePaginatedRequest"
+    if base_name in cursor_limit:
+        return "BaseCursorLimitPaginatedRequest"
+    return "BaseRequest"
 
 
 def _generated_field_names(class_name: str) -> set[str]:
@@ -138,18 +201,21 @@ def _is_already_migrated_request(class_def: ast.ClassDef, class_name: str) -> bo
     for base in class_def.bases:
         if isinstance(base, ast.Name) and base.id == f"_{base_name}":
             return True
+        if isinstance(base, ast.Name) and base.id in BASE_REQUEST_MIXINS:
+            return True
     return False
 
 
 def _render_request_class(class_name: str, field_lines: dict[str, str]) -> str:
     base_name = _request_base_name(class_name)
     assert base_name is not None
+    mixin_name = _request_mixin_name(base_name)
     generated_fields = _generated_field_names(base_name)
     kw_only = bool(generated_fields)
     decorator = "@dataclass(kw_only=True)" if kw_only else "@dataclass"
     parts = [
         decorator,
-        f"class {class_name}(_{base_name}):",
+        f"class {class_name}({mixin_name}, _{base_name}):",
         _doc_literal(base_name, class_name),
         "",
     ]
@@ -157,18 +223,15 @@ def _render_request_class(class_name: str, field_lines: dict[str, str]) -> str:
         extra_fields = [
             field_lines[name]
             for name in field_lines
-            if name not in generated_fields and name != "allowed_status_codes"
+            if name not in generated_fields and name not in CONTROL_FIELD_NAMES
         ]
-        allowed_status = field_lines.get(
-            "allowed_status_codes",
-            "    allowed_status_codes: list[int] | None = None",
-        )
         parts.extend(extra_fields)
-        if extra_fields:
-            parts.append("")
-        parts.append(allowed_status)
     else:
-        parts.extend(field_lines.values())
+        parts.extend(
+            line
+            for name, line in field_lines.items()
+            if name not in CONTROL_FIELD_NAMES
+        )
     return "\n".join(parts)
 
 
@@ -236,6 +299,7 @@ def migrate_file(path: Path) -> bool:
     ]
 
     model_imports: set[str] = set()
+    base_request_mixins: set[str] = set()
     rendered_blocks: list[str] = []
     needs_dataclass = False
     needs_base_response = False
@@ -247,6 +311,7 @@ def migrate_file(path: Path) -> bool:
                 base_name = _request_base_name(node.name)
                 assert base_name is not None
                 model_imports.add(base_name)
+                base_request_mixins.add(_request_mixin_name(base_name))
                 if _is_already_migrated_request(node, node.name):
                     rendered = _render_request_class(node.name, _field_lines(node))
                     if rendered != _node_source(source, node).strip():
@@ -297,6 +362,10 @@ def migrate_file(path: Path) -> bool:
         import_lines.append("from dataclasses import dataclass")
     if needs_base_response:
         import_lines.append("from ...base_response import BaseResponse")
+    if base_request_mixins:
+        import_lines.append(
+            "from ...base_request import " + ", ".join(sorted(base_request_mixins))
+        )
     for base_name in sorted(model_imports):
         import_lines.append(f"from ...model import {base_name} as _{base_name}")
 
@@ -307,6 +376,8 @@ def migrate_file(path: Path) -> bool:
         if statement == "from dataclasses import dataclass":
             continue
         if statement == "from ...base_response import BaseResponse":
+            continue
+        if statement.startswith("from ...base_request import "):
             continue
         if statement.startswith("from ...model import "):
             # Handles both single-line (`from ...model import Foo as _Foo`)

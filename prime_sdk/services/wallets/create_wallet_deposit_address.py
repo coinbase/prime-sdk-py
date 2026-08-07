@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import BlockchainAddress as _BlockchainAddress
 from ...model import (
@@ -22,7 +23,9 @@ from ...model import (
 
 
 @dataclass(kw_only=True)
-class CreateWalletDepositAddressRequest(_CreateWalletDepositAddressRequest):
+class CreateWalletDepositAddressRequest(
+    BaseRequest, _CreateWalletDepositAddressRequest
+):
     """
     Create Wallet Deposit Address
 
@@ -34,8 +37,6 @@ class CreateWalletDepositAddressRequest(_CreateWalletDepositAddressRequest):
 
     portfolio_id: str
     wallet_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

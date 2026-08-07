@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetMarginSummariesRequest as _GetMarginSummariesRequest
 from ...model import GetMarginSummariesResponse as _GetMarginSummariesResponse
 
 
 @dataclass(kw_only=True)
-class ListMarginCallSummariesRequest(_GetMarginSummariesRequest):
+class ListMarginCallSummariesRequest(BaseRequest, _GetMarginSummariesRequest):
     """
     List Margin Call Summaries
 
@@ -30,8 +31,6 @@ class ListMarginCallSummariesRequest(_GetMarginSummariesRequest):
             within the last 3 months
         end_date: The end date of the range to query for in RFC3339 format
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

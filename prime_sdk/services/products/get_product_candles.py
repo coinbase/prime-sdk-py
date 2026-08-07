@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetCandlesRequest as _GetCandlesRequest
 from ...model import GetCandlesResponse as _GetCandlesResponse
 
 
 @dataclass(kw_only=True)
-class GetProductCandlesRequest(_GetCandlesRequest):
+class GetProductCandlesRequest(BaseRequest, _GetCandlesRequest):
     """
     Get Public Product Candles (Beta)
 
@@ -31,8 +32,6 @@ class GetProductCandlesRequest(_GetCandlesRequest):
         end_time: Timestamp for ending range of aggregations
         granularity: The timeframe each candle represents.
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

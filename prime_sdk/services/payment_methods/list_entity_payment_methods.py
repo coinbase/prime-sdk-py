@@ -14,21 +14,17 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetEntityPaymentMethodsRequest as _GetEntityPaymentMethodsRequest
 from ...model import GetEntityPaymentMethodsResponse as _GetEntityPaymentMethodsResponse
-from ...utils import PaginationParams
 
 
 @dataclass(kw_only=True)
-class ListEntityPaymentMethodsRequest(_GetEntityPaymentMethodsRequest):
+class ListEntityPaymentMethodsRequest(BaseRequest, _GetEntityPaymentMethodsRequest):
     """
     List Entity Payment Methods
     """
-
-    pagination: PaginationParams | None = None
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

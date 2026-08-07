@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import ScheduleFuturesSweepRequest as _ScheduleFuturesSweepRequest
 from ...model import ScheduleFuturesSweepResponse as _ScheduleFuturesSweepResponse
 
 
 @dataclass(kw_only=True)
-class ScheduleEntityFuturesSweepRequest(_ScheduleFuturesSweepRequest):
+class ScheduleEntityFuturesSweepRequest(BaseRequest, _ScheduleFuturesSweepRequest):
     """
     Schedule Entity Futures Sweep
 
@@ -31,8 +32,6 @@ class ScheduleEntityFuturesSweepRequest(_ScheduleFuturesSweepRequest):
     """
 
     entity_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

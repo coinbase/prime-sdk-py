@@ -14,14 +14,16 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
 from ...model import GetPortfolioAllocationsRequest as _GetPortfolioAllocationsRequest
 from ...model import GetPortfolioAllocationsResponse as _GetPortfolioAllocationsResponse
-from ...utils import PaginationParams
 
 
 @dataclass(kw_only=True)
-class ListPortfolioAllocationsRequest(_GetPortfolioAllocationsRequest):
+class ListPortfolioAllocationsRequest(
+    BasePaginatedRequest, _GetPortfolioAllocationsRequest
+):
     """
     List Portfolio Allocations
 
@@ -33,10 +35,6 @@ class ListPortfolioAllocationsRequest(_GetPortfolioAllocationsRequest):
         start_date: A start date for the allocations to be queried from.
         end_date: An end date for the orders to be queried from.
     """
-
-    pagination: PaginationParams | None = None
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

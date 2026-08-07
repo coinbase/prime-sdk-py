@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import CreateOrderRequest as _CreateOrderRequest
 from ...model import CreateOrderResponse as _CreateOrderResponse
 
 
 @dataclass(kw_only=True)
-class CreateOrderRequest(_CreateOrderRequest):
+class CreateOrderRequest(BaseRequest, _CreateOrderRequest):
     """
     Create Order
 
@@ -64,8 +65,6 @@ class CreateOrderRequest(_CreateOrderRequest):
     """
 
     portfolio_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

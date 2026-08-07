@@ -14,14 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseCursorLimitPaginatedRequest
 from ...base_response import BaseResponse
 from ...model import GetInvoicesRequest as _GetInvoicesRequest
 from ...model import GetInvoicesResponse as _GetInvoicesResponse
-from ...utils import PaginationParams
 
 
 @dataclass(kw_only=True)
-class ListInvoicesRequest(_GetInvoicesRequest):
+class ListInvoicesRequest(BaseCursorLimitPaginatedRequest, _GetInvoicesRequest):
     """
     List Invoices
 
@@ -32,10 +32,6 @@ class ListInvoicesRequest(_GetInvoicesRequest):
         billing_month: Integer representing the month to filter by, 1 for January, 12 for
             December
     """
-
-    pagination: PaginationParams | None = None
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

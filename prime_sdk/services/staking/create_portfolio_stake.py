@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import PortfolioStakingInitiateRequest as _PortfolioStakingInitiateRequest
 from ...model import (
@@ -27,7 +28,7 @@ class StakeMetadata:
 
 
 @dataclass(kw_only=True)
-class CreatePortfolioStakeRequest(_PortfolioStakingInitiateRequest):
+class CreatePortfolioStakeRequest(BaseRequest, _PortfolioStakingInitiateRequest):
     """
     Request to stake currency in a portfolio
 
@@ -41,8 +42,6 @@ class CreatePortfolioStakeRequest(_PortfolioStakingInitiateRequest):
     """
 
     portfolio_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
 from ...model import GetOpenOrdersRequest as _GetOpenOrdersRequest
 from ...model import GetOpenOrdersResponse as _GetOpenOrdersResponse
 
 
 @dataclass(kw_only=True)
-class ListOpenOrdersRequest(_GetOpenOrdersRequest):
+class ListOpenOrdersRequest(BasePaginatedRequest, _GetOpenOrdersRequest):
     """
     List Open Orders
 
@@ -48,8 +49,6 @@ class ListOpenOrdersRequest(_GetOpenOrdersRequest):
     """
 
     order_statuses: str | None = None
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

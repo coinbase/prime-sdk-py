@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import (
     CreatePortfolioAddressBookEntryRequest as _CreatePortfolioAddressBookEntryRequest,
@@ -24,7 +25,9 @@ from ...model import (
 
 
 @dataclass(kw_only=True)
-class CreateAddressBookEntryRequest(_CreatePortfolioAddressBookEntryRequest):
+class CreateAddressBookEntryRequest(
+    BaseRequest, _CreatePortfolioAddressBookEntryRequest
+):
     """
     Create Address Book Entry
 
@@ -38,8 +41,6 @@ class CreateAddressBookEntryRequest(_CreatePortfolioAddressBookEntryRequest):
     """
 
     portfolio_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

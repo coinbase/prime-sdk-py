@@ -14,14 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
 from ...model import GetPortfolioActivitiesRequest as _GetPortfolioActivitiesRequest
 from ...model import GetPortfolioActivitiesResponse as _GetPortfolioActivitiesResponse
-from ...utils import PaginationParams
 
 
 @dataclass(kw_only=True)
-class ListActivitiesRequest(_GetPortfolioActivitiesRequest):
+class ListActivitiesRequest(BasePaginatedRequest, _GetPortfolioActivitiesRequest):
     """
     List Activities
 
@@ -36,10 +36,6 @@ class ListActivitiesRequest(_GetPortfolioActivitiesRequest):
         get_network_unified_activities: Flag to request retrieval of all activities across
             all networks for a given symbol
     """
-
-    pagination: PaginationParams | None = None
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

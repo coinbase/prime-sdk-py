@@ -14,21 +14,20 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetActivityRequest as _GetActivityRequest
 from ...model import GetActivityResponse as _GetActivityResponse
 
 
 @dataclass(kw_only=True)
-class GetEntityActivityRequest(_GetActivityRequest):
+class GetEntityActivityRequest(BaseRequest, _GetActivityRequest):
     """
     Get Activity by Activity ID
 
     Attributes:
         activity_id: Id of the activity to retrieve
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import StakingUnstakeRequest as _StakingUnstakeRequest
 from ...model import StakingUnstakeResponse as _StakingUnstakeResponse
 
 
 @dataclass(kw_only=True)
-class CreateUnstakeRequest(_StakingUnstakeRequest):
+class CreateUnstakeRequest(BaseRequest, _StakingUnstakeRequest):
     """
     Request to unstake a wallet
 
@@ -33,8 +34,6 @@ class CreateUnstakeRequest(_StakingUnstakeRequest):
 
     portfolio_id: str
     wallet_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

@@ -14,13 +14,16 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseCursorLimitPaginatedRequest
 from ...base_response import BaseResponse
 from ...model import ListEntityPositionsRequest as _ListEntityPositionsRequest
 from ...model import ListEntityPositionsResponse as _ListEntityPositionsResponse
 
 
 @dataclass(kw_only=True)
-class GetEntityPositionsRequest(_ListEntityPositionsRequest):
+class GetEntityPositionsRequest(
+    BaseCursorLimitPaginatedRequest, _ListEntityPositionsRequest
+):
     """
     List Entity Positions
 
@@ -29,8 +32,6 @@ class GetEntityPositionsRequest(_ListEntityPositionsRequest):
     """
 
     product_id: str | None = None
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

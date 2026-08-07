@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetXMLiquidationRequest as _GetXMLiquidationRequest
 from ...model import GetXMLiquidationResponse as _GetXMLiquidationResponse
 
 
 @dataclass(kw_only=True)
-class GetXMLiquidationRequest(_GetXMLiquidationRequest):
+class GetXMLiquidationRequest(BaseRequest, _GetXMLiquidationRequest):
     """
     Get Cross Margin Liquidation
 
@@ -29,8 +30,6 @@ class GetXMLiquidationRequest(_GetXMLiquidationRequest):
         liquidation_id: Financing liquidation UUID. If omitted, returns the active or most
             recent liquidation.
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

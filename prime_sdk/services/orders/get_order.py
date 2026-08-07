@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetOrderRequest as _GetOrderRequest
 from ...model import GetOrderResponse as _GetOrderResponse
 
 
 @dataclass(kw_only=True)
-class GetOrderRequest(_GetOrderRequest):
+class GetOrderRequest(BaseRequest, _GetOrderRequest):
     """
     Get Order by Order ID
 
@@ -28,8 +29,6 @@ class GetOrderRequest(_GetOrderRequest):
         portfolio_id: Portfolio ID
         order_id: Order ID
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

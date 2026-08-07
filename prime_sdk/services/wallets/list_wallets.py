@@ -14,14 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
 from ...model import GetWalletsRequest as _GetWalletsRequest
 from ...model import GetWalletsResponse as _GetWalletsResponse
-from ...utils import PaginationParams
 
 
 @dataclass(kw_only=True)
-class ListWalletsRequest(_GetWalletsRequest):
+class ListWalletsRequest(BasePaginatedRequest, _GetWalletsRequest):
     """
     List Portfolio Wallets
 
@@ -34,10 +34,6 @@ class ListWalletsRequest(_GetWalletsRequest):
         get_network_unified_wallets: Flag to request retrieval of all wallets across all
             networks for a given symbol
     """
-
-    pagination: PaginationParams | None = None
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

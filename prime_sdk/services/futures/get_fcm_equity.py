@@ -14,21 +14,20 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetFcmEquityRequest as _GetFcmEquityRequest
 from ...model import GetFcmEquityResponse as _GetFcmEquityResponse
 
 
 @dataclass(kw_only=True)
-class GetFcmEquityRequest(_GetFcmEquityRequest):
+class GetFcmEquityRequest(BaseRequest, _GetFcmEquityRequest):
     """
     Get FCM Equity
 
     Attributes:
         entity_id: Entity ID
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

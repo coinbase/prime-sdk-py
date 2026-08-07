@@ -1,7 +1,5 @@
 # Changelog
 
-## [Unreleased]
-
 ## [1.10.0] - 2026-AUG-07
 
 ### Breaking Changes
@@ -12,6 +10,8 @@ These responses previously used incorrect field names or shapes in the Python SD
 - **`GetEntityLocateAvailabilitiesResponse`**: `locate_availability` renamed to `locates`.
 - **`GetOrderEditHistoryResponse`**: `edits` replaced by `order_id`, `edit_history`, and deprecated `order_edit_history`.
 - **`GetWalletDepositInstructionsResponse`**: removed top-level `instructions`; use `crypto_instructions` and `fiat_instructions` (`CryptoInstructions` / `FiatInstructions` models).
+- **`ListPortfolioBalancesRequest`** and **`ListEntityPaymentMethodsRequest`**: removed the `pagination` field. The OpenAPI spec does not document cursor pagination for these endpoints.
+- **Cursor+limit paginated requests** (`ListEntityBalancesRequest`, `ListWeb3WalletBalancesRequest`, `ListInvoicesRequest`, `ListAggregateEntityPositionsRequest`, `ListEntityPositionsRequest`, `ListWalletAddressesRequest`, and `GetEntityPositionsRequest`): `pagination` is now typed as `CursorLimitPaginationParams` (cursor and limit only) instead of `PaginationParams`, matching the spec.
 
 ### Changed
 
@@ -20,10 +20,13 @@ These responses previously used incorrect field names or shapes in the Python SD
 - **Request docstrings**: All service `*Request` classes now inherit OpenAPI-derived docstrings from generated stub models. JSON-body requests document path/query parameters alongside body fields.
 - **Generated path/query parameters**: Body-less request models in `prime_sdk/generated/models.py` now include path and query parameter fields (not just docstrings). Service `*Request` subclasses keep only SDK-specific extras such as `allowed_status_codes` and `pagination`.
 - **Examples**: Wallet example scripts fall back to `PRIME_WALLET_ID` and `PRIME_ONCHAIN_WALLET_ID` when `--wallet-id` is omitted; see `.env.example` and README.
+- Service `*Request` classes now inherit SDK control fields (`allowed_status_codes`, `pagination`) from base mixins instead of declaring them per file. Pagination tier (full vs cursor+limit) is determined from the OpenAPI spec at generation time.
+- **`GetMarketDataRequest`** and **`ListXMLiquidationsRequest`**: replaced raw `cursor`/`limit`/`sort_direction` fields with the standard `pagination: PaginationParams` field.
 
 ### Fixed
 
 - **`BaseResponse`**: Nested dataclass hydration now unwraps optional type annotations.
+- **`to_body_dict`**: SDK control fields tagged with `metadata={"control": True}` (such as `allowed_status_codes` and `pagination`) are no longer serialized into JSON request bodies.
 
 ### Added
 
@@ -32,6 +35,9 @@ These responses previously used incorrect field names or shapes in the Python SD
 - **New optional request fields** on body-backed requests that inherit generated models, including `peg_offset_type`, `offset`, `wig_level`, and `is_buy_exact` on `CreateOrderRequest`.
 - **`tests/test_model_compat.py`**: Guards backward-compatible model surface across spec updates.
 - **`tests/test_service_model_compat.py`**: Guards backward-compatible service request/response field surfaces.
+- **`BaseRequest`**, **`BasePaginatedRequest`**, and **`BaseCursorLimitPaginatedRequest`** mixins in `prime_sdk/base_request.py` to centralize `allowed_status_codes` and pagination fields on service `*Request` classes.
+- **`CursorLimitPaginationParams`** in `prime_sdk/utils.py` for endpoints that support cursor and limit pagination without `sort_direction`.
+- Pagination support on **`ListOpenOrdersRequest`** and **`GetEntityPositionsRequest`**, which the spec documents but the SDK previously omitted.
 
 ## [1.9.0] - 2026-JUL-24
 

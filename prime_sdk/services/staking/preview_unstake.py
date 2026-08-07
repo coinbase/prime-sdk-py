@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import PreviewUnstakeRequest as _PreviewUnstakeRequest
 from ...model import PreviewUnstakeResponse as _PreviewUnstakeResponse
 
 
 @dataclass(kw_only=True)
-class PreviewUnstakeRequest(_PreviewUnstakeRequest):
+class PreviewUnstakeRequest(BaseRequest, _PreviewUnstakeRequest):
     """
     Preview Unstake
 
@@ -32,8 +33,6 @@ class PreviewUnstakeRequest(_PreviewUnstakeRequest):
 
     portfolio_id: str
     wallet_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

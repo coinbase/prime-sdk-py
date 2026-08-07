@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetPortfolioActivityRequest as _GetPortfolioActivityRequest
 from ...model import GetPortfolioActivityResponse as _GetPortfolioActivityResponse
 
 
 @dataclass(kw_only=True)
-class GetActivityRequest(_GetPortfolioActivityRequest):
+class GetActivityRequest(BaseRequest, _GetPortfolioActivityRequest):
     """
     Get Portfolio Activity by Activity ID
 
@@ -28,8 +29,6 @@ class GetActivityRequest(_GetPortfolioActivityRequest):
         portfolio_id: Portfolio to retrieve activity for.
         activity_id: Id of the activity to retrieve
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

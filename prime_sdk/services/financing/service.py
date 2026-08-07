@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from ...client import Client
-from ...utils import append_query_param, to_body_dict
+from ...utils import append_pagination_params, append_query_param, to_body_dict
 from .create_new_locate import CreateNewLocateRequest, CreateNewLocateResponse
 from .get_cross_margin_overview import (
     GetCrossMarginOverviewRequest,
@@ -309,11 +309,7 @@ class FinancingService:
 
     def get_market_data(self, request: GetMarketDataRequest) -> GetMarketDataResponse:
         path = f"/entities/{request.entity_id}/market_data"
-        query_params = append_query_param("", "cursor", request.cursor)
-        query_params = append_query_param(query_params, "limit", request.limit)
-        query_params = append_query_param(
-            query_params, "sort_direction", request.sort_direction
-        )
+        query_params = append_pagination_params("", request.pagination)
         response = self.client.request(
             "GET",
             path,
@@ -339,11 +335,7 @@ class FinancingService:
         self, request: ListXMLiquidationsRequest
     ) -> ListXMLiquidationsResponse:
         path = f"/entities/{request.entity_id}/cross_margin/liquidations"
-        query_params = append_query_param("", "cursor", request.cursor)
-        query_params = append_query_param(query_params, "limit", request.limit)
-        query_params = append_query_param(
-            query_params, "sort_direction", request.sort_direction
-        )
+        query_params = append_pagination_params("", request.pagination)
         response = self.client.request(
             "GET",
             path,

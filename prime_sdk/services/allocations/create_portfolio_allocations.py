@@ -15,6 +15,7 @@
 from dataclasses import dataclass
 from warnings import warn
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import CreateAllocationRequest as _CreateAllocationRequest
 from ...model import CreateAllocationResponse as _CreateAllocationResponse
@@ -39,7 +40,7 @@ class AllocationLeg:
 
 
 @dataclass(kw_only=True)
-class CreatePortfolioAllocationsRequest(_CreateAllocationRequest):
+class CreatePortfolioAllocationsRequest(BaseRequest, _CreateAllocationRequest):
     """
     Attributes:
         allocation_id: The ID of the allocation
@@ -52,8 +53,6 @@ class CreatePortfolioAllocationsRequest(_CreateAllocationRequest):
     """
 
     remainder_destination_portfolio_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

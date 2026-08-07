@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseCursorLimitPaginatedRequest
 from ...base_response import BaseResponse
 from ...model import (
     ListAggregateEntityPositionsRequest as _ListAggregateEntityPositionsRequest,
@@ -21,21 +22,18 @@ from ...model import (
 from ...model import (
     ListAggregateEntityPositionsResponse as _ListAggregateEntityPositionsResponse,
 )
-from ...utils import PaginationParams
 
 
 @dataclass(kw_only=True)
-class ListAggregateEntityPositionsRequest(_ListAggregateEntityPositionsRequest):
+class ListAggregateEntityPositionsRequest(
+    BaseCursorLimitPaginatedRequest, _ListAggregateEntityPositionsRequest
+):
     """
     List Aggregate Entity Positions
 
     Attributes:
         entity_id: The unique ID of the entity
     """
-
-    pagination: PaginationParams | None = None
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

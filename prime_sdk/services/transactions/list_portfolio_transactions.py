@@ -15,16 +15,18 @@
 from dataclasses import dataclass
 from datetime import datetime
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
 from ...model import GetPortfolioTransactionsRequest as _GetPortfolioTransactionsRequest
 from ...model import (
     GetPortfolioTransactionsResponse as _GetPortfolioTransactionsResponse,
 )
-from ...utils import PaginationParams
 
 
 @dataclass(kw_only=True)
-class ListPortfolioTransactionsRequest(_GetPortfolioTransactionsRequest):
+class ListPortfolioTransactionsRequest(
+    BasePaginatedRequest, _GetPortfolioTransactionsRequest
+):
     """
     List Portfolio Transactions
 
@@ -79,9 +81,6 @@ class ListPortfolioTransactionsRequest(_GetPortfolioTransactionsRequest):
 
     start: datetime | None = None
     end: datetime | None = None
-    pagination: PaginationParams | None = None
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

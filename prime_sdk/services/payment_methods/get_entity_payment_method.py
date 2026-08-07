@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import (
     GetEntityPaymentMethodDetailsRequest as _GetEntityPaymentMethodDetailsRequest,
@@ -24,12 +25,10 @@ from ...model import (
 
 
 @dataclass(kw_only=True)
-class GetEntityPaymentMethodRequest(_GetEntityPaymentMethodDetailsRequest):
+class GetEntityPaymentMethodRequest(BaseRequest, _GetEntityPaymentMethodDetailsRequest):
     """
     Get Entity Payment Method
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

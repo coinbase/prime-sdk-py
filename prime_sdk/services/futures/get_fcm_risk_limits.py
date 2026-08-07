@@ -14,21 +14,20 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetFcmRiskLimitsRequest as _GetFcmRiskLimitsRequest
 from ...model import GetFcmRiskLimitsResponse as _GetFcmRiskLimitsResponse
 
 
 @dataclass(kw_only=True)
-class GetFcmRiskLimitsRequest(_GetFcmRiskLimitsRequest):
+class GetFcmRiskLimitsRequest(BaseRequest, _GetFcmRiskLimitsRequest):
     """
     Get FCM Risk Limits
 
     Attributes:
         entity_id: Entity ID
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

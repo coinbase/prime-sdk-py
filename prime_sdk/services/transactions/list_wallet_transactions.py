@@ -15,14 +15,16 @@
 from dataclasses import dataclass
 from datetime import datetime
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
 from ...model import GetWalletTransactionsRequest as _GetWalletTransactionsRequest
 from ...model import GetWalletTransactionsResponse as _GetWalletTransactionsResponse
-from ...utils import PaginationParams
 
 
 @dataclass(kw_only=True)
-class ListWalletTransactionsRequest(_GetWalletTransactionsRequest):
+class ListWalletTransactionsRequest(
+    BasePaginatedRequest, _GetWalletTransactionsRequest
+):
     """
     List Wallet Transactions
 
@@ -73,9 +75,6 @@ class ListWalletTransactionsRequest(_GetWalletTransactionsRequest):
 
     start: datetime | None = None
     end: datetime | None = None
-    pagination: PaginationParams | None = None
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

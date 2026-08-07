@@ -14,14 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
 from ...model import GetOrdersRequest as _GetOrdersRequest
 from ...model import GetOrdersResponse as _GetOrdersResponse
-from ...utils import PaginationParams
 
 
 @dataclass(kw_only=True)
-class ListOrdersRequest(_GetOrdersRequest):
+class ListOrdersRequest(BasePaginatedRequest, _GetOrdersRequest):
     """
     List Portfolio Orders
 
@@ -52,10 +52,6 @@ class ListOrdersRequest(_GetOrdersRequest):
         start_date: A start date for the orders to be queried from
         end_date: An end date for the orders to be queried from
     """
-
-    pagination: PaginationParams | None = None
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

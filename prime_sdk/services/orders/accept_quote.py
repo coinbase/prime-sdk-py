@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import AcceptQuoteRequest as _AcceptQuoteRequest
 from ...model import AcceptQuoteResponse as _AcceptQuoteResponse
 
 
 @dataclass(kw_only=True)
-class AcceptQuoteRequest(_AcceptQuoteRequest):
+class AcceptQuoteRequest(BaseRequest, _AcceptQuoteRequest):
     """
     Accept Quote
 
@@ -33,8 +34,6 @@ class AcceptQuoteRequest(_AcceptQuoteRequest):
     """
 
     portfolio_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

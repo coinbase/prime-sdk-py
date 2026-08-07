@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import PortfolioStakingUnstakeRequest as _PortfolioStakingUnstakeRequest
 from ...model import PortfolioStakingUnstakeResponse as _PortfolioStakingUnstakeResponse
@@ -25,7 +26,7 @@ class UnstakeMetadata:
 
 
 @dataclass(kw_only=True)
-class CreatePortfolioUnstakeRequest(_PortfolioStakingUnstakeRequest):
+class CreatePortfolioUnstakeRequest(BaseRequest, _PortfolioStakingUnstakeRequest):
     """
     Request to unstake currency across a portfolio
 
@@ -39,8 +40,6 @@ class CreatePortfolioUnstakeRequest(_PortfolioStakingUnstakeRequest):
     """
 
     portfolio_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

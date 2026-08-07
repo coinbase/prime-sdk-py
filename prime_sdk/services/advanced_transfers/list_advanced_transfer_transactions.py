@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import (
     ListAdvancedTransferTransactionsRequest as _ListAdvancedTransferTransactionsRequest,
@@ -24,7 +25,9 @@ from ...model import (
 
 
 @dataclass(kw_only=True)
-class ListAdvancedTransferTransactionsRequest(_ListAdvancedTransferTransactionsRequest):
+class ListAdvancedTransferTransactionsRequest(
+    BaseRequest, _ListAdvancedTransferTransactionsRequest
+):
     """
     List transactions associated with an Advanced Transfer
 
@@ -32,8 +35,6 @@ class ListAdvancedTransferTransactionsRequest(_ListAdvancedTransferTransactionsR
         portfolio_id: The portfolio ID
         advanced_transfer_id: The ID of the Advanced Transfer
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

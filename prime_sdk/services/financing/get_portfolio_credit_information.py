@@ -14,21 +14,20 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetPostTradeCreditRequest as _GetPostTradeCreditRequest
 from ...model import GetPostTradeCreditResponse as _GetPostTradeCreditResponse
 
 
 @dataclass(kw_only=True)
-class GetPortfolioCreditInformationRequest(_GetPostTradeCreditRequest):
+class GetPortfolioCreditInformationRequest(BaseRequest, _GetPostTradeCreditRequest):
     """
     Get Portfolio Credit Information
 
     Attributes:
         portfolio_id: The portfolio ID
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

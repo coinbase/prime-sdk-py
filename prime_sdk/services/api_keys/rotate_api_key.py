@@ -14,21 +14,20 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import RotateAPIKeyRequest as _RotateAPIKeyRequest
 from ...model import RotateAPIKeyResponse as _RotateAPIKeyResponse
 
 
 @dataclass(kw_only=True)
-class RotateApiKeyRequest(_RotateAPIKeyRequest):
+class RotateApiKeyRequest(BaseRequest, _RotateAPIKeyRequest):
     """
     Attributes:
         duration_seconds: How long the old key remains active after the new key is approved,
             in seconds. Set to 0 for immediate expiry on approval. Cannot extend beyond the
             original key's expiry.
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

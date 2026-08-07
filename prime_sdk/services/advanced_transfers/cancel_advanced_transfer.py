@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import CancelAdvancedTransferRequest as _CancelAdvancedTransferRequest
 from ...model import CancelAdvancedTransferResponse as _CancelAdvancedTransferResponse
 
 
 @dataclass
-class CancelAdvancedTransferRequest(_CancelAdvancedTransferRequest):
+class CancelAdvancedTransferRequest(BaseRequest, _CancelAdvancedTransferRequest):
     """
     Cancel Advanced Transfer
 
@@ -31,7 +32,6 @@ class CancelAdvancedTransferRequest(_CancelAdvancedTransferRequest):
 
     portfolio_id: str
     advanced_transfer_id: str
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

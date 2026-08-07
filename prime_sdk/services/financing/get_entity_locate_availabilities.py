@@ -14,13 +14,16 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetLocateAvailabilitiesRequest as _GetLocateAvailabilitiesRequest
 from ...model import GetLocateAvailabilitiesResponse as _GetLocateAvailabilitiesResponse
 
 
 @dataclass(kw_only=True)
-class GetEntityLocateAvailabilitiesRequest(_GetLocateAvailabilitiesRequest):
+class GetEntityLocateAvailabilitiesRequest(
+    BaseRequest, _GetLocateAvailabilitiesRequest
+):
     """
     Get Entity Locate Availabilities
 
@@ -29,8 +32,6 @@ class GetEntityLocateAvailabilitiesRequest(_GetLocateAvailabilitiesRequest):
         conversion_date: Deprecated: Use locate_date instead
         locate_date: The date of the locate availability in YYYY-MM-DD format
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

@@ -14,14 +14,16 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseCursorLimitPaginatedRequest
 from ...base_response import BaseResponse
 from ...model import ListWeb3WalletBalancesRequest as _ListWeb3WalletBalancesRequest
 from ...model import ListWeb3WalletBalancesResponse as _ListWeb3WalletBalancesResponse
-from ...utils import PaginationParams
 
 
 @dataclass(kw_only=True)
-class ListWeb3WalletBalancesRequest(_ListWeb3WalletBalancesRequest):
+class ListWeb3WalletBalancesRequest(
+    BaseCursorLimitPaginatedRequest, _ListWeb3WalletBalancesRequest
+):
     """
     List Onchain Wallet Balances
 
@@ -32,10 +34,6 @@ class ListWeb3WalletBalancesRequest(_ListWeb3WalletBalancesRequest):
             empty will return only VISIBLE balances. - UNKNOWN_VISIBILITY_STATUS: nil -
             VISIBLE: Visible - HIDDEN: Hidden - SPAM: Spam
     """
-
-    pagination: PaginationParams | None = None
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

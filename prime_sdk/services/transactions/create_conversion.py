@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import CreateConversionRequest as _CreateConversionRequest
 from ...model import CreateConversionResponse as _CreateConversionResponse
 
 
 @dataclass(kw_only=True)
-class CreateConversionRequest(_CreateConversionRequest):
+class CreateConversionRequest(BaseRequest, _CreateConversionRequest):
     """
     Create Conversion
 
@@ -36,8 +37,6 @@ class CreateConversionRequest(_CreateConversionRequest):
 
     portfolio_id: str
     wallet_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

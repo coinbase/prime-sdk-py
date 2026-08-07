@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetExistingLocatesRequest as _GetExistingLocatesRequest
 from ...model import GetExistingLocatesResponse as _GetExistingLocatesResponse
 
 
 @dataclass(kw_only=True)
-class ListExistingLocatesRequest(_GetExistingLocatesRequest):
+class ListExistingLocatesRequest(BaseRequest, _GetExistingLocatesRequest):
     """
     List Existing Locates
 
@@ -30,8 +31,6 @@ class ListExistingLocatesRequest(_GetExistingLocatesRequest):
         conversion_date: Deprecated: Use locate_date instead
         locate_date: The date of the locates in YYYY-MM-DD format
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

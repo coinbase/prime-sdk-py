@@ -14,14 +14,16 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseCursorLimitPaginatedRequest
 from ...base_response import BaseResponse
 from ...model import ListEntityBalancesRequest as _ListEntityBalancesRequest
 from ...model import ListEntityBalancesResponse as _ListEntityBalancesResponse
-from ...utils import PaginationParams
 
 
 @dataclass(kw_only=True)
-class ListEntityBalancesRequest(_ListEntityBalancesRequest):
+class ListEntityBalancesRequest(
+    BaseCursorLimitPaginatedRequest, _ListEntityBalancesRequest
+):
     """
     List Entity Balances
 
@@ -35,10 +37,6 @@ class ListEntityBalancesRequest(_ListEntityBalancesRequest):
             balances - UNIFIED_TOTAL_BALANCES: Unified total balance across networks and
             wallet types (vault + trading + prime custody)
     """
-
-    pagination: PaginationParams | None = None
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

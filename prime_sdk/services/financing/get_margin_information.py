@@ -14,21 +14,20 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetMarginInformationRequest as _GetMarginInformationRequest
 from ...model import GetMarginInformationResponse as _GetMarginInformationResponse
 
 
 @dataclass(kw_only=True)
-class GetMarginInformationRequest(_GetMarginInformationRequest):
+class GetMarginInformationRequest(BaseRequest, _GetMarginInformationRequest):
     """
     Get Margin Information
 
     Attributes:
         entity_id: The unique ID of the entity
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

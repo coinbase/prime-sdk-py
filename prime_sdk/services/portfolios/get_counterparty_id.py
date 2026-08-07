@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import (
     GetPortfolioCounterpartyIDRequest as _GetPortfolioCounterpartyIDRequest,
@@ -24,15 +25,13 @@ from ...model import (
 
 
 @dataclass(kw_only=True)
-class GetCounterpartyIdRequest(_GetPortfolioCounterpartyIDRequest):
+class GetCounterpartyIdRequest(BaseRequest, _GetPortfolioCounterpartyIDRequest):
     """
     Get Portfolio Counterparty ID
 
     Attributes:
         portfolio_id: The portfolio ID
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

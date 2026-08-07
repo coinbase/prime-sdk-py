@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import (
     ListFinancingEligibleAssetsRequest as _ListFinancingEligibleAssetsRequest,
@@ -24,12 +25,12 @@ from ...model import (
 
 
 @dataclass
-class ListFinancingEligibleAssetsRequest(_ListFinancingEligibleAssetsRequest):
+class ListFinancingEligibleAssetsRequest(
+    BaseRequest, _ListFinancingEligibleAssetsRequest
+):
     """
     List Financing Eligible Assets
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

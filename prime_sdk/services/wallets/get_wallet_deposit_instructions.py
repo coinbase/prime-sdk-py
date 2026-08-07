@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import (
     GetWalletDepositInstructionsRequest as _GetWalletDepositInstructionsRequest,
@@ -24,7 +25,9 @@ from ...model import (
 
 
 @dataclass(kw_only=True)
-class GetWalletDepositInstructionsRequest(_GetWalletDepositInstructionsRequest):
+class GetWalletDepositInstructionsRequest(
+    BaseRequest, _GetWalletDepositInstructionsRequest
+):
     """
     Get Wallet Deposit Instructions
 
@@ -36,8 +39,6 @@ class GetWalletDepositInstructionsRequest(_GetWalletDepositInstructionsRequest):
             Exchange Network deposit - SWIFT: A SWIFT deposit - SEPA: A SEPA deposit (Single
             Euro Payments Area)
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import OrderPreviewRequest as _OrderPreviewRequest
 from ...model import PostOrderPreviewResponse as _PostOrderPreviewResponse
 
 
 @dataclass(kw_only=True)
-class CreateOrderPreviewRequest(_OrderPreviewRequest):
+class CreateOrderPreviewRequest(BaseRequest, _OrderPreviewRequest):
     """
     Get Order Preview
 
@@ -61,8 +62,6 @@ class CreateOrderPreviewRequest(_OrderPreviewRequest):
     portfolio_id: str
     stp_id: str | None = None
     post_only: bool | None = None
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

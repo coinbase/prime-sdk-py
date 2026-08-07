@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import (
     GetCrossMarginRiskParametersRequest as _GetCrossMarginRiskParametersRequest,
@@ -24,15 +25,15 @@ from ...model import (
 
 
 @dataclass(kw_only=True)
-class GetCrossMarginRiskParametersRequest(_GetCrossMarginRiskParametersRequest):
+class GetCrossMarginRiskParametersRequest(
+    BaseRequest, _GetCrossMarginRiskParametersRequest
+):
     """
     Get Cross Margin Risk Parameters
 
     Attributes:
         entity_id: XM customer Prime Entity ID.
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

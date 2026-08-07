@@ -14,14 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetPortfolioBalancesRequest as _GetPortfolioBalancesRequest
 from ...model import GetPortfolioBalancesResponse as _GetPortfolioBalancesResponse
-from ...utils import PaginationParams
 
 
 @dataclass(kw_only=True)
-class ListPortfolioBalancesRequest(_GetPortfolioBalancesRequest):
+class ListPortfolioBalancesRequest(BaseRequest, _GetPortfolioBalancesRequest):
     """
     List Portfolio Balances
 
@@ -34,10 +34,6 @@ class ListPortfolioBalancesRequest(_GetPortfolioBalancesRequest):
             PRIME_CUSTODY_BALANCES: Prime custody balances - UNIFIED_TOTAL_BALANCES: Unified
             total balance across networks and wallet types (vault + trading + prime custody)
     """
-
-    pagination: PaginationParams | None = None
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

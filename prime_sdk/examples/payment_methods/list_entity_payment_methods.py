@@ -20,7 +20,6 @@ import os
 
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.services.payment_methods import ListEntityPaymentMethodsRequest
-from prime_sdk.utils import PaginationParams
 
 
 def main():
@@ -28,8 +27,6 @@ def main():
     parser.add_argument(
         "--entity-id", help="Entity ID (overrides PRIME_ENTITY_ID env var)"
     )
-    parser.add_argument("--limit", type=int, help="Number of results to return")
-    parser.add_argument("--cursor", help="Pagination cursor")
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
@@ -41,14 +38,7 @@ def main():
         )
         return
 
-    # Set up pagination if provided
-    pagination = None
-    if args.limit or args.cursor:
-        pagination = PaginationParams(limit=args.limit, cursor=args.cursor)
-
-    request = ListEntityPaymentMethodsRequest(
-        entity_id=entity_id, pagination=pagination
-    )
+    request = ListEntityPaymentMethodsRequest(entity_id=entity_id)
 
     try:
         response = client.payment_methods.list_entity_payment_methods(request)

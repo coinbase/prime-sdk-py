@@ -14,14 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
 from ...model import GetPortfolioFillsRequest as _GetPortfolioFillsRequest
 from ...model import GetPortfolioFillsResponse as _GetPortfolioFillsResponse
-from ...utils import PaginationParams
 
 
 @dataclass(kw_only=True)
-class ListPortfolioFillsRequest(_GetPortfolioFillsRequest):
+class ListPortfolioFillsRequest(BasePaginatedRequest, _GetPortfolioFillsRequest):
     """
     List Portfolio Fills
 
@@ -30,10 +30,6 @@ class ListPortfolioFillsRequest(_GetPortfolioFillsRequest):
         start_date: A start date for the fills to be queried from
         end_date: An end date for the fills to be queried until
     """
-
-    pagination: PaginationParams | None = None
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

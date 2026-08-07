@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from dataclasses import asdict, dataclass
+import dataclasses
+from dataclasses import asdict, dataclass, fields
 from typing import Any
 
 
@@ -21,6 +22,15 @@ class PaginationParams:
     cursor: str = ""
     limit: str = ""
     sort_direction: str = ""
+
+    def to_dict(self) -> dict[str, str]:
+        return asdict(self)
+
+
+@dataclass
+class CursorLimitPaginationParams:
+    cursor: str = ""
+    limit: str = ""
 
     def to_dict(self) -> dict[str, str]:
         return asdict(self)
@@ -43,13 +53,15 @@ def append_query_param(
 
 
 def append_pagination_params(
-    query_params: str, pagination: PaginationParams | None
+    query_params: str,
+    pagination: PaginationParams | CursorLimitPaginationParams | None,
 ) -> str:
     if pagination:
         query_params = append_query_param(query_params, "cursor", pagination.cursor)
         query_params = append_query_param(query_params, "limit", pagination.limit)
+        sort_direction = getattr(pagination, "sort_direction", None)
         query_params = append_query_param(
-            query_params, "sort_direction", pagination.sort_direction
+            query_params, "sort_direction", sort_direction
         )
     return query_params
 
@@ -69,12 +81,18 @@ def to_body_dict(obj: Any) -> dict[str, Any]:
     Convert a dataclass to a dictionary, converting enum values to their string representation.
     This is used for request objects that need to be serialized for API calls.
     """
+    control_fields = set()
+    if dataclasses.is_dataclass(obj):
+        control_fields = {
+            field.name for field in fields(obj) if field.metadata.get("control")
+        }
     result = {}
     for k, v in asdict(obj).items():
-        if v is not None:
-            # Convert enums to their string values
-            if hasattr(v, "value"):
-                result[k] = v.value
-            else:
-                result[k] = v
+        if k in control_fields or v is None:
+            continue
+        # Convert enums to their string values
+        if hasattr(v, "value"):
+            result[k] = v.value
+        else:
+            result[k] = v
     return result

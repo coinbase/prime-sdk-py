@@ -21,8 +21,9 @@
     "statuses",
     "start_time",
     "end_time",
-    "pagination",
-    "allowed_status_codes"
+    "get_network_unified_activities",
+    "allowed_status_codes",
+    "pagination"
   ],
   "ListActivitiesResponse": [
     "activities",
@@ -36,8 +37,9 @@
     "statuses",
     "start_time",
     "end_time",
-    "pagination",
-    "allowed_status_codes"
+    "get_network_unified_activities",
+    "allowed_status_codes",
+    "pagination"
   ],
   "ListEntityActivitiesResponse": [
     "activities",
@@ -61,8 +63,8 @@
     "portfolio_id",
     "currency_symbol",
     "search",
-    "pagination",
-    "allowed_status_codes"
+    "allowed_status_codes",
+    "pagination"
   ],
   "GetAddressBookResponse": [
     "addresses",
@@ -99,8 +101,8 @@
     "start_time",
     "end_time",
     "reference_id",
-    "pagination",
-    "allowed_status_codes"
+    "allowed_status_codes",
+    "pagination"
   ],
   "ListAdvancedTransfersResponse": [
     "advanced_transfers",
@@ -157,8 +159,8 @@
     "product_ids",
     "order_side",
     "end_date",
-    "pagination",
-    "allowed_status_codes"
+    "allowed_status_codes",
+    "pagination"
   ],
   "ListPortfolioAllocationsResponse": [
     "allocations",
@@ -190,9 +192,9 @@
   "ListEntityBalancesRequest": [
     "entity_id",
     "symbols",
-    "pagination",
     "aggregation_type",
-    "allowed_status_codes"
+    "allowed_status_codes",
+    "pagination"
   ],
   "ListEntityBalancesResponse": [
     "balances",
@@ -202,7 +204,6 @@
     "portfolio_id",
     "symbols",
     "balance_type",
-    "pagination",
     "allowed_status_codes"
   ],
   "ListPortfolioBalancesResponse": [
@@ -216,8 +217,8 @@
     "portfolio_id",
     "wallet_id",
     "visibility_statuses",
-    "pagination",
-    "allowed_status_codes"
+    "allowed_status_codes",
+    "pagination"
   ],
   "ListWeb3WalletBalancesResponse": [
     "balances",
@@ -226,6 +227,7 @@
   ],
   "GetPortfolioCommissionRequest": [
     "portfolio_id",
+    "product_id",
     "allowed_status_codes"
   ],
   "GetPortfolioCommissionResponse": [
@@ -273,6 +275,7 @@
   "GetEntityLocateAvailabilitiesRequest": [
     "entity_id",
     "locate_date",
+    "conversion_date",
     "allowed_status_codes"
   ],
   "GetEntityLocateAvailabilitiesResponse": [
@@ -287,10 +290,8 @@
   ],
   "GetMarketDataRequest": [
     "entity_id",
-    "cursor",
-    "limit",
-    "sort_direction",
-    "allowed_status_codes"
+    "allowed_status_codes",
+    "pagination"
   ],
   "GetMarketDataResponse": [
     "market_data",
@@ -340,6 +341,7 @@
     "portfolio_id",
     "locate_ids",
     "locate_date",
+    "conversion_date",
     "allowed_status_codes"
   ],
   "ListExistingLocatesResponse": [
@@ -399,10 +401,11 @@
   ],
   "ListXMLiquidationsRequest": [
     "entity_id",
-    "cursor",
-    "limit",
-    "sort_direction",
-    "allowed_status_codes"
+    "status",
+    "start_time",
+    "end_time",
+    "allowed_status_codes",
+    "pagination"
   ],
   "ListXMLiquidationsResponse": [
     "liquidations",
@@ -449,7 +452,8 @@
   "GetEntityPositionsRequest": [
     "entity_id",
     "product_id",
-    "allowed_status_codes"
+    "allowed_status_codes",
+    "pagination"
   ],
   "GetEntityPositionsResponse": [
     "positions",
@@ -533,8 +537,8 @@
     "states",
     "billing_year",
     "billing_month",
-    "pagination",
-    "allowed_status_codes"
+    "allowed_status_codes",
+    "pagination"
   ],
   "ListInvoicesResponse": [
     "invoices"
@@ -744,7 +748,8 @@
     "order_side",
     "start_date",
     "end_date",
-    "allowed_status_codes"
+    "allowed_status_codes",
+    "pagination"
   ],
   "ListOpenOrdersResponse": [
     "orders",
@@ -753,8 +758,8 @@
   "ListOrderFillsRequest": [
     "portfolio_id",
     "order_id",
-    "pagination",
-    "allowed_status_codes"
+    "allowed_status_codes",
+    "pagination"
   ],
   "ListOrderFillsResponse": [
     "fills",
@@ -768,8 +773,8 @@
     "order_side",
     "start_date",
     "end_date",
-    "pagination",
-    "allowed_status_codes"
+    "allowed_status_codes",
+    "pagination"
   ],
   "ListOrdersResponse": [
     "orders",
@@ -779,8 +784,8 @@
     "portfolio_id",
     "start_date",
     "end_date",
-    "pagination",
-    "allowed_status_codes"
+    "allowed_status_codes",
+    "pagination"
   ],
   "ListPortfolioFillsResponse": [
     "fills",
@@ -796,7 +801,6 @@
   ],
   "ListEntityPaymentMethodsRequest": [
     "entity_id",
-    "pagination",
     "allowed_status_codes"
   ],
   "ListEntityPaymentMethodsResponse": [
@@ -824,8 +828,8 @@
   ],
   "ListAggregateEntityPositionsRequest": [
     "entity_id",
-    "pagination",
-    "allowed_status_codes"
+    "allowed_status_codes",
+    "pagination"
   ],
   "ListAggregateEntityPositionsResponse": [
     "positions",
@@ -833,8 +837,8 @@
   ],
   "ListEntityPositionsRequest": [
     "entity_id",
-    "pagination",
-    "allowed_status_codes"
+    "allowed_status_codes",
+    "pagination"
   ],
   "ListEntityPositionsResponse": [
     "positions",
@@ -853,8 +857,11 @@
   ],
   "ListProductsRequest": [
     "portfolio_id",
-    "pagination",
-    "allowed_status_codes"
+    "product_type",
+    "contract_expiry_type",
+    "expiring_contract_status",
+    "allowed_status_codes",
+    "pagination"
   ],
   "ListProductsResponse": [
     "products",
@@ -1079,8 +1086,12 @@
     "types",
     "start",
     "end",
-    "pagination",
-    "allowed_status_codes"
+    "start_time",
+    "end_time",
+    "get_network_unified_transactions",
+    "travel_rule_status",
+    "allowed_status_codes",
+    "pagination"
   ],
   "ListPortfolioTransactionsResponse": [
     "transactions",
@@ -1092,8 +1103,10 @@
     "types",
     "start",
     "end",
-    "pagination",
-    "allowed_status_codes"
+    "start_time",
+    "end_time",
+    "allowed_status_codes",
+    "pagination"
   ],
   "ListWalletTransactionsResponse": [
     "transactions",
@@ -1113,8 +1126,8 @@
   ],
   "ListEntityUsersRequest": [
     "entity_id",
-    "pagination",
-    "allowed_status_codes"
+    "allowed_status_codes",
+    "pagination"
   ],
   "ListEntityUsersResponse": [
     "users",
@@ -1122,8 +1135,8 @@
   ],
   "ListPortfolioUsersRequest": [
     "portfolio_id",
-    "pagination",
-    "allowed_status_codes"
+    "allowed_status_codes",
+    "pagination"
   ],
   "ListPortfolioUsersResponse": [
     "users",
@@ -1179,8 +1192,8 @@
     "portfolio_id",
     "wallet_id",
     "network_id",
-    "pagination",
-    "allowed_status_codes"
+    "allowed_status_codes",
+    "pagination"
   ],
   "ListWalletAddressesResponse": [
     "addresses",
@@ -1190,8 +1203,9 @@
     "portfolio_id",
     "type",
     "symbols",
-    "pagination",
-    "allowed_status_codes"
+    "get_network_unified_wallets",
+    "allowed_status_codes",
+    "pagination"
   ],
   "ListWalletsResponse": [
     "wallets",

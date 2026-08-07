@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import (
     ListTransactionValidatorsRequest as _ListTransactionValidatorsRequest,
@@ -24,7 +25,7 @@ from ...model import (
 
 
 @dataclass(kw_only=True)
-class QueryTransactionValidatorsRequest(_ListTransactionValidatorsRequest):
+class QueryTransactionValidatorsRequest(BaseRequest, _ListTransactionValidatorsRequest):
     """
     List Transaction Validators
 
@@ -38,8 +39,6 @@ class QueryTransactionValidatorsRequest(_ListTransactionValidatorsRequest):
     """
 
     portfolio_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

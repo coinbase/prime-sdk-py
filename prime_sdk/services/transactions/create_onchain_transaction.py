@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import CreateOnchainTransactionRequest as _CreateOnchainTransactionRequest
 from ...model import (
@@ -35,7 +36,7 @@ class EvmParams:
 
 
 @dataclass(kw_only=True)
-class CreateOnchainTransactionRequest(_CreateOnchainTransactionRequest):
+class CreateOnchainTransactionRequest(BaseRequest, _CreateOnchainTransactionRequest):
     """
     Create Onchain Transaction
 
@@ -47,8 +48,6 @@ class CreateOnchainTransactionRequest(_CreateOnchainTransactionRequest):
 
     portfolio_id: str
     wallet_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

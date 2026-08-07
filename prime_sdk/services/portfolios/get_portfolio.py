@@ -14,21 +14,20 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetPortfolioRequest as _GetPortfolioRequest
 from ...model import GetPortfolioResponse as _GetPortfolioResponse
 
 
 @dataclass(kw_only=True)
-class GetPortfolioRequest(_GetPortfolioRequest):
+class GetPortfolioRequest(BaseRequest, _GetPortfolioRequest):
     """
     Get Portfolio by Portfolio ID
 
     Attributes:
         portfolio_id: The portfolio ID
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

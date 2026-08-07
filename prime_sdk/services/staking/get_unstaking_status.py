@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...enums import UnstakeEstimateType, UnstakeType
 from ...model import GetUnstakingStatusRequest as _GetUnstakingStatusRequest
@@ -38,7 +39,7 @@ class ValidatorUnstakeStatus:
 
 
 @dataclass(kw_only=True)
-class GetUnstakingStatusRequest(_GetUnstakingStatusRequest):
+class GetUnstakingStatusRequest(BaseRequest, _GetUnstakingStatusRequest):
     """
     Get Unstaking Status
 
@@ -46,8 +47,6 @@ class GetUnstakingStatusRequest(_GetUnstakingStatusRequest):
         portfolio_id: The portfolio ID
         wallet_id: The wallet ID
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

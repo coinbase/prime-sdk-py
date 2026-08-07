@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetTransactionRequest as _GetTransactionRequest
 from ...model import GetTransactionResponse as _GetTransactionResponse
 
 
 @dataclass(kw_only=True)
-class GetTransactionRequest(_GetTransactionRequest):
+class GetTransactionRequest(BaseRequest, _GetTransactionRequest):
     """
     Get Transaction by Transaction ID
 
@@ -28,8 +29,6 @@ class GetTransactionRequest(_GetTransactionRequest):
         portfolio_id: The portfolio ID
         transaction_id: The transaction ID
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

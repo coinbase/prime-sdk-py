@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import StakingInitiateRequest as _StakingInitiateRequest
 from ...model import StakingInitiateResponse as _StakingInitiateResponse
@@ -34,7 +35,7 @@ class WalletStakingMetadata:
 
 
 @dataclass(kw_only=True)
-class CreateStakeRequest(_StakingInitiateRequest):
+class CreateStakeRequest(BaseRequest, _StakingInitiateRequest):
     """
     Request to stake or delegate a wallet
 
@@ -47,8 +48,6 @@ class CreateStakeRequest(_StakingInitiateRequest):
 
     portfolio_id: str
     wallet_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

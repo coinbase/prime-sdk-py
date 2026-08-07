@@ -124,6 +124,8 @@ class OrdersService:
                 query_params, "end_date", request.end_date.isoformat() + "Z"
             )
 
+        query_params = append_pagination_params(query_params, request.pagination)
+
         response = self.client.request(
             "GET",
             path,

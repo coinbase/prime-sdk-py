@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetWithdrawalPowerRequest as _GetWithdrawalPowerRequest
 from ...model import GetWithdrawalPowerResponse as _GetWithdrawalPowerResponse
 
 
 @dataclass(kw_only=True)
-class GetPortfolioWithdrawalPowerRequest(_GetWithdrawalPowerRequest):
+class GetPortfolioWithdrawalPowerRequest(BaseRequest, _GetWithdrawalPowerRequest):
     """
     Get Portfolio Withdrawal Power
 
@@ -28,8 +29,6 @@ class GetPortfolioWithdrawalPowerRequest(_GetWithdrawalPowerRequest):
         portfolio_id: The unique ID of the portfolio
         symbol: The currency symbol
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import CreateNetAllocationRequest as _CreateNetAllocationRequest
 from ...model import CreateNetAllocationResponse as _CreateNetAllocationResponse
@@ -27,7 +28,7 @@ class NetAllocationLeg:
 
 
 @dataclass(kw_only=True)
-class CreatePortfolioNetAllocationsRequest(_CreateNetAllocationRequest):
+class CreatePortfolioNetAllocationsRequest(BaseRequest, _CreateNetAllocationRequest):
     """
     Attributes:
         source_portfolio_id: The source portfolio id for the allocation
@@ -41,8 +42,6 @@ class CreatePortfolioNetAllocationsRequest(_CreateNetAllocationRequest):
 
     allocation_id: str
     remainder_destination_portfolio_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

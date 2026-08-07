@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import (
     GetCrossMarginPrimeOverviewRequest as _GetCrossMarginPrimeOverviewRequest,
@@ -24,15 +25,15 @@ from ...model import (
 
 
 @dataclass(kw_only=True)
-class GetCrossMarginPrimeOverviewRequest(_GetCrossMarginPrimeOverviewRequest):
+class GetCrossMarginPrimeOverviewRequest(
+    BaseRequest, _GetCrossMarginPrimeOverviewRequest
+):
     """
     Get Prime Cross Margin Overview
 
     Attributes:
         entity_id: Prime entity ID for the XM (cross-margin) customer.
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

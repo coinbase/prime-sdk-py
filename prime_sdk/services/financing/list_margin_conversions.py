@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import GetMarginConversionsRequest as _GetMarginConversionsRequest
 from ...model import GetMarginConversionsResponse as _GetMarginConversionsResponse
 
 
 @dataclass(kw_only=True)
-class ListMarginConversionsRequest(_GetMarginConversionsRequest):
+class ListMarginConversionsRequest(BaseRequest, _GetMarginConversionsRequest):
     """
     List Margin Conversions
 
@@ -29,8 +30,6 @@ class ListMarginConversionsRequest(_GetMarginConversionsRequest):
         start_date: The start date of the range to query for in RFC3339 format
         end_date: The end date of the range to query for in RFC3339 format
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
 from ...model import ListXMLiquidationsRequest as _ListXMLiquidationsRequest
 from ...model import ListXMLiquidationsResponse as _ListXMLiquidationsResponse
 
 
 @dataclass(kw_only=True)
-class ListXMLiquidationsRequest(_ListXMLiquidationsRequest):
+class ListXMLiquidationsRequest(BasePaginatedRequest, _ListXMLiquidationsRequest):
     """
     List Cross Margin Liquidations
 
@@ -35,12 +36,6 @@ class ListXMLiquidationsRequest(_ListXMLiquidationsRequest):
         start_time: Filter results to liquidations created at or after this time
         end_time: Filter results to liquidations created at or before this time
     """
-
-    cursor: str | None = None
-    limit: int | None = None
-    sort_direction: str | None = None
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

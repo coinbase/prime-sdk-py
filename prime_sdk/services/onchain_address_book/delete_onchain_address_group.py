@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import ActivityCreationResponse as _ActivityCreationResponse
 from ...model import (
@@ -22,12 +23,10 @@ from ...model import (
 
 
 @dataclass(kw_only=True)
-class DeleteOnchainAddressGroupRequest(_DeleteOnchainAddressGroupRequest):
+class DeleteOnchainAddressGroupRequest(BaseRequest, _DeleteOnchainAddressGroupRequest):
     """
     Delete Onchain Address Group
     """
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass

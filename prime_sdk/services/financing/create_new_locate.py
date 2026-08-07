@@ -14,13 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...model import CreateNewLocatesRequest as _CreateNewLocatesRequest
 from ...model import CreateNewLocatesResponse as _CreateNewLocatesResponse
 
 
 @dataclass(kw_only=True)
-class CreateNewLocateRequest(_CreateNewLocatesRequest):
+class CreateNewLocateRequest(BaseRequest, _CreateNewLocatesRequest):
     """
     Create New Locates
 
@@ -33,8 +34,6 @@ class CreateNewLocateRequest(_CreateNewLocatesRequest):
     """
 
     portfolio_id: str
-
-    allowed_status_codes: list[int] | None = None
 
 
 @dataclass
