@@ -1,4 +1,4 @@
-.PHONY: fetch-spec dev-deps promote-titles gen-models update-spec check-models
+.PHONY: fetch-spec dev-deps promote-titles gen-models update-spec check-models format format-check lint check
 
 # Fetch the Prime API OpenAPI specification
 fetch-spec:
@@ -19,3 +19,15 @@ update-spec: fetch-spec gen-models
 
 check-models: gen-models
 	@git diff --exit-code prime_sdk/generated/models.py
+
+# Format and lint all Python code (matches CI)
+format:
+	ruff format .
+
+format-check:
+	ruff format --check .
+
+lint:
+	ruff check .
+
+check: format-check lint

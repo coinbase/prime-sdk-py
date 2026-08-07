@@ -216,9 +216,7 @@ def collect_operation_docs(
     body_schema: dict[str, Any] | None,
 ) -> tuple[str | None, dict[str, str], list[str]]:
     summary = operation.get("summary") or operation.get("description")
-    class_summary = (
-        normalize_description(str(summary)) if summary else None
-    )
+    class_summary = normalize_description(str(summary)) if summary else None
 
     descriptions: dict[str, str] = {}
     field_order: list[str] = []

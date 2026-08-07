@@ -260,7 +260,17 @@ make dev-deps
 pytest tests/
 ```
 
-#### 4. Updating the OpenAPI Spec
+#### 4. Formatting and linting
+
+```bash
+make dev-deps
+make format      # auto-format all Python code with ruff
+make format-check # verify formatting (CI)
+make lint        # run ruff check (CI)
+make check       # format-check + lint
+```
+
+#### 5. Updating the OpenAPI Spec
 
 Models are generated from the Prime OpenAPI specification. To fetch the latest spec and regenerate models:
 
@@ -271,7 +281,7 @@ make update-spec
 
 Use `make gen-models` to regenerate models from the committed spec without re-fetching from the network. CI uses `make check-models` to verify committed generated output matches the spec.
 
-#### 5. Code Structure
+#### 6. Code Structure
 
 The SDK follows this structure:
 
