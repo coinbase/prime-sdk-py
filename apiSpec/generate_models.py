@@ -536,6 +536,43 @@ def topological_sort(
     return deduped
 
 
+def collect_nested_ref_field_descriptions(
+    schema: dict[str, Any], schemas: dict[str, Any], renames: dict[str, str]
+) -> dict[str, str]:
+    """Synthesize `field.subfield: description` entries for fields that are a
+    bare ``$ref`` to another local object schema with no description of their
+    own (e.g. response wrappers like ``{"body": SomeResponseBody}``).
+
+    Without this, a class whose only property is an undocumented `$ref` gets
+    no docstring at all, and falls back to the dataclass auto-generated
+    ``ClassName(field: type = default, ...)`` repr as its `__doc__`.
+    """
+    descriptions: dict[str, str] = {}
+    for spec_name, prop in (schema.get("properties") or {}).items():
+        if not isinstance(prop, dict) or prop.get("description"):
+            continue
+        ref = prop.get("$ref")
+        if not isinstance(ref, str):
+            continue
+        match = REF_PATTERN.match(ref)
+        if not match:
+            continue
+        ref_schema = schemas.get(match.group(1))
+        if not isinstance(ref_schema, dict):
+            continue
+        public_name = renames.get(spec_name, spec_name)
+        for nested_name, nested_prop in (ref_schema.get("properties") or {}).items():
+            if not isinstance(nested_prop, dict):
+                continue
+            nested_description = nested_prop.get("description")
+            if not nested_description:
+                continue
+            descriptions[f"{public_name}.{nested_name}"] = normalize_description(
+                str(nested_description)
+            )
+    return descriptions
+
+
 def render_class(
     class_short: str,
     fields: list[tuple[str, str]],
@@ -546,12 +583,21 @@ def render_class(
     field_descriptions: dict[str, str] | None = None,
     field_order: list[str] | None = None,
     field_locations: dict[str, str] | None = None,
+    schemas: dict[str, Any] | None = None,
 ) -> str:
     renames = FIELD_RENAMES.get(class_short, {})
     if class_summary is None:
         class_summary = collect_class_docstring(schema)
     if field_descriptions is None:
         field_descriptions = collect_field_descriptions(schema, renames)
+    if not class_summary and not field_descriptions and schemas is not None:
+        nested_descriptions = collect_nested_ref_field_descriptions(
+            schema, schemas, renames
+        )
+        if nested_descriptions:
+            field_descriptions = nested_descriptions
+            if field_order is None:
+                field_order = list(nested_descriptions.keys())
     if field_order is None:
         field_order = [name for name, _ in fields]
     docstring_lines = render_docstring_lines(
@@ -624,7 +670,7 @@ def generate_models() -> str:
         fields = collect_fields(
             schema_key, schema, schemas, compat_surface, compat_types
         )
-        body_parts.append(render_class(class_short, fields, schema))
+        body_parts.append(render_class(class_short, fields, schema, schemas=schemas))
         body_parts.append("")
         emitted.add(class_short)
 
@@ -671,6 +717,7 @@ def generate_models() -> str:
                 field_descriptions=field_descriptions,
                 field_order=field_order,
                 field_locations=field_locations,
+                schemas=schemas,
             )
         )
         body_parts.append("")

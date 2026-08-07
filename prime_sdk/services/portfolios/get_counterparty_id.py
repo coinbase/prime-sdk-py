@@ -36,4 +36,7 @@ class GetCounterpartyIdRequest(BaseRequest, _GetPortfolioCounterpartyIDRequest):
 
 @dataclass
 class GetCounterpartyIdResponse(BaseResponse, _GetPortfolioCounterpartyIDResponse):
-    """GetCounterpartyIdResponse(counterparty: 'Counterparty' = None)"""
+    """
+    Attributes:
+        counterparty.counterparty_id: The unique counterparty ID for the portfolio
+    """

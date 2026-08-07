@@ -41,4 +41,9 @@ class ListEntityBalancesRequest(
 
 @dataclass
 class ListEntityBalancesResponse(BaseResponse, _ListEntityBalancesResponse):
-    """ListEntityBalancesResponse(balances: 'list[EntityBalance]' = None, pagination: 'PaginatedResponse' = None)"""
+    """
+    Attributes:
+        pagination.next_cursor: Cursor to navigate to next page
+        pagination.has_next: A boolean value indicating whether there are more items to
+            paginate through
+    """

@@ -34,6 +34,11 @@ class GetEntityPositionsRequest(
 
 @dataclass
 class GetEntityPositionsResponse(BaseResponse, _ListEntityPositionsResponse):
-    """GetEntityPositionsResponse(positions: 'list[Position]' = None, pagination: 'PaginatedResponse' = None)"""
+    """
+    Attributes:
+        pagination.next_cursor: Cursor to navigate to next page
+        pagination.has_next: A boolean value indicating whether there are more items to
+            paginate through
+    """
 
     clearing_account_id: str = None

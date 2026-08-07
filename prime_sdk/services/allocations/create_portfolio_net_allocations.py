@@ -43,4 +43,11 @@ class CreatePortfolioNetAllocationsRequest(BaseRequest, _CreateNetAllocationRequ
 
 @dataclass
 class CreatePortfolioNetAllocationsResponse(BaseResponse, _CreateNetAllocationResponse):
-    """CreatePortfolioNetAllocationsResponse(body: 'CreateNetAllocationResponseBody' = None)"""
+    """
+    Attributes:
+        body.success: The success boolean for the post net allocation
+        body.netting_id: The netting_id for the post net allocation
+        body.buy_allocation_id: The allocation id of the buy allocation in net allocation
+        body.sell_allocation_id: The allocation id of the sell allocation in net allocation
+        body.failure_reason: The failure reason for the post net allocation
+    """

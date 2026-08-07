@@ -27,6 +27,7 @@ These responses previously used incorrect field names or shapes in the Python SD
 - **`GetMarketDataRequest`** and **`ListXMLiquidationsRequest`**: replaced raw `cursor`/`limit`/`sort_direction` fields with the standard `pagination: PaginationParams` field.
 - **`ListPortfolioTransactionsRequest`** / **`ListWalletTransactionsRequest`**: transaction list services now send `start_time` and `end_time` query parameters per the OpenAPI spec (previously sent legacy `start`/`end`).
 - **`GetEntityPositionsRequest`**: `product_id` is now on the generated base model as an SDK extension for optional position filtering.
+- **Wrapper response docstrings**: Generated response classes whose only property is an undocumented `$ref` (e.g. `CreateAllocationResponse.body`, `CreateNetAllocationResponse.body`) now render a real `Attributes:` docstring (`body.success`, `body.failure_reason`, etc.) sourced from the referenced schema's field descriptions, instead of falling back to the dataclass auto-generated repr as `__doc__`.
 
 ### Fixed
 

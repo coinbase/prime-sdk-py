@@ -33,4 +33,11 @@ class GetWalletRequest(BaseRequest, _GetWalletRequest):
 
 @dataclass
 class GetWalletResponse(BaseResponse, _GetWalletResponse):
-    """GetWalletResponse(wallet: 'Wallet' = None)"""
+    """
+    Attributes:
+        wallet.id: The unique UUID for the wallet
+        wallet.name: The name of the wallet
+        wallet.symbol: The asset stored in the wallet
+        wallet.created_at: The UTC timestamp when this wallet was created
+        wallet.address: The active address of the wallet
+    """

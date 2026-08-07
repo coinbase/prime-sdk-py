@@ -45,4 +45,20 @@ class GetWalletDepositInstructionsRequest(
 class GetWalletDepositInstructionsResponse(
     BaseResponse, _GetWalletDepositInstructionsResponse
 ):
-    """GetWalletDepositInstructionsResponse(crypto_instructions: 'CryptoInstructions' = None, fiat_instructions: 'FiatInstructions' = None)"""
+    """
+    Attributes:
+        crypto_instructions.id: The ID of the wallet
+        crypto_instructions.name: The name of the wallet
+        crypto_instructions.address: The address of the wallet
+        crypto_instructions.account_identifier: The tag/memo of the address, if applicable
+            -- required for certain assets (e.g. XRP, XLM, etc.)
+        crypto_instructions.account_identifier_name: The blockchain network's terminology
+            for the unique identifier used to identify the receiver of the transaction
+            (different blockchain networks use different names, such as `destination_tag` or
+            `memo`)
+        fiat_instructions.id: The id of the wallet
+        fiat_instructions.name: The name of the wallet
+        fiat_instructions.account_number: The fiat account number
+        fiat_instructions.routing_number: The fiat routing number
+        fiat_instructions.reference_code: Reference code to be used as a memo/description
+    """

@@ -32,4 +32,7 @@ class GetMarginInformationRequest(BaseRequest, _GetMarginInformationRequest):
 
 @dataclass
 class GetMarginInformationResponse(BaseResponse, _GetMarginInformationResponse):
-    """GetMarginInformationResponse(margin_information: 'MarginInformation' = None)"""
+    """
+    Attributes:
+        margin_information.margin_call_records: The current margin call records
+    """

@@ -32,4 +32,12 @@ class GetPortfolioRequest(BaseRequest, _GetPortfolioRequest):
 
 @dataclass
 class GetPortfolioResponse(BaseResponse, _GetPortfolioResponse):
-    """GetPortfolioResponse(portfolio: 'Portfolio' = None)"""
+    """
+    Attributes:
+        portfolio.id: The unique ID of the portfolio
+        portfolio.name: The name of the portfolio
+        portfolio.entity_id: The ID of the entity to which the portfolio is associated
+        portfolio.organization_id: The ID of the organization to which the portfolio is
+            associated
+        portfolio.entity_name: The name of the entity to which the portfolio is associated
+    """

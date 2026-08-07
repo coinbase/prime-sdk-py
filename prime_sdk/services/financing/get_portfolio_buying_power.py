@@ -34,4 +34,11 @@ class GetBuyingPowerRequest(BaseRequest, _GetBuyingPowerRequest):
 
 @dataclass
 class GetBuyingPowerResponse(BaseResponse, _GetBuyingPowerResponse):
-    """GetBuyingPowerResponse(buying_power: 'BuyingPower' = None)"""
+    """
+    Attributes:
+        buying_power.portfolio_id: The unique ID of the portfolio
+        buying_power.base_currency: The symbol for the base currency
+        buying_power.quote_currency: The symbol for the quote currency
+        buying_power.base_buying_power: The buying power for the base currency
+        buying_power.quote_buying_power: The buying power for the quote currency
+    """

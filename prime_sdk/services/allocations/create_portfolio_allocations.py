@@ -55,4 +55,9 @@ class CreatePortfolioAllocationsRequest(BaseRequest, _CreateAllocationRequest):
 
 @dataclass
 class CreatePortfolioAllocationsResponse(BaseResponse, _CreateAllocationResponse):
-    """CreatePortfolioAllocationsResponse(body: 'CreateAllocationResponseBody' = None)"""
+    """
+    Attributes:
+        body.success: The success boolean for the post allocation
+        body.allocation_id: The allocation id for the post allocation
+        body.failure_reason: The failure reason for the post allocation
+    """

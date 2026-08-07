@@ -32,4 +32,8 @@ class GetCrossMarginOverviewRequest(BaseRequest, _GetCrossMarginOverviewRequest)
 
 @dataclass
 class GetCrossMarginOverviewResponse(BaseResponse, _GetCrossMarginOverviewResponse):
-    """GetCrossMarginOverviewResponse(overview: 'CrossMarginOverview' = None)"""
+    """
+    Attributes:
+        overview.active_margin_calls: List of active XM margin calls
+        overview.active_loans: List of active XM loans
+    """

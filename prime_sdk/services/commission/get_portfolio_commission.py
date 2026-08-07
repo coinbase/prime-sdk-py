@@ -32,4 +32,11 @@ class GetPortfolioCommissionRequest(BaseRequest, _GetPortfolioCommissionRequest)
 
 @dataclass
 class GetPortfolioCommissionResponse(BaseResponse, _GetPortfolioCommissionResponse):
-    """GetPortfolioCommissionResponse(commission: 'Commission' = None)"""
+    """
+    Attributes:
+        commission.type: Fee model (all_in or cost_plus)
+        commission.rate: Commission rate (in whole percentage. Commission of 15bps is
+            "0.0015")
+        commission.trading_volume: Average 30 days over past 3 months (e.g. 90 days divided
+            by 3)
+    """

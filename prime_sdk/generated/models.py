@@ -100,6 +100,12 @@ class ActivityMetadataOrders:
 
 @dataclass
 class ActivityMetadataTransactions:
+    """
+    Attributes:
+        consensus.approval_deadline: Deadline for approval of an activity
+        consensus.has_passed_consensus: If activity has passed consensus threshold
+    """
+
     consensus: ConsensusMetadata = None
 
 
@@ -827,6 +833,15 @@ class FcmScheduledMaintenance:
 
 @dataclass
 class GetBuyingPowerResponse:
+    """
+    Attributes:
+        buying_power.portfolio_id: The unique ID of the portfolio
+        buying_power.base_currency: The symbol for the base currency
+        buying_power.quote_currency: The symbol for the quote currency
+        buying_power.base_buying_power: The buying power for the base currency
+        buying_power.quote_buying_power: The buying power for the quote currency
+    """
+
     buying_power: BuyingPower = None
 
 
@@ -904,16 +919,58 @@ class GetFcmSettingsResponse:
 
 @dataclass
 class GetPortfolioCommissionResponse:
+    """
+    Attributes:
+        commission.type: Fee model (all_in or cost_plus)
+        commission.rate: Commission rate (in whole percentage. Commission of 15bps is
+            "0.0015")
+        commission.trading_volume: Average 30 days over past 3 months (e.g. 90 days divided
+            by 3)
+    """
+
     commission: Commission = None
 
 
 @dataclass
 class GetPortfolioCounterpartyIDResponse:
+    """
+    Attributes:
+        counterparty.counterparty_id: The unique counterparty ID for the portfolio
+    """
+
     counterparty: Counterparty = None
 
 
 @dataclass
 class GetWalletBalanceResponse:
+    """
+    Attributes:
+        balance.symbol: The display symbol for the asset
+        balance.amount: The total amount in whole units with full precision. Includes the
+            `holds` amount.
+        balance.holds: Amount that is currently held in obligation to an open order's
+            position or a pending withdrawal
+        balance.bonded_amount: Amount that is currently locked due to bonding/staking,
+            potentially subject to an unbonding period, in whole units
+        balance.reserved_amount: Amount that must remain in the wallet due to the protocol,
+            in whole units
+        balance.unbonding_amount: Amount that is in the process of unbonding, in whole units
+        balance.unvested_amount: Unrealized amount subject to a vesting schedule, in whole
+            units
+        balance.pending_rewards_amount: Pending bonding/staking rewards that have not yet
+            been realized, in whole units
+        balance.past_rewards_amount: Previously realized bonding/staking rewards, in whole
+            units
+        balance.bondable_amount: Amount available for bonding/staking, in whole units
+        balance.withdrawable_amount: Amount available to withdraw, in whole units
+        balance.fiat_amount: The total amount in fiat unit
+        balance.unbondable_amount: Amount available for unbonding/unstaking, in whole units
+        balance.claimable_rewards_amount: ETH staking rewards currently available to claim,
+            in whole units. This field is returned only in GetWalletBalance responses for
+            ETH wallets. It is omitted or empty for portfolio-level responses and for non-
+            ETH assets; use pending_rewards_amount where applicable.
+    """
+
     balance: Balance = None
 
 
@@ -1829,6 +1886,12 @@ class XMPosition:
 
 @dataclass
 class ActivityMetadataAccount:
+    """
+    Attributes:
+        consensus.approval_deadline: Deadline for approval of an activity
+        consensus.has_passed_consensus: If activity has passed consensus threshold
+    """
+
     consensus: ConsensusMetadata = None
 
 
@@ -1883,11 +1946,27 @@ class Conversion:
 
 @dataclass
 class CreateAllocationResponse:
+    """
+    Attributes:
+        body.success: The success boolean for the post allocation
+        body.allocation_id: The allocation id for the post allocation
+        body.failure_reason: The failure reason for the post allocation
+    """
+
     body: CreateAllocationResponseBody = None
 
 
 @dataclass
 class CreateNetAllocationResponse:
+    """
+    Attributes:
+        body.success: The success boolean for the post net allocation
+        body.netting_id: The netting_id for the post net allocation
+        body.buy_allocation_id: The allocation id of the buy allocation in net allocation
+        body.sell_allocation_id: The allocation id of the sell allocation in net allocation
+        body.failure_reason: The failure reason for the post net allocation
+    """
+
     body: CreateNetAllocationResponseBody = None
 
 
@@ -2007,6 +2086,16 @@ class GetOrderEditHistoryResponse:
 
 @dataclass
 class GetPortfolioResponse:
+    """
+    Attributes:
+        portfolio.id: The unique ID of the portfolio
+        portfolio.name: The name of the portfolio
+        portfolio.entity_id: The ID of the entity to which the portfolio is associated
+        portfolio.organization_id: The ID of the organization to which the portfolio is
+            associated
+        portfolio.entity_name: The name of the entity to which the portfolio is associated
+    """
+
     portfolio: Portfolio = None
 
 
@@ -2022,6 +2111,21 @@ class GetPortfoliosResponse:
 
 @dataclass
 class GetPostTradeCreditResponse:
+    """
+    Attributes:
+        post_trade_credit.portfolio_id: The unique ID of the portfolio
+        post_trade_credit.currency: The currency symbol credit is denoted in
+        post_trade_credit.limit: The maximum credit limit
+        post_trade_credit.utilized: The amount of credit used
+        post_trade_credit.available: The amount of credit available
+        post_trade_credit.frozen: Whether or not a portfolio is frozen due to balance
+            outstanding or other reason
+        post_trade_credit.frozen_reason: The reason why the portfolio is frozen
+        post_trade_credit.enabled: Whether the portfolio has credit enabled
+        post_trade_credit.adjusted_credit_utilized: The amount of adjusted credit used
+        post_trade_credit.adjusted_portfolio_equity: The amount of adjusted portfolio equity
+    """
+
     post_trade_credit: PostTradeCreditInformation = None
 
 
@@ -2032,6 +2136,12 @@ class GetTFTieredPricingFeesResponse:
 
 @dataclass
 class GetWithdrawalPowerResponse:
+    """
+    Attributes:
+        withdrawal_power.symbol: The currency symbol
+        withdrawal_power.amount: Withdrawal power
+    """
+
     withdrawal_power: WithdrawalPower = None
 
 
@@ -2615,11 +2725,51 @@ class FutureProductDetails:
 
 @dataclass
 class GetActivityResponse:
+    """
+    Attributes:
+        activity.id: A unique id for the account activity
+        activity.reference_id: A reference for orders and transactions, n/a for other
+            category types
+        activity.created_by: Id of user who created the activity
+        activity.title: Title of the activity
+        activity.description: Description detail of the activity
+        activity.user_actions: Actions related to the Activity
+        activity.symbols: List of currencies included in an activity
+        activity.created_at: Time activity was created at
+        activity.updated_at: Time for latest status update of account activity
+    """
+
     activity: Activity = None
 
 
 @dataclass
 class GetAllocationResponse:
+    """
+    Attributes:
+        allocation.root_id: The ID that ties together an allocation and all of its legs.
+        allocation.reversal_id: The ID of the allocation if this allocation is a reversal.
+            In this case, the root_id would be the original allocation ID.
+        allocation.allocation_completed_at: Time the final leg of the root allocation was
+            completed.
+        allocation.user_id: The ID of the user that created the allocation.
+        allocation.product_id: The ID of the product of the orders allocated.
+        allocation.avg_price: Price the allocation was done at.
+        allocation.base_quantity: Amount allocated in base asset units.
+        allocation.quote_value: Amount allocated in quote asset units.
+        allocation.fees_allocated: Fees from original trade execution allocated in quote
+            asset units.
+        allocation.source: Portfolio ID of the source portfolio.
+        allocation.order_ids: All order IDs that were aggregated to calculate the avg_price,
+            quantity to allocate in each leg. Each order_id should tie back to the single
+            allocation root_id.
+        allocation.destinations: Array of objects, each containing the leg ID, destination
+            portfolio ID and amount in chosen units allocated to each portfolio: [{leg_id,
+            portfolio_id, allocation_base, allocation_quote}, {leg_id, portfolio_id,
+            allocation_base, allocation_quote}...]
+        allocation.netting_id: The netting ID of the allocation, not empty if the allocation
+            was submitted as part of a net allocation
+    """
+
     allocation: Allocation = None
 
 
@@ -2630,6 +2780,12 @@ class GetAllocationsByClientNettingIdResponse:
 
 @dataclass
 class GetCrossMarginOverviewResponse:
+    """
+    Attributes:
+        overview.active_margin_calls: List of active XM margin calls
+        overview.active_loans: List of active XM loans
+    """
+
     overview: CrossMarginOverview = None
 
 
@@ -2648,6 +2804,13 @@ class GetCrossMarginPrimeOverviewResponse:
 
 @dataclass
 class GetEntityActivitiesResponse:
+    """
+    Attributes:
+        pagination.next_cursor: Cursor to navigate to next page
+        pagination.has_next: A boolean value indicating whether there are more items to
+            paginate through
+    """
+
     activities: list[Activity] = None
     pagination: PaginatedResponse = None
 
@@ -2728,6 +2891,11 @@ class GetInvoicesResponse:
 
 @dataclass
 class GetMarginInformationResponse:
+    """
+    Attributes:
+        margin_information.margin_call_records: The current margin call records
+    """
+
     margin_information: MarginInformation = None
 
 
@@ -2771,6 +2939,66 @@ class GetOrderFillsResponse:
 
 @dataclass
 class GetOrderResponse:
+    """
+    Attributes:
+        order.id: The unique order ID generated by Coinbase
+        order.user_id: The ID of the user that created the order
+        order.portfolio_id: The ID of the portfolio that owns the order
+        order.product_id: The ID of the product being traded by the order
+        order.client_order_id: A client-generated order ID used for reference purposes
+            (note: order will be rejected if this ID is not unique among all currently
+            active orders)
+        order.base_quantity: Order size in base asset units (either `base_quantity` or
+            `quote_value` is required)
+        order.quote_value: Order size in quote asset units, i.e. the amount the user wants
+            to spend (when buying) or receive (when selling); the quantity in base units
+            will be determined based on the market liquidity and indicated `quote_value`.
+            Either `base_quantity` or `quote_value` is required
+        order.limit_price: The limit price (required for TWAP, VWAP, LIMIT and STOP_LIMIT
+            orders)
+        order.start_time: The start time of the order in UTC (only applies to TWAP, VWAP
+            orders.)
+        order.expiry_time: The expiry time of the order in UTC (applies to TWAP, VWAP,
+            LIMIT, and STOP_LIMIT orders with `time_in_force` set to `GTD`)
+        order.created_at: The order creation time as a UTC timestamp
+        order.filled_quantity: Size filled (in base asset units)
+        order.filled_value: Market value filled (in quote asset units)
+        order.average_filled_price: Indicates the average `filled_price`
+        order.commission: Total commission paid on this order (in quote asset units) -- only
+            applicable for partially- or fully-filled orders
+        order.exchange_fee: Fee charged by the exchange for Cost Plus commission
+            configurations. Exchange fee will be 0 for All In commission configurations.
+        order.historical_pov: historical pov for the order
+        order.stop_price: Specifies the stop price at which the order activates. The order
+            is activated if the last trade price on Coinbase Exchange crosses the stop price
+            specified on the order
+        order.net_average_filled_price: Indicates the average `filled_price` net of
+            commissions and fees
+        order.user_context: Indicates a user friendly message for regarding various aspects
+            of the order such as cancellation or rejection reasons
+        order.client_product_id: The client product ID of the fill indictating the settlment
+            currency
+        order.post_only: Post-only flag - indicates whether the order was placed as post-
+            only
+        order.order_edit_history: The history of order edits (deprecated: use edit_history
+            instead)
+        order.is_raise_exact: Indicates if this was a raise exact order (size inclusive of
+            fees for sell orders in quote)
+        order.display_size: Display size for the order
+        order.edit_history: The history of order edits
+        order.display_quote_size: The maximum order size that will show up on venue order
+            books (in quote currency).
+        order.display_base_size: The maximum order size that will show up on venue order
+            books (in base currency).
+        order.peg_offset_type: The peg offset type for PEG orders (PRICE, BASIS_POINTS, or
+            CUMULATIVE_DEPTH_IN_BASE_UNITS)
+        order.offset: The offset value for PEG orders
+        order.wig_level: The wig (would if good) level for PEG orders - best price opposite
+            to limit_price
+        order.is_buy_exact: Indicates if this was a buy exact order (fees charged on top of
+            quote size for BUY orders sized in quote)
+    """
+
     order: Order = None
 
 
@@ -2787,12 +3015,33 @@ class GetOrdersResponse:
 
 @dataclass
 class GetPortfolioActivitiesResponse:
+    """
+    Attributes:
+        pagination.next_cursor: Cursor to navigate to next page
+        pagination.has_next: A boolean value indicating whether there are more items to
+            paginate through
+    """
+
     activities: list[Activity] = None
     pagination: PaginatedResponse = None
 
 
 @dataclass
 class GetPortfolioActivityResponse:
+    """
+    Attributes:
+        activity.id: A unique id for the account activity
+        activity.reference_id: A reference for orders and transactions, n/a for other
+            category types
+        activity.created_by: Id of user who created the activity
+        activity.title: Title of the activity
+        activity.description: Description detail of the activity
+        activity.user_actions: Actions related to the Activity
+        activity.symbols: List of currencies included in an activity
+        activity.created_at: Time activity was created at
+        activity.updated_at: Time for latest status update of account activity
+    """
+
     activity: Activity = None
 
 
@@ -2851,12 +3100,26 @@ class GetPortfolioInterestAccrualsResponse:
 
 @dataclass
 class GetPortfolioProductsResponse:
+    """
+    Attributes:
+        pagination.next_cursor: Cursor to navigate to next page
+        pagination.has_next: A boolean value indicating whether there are more items to
+            paginate through
+    """
+
     products: list[Product] = None
     pagination: PaginatedResponse = None
 
 
 @dataclass
 class GetPortfolioTransactionsResponse:
+    """
+    Attributes:
+        pagination.next_cursor: Cursor to navigate to next page
+        pagination.has_next: A boolean value indicating whether there are more items to
+            paginate through
+    """
+
     transactions: list[Transaction] = None
     pagination: PaginatedResponse = None
 
@@ -2903,6 +3166,31 @@ class GetStakingStatusResponse:
 
 @dataclass
 class GetTransactionResponse:
+    """
+    Attributes:
+        transaction.id: The ID of the transaction
+        transaction.wallet_id: The wallet ID of the transaction
+        transaction.portfolio_id: The portfolio ID of the transaction
+        transaction.symbol: The asset symbol
+        transaction.created_at: The transaction creation time (as a UTC timestamp)
+        transaction.completed_at: The transaction completion time (as a UTC timestamp)
+        transaction.amount: The transaction amount in whole units
+        transaction.network_fees: The blockchain network fees (in whole units) required in
+            order to broadcast the transaction
+        transaction.fees: The fees that the customer paid for the transaction (in whole
+            units)
+        transaction.fee_symbol: The asset in which fees will be paid
+        transaction.blockchain_ids: The cryptocurrency network transaction hashes/IDs
+            generated upon broadcast
+        transaction.transaction_id: The 8 character alphanumeric short form id for the
+            transaction
+        transaction.destination_symbol: The destination asset symbol
+        transaction.network: The network name specific to web3/onchain wallet transactions
+        transaction.estimated_asset_changes: The estimated asset changes (web3)
+        transaction.idempotency_key: The idempotency key associated with the transaction
+            creation request
+    """
+
     transaction: Transaction = None
 
 
@@ -2952,23 +3240,64 @@ class GetUnstakingStatusResponse:
 
 @dataclass
 class GetWalletDepositInstructionsResponse:
+    """
+    Attributes:
+        crypto_instructions.id: The ID of the wallet
+        crypto_instructions.name: The name of the wallet
+        crypto_instructions.address: The address of the wallet
+        crypto_instructions.account_identifier: The tag/memo of the address, if applicable
+            -- required for certain assets (e.g. XRP, XLM, etc.)
+        crypto_instructions.account_identifier_name: The blockchain network's terminology
+            for the unique identifier used to identify the receiver of the transaction
+            (different blockchain networks use different names, such as `destination_tag` or
+            `memo`)
+        fiat_instructions.id: The id of the wallet
+        fiat_instructions.name: The name of the wallet
+        fiat_instructions.account_number: The fiat account number
+        fiat_instructions.routing_number: The fiat routing number
+        fiat_instructions.reference_code: Reference code to be used as a memo/description
+    """
+
     crypto_instructions: CryptoInstructions = None
     fiat_instructions: FiatInstructions = None
 
 
 @dataclass
 class GetWalletResponse:
+    """
+    Attributes:
+        wallet.id: The unique UUID for the wallet
+        wallet.name: The name of the wallet
+        wallet.symbol: The asset stored in the wallet
+        wallet.created_at: The UTC timestamp when this wallet was created
+        wallet.address: The active address of the wallet
+    """
+
     wallet: Wallet = None
 
 
 @dataclass
 class GetWalletTransactionsResponse:
+    """
+    Attributes:
+        pagination.next_cursor: Cursor to navigate to next page
+        pagination.has_next: A boolean value indicating whether there are more items to
+            paginate through
+    """
+
     transactions: list[Transaction] = None
     pagination: PaginatedResponse = None
 
 
 @dataclass
 class GetWalletsResponse:
+    """
+    Attributes:
+        pagination.next_cursor: Cursor to navigate to next page
+        pagination.has_next: A boolean value indicating whether there are more items to
+            paginate through
+    """
+
     wallets: list[Wallet] = None
     pagination: PaginatedResponse = None
 
@@ -3039,18 +3368,39 @@ class ListAdvancedTransfersResponse:
 
 @dataclass
 class ListAggregateEntityPositionsResponse:
+    """
+    Attributes:
+        pagination.next_cursor: Cursor to navigate to next page
+        pagination.has_next: A boolean value indicating whether there are more items to
+            paginate through
+    """
+
     positions: list[Position] = None
     pagination: PaginatedResponse = None
 
 
 @dataclass
 class ListEntityBalancesResponse:
+    """
+    Attributes:
+        pagination.next_cursor: Cursor to navigate to next page
+        pagination.has_next: A boolean value indicating whether there are more items to
+            paginate through
+    """
+
     balances: list[EntityBalance] = None
     pagination: PaginatedResponse = None
 
 
 @dataclass
 class ListEntityPositionsResponse:
+    """
+    Attributes:
+        pagination.next_cursor: Cursor to navigate to next page
+        pagination.has_next: A boolean value indicating whether there are more items to
+            paginate through
+    """
+
     positions: list[Position] = None
     pagination: PaginatedResponse = None
 
@@ -3573,6 +3923,14 @@ class Product:
 
 @dataclass
 class RewardMetadata:
+    """
+    Attributes:
+        custom_stablecoin_reward_details.start_date: ISO-formatted start date of the reward
+            period (e.g. 2025-02-01T00:00:00Z)
+        custom_stablecoin_reward_details.end_date: ISO-formatted end date of the reward
+            period (e.g. 2025-02-28T00:00:00Z)
+    """
+
     subtype: str = None
     custom_stablecoin_reward_details: CustomStablecoinRewardDetails = None
 
@@ -3648,6 +4006,16 @@ class Transaction:
 
 @dataclass
 class TransactionMetadata:
+    """
+    Attributes:
+        match_metadata.reference_id: The reference id of the match
+        match_metadata.settlement_date: The settlement date of the match
+        web3_transaction_metadata.label: The transaction type label of the confirmed
+            transaction post settlement
+        web3_transaction_metadata.confirmed_asset_changes: The confirmed asset changes
+            (onchain)
+    """
+
     match_metadata: MatchMetadata = None
     web3_transaction_metadata: Web3TransactionMetadata = None
     reward_metadata: RewardMetadata = None

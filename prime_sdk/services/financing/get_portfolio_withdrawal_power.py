@@ -33,4 +33,8 @@ class GetPortfolioWithdrawalPowerRequest(BaseRequest, _GetWithdrawalPowerRequest
 
 @dataclass
 class GetPortfolioWithdrawalPowerResponse(BaseResponse, _GetWithdrawalPowerResponse):
-    """GetPortfolioWithdrawalPowerResponse(withdrawal_power: 'WithdrawalPower' = None)"""
+    """
+    Attributes:
+        withdrawal_power.symbol: The currency symbol
+        withdrawal_power.amount: Withdrawal power
+    """

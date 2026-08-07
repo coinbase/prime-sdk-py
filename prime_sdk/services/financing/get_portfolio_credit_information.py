@@ -32,4 +32,17 @@ class GetPortfolioCreditInformationRequest(BaseRequest, _GetPostTradeCreditReque
 
 @dataclass
 class GetPortfolioCreditInformationResponse(BaseResponse, _GetPostTradeCreditResponse):
-    """GetPortfolioCreditInformationResponse(post_trade_credit: 'PostTradeCreditInformation' = None)"""
+    """
+    Attributes:
+        post_trade_credit.portfolio_id: The unique ID of the portfolio
+        post_trade_credit.currency: The currency symbol credit is denoted in
+        post_trade_credit.limit: The maximum credit limit
+        post_trade_credit.utilized: The amount of credit used
+        post_trade_credit.available: The amount of credit available
+        post_trade_credit.frozen: Whether or not a portfolio is frozen due to balance
+            outstanding or other reason
+        post_trade_credit.frozen_reason: The reason why the portfolio is frozen
+        post_trade_credit.enabled: Whether the portfolio has credit enabled
+        post_trade_credit.adjusted_credit_utilized: The amount of adjusted credit used
+        post_trade_credit.adjusted_portfolio_equity: The amount of adjusted portfolio equity
+    """
