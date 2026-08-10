@@ -12,6 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Single source of truth for the SDK version, used by setup.py and the client's User-Agent header."""
+"""SDK version, used by the client's User-Agent header. Keep in sync with VERSION in setup.py."""
 
 VERSION = "1.10.0"
