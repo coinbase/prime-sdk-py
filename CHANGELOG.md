@@ -44,6 +44,8 @@ These responses previously used incorrect field names or shapes in the Python SD
 - **`BaseRequest`**, **`BasePaginatedRequest`**, and **`BaseCursorLimitPaginatedRequest`** mixins in `prime_sdk/base_request.py` to centralize `allowed_status_codes` and pagination fields on service `*Request` classes.
 - **`CursorLimitPaginationParams`** in `prime_sdk/utils.py` for endpoints that support cursor and limit pagination without `sort_direction`.
 - Pagination support on **`ListOpenOrdersRequest`** and **`GetEntityPositionsRequest`**, which the spec documents but the SDK previously omitted.
+- **`Client`**: requests now send a `User-Agent` header of the form `coinbase-prime-py/<version>` (e.g. `coinbase-prime-py/1.10.0`), sourced from the single-source-of-truth `prime_sdk/version.py`, which `setup.py` also reads from.
+
 
 ## [1.9.0] - 2026-JUL-24
 
