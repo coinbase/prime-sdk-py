@@ -34,10 +34,10 @@ def main():
     )
     parser.add_argument("--symbols", help="Symbols filter (e.g., BTC,ETH,USDC)")
     parser.add_argument(
-        "--start", help="Start time filter (ISO format: 2025-01-01T00:00:00)"
+        "--start-time", help="Start time filter (ISO format: 2025-01-01T00:00:00)"
     )
     parser.add_argument(
-        "--end", help="End time filter (ISO format: 2025-01-01T23:59:59)"
+        "--end-time", help="End time filter (ISO format: 2025-01-01T23:59:59)"
     )
     parser.add_argument("--limit", type=int, help="Number of results to return")
     parser.add_argument("--cursor", help="Pagination cursor")
@@ -55,25 +55,24 @@ def main():
     # Parse datetime strings if provided
     start_time = None
     end_time = None
-    if args.start:
+    if args.start_time:
         try:
-            start_time = datetime.fromisoformat(args.start.replace("Z", "+00:00"))
+            start_time = datetime.fromisoformat(args.start_time.replace("Z", "+00:00"))
         except ValueError:
             print(
                 "Error: Invalid start time format. Use ISO format like '2025-01-01T00:00:00'"
             )
             return
 
-    if args.end:
+    if args.end_time:
         try:
-            end_time = datetime.fromisoformat(args.end.replace("Z", "+00:00"))
+            end_time = datetime.fromisoformat(args.end_time.replace("Z", "+00:00"))
         except ValueError:
             print(
                 "Error: Invalid end time format. Use ISO format like '2025-01-01T23:59:59'"
             )
             return
 
-    # Set up pagination if provided
     pagination = None
     if args.limit or args.cursor:
         pagination = PaginationParams(limit=args.limit, cursor=args.cursor)
@@ -82,8 +81,8 @@ def main():
         portfolio_id=portfolio_id,
         types=args.types,
         symbols=args.symbols,
-        start=start_time,
-        end=end_time,
+        start_time=start_time.isoformat() if start_time else None,
+        end_time=end_time.isoformat() if end_time else None,
         pagination=pagination,
     )
 

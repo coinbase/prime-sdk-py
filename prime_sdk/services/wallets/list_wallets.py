@@ -14,22 +14,33 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
-from ...enums import WalletType
-from ...model import Wallet
-from ...utils import Pagination, PaginationParams
+from ...model import GetWalletsRequest as _GetWalletsRequest
+from ...model import GetWalletsResponse as _GetWalletsResponse
+
+
+@dataclass(kw_only=True)
+class ListWalletsRequest(BasePaginatedRequest, _GetWalletsRequest):
+    """
+    List Portfolio Wallets
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        type: The wallet type - VAULT: A crypto vault - TRADING: A trading wallet -
+            WALLET_TYPE_OTHER: Other wallet types (like consumer, etc) - QC: A QC Wallet -
+            ONCHAIN: An Onchain wallet
+        symbols: The wallet symbol
+        get_network_unified_wallets: Flag to request retrieval of all wallets across all
+            networks for a given symbol
+    """
 
 
 @dataclass
-class ListWalletsRequest:
-    portfolio_id: str
-    type: WalletType | None = None
-    symbols: list[str] | None = None
-    pagination: PaginationParams | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class ListWalletsResponse(BaseResponse):
-    wallets: list[Wallet] = None
-    pagination: Pagination = None
+class ListWalletsResponse(BaseResponse, _GetWalletsResponse):
+    """
+    Attributes:
+        pagination.next_cursor: Cursor to navigate to next page
+        pagination.has_next: A boolean value indicating whether there are more items to
+            paginate through
+    """

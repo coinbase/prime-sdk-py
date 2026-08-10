@@ -14,16 +14,26 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import CrossMarginOverview
+from ...model import GetCrossMarginOverviewRequest as _GetCrossMarginOverviewRequest
+from ...model import GetCrossMarginOverviewResponse as _GetCrossMarginOverviewResponse
+
+
+@dataclass(kw_only=True)
+class GetCrossMarginOverviewRequest(BaseRequest, _GetCrossMarginOverviewRequest):
+    """
+    Get Exchange Cross Margin Overview
+
+    Attributes:
+        entity_id: XM customer Prime Entity ID
+    """
 
 
 @dataclass
-class GetCrossMarginOverviewRequest:
-    entity_id: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class GetCrossMarginOverviewResponse(BaseResponse):
-    overview: CrossMarginOverview = None
+class GetCrossMarginOverviewResponse(BaseResponse, _GetCrossMarginOverviewResponse):
+    """
+    Attributes:
+        overview.active_margin_calls: List of active XM margin calls
+        overview.active_loans: List of active XM loans
+    """

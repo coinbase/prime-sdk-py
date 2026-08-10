@@ -14,20 +14,39 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import CrossMarginRiskParameters, TierPairRateEntry
+from ...model import (
+    GetCrossMarginRiskParametersRequest as _GetCrossMarginRiskParametersRequest,
+)
+from ...model import (
+    GetCrossMarginRiskParametersResponse as _GetCrossMarginRiskParametersResponse,
+)
+
+
+@dataclass(kw_only=True)
+class GetCrossMarginRiskParametersRequest(
+    BaseRequest, _GetCrossMarginRiskParametersRequest
+):
+    """
+    Get Cross Margin Risk Parameters
+
+    Attributes:
+        entity_id: XM customer Prime Entity ID.
+    """
 
 
 @dataclass
-class GetCrossMarginRiskParametersRequest:
-    entity_id: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class GetCrossMarginRiskParametersResponse(BaseResponse):
-    risk_parameters: list[CrossMarginRiskParameters] = None
-    offset_credit_matrix_long_short: list[TierPairRateEntry] = None
-    offset_credit_matrix_long_long: list[TierPairRateEntry] = None
-    offset_credit_matrix_short_short: list[TierPairRateEntry] = None
-    margin_period_of_risk: float = None
+class GetCrossMarginRiskParametersResponse(
+    BaseResponse, _GetCrossMarginRiskParametersResponse
+):
+    """
+    Attributes:
+        risk_parameters: Current XM tier risk parameters for the entity's client tier.
+        offset_credit_matrix_long_short: Offset credit rate matrix for long/short tier
+            pairs.
+        offset_credit_matrix_long_long: Offset credit rate matrix for long/long tier pairs.
+        offset_credit_matrix_short_short: Offset credit rate matrix for short/short tier
+            pairs.
+        margin_period_of_risk: Margin period of risk (number of days).
+    """

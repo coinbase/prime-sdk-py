@@ -14,8 +14,11 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
 from ...enums import StakeType
+from ...model import GetStakingStatusRequest as _GetStakingStatusRequest
+from ...model import GetStakingStatusResponse as _GetStakingStatusResponse
 
 
 @dataclass
@@ -33,17 +36,24 @@ class ValidatorStakingInfo:
     statuses: list[StakingStatus]
 
 
-@dataclass
-class GetStakingStatusRequest:
-    portfolio_id: str
-    wallet_id: str
-    allowed_status_codes: list[int] | None = None
+@dataclass(kw_only=True)
+class GetStakingStatusRequest(BaseRequest, _GetStakingStatusRequest):
+    """
+    Get Staking Status
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        wallet_id: The wallet ID
+    """
 
 
 @dataclass
-class GetStakingStatusResponse(BaseResponse):
-    portfolio_id: str = None
-    wallet_id: str = None
-    wallet_address: str = None
-    current_timestamp: str = None
-    validators: list[ValidatorStakingInfo] = None
+class GetStakingStatusResponse(BaseResponse, _GetStakingStatusResponse):
+    """
+    Attributes:
+        portfolio_id: The portfolio ID
+        wallet_id: The wallet ID
+        wallet_address: The wallet address
+        current_timestamp: Current timestamp at time of API call
+        validators: List of validators with staking information for this wallet
+    """

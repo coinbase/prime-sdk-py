@@ -22,8 +22,10 @@ import requests
 
 from prime_sdk.credentials import Credentials
 from prime_sdk.exceptions import PrimeAPIError
+from prime_sdk.version import VERSION
 
 DEFAULT_V1_API_BASE_URL = "https://api.prime.coinbase.com/v1"
+USER_AGENT = f"coinbase-prime-py/{VERSION}"
 
 
 class Client:
@@ -52,6 +54,7 @@ class Client:
 
         return {
             "Accept": "application/json",
+            "User-Agent": USER_AGENT,
             "X-CB-ACCESS-KEY": self.credentials.access_key,
             "X-CB-ACCESS-PASSPHRASE": self.credentials.passphrase,
             "X-CB-ACCESS-SIGNATURE": signature,

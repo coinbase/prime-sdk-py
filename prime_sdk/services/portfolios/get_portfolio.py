@@ -14,16 +14,30 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import Portfolio
+from ...model import GetPortfolioRequest as _GetPortfolioRequest
+from ...model import GetPortfolioResponse as _GetPortfolioResponse
+
+
+@dataclass(kw_only=True)
+class GetPortfolioRequest(BaseRequest, _GetPortfolioRequest):
+    """
+    Get Portfolio by Portfolio ID
+
+    Attributes:
+        portfolio_id: The portfolio ID
+    """
 
 
 @dataclass
-class GetPortfolioRequest:
-    portfolio_id: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class GetPortfolioResponse(BaseResponse):
-    portfolio: Portfolio = None
+class GetPortfolioResponse(BaseResponse, _GetPortfolioResponse):
+    """
+    Attributes:
+        portfolio.id: The unique ID of the portfolio
+        portfolio.name: The name of the portfolio
+        portfolio.entity_id: The ID of the entity to which the portfolio is associated
+        portfolio.organization_id: The ID of the organization to which the portfolio is
+            associated
+        portfolio.entity_name: The name of the entity to which the portfolio is associated
+    """

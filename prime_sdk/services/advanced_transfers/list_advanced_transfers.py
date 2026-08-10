@@ -14,24 +14,31 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
-from ...model import AdvancedTransfer
-from ...utils import Pagination, PaginationParams
+from ...model import ListAdvancedTransfersRequest as _ListAdvancedTransfersRequest
+from ...model import ListAdvancedTransfersResponse as _ListAdvancedTransfersResponse
+
+
+@dataclass(kw_only=True)
+class ListAdvancedTransfersRequest(BasePaginatedRequest, _ListAdvancedTransfersRequest):
+    """
+    List Advanced Transfers
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        state: The state of the Advanced Transfer to filter by
+        type: The type of the Advanced Transfer to filter by
+        start_time: UTC timestamp of creation from which to filter the response (inclusive,
+            ISO-8601 format)
+        end_time: UTC timestamp of creation until which to filter the response (exclusive,
+            ISO-8601 format)
+        reference_id: The reference ID of the Advanced Transfer to filter by
+    """
 
 
 @dataclass
-class ListAdvancedTransfersRequest:
-    portfolio_id: str
-    state: str | None = None
-    type: str | None = None
-    start_time: str | None = None
-    end_time: str | None = None
-    reference_id: str | None = None
-    pagination: PaginationParams | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class ListAdvancedTransfersResponse(BaseResponse):
-    advanced_transfers: list[AdvancedTransfer] = None
-    pagination: Pagination = None
+class ListAdvancedTransfersResponse(BaseResponse, _ListAdvancedTransfersResponse):
+    """
+    ListAdvancedTransfersResponse contains the list of advanced transfers and pagination info.
+    """

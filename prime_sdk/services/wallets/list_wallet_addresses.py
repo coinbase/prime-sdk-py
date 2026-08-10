@@ -14,21 +14,30 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseCursorLimitPaginatedRequest
 from ...base_response import BaseResponse
-from ...model import BlockchainAddress
-from ...utils import Pagination, PaginationParams
+from ...model import ListWalletAddressesRequest as _ListWalletAddressesRequest
+from ...model import ListWalletAddressesResponse as _ListWalletAddressesResponse
+
+
+@dataclass(kw_only=True)
+class ListWalletAddressesRequest(
+    BaseCursorLimitPaginatedRequest, _ListWalletAddressesRequest
+):
+    """
+    List Wallet Addresses
+
+    Attributes:
+        portfolio_id: The portfolio ID associated with the wallet
+        wallet_id: The wallet ID for which to retrieve all deposit addresses
+        network_id: The blockchain network name and type, provide an empty network to
+            retrieve addresses across all networks for this wallet
+    """
 
 
 @dataclass
-class ListWalletAddressesRequest:
-    portfolio_id: str
-    wallet_id: str
-    network_id: str
-    pagination: PaginationParams | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class ListWalletAddressesResponse(BaseResponse):
-    addresses: list[BlockchainAddress] = None
-    pagination: Pagination = None
+class ListWalletAddressesResponse(BaseResponse, _ListWalletAddressesResponse):
+    """
+    Attributes:
+        addresses: Addresses
+    """

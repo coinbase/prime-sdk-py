@@ -14,21 +14,35 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
+from ...model import (
+    CreatePortfolioAddressBookEntryRequest as _CreatePortfolioAddressBookEntryRequest,
+)
+from ...model import (
+    CreatePortfolioAddressBookEntryResponse as _CreatePortfolioAddressBookEntryResponse,
+)
+
+
+@dataclass(kw_only=True)
+class CreateAddressBookEntryRequest(
+    BaseRequest, _CreatePortfolioAddressBookEntryRequest
+):
+    """
+    Create Address Book Entry
+
+    Attributes:
+        portfolio_id: Portfolio ID
+        address: Crypto address to add
+        currency_symbol: Currency symbol of address to add
+        name: Name of address book entry
+        account_identifier: Account Identifier (memo/destination tag)
+        chain_ids: List of compatible chain IDs for the address, empty for Solana
+    """
 
 
 @dataclass
-class CreateAddressBookEntryRequest:
-    portfolio_id: str
-    address: str
-    currency_symbol: str
-    name: str
-    account_identifier: str | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class CreateAddressBookEntryResponse(BaseResponse):
-    activity_type: str = None
-    num_approvals_remaining: int = None
-    activity_id: str = None
+class CreateAddressBookEntryResponse(
+    BaseResponse, _CreatePortfolioAddressBookEntryResponse
+):
+    """CreateAddressBookEntryResponse(activity_type: 'str' = None, num_approvals_remaining: 'str' = None, activity_id: 'str' = None)"""

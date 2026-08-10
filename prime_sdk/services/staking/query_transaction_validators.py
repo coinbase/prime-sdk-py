@@ -14,22 +14,37 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import TransactionValidator
-from ...utils import Pagination
+from ...model import (
+    ListTransactionValidatorsRequest as _ListTransactionValidatorsRequest,
+)
+from ...model import (
+    ListTransactionValidatorsResponse as _ListTransactionValidatorsResponse,
+)
+
+
+@dataclass(kw_only=True)
+class QueryTransactionValidatorsRequest(BaseRequest, _ListTransactionValidatorsRequest):
+    """
+    List Transaction Validators
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        transaction_ids: List of transaction IDs to filter validators by. Maximum of 100
+            transaction IDs allowed per request.
+        cursor: Cursor for pagination
+        limit: Maximum number of transaction-validator associations to return per page.
+            Default is 100, maximum is 1000.
+    """
 
 
 @dataclass
-class QueryTransactionValidatorsRequest:
-    portfolio_id: str
-    transaction_ids: list[str]
-    cursor: str | None = None
-    limit: int | None = None
-    sort_direction: str | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class QueryTransactionValidatorsResponse(BaseResponse):
-    transaction_validators: list[TransactionValidator] = None
-    pagination: Pagination = None
+class QueryTransactionValidatorsResponse(
+    BaseResponse, _ListTransactionValidatorsResponse
+):
+    """
+    Attributes:
+        transaction_validators: List of transaction-to-validator associations. Each entry
+            represents one transaction staking to one validator.
+    """

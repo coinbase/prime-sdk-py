@@ -14,16 +14,24 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import AddressGroup
+from ...model import ListOnchainAddressGroupsRequest as _ListOnchainAddressGroupsRequest
+from ...model import (
+    ListOnchainAddressGroupsResponse as _ListOnchainAddressGroupsResponse,
+)
+
+
+@dataclass(kw_only=True)
+class ListOnchainAddressGroupsRequest(BaseRequest, _ListOnchainAddressGroupsRequest):
+    """
+    List Onchain Address Groups
+
+    Attributes:
+        portfolio_id: Portfolio ID
+    """
 
 
 @dataclass
-class ListOnchainAddressGroupsRequest:
-    portfolio_id: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class ListOnchainAddressGroupsResponse(BaseResponse):
-    address_groups: list[AddressGroup] = None
+class ListOnchainAddressGroupsResponse(BaseResponse, _ListOnchainAddressGroupsResponse):
+    """ListOnchainAddressGroupsResponse(address_groups: 'list[AddressGroup]' = None)"""

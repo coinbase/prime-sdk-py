@@ -14,7 +14,14 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
+from ...model import (
+    SubmitDepositTravelRuleDataRequest as _SubmitDepositTravelRuleDataRequest,
+)
+from ...model import (
+    SubmitDepositTravelRuleDataResponse as _SubmitDepositTravelRuleDataResponse,
+)
 
 
 @dataclass
@@ -50,17 +57,30 @@ class TravelRuleParty:
     account_id: str | None = None
 
 
-@dataclass
-class SubmitDepositTravelRuleDataRequest:
-    portfolio_id: str
-    transaction_id: str
-    originator: TravelRuleParty | None = None
-    beneficiary: TravelRuleParty | None = None
-    is_self: bool | None = None
-    opt_out_of_ownership_verification: bool | None = None
-    allowed_status_codes: list[int] | None = None
+@dataclass(kw_only=True)
+class SubmitDepositTravelRuleDataRequest(
+    BaseRequest, _SubmitDepositTravelRuleDataRequest
+):
+    """
+    Submit Deposit Travel Rule Data
+
+    Attributes:
+        portfolio_id: The portfolio ID that owns the transaction
+        transaction_id: The transaction ID associated with the entry
+        is_self: True if user owns the counterparty address (self-transfer) If false,
+            beneficiary is required
+        opt_out_of_ownership_verification: True to skip wallet ownership verification
+    """
 
 
 @dataclass
-class SubmitDepositTravelRuleDataResponse(BaseResponse):
-    ownership_verification_required: bool = None
+class SubmitDepositTravelRuleDataResponse(
+    BaseResponse, _SubmitDepositTravelRuleDataResponse
+):
+    """
+    Response after submitting travel rule data for a deposit
+
+    Attributes:
+        ownership_verification_required: Whether additional ownership verification is
+            required
+    """

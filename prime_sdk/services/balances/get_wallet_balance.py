@@ -14,17 +14,49 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import Balance
+from ...model import GetWalletBalanceRequest as _GetWalletBalanceRequest
+from ...model import GetWalletBalanceResponse as _GetWalletBalanceResponse
+
+
+@dataclass(kw_only=True)
+class GetWalletBalanceRequest(BaseRequest, _GetWalletBalanceRequest):
+    """
+    Get Wallet Balance
+
+    Attributes:
+        portfolio_id: Portfolio ID
+        wallet_id: Wallet ID
+    """
 
 
 @dataclass
-class GetWalletBalanceRequest:
-    portfolio_id: str
-    wallet_id: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class GetWalletBalanceResponse(BaseResponse):
-    balance: Balance = None
+class GetWalletBalanceResponse(BaseResponse, _GetWalletBalanceResponse):
+    """
+    Attributes:
+        balance.symbol: The display symbol for the asset
+        balance.amount: The total amount in whole units with full precision. Includes the
+            `holds` amount.
+        balance.holds: Amount that is currently held in obligation to an open order's
+            position or a pending withdrawal
+        balance.bonded_amount: Amount that is currently locked due to bonding/staking,
+            potentially subject to an unbonding period, in whole units
+        balance.reserved_amount: Amount that must remain in the wallet due to the protocol,
+            in whole units
+        balance.unbonding_amount: Amount that is in the process of unbonding, in whole units
+        balance.unvested_amount: Unrealized amount subject to a vesting schedule, in whole
+            units
+        balance.pending_rewards_amount: Pending bonding/staking rewards that have not yet
+            been realized, in whole units
+        balance.past_rewards_amount: Previously realized bonding/staking rewards, in whole
+            units
+        balance.bondable_amount: Amount available for bonding/staking, in whole units
+        balance.withdrawable_amount: Amount available to withdraw, in whole units
+        balance.fiat_amount: The total amount in fiat unit
+        balance.unbondable_amount: Amount available for unbonding/unstaking, in whole units
+        balance.claimable_rewards_amount: ETH staking rewards currently available to claim,
+            in whole units. This field is returned only in GetWalletBalance responses for
+            ETH wallets. It is omitted or empty for portfolio-level responses and for non-
+            ETH assets; use pending_rewards_amount where applicable.
+    """

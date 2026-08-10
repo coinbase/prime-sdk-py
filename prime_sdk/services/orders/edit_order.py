@@ -14,25 +14,53 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
+from ...model import EditOrderRequest as _EditOrderRequest
+from ...model import EditOrderResponse as _EditOrderResponse
+
+
+@dataclass(kw_only=True)
+class EditOrderRequest(BaseRequest, _EditOrderRequest):
+    """
+    Edit Order (Beta)
+
+    Attributes:
+        portfolio_id: The ID of the portfolio that owns the order
+        order_id: The ID of the order being edited
+        product_id: Deprecated: The product ID of the order being edited
+        orig_client_order_id: The client order ID of the order being edited
+        client_order_id: The updated version of the client order ID
+        base_quantity: Order size in base asset units (either `base_quantity` or
+            `quote_value` is required)
+        quote_value: Order size in quote asset units, i.e. the amount the user wants to
+            spend (when buying) or receive (when selling); the quantity in base units will
+            be determined based on the market liquidity and indicated `quote_value` (either
+            `base_quantity` or `quote_value` is required)
+        limit_price: The limit price (required for TWAP, VWAP, LIMIT, and STOP_LIMIT orders)
+        expiry_time: The expiry time of the order in UTC (TWAP, VWAP, LIMIT, and STOP_LIMIT
+            GTD only)
+        display_quote_size: The maximum order size that will show up on venue order books.
+            Specifying a value here effectively makes a LIMIT order into an "iceberg" style
+            order.
+        display_base_size: The maximum order size that will show up on venue order books.
+            Specifying a value here effectively makes a LIMIT order into an "iceberg" style
+            order.
+        stop_price: Specifies the stop price at which the order activates. The order is
+            activated if the last trade price on Coinbase Exchange crosses the stop price
+            specified on the order
+        offset: New peg offset value for PEG orders. 0 means peg to BBO. Only non-negative
+            values are allowed. The order's peg_offset_type is immutable and is reused
+            server-side to interpret this value (PEG orders only)
+        wig_level: New WIG (Would if Good) level for PEG orders - the best price a pegged
+            order would be placed on venues, opposite to limit_price. Cannot be added or
+            removed post-placement (PEG orders only)
+    """
 
 
 @dataclass
-class EditOrderRequest:
-    portfolio_id: str
-    order_id: str
-    orig_client_order_id: str | None = None
-    client_order_id: str | None = None
-    base_quantity: str | None = None
-    quote_value: str | None = None
-    limit_price: str | None = None
-    expiry_time: str | None = None
-    display_quote_size: str | None = None
-    display_base_size: str | None = None
-    stop_price: str | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class EditOrderResponse(BaseResponse):
-    order_id: str = None
+class EditOrderResponse(BaseResponse, _EditOrderResponse):
+    """
+    Attributes:
+        order_id: The ID of the order being edited
+    """

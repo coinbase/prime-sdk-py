@@ -13,26 +13,33 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from datetime import datetime
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
-from ...enums import OrderSide
-from ...model import Allocation
-from ...utils import Pagination, PaginationParams
+from ...model import GetPortfolioAllocationsRequest as _GetPortfolioAllocationsRequest
+from ...model import GetPortfolioAllocationsResponse as _GetPortfolioAllocationsResponse
+
+
+@dataclass(kw_only=True)
+class ListPortfolioAllocationsRequest(
+    BasePaginatedRequest, _GetPortfolioAllocationsRequest
+):
+    """
+    List Portfolio Allocations
+
+    Attributes:
+        portfolio_id: Portfolio to retrieve allocations for.
+        product_ids: List of products by which to filter the response.
+        order_side: An order side to filter allocations on. - UNKNOWN_ORDER_SIDE: nil value
+            - BUY: Buy order - SELL: Sell order
+        start_date: A start date for the allocations to be queried from.
+        end_date: An end date for the orders to be queried from.
+    """
 
 
 @dataclass
-class ListPortfolioAllocationsRequest:
-    portfolio_id: str
-    start_date: datetime
-    product_ids: str | None = None
-    order_side: OrderSide | None = None
-    end_date: datetime | None = None
-    pagination: PaginationParams | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class ListPortfolioAllocationsResponse(BaseResponse):
-    allocations: list[Allocation] = None
-    pagination: Pagination = None
+class ListPortfolioAllocationsResponse(BaseResponse, _GetPortfolioAllocationsResponse):
+    """
+    Attributes:
+        allocations: List of allocations.
+    """

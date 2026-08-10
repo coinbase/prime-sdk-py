@@ -14,21 +14,25 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
-from ...model import MarketData
-from ...utils import Pagination
+from ...model import GetMarketDataRequest as _GetMarketDataRequest
+from ...model import GetMarketDataResponse as _GetMarketDataResponse
+
+
+@dataclass(kw_only=True)
+class GetMarketDataRequest(BasePaginatedRequest, _GetMarketDataRequest):
+    """
+    Get Market Data
+
+    Attributes:
+        entity_id: Prime Entity ID
+    """
 
 
 @dataclass
-class GetMarketDataRequest:
-    entity_id: str
-    cursor: str | None = None
-    limit: int | None = None
-    sort_direction: str | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class GetMarketDataResponse(BaseResponse):
-    market_data: list[MarketData] = None
-    pagination: Pagination = None
+class GetMarketDataResponse(BaseResponse, _GetMarketDataResponse):
+    """
+    Attributes:
+        market_data: List of market data entries
+    """

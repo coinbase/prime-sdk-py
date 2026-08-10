@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from ...client import Client
-from ...utils import to_body_dict
+from ...utils import append_pagination_params, to_body_dict
 from .cancel_entity_futures_sweep import (
     CancelEntityFuturesSweepRequest,
     CancelEntityFuturesSweepResponse,
@@ -98,6 +98,7 @@ class FuturesService:
         query_params = ""
         if request.product_id:
             query_params = f"product_id={request.product_id}"
+        query_params = append_pagination_params(query_params, request.pagination)
         response = self.client.request(
             "GET",
             path,

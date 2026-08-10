@@ -14,20 +14,33 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import Network
+from ...model import BlockchainAddress as _BlockchainAddress
+from ...model import (
+    CreateWalletDepositAddressRequest as _CreateWalletDepositAddressRequest,
+)
+
+
+@dataclass(kw_only=True)
+class CreateWalletDepositAddressRequest(
+    BaseRequest, _CreateWalletDepositAddressRequest
+):
+    """
+    Create Wallet Deposit Address
+
+    Attributes:
+        portfolio_id: The ID of the portfolio that owns the wallet
+        wallet_id: The wallet ID for which to create the deposit address
+        network_id: The network name and type
+    """
 
 
 @dataclass
-class CreateWalletDepositAddressRequest:
-    portfolio_id: str
-    wallet_id: str
-    network_id: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class CreateWalletDepositAddressResponse(BaseResponse):
-    address: str = None
-    account_identifier: str = None
-    network: Network = None
+class CreateWalletDepositAddressResponse(BaseResponse, _BlockchainAddress):
+    """
+    Attributes:
+        address: The address on the network
+        account_identifier: The account identifier (used on some chains to distinguish
+            accounts using the same address)
+    """

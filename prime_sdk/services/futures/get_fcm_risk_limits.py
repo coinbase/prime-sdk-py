@@ -14,20 +14,34 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
+from ...model import GetFcmRiskLimitsRequest as _GetFcmRiskLimitsRequest
+from ...model import GetFcmRiskLimitsResponse as _GetFcmRiskLimitsResponse
+
+
+@dataclass(kw_only=True)
+class GetFcmRiskLimitsRequest(BaseRequest, _GetFcmRiskLimitsRequest):
+    """
+    Get FCM Risk Limits
+
+    Attributes:
+        entity_id: Entity ID
+    """
 
 
 @dataclass
-class GetFcmRiskLimitsRequest:
-    entity_id: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class GetFcmRiskLimitsResponse(BaseResponse):
-    cfm_risk_limit: str = None
-    cfm_risk_limit_utilization: str = None
-    cfm_total_margin: str = None
-    cfm_delta_ote: str = None
-    cfm_unsettled_realized_pnl: str = None
-    cfm_unsettled_accrued_funding_pnl: str = None
+class GetFcmRiskLimitsResponse(BaseResponse, _GetFcmRiskLimitsResponse):
+    """
+    Attributes:
+        cfm_risk_limit: Risk Limit set for a client
+        cfm_risk_limit_utilization: Limit utilization calculated based on total margin and
+            PnLs
+        cfm_total_margin: The total margin required for both positions and open orders
+        cfm_delta_ote: Open Trade Equity accrued during the current trading session
+        cfm_unsettled_realized_pnl: Unsettled realized PNL for positions closed intraday
+        cfm_unsettled_accrued_funding_pnl: Unsettled accrued funding PNL from the last
+            settlement
+        margin_utilization_percent: Margin utilization as a decimal percentage between 0 and
+            1 (e.g. 0.5 means 50%)
+    """

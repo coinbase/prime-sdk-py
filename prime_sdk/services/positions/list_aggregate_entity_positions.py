@@ -14,19 +14,35 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseCursorLimitPaginatedRequest
 from ...base_response import BaseResponse
-from ...model import Position
-from ...utils import Pagination, PaginationParams
+from ...model import (
+    ListAggregateEntityPositionsRequest as _ListAggregateEntityPositionsRequest,
+)
+from ...model import (
+    ListAggregateEntityPositionsResponse as _ListAggregateEntityPositionsResponse,
+)
+
+
+@dataclass(kw_only=True)
+class ListAggregateEntityPositionsRequest(
+    BaseCursorLimitPaginatedRequest, _ListAggregateEntityPositionsRequest
+):
+    """
+    List Aggregate Entity Positions
+
+    Attributes:
+        entity_id: The unique ID of the entity
+    """
 
 
 @dataclass
-class ListAggregateEntityPositionsRequest:
-    entity_id: str
-    pagination: PaginationParams | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class ListAggregateEntityPositionsResponse(BaseResponse):
-    positions: list[Position] = None
-    pagination: Pagination = None
+class ListAggregateEntityPositionsResponse(
+    BaseResponse, _ListAggregateEntityPositionsResponse
+):
+    """
+    Attributes:
+        pagination.next_cursor: Cursor to navigate to next page
+        pagination.has_next: A boolean value indicating whether there are more items to
+            paginate through
+    """

@@ -14,22 +14,33 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from .create_stake import StakingInputs, WalletStakingMetadata
+from ...model import StakingUnstakeRequest as _StakingUnstakeRequest
+from ...model import StakingUnstakeResponse as _StakingUnstakeResponse
+
+
+@dataclass(kw_only=True)
+class CreateUnstakeRequest(BaseRequest, _StakingUnstakeRequest):
+    """
+    Request to unstake a wallet
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        wallet_id: The wallet ID
+        idempotency_key: The client generated idempotency key for requested execution.
+            Subsequent requests using the same key will fail
+    """
 
 
 @dataclass
-class CreateUnstakeRequest:
-    portfolio_id: str
-    wallet_id: str
-    idempotency_key: str
-    inputs: StakingInputs | None = None
-    metadata: WalletStakingMetadata | None = None
-    allowed_status_codes: list[int] | None = None
+class CreateUnstakeResponse(BaseResponse, _StakingUnstakeResponse):
+    """
+    StakingUnstakeResponse contains the response data from initiating an unstaking operation.
 
-
-@dataclass
-class CreateUnstakeResponse(BaseResponse):
-    wallet_id: str = None
-    transaction_id: str = None
-    activity_id: str = None
+    Attributes:
+        wallet_id: The wallet ID
+        transaction_id: ID of the newly created transaction, can be used to fetch details of
+            the current state of execution
+        activity_id: The ID for the activity generated for this request
+    """

@@ -14,27 +14,37 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
+from ...model import CreateConversionRequest as _CreateConversionRequest
+from ...model import CreateConversionResponse as _CreateConversionResponse
+
+
+@dataclass(kw_only=True)
+class CreateConversionRequest(BaseRequest, _CreateConversionRequest):
+    """
+    Create Conversion
+
+    Attributes:
+        portfolio_id: The ID of the portfolio
+        wallet_id: The wallet ID that the conversion will originate from
+        amount: The amount in whole units to convert
+        destination: The UUID of the destination wallet
+        idempotency_key: The idempotency key associated with this conversion
+        source_symbol: The currency symbol to convert from
+        destination_symbol: The currency symbol to convert to
+    """
 
 
 @dataclass
-class CreateConversionRequest:
-    portfolio_id: str
-    wallet_id: str
-    amount: str
-    destination: str
-    idempotency_key: str
-    source_symbol: str
-    destination_symbol: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class CreateConversionResponse(BaseResponse):
-    activity_id: str = None
-    source_symbol: str = None
-    destination_symbol: str = None
-    amount: str = None
-    destination: str = None
-    source: str = None
-    transaction_id: str = None
+class CreateConversionResponse(BaseResponse, _CreateConversionResponse):
+    """
+    Attributes:
+        activity_id: The activity ID for the conversion
+        source_symbol: The currency symbol to convert from
+        destination_symbol: The currency symbol to convert to
+        amount: The amount in whole units to convert
+        destination: The UUID of the destination wallet
+        source: The UUID of the source wallet
+        transaction_id: The UUID of the conversion transaction
+    """

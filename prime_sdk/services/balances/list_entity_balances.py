@@ -14,22 +14,36 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseCursorLimitPaginatedRequest
 from ...base_response import BaseResponse
-from ...enums import AggregationType
-from ...model import EntityBalance
-from ...utils import Pagination, PaginationParams
+from ...model import ListEntityBalancesRequest as _ListEntityBalancesRequest
+from ...model import ListEntityBalancesResponse as _ListEntityBalancesResponse
+
+
+@dataclass(kw_only=True)
+class ListEntityBalancesRequest(
+    BaseCursorLimitPaginatedRequest, _ListEntityBalancesRequest
+):
+    """
+    List Entity Balances
+
+    Attributes:
+        entity_id: The entity ID
+        symbols: A list of symbols by which to filter the response
+        aggregation_type: A type by which to filter aggregated balances, defaults to "TOTAL"
+            - UNKNOWN_BALANCE_TYPE: nil - TRADING_BALANCES: Trading balances -
+            VAULT_BALANCES: Vault balances - TOTAL_BALANCES: Total balances (The sum of
+            vault and trading + prime custody) - PRIME_CUSTODY_BALANCES: Prime custody
+            balances - UNIFIED_TOTAL_BALANCES: Unified total balance across networks and
+            wallet types (vault + trading + prime custody)
+    """
 
 
 @dataclass
-class ListEntityBalancesRequest:
-    entity_id: str
-    symbols: list[str] | None = None
-    pagination: PaginationParams | None = None
-    aggregation_type: AggregationType | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class ListEntityBalancesResponse(BaseResponse):
-    balances: list[EntityBalance] = None
-    pagination: Pagination = None
+class ListEntityBalancesResponse(BaseResponse, _ListEntityBalancesResponse):
+    """
+    Attributes:
+        pagination.next_cursor: Cursor to navigate to next page
+        pagination.has_next: A boolean value indicating whether there are more items to
+            paginate through
+    """

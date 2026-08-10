@@ -14,25 +14,31 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...enums import BalanceType
-from ...model import Balance, BalanceWithHolds
-from ...utils import PaginationParams
+from ...model import GetPortfolioBalancesRequest as _GetPortfolioBalancesRequest
+from ...model import GetPortfolioBalancesResponse as _GetPortfolioBalancesResponse
+
+
+@dataclass(kw_only=True)
+class ListPortfolioBalancesRequest(BaseRequest, _GetPortfolioBalancesRequest):
+    """
+    List Portfolio Balances
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        symbols: A list of symbols by which to filter the response
+        balance_type: A type by which to filter balances - UNKNOWN_BALANCE_TYPE: nil -
+            TRADING_BALANCES: Trading balances - VAULT_BALANCES: Vault balances -
+            TOTAL_BALANCES: Total balances (The sum of vault and trading + prime custody) -
+            PRIME_CUSTODY_BALANCES: Prime custody balances - UNIFIED_TOTAL_BALANCES: Unified
+            total balance across networks and wallet types (vault + trading + prime custody)
+    """
 
 
 @dataclass
-class ListPortfolioBalancesRequest:
-    portfolio_id: str
-    symbols: str | None = None
-    balance_type: BalanceType | None = None
-    pagination: PaginationParams | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class ListPortfolioBalancesResponse(BaseResponse):
-    balances: list[Balance] = None
-    type: str = None
-    trading_balances: BalanceWithHolds = None
-    vault_balances: BalanceWithHolds = None
-    prime_custody_balances: BalanceWithHolds = None
+class ListPortfolioBalancesResponse(BaseResponse, _GetPortfolioBalancesResponse):
+    """
+    Attributes:
+        balances: A list of balances.
+    """

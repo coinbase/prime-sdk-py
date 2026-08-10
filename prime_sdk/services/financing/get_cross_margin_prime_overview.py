@@ -14,19 +14,33 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import CrossMarginPrimeMarginSummary
+from ...model import (
+    GetCrossMarginPrimeOverviewRequest as _GetCrossMarginPrimeOverviewRequest,
+)
+from ...model import (
+    GetCrossMarginPrimeOverviewResponse as _GetCrossMarginPrimeOverviewResponse,
+)
+
+
+@dataclass(kw_only=True)
+class GetCrossMarginPrimeOverviewRequest(
+    BaseRequest, _GetCrossMarginPrimeOverviewRequest
+):
+    """
+    Get Prime Cross Margin Overview
+
+    Attributes:
+        entity_id: Prime entity ID for the XM (cross-margin) customer.
+    """
 
 
 @dataclass
-class GetCrossMarginPrimeOverviewRequest:
-    entity_id: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class GetCrossMarginPrimeOverviewResponse(BaseResponse):
-    control_status: str = None
-    margin_level: str = None
-    evaluated_at: str = None
-    margin_summary: CrossMarginPrimeMarginSummary = None
+class GetCrossMarginPrimeOverviewResponse(
+    BaseResponse, _GetCrossMarginPrimeOverviewResponse
+):
+    """
+    Attributes:
+        evaluated_at: When margin metrics were evaluated.
+    """

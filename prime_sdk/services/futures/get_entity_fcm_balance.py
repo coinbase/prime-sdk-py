@@ -14,24 +14,35 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
+from ...model import GetFcmBalanceRequest as _GetFcmBalanceRequest
+from ...model import GetFcmBalanceResponse as _GetFcmBalanceResponse
+
+
+@dataclass(kw_only=True)
+class GetEntityFcmBalanceRequest(BaseRequest, _GetFcmBalanceRequest):
+    """
+    Get Entity FCM Balance
+
+    Attributes:
+        entity_id: Entity ID
+    """
 
 
 @dataclass
-class GetEntityFcmBalanceRequest:
-    entity_id: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class GetEntityFcmBalanceResponse(BaseResponse):
-    portfolio_id: str = None
-    cfm_usd_balance: str = None
-    unrealized_pnl: str = None
-    daily_realized_pnl: str = None
-    excess_liquidity: str = None
-    futures_buying_power: str = None
-    initial_margin: str = None
-    maintenance_margin: str = None
-    clearing_account_id: str = None
-    cfm_unsettled_accrued_funding_pnl: str = None
+class GetEntityFcmBalanceResponse(BaseResponse, _GetFcmBalanceResponse):
+    """
+    Attributes:
+        portfolio_id: Portfolio ID
+        cfm_usd_balance: CFM USD balance
+        unrealized_pnl: Unrealized PNL
+        daily_realized_pnl: Daily realized PNL
+        excess_liquidity: Excess liquidity
+        futures_buying_power: Futures buying power
+        initial_margin: Initial margin
+        maintenance_margin: Maintenance margin
+        clearing_account_id: Clearing account ID
+        cfm_unsettled_accrued_funding_pnl: Unsettled accrued funding PNL from the last
+            settlement
+    """

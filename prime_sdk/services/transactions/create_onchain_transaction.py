@@ -14,7 +14,12 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
+from ...model import CreateOnchainTransactionRequest as _CreateOnchainTransactionRequest
+from ...model import (
+    CreateOnchainTransactionResponse as _CreateOnchainTransactionResponse,
+)
 
 
 @dataclass
@@ -30,16 +35,21 @@ class EvmParams:
     chain_id: str | None = None
 
 
-@dataclass
-class CreateOnchainTransactionRequest:
-    portfolio_id: str
-    wallet_id: str
-    raw_unsigned_txn: str
-    rpc: Rpc | None = None
-    evm_params: EvmParams | None = None
-    allowed_status_codes: list[int] | None = None
+@dataclass(kw_only=True)
+class CreateOnchainTransactionRequest(BaseRequest, _CreateOnchainTransactionRequest):
+    """
+    Create Onchain Transaction
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        wallet_id: The wallet ID
+        raw_unsigned_txn: Raw unsigned transaction in Hex format (Supports EVM and Solana)
+    """
 
 
 @dataclass
-class CreateOnchainTransactionResponse(BaseResponse):
-    transaction_id: str = None
+class CreateOnchainTransactionResponse(BaseResponse, _CreateOnchainTransactionResponse):
+    """
+    Attributes:
+        transaction_id: Unique identifier for the created transaction
+    """

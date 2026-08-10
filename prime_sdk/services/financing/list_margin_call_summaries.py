@@ -14,18 +14,25 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import MarginSummaryRecord
+from ...model import GetMarginSummariesRequest as _GetMarginSummariesRequest
+from ...model import GetMarginSummariesResponse as _GetMarginSummariesResponse
+
+
+@dataclass(kw_only=True)
+class ListMarginCallSummariesRequest(BaseRequest, _GetMarginSummariesRequest):
+    """
+    List Margin Call Summaries
+
+    Attributes:
+        entity_id: The unique ID of the entity
+        start_date: The start date of the range to query for in RFC3339 format. Must be
+            within the last 3 months
+        end_date: The end date of the range to query for in RFC3339 format
+    """
 
 
 @dataclass
-class ListMarginCallSummariesRequest:
-    entity_id: str
-    start_date: str | None = None
-    end_date: str | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class ListMarginCallSummariesResponse(BaseResponse):
-    margin_summaries: list[MarginSummaryRecord] = None
+class ListMarginCallSummariesResponse(BaseResponse, _GetMarginSummariesResponse):
+    """ListMarginCallSummariesResponse(margin_summaries: 'list[MarginSummaryHistorical]' = None)"""

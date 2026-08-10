@@ -14,18 +14,31 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import BuyingPower
+from ...model import GetBuyingPowerRequest as _GetBuyingPowerRequest
+from ...model import GetBuyingPowerResponse as _GetBuyingPowerResponse
+
+
+@dataclass(kw_only=True)
+class GetBuyingPowerRequest(BaseRequest, _GetBuyingPowerRequest):
+    """
+    Get Portfolio Buying Power
+
+    Attributes:
+        portfolio_id: The unique ID of the portfolio
+        base_currency: The symbol for the base currency
+        quote_currency: The symbol for the quote currency
+    """
 
 
 @dataclass
-class GetBuyingPowerRequest:
-    portfolio_id: str
-    base_currency: str | None = None
-    quote_currency: str | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class GetBuyingPowerResponse(BaseResponse):
-    buying_power: BuyingPower = None
+class GetBuyingPowerResponse(BaseResponse, _GetBuyingPowerResponse):
+    """
+    Attributes:
+        buying_power.portfolio_id: The unique ID of the portfolio
+        buying_power.base_currency: The symbol for the base currency
+        buying_power.quote_currency: The symbol for the quote currency
+        buying_power.base_buying_power: The buying power for the base currency
+        buying_power.quote_buying_power: The buying power for the quote currency
+    """

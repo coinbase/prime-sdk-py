@@ -14,22 +14,33 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import ValidatorUnstakePreview
+from ...model import PreviewUnstakeRequest as _PreviewUnstakeRequest
+from ...model import PreviewUnstakeResponse as _PreviewUnstakeResponse
+
+
+@dataclass(kw_only=True)
+class PreviewUnstakeRequest(BaseRequest, _PreviewUnstakeRequest):
+    """
+    Preview Unstake
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        wallet_id: The wallet ID
+        amount: Amount to preview unstaking
+    """
 
 
 @dataclass
-class PreviewUnstakeRequest:
-    portfolio_id: str
-    wallet_id: str
-    amount: str
-    allowed_status_codes: list[int] | None = None
+class PreviewUnstakeResponse(BaseResponse, _PreviewUnstakeResponse):
+    """
+    PreviewUnstakeResponse contains the response data from previewing an unstaking operation.
 
-
-@dataclass
-class PreviewUnstakeResponse(BaseResponse):
-    estimated_amount: str = None
-    wallet_id: str = None
-    wallet_address: str = None
-    current_timestamp: str = None
-    validators: list[ValidatorUnstakePreview] = None
+    Attributes:
+        estimated_amount: Estimated amount that would be unstaked
+        wallet_id: The wallet ID
+        wallet_address: The blockchain address of the wallet
+        current_timestamp: Timestamp at which this preview was generated (ISO 8601)
+        validators: Per-validator breakdown of the unstake simulation
+    """

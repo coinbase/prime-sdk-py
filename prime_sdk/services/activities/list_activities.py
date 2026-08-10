@@ -13,26 +13,36 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from datetime import datetime
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
-from ...model import Activity
-from ...utils import Pagination, PaginationParams
+from ...model import GetPortfolioActivitiesRequest as _GetPortfolioActivitiesRequest
+from ...model import GetPortfolioActivitiesResponse as _GetPortfolioActivitiesResponse
+
+
+@dataclass(kw_only=True)
+class ListActivitiesRequest(BasePaginatedRequest, _GetPortfolioActivitiesRequest):
+    """
+    List Activities
+
+    Attributes:
+        portfolio_id: Portfolio to retrieve activities for.
+        symbols: Filter by list of currencies
+        categories: Filter by list of activity categories [order, transaction, account,
+            allocation, lending]
+        statuses: Filter by list of statuses
+        start_time: Filter created time by start date (RFC3339 format)
+        end_time: Filter created time by end date (RFC3339 format)
+        get_network_unified_activities: Flag to request retrieval of all activities across
+            all networks for a given symbol
+    """
 
 
 @dataclass
-class ListActivitiesRequest:
-    portfolio_id: str
-    symbols: str | None = None
-    categories: str | None = None
-    statuses: str | None = None
-    start_time: datetime | None = None
-    end_time: datetime | None = None
-    pagination: PaginationParams | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class ListActivitiesResponse(BaseResponse):
-    activities: list[Activity] = None
-    pagination: Pagination = None
+class ListActivitiesResponse(BaseResponse, _GetPortfolioActivitiesResponse):
+    """
+    Attributes:
+        pagination.next_cursor: Cursor to navigate to next page
+        pagination.has_next: A boolean value indicating whether there are more items to
+            paginate through
+    """

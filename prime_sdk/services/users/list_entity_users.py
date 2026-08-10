@@ -14,19 +14,25 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
-from ...model import User
-from ...utils import Pagination, PaginationParams
+from ...model import GetEntityUsersRequest as _GetEntityUsersRequest
+from ...model import GetEntityUsersResponse as _GetEntityUsersResponse
+
+
+@dataclass(kw_only=True)
+class ListEntityUsersRequest(BasePaginatedRequest, _GetEntityUsersRequest):
+    """
+    List Users
+
+    Attributes:
+        entity_id: The entity ID
+    """
 
 
 @dataclass
-class ListEntityUsersRequest:
-    entity_id: str
-    pagination: PaginationParams | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class ListEntityUsersResponse(BaseResponse):
-    users: list[User] = None
-    pagination: Pagination = None
+class ListEntityUsersResponse(BaseResponse, _GetEntityUsersResponse):
+    """
+    Attributes:
+        users: The entity users.
+    """

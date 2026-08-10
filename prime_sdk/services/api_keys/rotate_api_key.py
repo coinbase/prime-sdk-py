@@ -14,16 +14,29 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
+from ...model import RotateAPIKeyRequest as _RotateAPIKeyRequest
+from ...model import RotateAPIKeyResponse as _RotateAPIKeyResponse
+
+
+@dataclass(kw_only=True)
+class RotateApiKeyRequest(BaseRequest, _RotateAPIKeyRequest):
+    """
+    Attributes:
+        duration_seconds: How long the old key remains active after the new key is approved,
+            in seconds. Set to 0 for immediate expiry on approval. Cannot extend beyond the
+            original key's expiry.
+    """
 
 
 @dataclass
-class RotateApiKeyRequest:
-    duration_seconds: int | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class RotateApiKeyResponse(BaseResponse):
-    encrypted_credentials: str = None
-    activity_id: str = None
+class RotateApiKeyResponse(BaseResponse, _RotateAPIKeyResponse):
+    """
+    Attributes:
+        encrypted_credentials: Base64-encoded encrypted payload containing the new API key
+            credentials. Decrypt using your current secret_key with HKDF-SHA256 +
+            AES-256-GCM.
+        activity_id: The Prime activity ID tracking the consensus approval for this
+            rotation. Use with the Activities endpoints to monitor approval status.
+    """

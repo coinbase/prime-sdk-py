@@ -14,21 +14,26 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...enums import OrderSide
+from ...model import AcceptQuoteRequest as _AcceptQuoteRequest
+from ...model import AcceptQuoteResponse as _AcceptQuoteResponse
+
+
+@dataclass(kw_only=True)
+class AcceptQuoteRequest(BaseRequest, _AcceptQuoteRequest):
+    """
+    Accept Quote
+
+    Attributes:
+        portfolio_id: The ID of the portfolio that owns the order
+        product_id: The ID of the product being traded for the order (e.g. `BTC-USD`)
+        client_order_id: A client-generated ID used for reference purposes (note: order will
+            be rejected if this ID is not unique among all currently active orders)
+        quote_id: A quote id that was returned from the quote request
+    """
 
 
 @dataclass
-class AcceptQuoteRequest:
-    portfolio_id: str
-    product_id: str
-    side: OrderSide
-    client_order_id: str
-    quote_id: str
-    settl_currency: str | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class AcceptQuoteResponse(BaseResponse):
-    order_id: str = None
+class AcceptQuoteResponse(BaseResponse, _AcceptQuoteResponse):
+    """AcceptQuoteResponse(order_id: 'str' = None)"""

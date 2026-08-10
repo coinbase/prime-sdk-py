@@ -14,18 +14,26 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
+from ...model import CreateNewLocatesRequest as _CreateNewLocatesRequest
+from ...model import CreateNewLocatesResponse as _CreateNewLocatesResponse
+
+
+@dataclass(kw_only=True)
+class CreateNewLocateRequest(BaseRequest, _CreateNewLocatesRequest):
+    """
+    Create New Locates
+
+    Attributes:
+        portfolio_id: The unique ID of the portfolio
+        symbol: Currency symbol
+        amount: Locate Amount
+        conversion_date: Deprecated: Use locate_date instead
+        locate_date: The target date of the locate (YYYY-MM-DD)
+    """
 
 
 @dataclass
-class CreateNewLocateRequest:
-    portfolio_id: str
-    symbol: str
-    amount: str
-    locate_date: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class CreateNewLocateResponse(BaseResponse):
-    locate_id: str = None
+class CreateNewLocateResponse(BaseResponse, _CreateNewLocatesResponse):
+    """CreateNewLocateResponse(locate_id: 'str' = None)"""

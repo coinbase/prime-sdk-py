@@ -14,17 +14,25 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import Details
+from ...model import (
+    GetEntityPaymentMethodDetailsRequest as _GetEntityPaymentMethodDetailsRequest,
+)
+from ...model import (
+    GetEntityPaymentMethodDetailsResponse as _GetEntityPaymentMethodDetailsResponse,
+)
+
+
+@dataclass(kw_only=True)
+class GetEntityPaymentMethodRequest(BaseRequest, _GetEntityPaymentMethodDetailsRequest):
+    """
+    Get Entity Payment Method
+    """
 
 
 @dataclass
-class GetEntityPaymentMethodRequest:
-    entity_id: str
-    payment_method_id: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class GetEntityPaymentMethodResponse(BaseResponse):
-    details: Details = None
+class GetEntityPaymentMethodResponse(
+    BaseResponse, _GetEntityPaymentMethodDetailsResponse
+):
+    """GetEntityPaymentMethodResponse(details: 'PaymentMethodDetails' = None)"""

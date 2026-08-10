@@ -14,17 +14,30 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import Wallet
+from ...model import GetWalletRequest as _GetWalletRequest
+from ...model import GetWalletResponse as _GetWalletResponse
+
+
+@dataclass(kw_only=True)
+class GetWalletRequest(BaseRequest, _GetWalletRequest):
+    """
+    Get Wallet by Wallet ID
+
+    Attributes:
+        portfolio_id: Portfolio ID
+        wallet_id: Wallet ID
+    """
 
 
 @dataclass
-class GetWalletRequest:
-    portfolio_id: str
-    wallet_id: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class GetWalletResponse(BaseResponse):
-    wallet: Wallet = None
+class GetWalletResponse(BaseResponse, _GetWalletResponse):
+    """
+    Attributes:
+        wallet.id: The unique UUID for the wallet
+        wallet.name: The name of the wallet
+        wallet.symbol: The asset stored in the wallet
+        wallet.created_at: The UTC timestamp when this wallet was created
+        wallet.address: The active address of the wallet
+    """

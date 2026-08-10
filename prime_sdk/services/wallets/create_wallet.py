@@ -14,24 +14,31 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...enums import WalletType
+from ...model import CreateWalletRequest as _CreateWalletRequest
+from ...model import CreateWalletResponse as _CreateWalletResponse
+
+
+@dataclass(kw_only=True)
+class CreateWalletRequest(BaseRequest, _CreateWalletRequest):
+    """
+    Create Wallet
+
+    Attributes:
+        portfolio_id: Portfolio ID
+        name: The name of the wallet
+        symbol: The asset stored in the wallet. Should not be specified when wallet_type is
+            ONCHAIN
+        idempotency_key: idem
+    """
 
 
 @dataclass
-class CreateWalletRequest:
-    portfolio_id: str
-    name: str
-    symbol: str
-    idempotency_key: str
-    wallet_type: WalletType
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class CreateWalletResponse(BaseResponse):
-    activity_id: str = None
-    name: str = None
-    symbol: str = None
-    wallet_type: str = None
-    network_family: str = None
+class CreateWalletResponse(BaseResponse, _CreateWalletResponse):
+    """
+    Attributes:
+        activity_id: The id of activity
+        name: The name of the wallet
+        symbol: The asset stored in the wallet
+    """

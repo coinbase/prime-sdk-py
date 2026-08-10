@@ -2,3 +2,4 @@
 # Example scripts intentionally catch broad exceptions to print a friendly
 # message and exit; blind-except is acceptable in these demonstrative files.
 "prime_sdk/examples/**" = ["BLE001"]
+"prime_sdk/generated/**" = ["I001", "F401", "F821"]

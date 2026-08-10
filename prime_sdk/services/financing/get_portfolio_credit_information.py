@@ -14,16 +14,35 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import PostTradeCredit
+from ...model import GetPostTradeCreditRequest as _GetPostTradeCreditRequest
+from ...model import GetPostTradeCreditResponse as _GetPostTradeCreditResponse
+
+
+@dataclass(kw_only=True)
+class GetPortfolioCreditInformationRequest(BaseRequest, _GetPostTradeCreditRequest):
+    """
+    Get Portfolio Credit Information
+
+    Attributes:
+        portfolio_id: The portfolio ID
+    """
 
 
 @dataclass
-class GetPortfolioCreditInformationRequest:
-    portfolio_id: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class GetPortfolioCreditInformationResponse(BaseResponse):
-    post_trade_credit: PostTradeCredit = None
+class GetPortfolioCreditInformationResponse(BaseResponse, _GetPostTradeCreditResponse):
+    """
+    Attributes:
+        post_trade_credit.portfolio_id: The unique ID of the portfolio
+        post_trade_credit.currency: The currency symbol credit is denoted in
+        post_trade_credit.limit: The maximum credit limit
+        post_trade_credit.utilized: The amount of credit used
+        post_trade_credit.available: The amount of credit available
+        post_trade_credit.frozen: Whether or not a portfolio is frozen due to balance
+            outstanding or other reason
+        post_trade_credit.frozen_reason: The reason why the portfolio is frozen
+        post_trade_credit.enabled: Whether the portfolio has credit enabled
+        post_trade_credit.adjusted_credit_utilized: The amount of adjusted credit used
+        post_trade_credit.adjusted_portfolio_equity: The amount of adjusted portfolio equity
+    """

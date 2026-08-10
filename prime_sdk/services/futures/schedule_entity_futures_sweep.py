@@ -14,18 +14,28 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
+from ...model import ScheduleFuturesSweepRequest as _ScheduleFuturesSweepRequest
+from ...model import ScheduleFuturesSweepResponse as _ScheduleFuturesSweepResponse
+
+
+@dataclass(kw_only=True)
+class ScheduleEntityFuturesSweepRequest(BaseRequest, _ScheduleFuturesSweepRequest):
+    """
+    Schedule Entity Futures Sweep
+
+    Attributes:
+        entity_id: Entity ID
+        amount: Amount. Default to sweep all if not provided
+        currency: Currency. Required
+    """
 
 
 @dataclass
-class ScheduleEntityFuturesSweepRequest:
-    entity_id: str
-    amount: str
-    currency: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class ScheduleEntityFuturesSweepResponse(BaseResponse):
-    success: bool = None
-    request_id: str = None
+class ScheduleEntityFuturesSweepResponse(BaseResponse, _ScheduleFuturesSweepResponse):
+    """
+    Attributes:
+        success: Success
+        request_id: Request ID
+    """

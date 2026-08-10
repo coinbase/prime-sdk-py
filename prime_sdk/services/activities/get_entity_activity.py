@@ -14,16 +14,34 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import Activity
+from ...model import GetActivityRequest as _GetActivityRequest
+from ...model import GetActivityResponse as _GetActivityResponse
+
+
+@dataclass(kw_only=True)
+class GetEntityActivityRequest(BaseRequest, _GetActivityRequest):
+    """
+    Get Activity by Activity ID
+
+    Attributes:
+        activity_id: Id of the activity to retrieve
+    """
 
 
 @dataclass
-class GetEntityActivityRequest:
-    activity_id: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class GetEntityActivityResponse(BaseResponse):
-    activity: Activity = None
+class GetEntityActivityResponse(BaseResponse, _GetActivityResponse):
+    """
+    Attributes:
+        activity.id: A unique id for the account activity
+        activity.reference_id: A reference for orders and transactions, n/a for other
+            category types
+        activity.created_by: Id of user who created the activity
+        activity.title: Title of the activity
+        activity.description: Description detail of the activity
+        activity.user_actions: Actions related to the Activity
+        activity.symbols: List of currencies included in an activity
+        activity.created_at: Time activity was created at
+        activity.updated_at: Time for latest status update of account activity
+    """

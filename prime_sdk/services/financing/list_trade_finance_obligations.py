@@ -14,16 +14,27 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import TFObligation
+from ...model import ListTFObligationsRequest as _ListTFObligationsRequest
+from ...model import ListTFObligationsResponse as _ListTFObligationsResponse
+
+
+@dataclass(kw_only=True)
+class ListTradeFinanceObligationsRequest(BaseRequest, _ListTFObligationsRequest):
+    """
+    List Trade Finance Obligations
+
+    Attributes:
+        entity_id: The entity ID to retrieve obligations for
+    """
 
 
 @dataclass
-class ListTradeFinanceObligationsRequest:
-    entity_id: str
-    allowed_status_codes: list[int] | None = None
+class ListTradeFinanceObligationsResponse(BaseResponse, _ListTFObligationsResponse):
+    """
+    Response containing trade finance obligations for an entity
 
-
-@dataclass
-class ListTradeFinanceObligationsResponse(BaseResponse):
-    obligations: list[TFObligation] = None
+    Attributes:
+        obligations: The list of obligations (loans) for the entity.
+    """

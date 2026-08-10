@@ -14,22 +14,33 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseCursorLimitPaginatedRequest
 from ...base_response import BaseResponse
-from ...model import DefiBalance, OnchainBalance
-from ...utils import Pagination, PaginationParams
+from ...model import ListWeb3WalletBalancesRequest as _ListWeb3WalletBalancesRequest
+from ...model import ListWeb3WalletBalancesResponse as _ListWeb3WalletBalancesResponse
+
+
+@dataclass(kw_only=True)
+class ListWeb3WalletBalancesRequest(
+    BaseCursorLimitPaginatedRequest, _ListWeb3WalletBalancesRequest
+):
+    """
+    List Onchain Wallet Balances
+
+    Attributes:
+        portfolio_id: Portfolio to retrieve balances for.
+        wallet_id: Onchain wallet to retrieve balances for.
+        visibility_statuses: Visibility statuses to filter balances on. Leaving this field
+            empty will return only VISIBLE balances. - UNKNOWN_VISIBILITY_STATUS: nil -
+            VISIBLE: Visible - HIDDEN: Hidden - SPAM: Spam
+    """
 
 
 @dataclass
-class ListWeb3WalletBalancesRequest:
-    portfolio_id: str
-    wallet_id: str
-    visibility_statuses: str | None = None
-    pagination: PaginationParams | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class ListWeb3WalletBalancesResponse(BaseResponse):
-    balances: list[OnchainBalance] = None
-    pagination: Pagination = None
-    defi_balances: list[DefiBalance] = None
+class ListWeb3WalletBalancesResponse(BaseResponse, _ListWeb3WalletBalancesResponse):
+    """
+    Attributes:
+        balances: List of balances in the onchain wallet
+        defi_balances: DeFi balances only return for the initial request. No pagination
+            support.
+    """

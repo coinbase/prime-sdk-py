@@ -14,17 +14,24 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import AdvancedTransfer
+from ...model import CreateAdvancedTransferRequest as _CreateAdvancedTransferRequest
+from ...model import CreateAdvancedTransferResponse as _CreateAdvancedTransferResponse
+
+
+@dataclass(kw_only=True)
+class CreateAdvancedTransferRequest(BaseRequest, _CreateAdvancedTransferRequest):
+    """
+    Create Advanced Transfer
+
+    Attributes:
+        portfolio_id: The portfolio ID
+    """
 
 
 @dataclass
-class CreateAdvancedTransferRequest:
-    portfolio_id: str
-    advanced_transfer: AdvancedTransfer = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class CreateAdvancedTransferResponse(BaseResponse):
-    advanced_transfer: AdvancedTransfer = None
+class CreateAdvancedTransferResponse(BaseResponse, _CreateAdvancedTransferResponse):
+    """
+    CreateAdvancedTransferResponse is the response after creating an advanced transfer.
+    """

@@ -1,0 +1,1036 @@
+{
+  "AccountMetadata": {
+    "consensus": "ConsensusMetadata"
+  },
+  "Accrual": {
+    "accrual_id": "str",
+    "date": "str",
+    "portfolio_id": "str",
+    "symbol": "str",
+    "loan_type": "str",
+    "interest_rate": "str",
+    "nominal_accrual": "str",
+    "notional_accrual": "str",
+    "conversion_rate": "str",
+    "loan_amount": "str",
+    "benchmark": "str",
+    "benchmark_rate": "str",
+    "spread": "str",
+    "rate_type": "str",
+    "loan_amount_notional": "str",
+    "nominal_open_borrow_sod": "str",
+    "notional_open_borrow_sod": "str"
+  },
+  "ActiveLiquidationSummary": {
+    "liquidation_id": "str",
+    "status": "str",
+    "shortfall_amount": "str"
+  },
+  "Activity": {
+    "id": "str",
+    "reference_id": "str",
+    "category": "str",
+    "type": "str",
+    "secondary_type": "str",
+    "status": "str",
+    "created_by": "str",
+    "title": "str",
+    "description": "str",
+    "user_actions": "list",
+    "transactions_metadata": "TransactionsMetadata",
+    "account_metadata": "AccountMetadata",
+    "symbols": "list",
+    "created_at": "str",
+    "updated_at": "str",
+    "hierarchy_type": "str"
+  },
+  "ActivityResponse": {
+    "activity": "Activity"
+  },
+  "Add": {
+    "id": "str",
+    "name": "str",
+    "avatar_url": "str"
+  },
+  "Address": {
+    "id": "str",
+    "currency_symbol": "str",
+    "name": "str",
+    "address": "str",
+    "account_identifier": "str",
+    "account_identifier_name": "str",
+    "state": "str",
+    "explorer_link": "str",
+    "last_used_at": "str",
+    "added_at": "str",
+    "added_by": "Add",
+    "type": "str",
+    "counterparty_id": "str"
+  },
+  "AddressGroup": {
+    "id": "str",
+    "name": "str",
+    "network_type": "NetworkType",
+    "addresses": "list",
+    "added_at": "str"
+  },
+  "AdvancedTransfer": {
+    "id": "str",
+    "type": "str",
+    "state": "str",
+    "fund_movements": "list",
+    "blind_match_metadata": "BlindMatchMetadata"
+  },
+  "Allocation": {
+    "root_id": "str",
+    "reversal_id": "str",
+    "allocation_completed_at": "str",
+    "user_id": "str",
+    "product_id": "str",
+    "side": "str",
+    "avg_price": "str",
+    "base_quantity": "str",
+    "quote_value": "str",
+    "fees_allocated": "str",
+    "status": "str",
+    "source": "str",
+    "order_ids": "list",
+    "destinations": "list",
+    "netting_id": "str"
+  },
+  "AmountDue": {
+    "currency": "str",
+    "amount": "str",
+    "due_date": "str"
+  },
+  "Asset": {
+    "name": "str",
+    "symbol": "str",
+    "decimal_precision": "str",
+    "trading_supported": "bool",
+    "explorer_url": "str",
+    "networks": "list"
+  },
+  "AssetBalance": {
+    "portfolio_id": "str",
+    "symbol": "str",
+    "amount": "str",
+    "notional_amount": "str",
+    "conversion_rate": "str"
+  },
+  "AssetChange": {
+    "type": "str",
+    "symbol": "str",
+    "amount": "str",
+    "collection": "Collection",
+    "item": "Item"
+  },
+  "AssetNetwork": {
+    "network": "Network",
+    "name": "str",
+    "max_decimals": "str",
+    "default": "bool",
+    "trading_supported": "bool",
+    "vault_supported": "bool",
+    "prime_custody_supported": "bool",
+    "destination_tag_required": "bool",
+    "network_link": "str",
+    "network_scoped_symbol": "str",
+    "min_withdrawal_amount": "str",
+    "max_withdrawal_amount": "str",
+    "min_deposit_amount": "str"
+  },
+  "Balance": {
+    "symbol": "str",
+    "amount": "str",
+    "holds": "str",
+    "bonded_amount": "str",
+    "reserved_amount": "str",
+    "unbonding_amount": "str",
+    "unvested_amount": "str",
+    "pending_rewards_amount": "str",
+    "past_rewards_amount": "str",
+    "bondable_amount": "str",
+    "withdrawable_amount": "str",
+    "fiat_amount": "str",
+    "unbondable_amount": "str",
+    "claimable_rewards_amount": "str"
+  },
+  "BalanceWithHolds": {
+    "total": "str",
+    "holds": "str"
+  },
+  "BlindMatchMetadata": {
+    "reference_id": "str",
+    "settlement_date": "str",
+    "trade_date": "str",
+    "settlement_time": "str"
+  },
+  "Blockchain": {
+    "address": "str",
+    "account_identifier": "str",
+    "network": "Network"
+  },
+  "BlockchainAddress": {
+    "address": "str",
+    "account_identifier": "str",
+    "network": "Network"
+  },
+  "BuyingPower": {
+    "portfolio_id": "str",
+    "base_currency": "str",
+    "quote_currency": "str",
+    "base_buying_power": "str",
+    "quote_buying_power": "str"
+  },
+  "Candle": {
+    "timestamp": "str",
+    "open": "str",
+    "high": "str",
+    "low": "str",
+    "close": "str",
+    "volume": "str"
+  },
+  "Collection": {
+    "name": "str"
+  },
+  "Commission": {
+    "type": "str",
+    "rate": "str",
+    "trading_volume": "str"
+  },
+  "CommissionDetailTotal": {
+    "total_commission": "str",
+    "client_commission": "str",
+    "venue_commission": "str",
+    "ces_commission": "str",
+    "financing_commission": "str",
+    "regulatory_commission": "str",
+    "clearing_commission": "str"
+  },
+  "ConsensusMetadata": {
+    "approval_deadline": "str",
+    "has_passed_consensus": "bool"
+  },
+  "Conversion": {
+    "conversion_details": "list",
+    "short_collateral": "ShortCollateral",
+    "conversion_datetime": "str",
+    "portfolio_id": "str"
+  },
+  "ConversionDetail": {
+    "symbol": "str",
+    "tf_balance": "str",
+    "notional_tf_balance": "str",
+    "converted_balance": "str",
+    "notional_converted_balance": "str",
+    "interest_rate": "str",
+    "conversion_rate": "str"
+  },
+  "Counterparty": {
+    "counterparty_id": "str"
+  },
+  "CrossMarginCall": {
+    "margin_call_id": "str",
+    "currency": "str",
+    "initial_notional_amount": "str",
+    "outstanding_notional_amount": "str",
+    "margin_call_type": "str",
+    "margin_call_status": "str",
+    "called_with_margin_level": "str",
+    "called_with_margin_summary": "CrossMarginSummary",
+    "due_at": "str",
+    "created_at": "str",
+    "updated_at": "str"
+  },
+  "CrossMarginLoan": {
+    "loan_id": "str",
+    "loan_party": "str",
+    "principal_currency": "str",
+    "principal_currency_market_price": "str",
+    "initial_principal_amount": "str",
+    "outstanding_principal_amount": "str",
+    "created_at": "str",
+    "updated_at": "str"
+  },
+  "CrossMarginOverview": {
+    "control_status": "str",
+    "call_status": "str",
+    "margin_level": "str",
+    "margin_summary": "CrossMarginSummary",
+    "active_margin_calls": "list",
+    "active_loans": "list",
+    "active_liquidation": "ActiveLiquidationSummary"
+  },
+  "CrossMarginPrimeFuturesEquityBreakdown": {
+    "cash_balance": "str",
+    "unrealized_pnl": "str",
+    "realized_pnl": "str",
+    "accrued_funding_pnl": "str"
+  },
+  "CrossMarginPrimeMarginSummary": {
+    "margin_requirement": "str",
+    "margin_requirement_type": "str",
+    "account_equity": "str",
+    "margin_excess_shortfall": "str",
+    "consumed_credit": "str",
+    "xm_credit_limit": "str",
+    "xm_margin_limit": "str",
+    "consumed_margin_limit": "str",
+    "spot_equity": "str",
+    "futures_equity": "str",
+    "gross_market_value": "str",
+    "net_market_value": "str",
+    "net_exposure": "str",
+    "gross_leverage": "str",
+    "spot_equity_breakdown": "CrossMarginPrimeSpotEquityBreakdown",
+    "futures_equity_breakdown": "CrossMarginPrimeFuturesEquityBreakdown",
+    "risk_netting_info": "CrossMarginPrimeRiskNettingInfo",
+    "health_status": "str",
+    "equity_ratio": "str",
+    "deficit_ratio": "str",
+    "margin_thresholds": "PrimeXMMarginCallThresholds",
+    "fcm_excess_available_to_return": "str"
+  },
+  "CrossMarginPrimeRiskNettingInfo": {
+    "dco_margin_requirement": "str",
+    "portfolio_margin_requirement": "str",
+    "integrated_portfolio_margin_requirement": "str",
+    "ineligible_futures_margin_requirement": "str",
+    "pmr_breakdown": "PrimeXMMarginRequirementBreakdown",
+    "ipmr_breakdown": "PrimeXMMarginRequirementBreakdown",
+    "portfolio_margin_offset_credit_breakdown": "PrimeXMOffsetCreditBreakdown",
+    "integrated_portfolio_margin_offset_credit_breakdown": "PrimeXMOffsetCreditBreakdown",
+    "xm_positions": "list"
+  },
+  "CrossMarginPrimeSpotEquityBreakdown": {
+    "cash_balance": "str",
+    "long_market_value": "str",
+    "short_market_value": "str",
+    "short_collateral": "str",
+    "pending_transfers": "str"
+  },
+  "CrossMarginPrimeXMPosition": {
+    "currency": "str",
+    "market_price": "str",
+    "spot_balance": "str",
+    "spot_balance_notional": "str",
+    "futures_balance": "str",
+    "futures_balance_notional": "str",
+    "base_requirement": "str",
+    "total_position_margin": "str",
+    "basis_credit": "str",
+    "futures_netted_notional": "str",
+    "futures_netting_margin": "str",
+    "long_amount": "str",
+    "short_amount": "str",
+    "volatility_addon": "str",
+    "liquidity_addon": "str"
+  },
+  "CrossMarginRiskParameters": {
+    "asset_tier": "str",
+    "base_ratio_long": "str",
+    "base_ratio_short": "str",
+    "volatility_rate_long": "str",
+    "volatility_rate_short": "str",
+    "volatility_low_threshold": "str",
+    "volatility_high_threshold": "str",
+    "liquidity_a_long": "str",
+    "liquidity_a_short": "str",
+    "liquidity_b_short": "str",
+    "liquidity_threshold": "str",
+    "basis_offset_credit_rate": "str"
+  },
+  "CrossMarginSummary": {
+    "margin_requirement": "str",
+    "account_equity": "str",
+    "margin_excess_shortfall": "str",
+    "consumed_credit": "str",
+    "xm_credit_limit": "str",
+    "xm_margin_limit": "str",
+    "consumed_margin_limit": "str",
+    "spot_equity": "str",
+    "futures_equity": "str",
+    "risk_netting_info": "RiskNettingInfo"
+  },
+  "CryptoInstructions": {
+    "id": "str",
+    "name": "str",
+    "type": "str",
+    "address": "str",
+    "account_identifier": "str",
+    "account_identifier_name": "str",
+    "network": "Network"
+  },
+  "CustomStablecoinAsset": {
+    "symbol": "str"
+  },
+  "CustomStablecoinRewardDetails": {
+    "start_date": "str",
+    "end_date": "str",
+    "asset": "CustomStablecoinAsset"
+  },
+  "DefiBalance": {
+    "network": "str",
+    "protocol": "str",
+    "net_usd_value": "str"
+  },
+  "Destination": {
+    "leg_id": "str",
+    "portfolio_id": "str",
+    "allocation_base": "str",
+    "allocation_quote": "str",
+    "fees_allocated_leg": "str"
+  },
+  "Details": {
+    "id": "str",
+    "symbol": "str",
+    "payment_method_type": "str",
+    "bank_name": "str",
+    "account_number": "str",
+    "bank_name_2": "str",
+    "name": "str",
+    "bank_code": "str"
+  },
+  "EditHistory": {
+    "price": "str",
+    "base_quantity": "str",
+    "quote_value": "str",
+    "display_quote_size": "str",
+    "display_base_size": "str",
+    "stop_price": "str",
+    "expiry_time": "str",
+    "accept_time": "str",
+    "client_order_id": "str"
+  },
+  "EntityBalance": {
+    "symbol": "str",
+    "long_amount": "str",
+    "long_notional": "str",
+    "short_amount": "str",
+    "short_notional": "str"
+  },
+  "EstimatedNetworkFees": {
+    "lower_bound": "str",
+    "upper_bound": "str"
+  },
+  "FcmMarginCall": {
+    "type": "str",
+    "state": "str",
+    "initial_amount": "str",
+    "remaining_amount": "str",
+    "business_date": "str",
+    "cure_deadline": "str"
+  },
+  "FcmRiskLimits": {
+    "cfm_risk_limit": "str",
+    "cfm_risk_limit_utilization": "str",
+    "cfm_total_margin": "str",
+    "cfm_delta_ote": "str",
+    "cfm_unsettled_realized_pnl": "str",
+    "cfm_unsettled_accrued_funding_pnl": "str"
+  },
+  "Fee": {
+    "symbol": "str",
+    "fee": "str"
+  },
+  "FiatInstructions": {
+    "id": "str",
+    "name": "str",
+    "type": "str",
+    "account_number": "str",
+    "routing_number": "str",
+    "reference_code": "str"
+  },
+  "Fill": {
+    "id": "str",
+    "order_id": "str",
+    "product_id": "str",
+    "client_product_id": "str",
+    "side": "str",
+    "filled_quantity": "str",
+    "filled_value": "str",
+    "price": "str",
+    "time": "str",
+    "commission": "str",
+    "venue": "str",
+    "venue_fees": "str",
+    "ces_commission": "str"
+  },
+  "FundMovement": {
+    "id": "str",
+    "source": "TransferLocation",
+    "target": "TransferLocation",
+    "currency": "str",
+    "amount": "str"
+  },
+  "FuturesPosition": {
+    "product_id": "str",
+    "side": "str",
+    "number_of_contracts": "str",
+    "daily_realized_pnl": "str",
+    "unrealized_pnl": "str",
+    "current_price": "str",
+    "avg_entry_price": "str",
+    "expiration_time": "str",
+    "symbol": "str",
+    "long": "str",
+    "short": "str",
+    "position_reference": "str"
+  },
+  "Instructions": {
+    "crypto_instructions": "CryptoInstructions",
+    "fiat_instructions": "FiatInstructions"
+  },
+  "Invoice": {
+    "id": "str",
+    "billing_month": "int",
+    "billing_year": "int",
+    "due_date": "str",
+    "invoice_number": "str",
+    "state": "str",
+    "usd_amount_paid": "float",
+    "usd_amount_owed": "float",
+    "invoice_items": "list"
+  },
+  "GetInvoicesRequest": {
+    "billing_year": "int"
+  },
+  "GetOrdersRequest": {
+    "start_date": "datetime",
+    "end_date": "datetime"
+  },
+  "GetOpenOrdersRequest": {
+    "start_date": "datetime",
+    "end_date": "datetime"
+  },
+  "GetPortfolioActivitiesRequest": {
+    "start_time": "datetime",
+    "end_time": "datetime"
+  },
+  "GetEntityActivitiesRequest": {
+    "start_time": "datetime",
+    "end_time": "datetime"
+  },
+  "GetPortfolioAllocationsRequest": {
+    "start_date": "datetime",
+    "end_date": "datetime"
+  },
+  "InvoiceItem": {
+    "description": "str",
+    "currency_symbol": "str",
+    "invoice_type": "str",
+    "rate": "float",
+    "quantity": "float",
+    "price": "float",
+    "average_auc": "float",
+    "total": "float"
+  },
+  "Item": {
+    "name": "str"
+  },
+  "Locate": {
+    "locate_id": "str",
+    "entity_id": "str",
+    "portfolio_id": "str",
+    "symbol": "str",
+    "requested_amount": "str",
+    "interest_rate": "str",
+    "status": "str",
+    "approved_amount": "str",
+    "conversion_date": "str",
+    "created_at": "str",
+    "locate_date": "str"
+  },
+  "LocateAvailability": {
+    "symbol": "str",
+    "quantity": "str",
+    "rate": "str"
+  },
+  "MarginCall": {
+    "id": "str",
+    "initial_notional_amount": "str",
+    "outstanding_notional_amount": "str",
+    "created_at": "str",
+    "due_at": "str"
+  },
+  "MarginCallRecord": {
+    "margin_call_id": "str",
+    "initial_notional_amount": "str",
+    "outstanding_notional_amount": "str",
+    "created_at": "str",
+    "due_at": "str"
+  },
+  "MarginInformation": {
+    "margin_call_records": "list",
+    "margin_summary": "MarginSummary"
+  },
+  "MarginSummary": {
+    "entity_id": "str",
+    "margin_equity": "str",
+    "margin_requirement": "str",
+    "excess_deficit": "str",
+    "pm_credit_consumed": "str",
+    "tf_credit_limit": "str",
+    "tf_credit_consumed": "str",
+    "tf_adjusted_asset_value": "str",
+    "tf_adjusted_liability_value": "str",
+    "tf_adjusted_credit_consumed": "str",
+    "tf_adjusted_equity": "str",
+    "frozen": "bool",
+    "frozen_reason": "str",
+    "tf_enabled": "bool",
+    "pm_enabled": "bool",
+    "market_rates": "list",
+    "asset_balances": "list",
+    "tf_loans": "list",
+    "pm_loans": "list",
+    "short_collateral": "list",
+    "gross_market_value": "str",
+    "net_market_value": "str",
+    "long_market_value": "str",
+    "non_marginable_long_market_value": "str",
+    "short_market_value": "str",
+    "gross_leverage": "str",
+    "net_exposure": "str",
+    "portfolio_stress_triggered": "PortfolioStressTriggered",
+    "pm_asset_info": "list",
+    "pm_credit_limit": "str",
+    "pm_margin_limit": "str",
+    "pm_margin_consumed": "str"
+  },
+  "MarginSummaryRecord": {
+    "conversion_datetime": "str",
+    "conversion_date": "str",
+    "margin_summary": "MarginSummary"
+  },
+  "MarketData": {
+    "symbol": "str",
+    "vol_5d": "str",
+    "vol_30d": "str",
+    "vol_90d": "str",
+    "adv_30d": "str",
+    "weighted_vol": "str"
+  },
+  "MarketRate": {
+    "symbol": "str",
+    "rate": "str"
+  },
+  "MatchMetadata": {
+    "reference_id": "str",
+    "settlement_date": "str"
+  },
+  "Network": {
+    "id": "str",
+    "type": "str"
+  },
+  "OnchainAddress": {
+    "name": "str",
+    "address": "str",
+    "chain_ids": "list"
+  },
+  "OnchainBalance": {
+    "asset": "Asset",
+    "amount": "str",
+    "visibility_status": "str"
+  },
+  "OnchainDetails": {
+    "signed_transaction": "str",
+    "risk_assessment": "RiskAssessment",
+    "chain_id": "str",
+    "nonce": "str",
+    "replaced_transaction_id": "str",
+    "destination_address": "str",
+    "skip_broadcast": "bool",
+    "failure_reason": "str",
+    "signing_status": "str"
+  },
+  "Order": {
+    "id": "str",
+    "user_id": "str",
+    "portfolio_id": "str",
+    "product_id": "str",
+    "side": "str",
+    "client_order_id": "str",
+    "type": "str",
+    "base_quantity": "str",
+    "quote_value": "str",
+    "limit_price": "str",
+    "start_time": "str",
+    "expiry_time": "str",
+    "status": "str",
+    "time_in_force": "str",
+    "created_at": "str",
+    "filled_quantity": "str",
+    "filled_value": "str",
+    "average_filled_price": "str",
+    "commission": "str",
+    "exchange_fee": "str",
+    "historical_pov": "str",
+    "stop_price": "str",
+    "net_average_filled_price": "str",
+    "user_context": "str",
+    "client_product_id": "str",
+    "post_only": "bool",
+    "order_edit_history": "list",
+    "is_raise_exact": "bool",
+    "display_size": "str",
+    "display_quote_size": "str",
+    "display_base_size": "str",
+    "edit_history": "list",
+    "peg_offset_type": "str",
+    "offset": "str",
+    "wig_level": "str",
+    "product_type": "str",
+    "commission_detail_total": "CommissionDetailTotal"
+  },
+  "OrderEditHistory": {
+    "price": "str",
+    "size": "str",
+    "display_size": "str",
+    "stop_price": "str",
+    "stop_limit_price": "str",
+    "end_time": "str",
+    "accept_time": "str"
+  },
+  "PmAssetInfo": {
+    "symbol": "str",
+    "amount": "str",
+    "price": "str",
+    "notional_amount": "str",
+    "asset_tier": "str",
+    "margin_eligible": "bool",
+    "base_margin_requirement": "str",
+    "base_margin_requirement_notional": "str",
+    "adv_30d": "str",
+    "hist_5d_vol": "str",
+    "hist_30d_vol": "str",
+    "hist_90d_vol": "str",
+    "volatility_addon": "str",
+    "liquidity_addon": "str",
+    "total_position_margin": "str",
+    "short_nominal": "str",
+    "long_nominal": "str"
+  },
+  "PmLoan": {
+    "portfolio_id": "str",
+    "symbol": "str",
+    "amount": "str",
+    "notional_amount": "str",
+    "due_date": "str"
+  },
+  "Portfolio": {
+    "id": "str",
+    "name": "str",
+    "entity_id": "str",
+    "organization_id": "str",
+    "entity_name": "str"
+  },
+  "PortfolioStressTriggered": {
+    "amount": "str",
+    "add_on_type": "str"
+  },
+  "PortfolioUser": {
+    "id": "str",
+    "name": "str",
+    "email": "str",
+    "portfolio_id": "str",
+    "entity_id": "str",
+    "role": "str"
+  },
+  "Position": {
+    "symbol": "str",
+    "long": "str",
+    "short": "str",
+    "position_reference": "Reference"
+  },
+  "PostTradeCredit": {
+    "portfolio_id": "str",
+    "currency": "str",
+    "limit": "str",
+    "utilized": "str",
+    "available": "str",
+    "frozen": "bool",
+    "frozen_reason": "str",
+    "amounts_due": "list",
+    "enabled": "bool",
+    "adjusted_credit_utilized": "str",
+    "adjusted_portfolio_equity": "str"
+  },
+  "PrimeXMMarginCallThresholds": {
+    "deficit_threshold": "str",
+    "warning_threshold": "str",
+    "critical_threshold": "str",
+    "liquidation_threshold": "str",
+    "margin_thresholds": "list"
+  },
+  "PrimeXMMarginRequirementBreakdown": {
+    "base_margin": "str",
+    "volatility_addon": "str",
+    "liquidity_addon": "str",
+    "offset_credit": "str",
+    "futures_margin": "str"
+  },
+  "PrimeXMMarginThreshold": {
+    "margin_level": "str",
+    "threshold_type": "str",
+    "threshold_value": "str"
+  },
+  "PrimeXMOffsetCreditBreakdown": {
+    "basis_credit": "str",
+    "long_short_credit": "str",
+    "long_long_credit": "str",
+    "short_short_credit": "str",
+    "same_tier_credit": "str",
+    "total_credit": "str"
+  },
+  "ProcessRequirements": {
+    "travel_rule_status": "str"
+  },
+  "Product": {
+    "id": "str",
+    "base_increment": "str",
+    "quote_increment": "str",
+    "base_min_size": "str",
+    "quote_min_size": "str",
+    "base_max_size": "str",
+    "quote_max_size": "str",
+    "permissions": "list",
+    "price_increment": "str",
+    "rfq_product_details": "RfqProductDetails"
+  },
+  "Reference": {
+    "id": "str",
+    "type": "str"
+  },
+  "RequestedAmount": {
+    "currency": "str",
+    "amount": "str"
+  },
+  "RewardMetadata": {
+    "subtype": "str",
+    "custom_stablecoin_reward_details": "CustomStablecoinRewardDetails"
+  },
+  "RfqProductDetails": {
+    "tradable": "bool",
+    "min_notional_size": "str",
+    "max_notional_size": "str",
+    "min_base_size": "str",
+    "max_base_size": "str",
+    "min_quote_size": "str",
+    "max_quote_size": "str"
+  },
+  "RiskAssessment": {
+    "compliance_risk_detected": "bool",
+    "security_risk_detected": "bool"
+  },
+  "RiskNettingInfo": {
+    "dco_margin_requirement": "str",
+    "portfolio_margin_requirement": "str",
+    "integrated_portfolio_margin_requirement": "str",
+    "ineligible_futures_margin_requirement": "str",
+    "position_margin_requirement": "str",
+    "portfolio_margin_addon": "str",
+    "integrated_position_margin_requirement": "str",
+    "integrated_portfolio_margin_addon": "str",
+    "netted_futures_notional": "str",
+    "total_gmv_basis": "str",
+    "ipm_cash_balance": "str",
+    "integrated_scenario_addon": "ScenarioAddon",
+    "all_integrated_scenario_addons": "list",
+    "xm_positions": "list"
+  },
+  "ScenarioAddon": {
+    "amount": "str",
+    "add_on_type": "str"
+  },
+  "ShortCollateral": {
+    "old_balance": "str",
+    "new_balance": "str",
+    "loan_interest_rate": "str",
+    "collateral_interest_rate": "str"
+  },
+  "Sweep": {
+    "id": "str",
+    "requested_amount": "RequestedAmount",
+    "should_sweep_all": "bool",
+    "status": "str",
+    "scheduled_time": "str"
+  },
+  "TFAsset": {
+    "symbol": "str",
+    "asset_adjustment": "str",
+    "liability_adjustment": "str"
+  },
+  "TFObligation": {
+    "portfolio_id": "str",
+    "symbol": "str",
+    "amount_due": "str",
+    "notional_amount": "str",
+    "due_date": "str"
+  },
+  "TfLoan": {
+    "portfolio_id": "str",
+    "symbol": "str",
+    "amount": "str",
+    "notional_amount": "str",
+    "due_date": "str"
+  },
+  "TierPairRateEntry": {
+    "tier_a": "str",
+    "tier_b": "str",
+    "rate": "str"
+  },
+  "Transaction": {
+    "id": "str",
+    "wallet_id": "str",
+    "portfolio_id": "str",
+    "type": "str",
+    "status": "str",
+    "symbol": "str",
+    "created_at": "str",
+    "completed_at": "str",
+    "amount": "str",
+    "transfer_from": "TransferLocation",
+    "transfer_to": "TransferLocation",
+    "network_fees": "str",
+    "fees": "str",
+    "fee_symbol": "str",
+    "blockchain_ids": "list",
+    "transaction_id": "str",
+    "destination_symbol": "str",
+    "estimated_network_fees": "EstimatedNetworkFees",
+    "network": "str",
+    "estimated_asset_changes": "list",
+    "metadata": "TransactionMetadata",
+    "idempotency_key": "str",
+    "onchain_details": "OnchainDetails",
+    "network_info": "Network",
+    "process_requirements": "ProcessRequirements"
+  },
+  "TransactionMetadata": {
+    "match_metadata": "MatchMetadata",
+    "web3_transaction_metadata": "Web3TransactionMetadata",
+    "reward_metadata": "RewardMetadata"
+  },
+  "TransactionValidator": {
+    "transaction_id": "str",
+    "validator_address": "str",
+    "validator_status": "str"
+  },
+  "TransactionsMetadata": {
+    "consensus": "ConsensusMetadata"
+  },
+  "TransferLocation": {
+    "type": "str",
+    "value": "str",
+    "address": "str",
+    "account_identifier": "str"
+  },
+  "User": {
+    "id": "str",
+    "name": "str",
+    "email": "str",
+    "entity_id": "str",
+    "role": "str"
+  },
+  "UserAction": {
+    "action": "str",
+    "user_id": "str",
+    "timestamp": "str"
+  },
+  "ValidatorAllocation": {
+    "validator_address": "str",
+    "amount": "str"
+  },
+  "ValidatorUnstakePreview": {
+    "validator_address": "str",
+    "estimated_unstaking_amount": "str",
+    "unstake_time_estimate_in_hours": "float",
+    "estimated_unstake_date": "str"
+  },
+  "Wallet": {
+    "id": "str",
+    "name": "str",
+    "symbol": "str",
+    "type": "str",
+    "created_at": "str",
+    "address": "str",
+    "visibility": "str",
+    "network": "Network"
+  },
+  "Web3TransactionMetadata": {
+    "label": "str",
+    "confirmed_asset_changes": "list"
+  },
+  "WithdrawalPower": {
+    "symbol": "str",
+    "amount": "str"
+  },
+  "XMLiquidatedAsset": {
+    "asset": "str",
+    "liquidated_amount": "str",
+    "liquidated_notional": "str",
+    "remaining_amount": "str",
+    "remaining_notional": "str"
+  },
+  "XMLiquidationDetail": {
+    "liquidation_id": "str",
+    "status": "str",
+    "shortfall_amount": "str",
+    "pre_liquidation_start_time": "str",
+    "margin_summary": "XMSummary",
+    "liquidation_start_time": "str",
+    "filled_amount": "str",
+    "remaining_amount": "str",
+    "liquidation_finish_time": "str",
+    "asset_breakdown": "list"
+  },
+  "XMLiquidationSummary": {
+    "liquidation_id": "str",
+    "status": "str",
+    "shortfall_amount": "str",
+    "filled_amount": "str",
+    "remaining_amount": "str",
+    "created_at": "str",
+    "completed_at": "str"
+  },
+  "XMSummary": {
+    "margin_requirement": "str",
+    "account_equity": "str",
+    "margin_excess_shortfall": "str",
+    "consumed_credit": "str",
+    "xm_credit_limit": "str",
+    "xm_margin_limit": "str",
+    "spot_equity": "str",
+    "futures_equity": "str",
+    "risk_netting_info": "RiskNettingInfo"
+  },
+  "XmPosition": {
+    "currency": "str",
+    "market_price": "str",
+    "margin_eligible": "str",
+    "market_cap": "str",
+    "adv30_days": "str",
+    "hist5d_vol": "str",
+    "hist30d_vol": "str",
+    "hist90d_vol": "str",
+    "margin_requirement": "str",
+    "spot_balance": "str",
+    "spot_balance_notional": "str",
+    "spot_total_position_margin": "str",
+    "futures_balance": "str",
+    "futures_balance_notional": "str",
+    "futures_total_position_margin": "str",
+    "gmv_basis": "str",
+    "base_requirement": "str",
+    "liq_shorts_add_on": "str",
+    "liq_longs_add_on": "str",
+    "vol_shorts_add_on": "str",
+    "vol_longs_add_on": "str",
+    "vol5days_add_on": "str",
+    "vol30days_add_on": "str",
+    "vol90days_add_on": "str",
+    "total_position_margin": "str"
+  }
+}

@@ -41,10 +41,10 @@ def main():
         return
 
     # Accept wallet ID from either positional or named argument
-    wallet_id = args.wallet_id or args.wallet_id_named
+    wallet_id = args.wallet_id or args.wallet_id_named or os.getenv("PRIME_WALLET_ID")
     if not wallet_id:
         print(
-            "Error: Wallet ID is required. Provide as positional argument or use --wallet-id"
+            "Error: Wallet ID is required. Set PRIME_WALLET_ID env var, provide as positional argument, or use --wallet-id"
         )
         return
 

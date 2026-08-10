@@ -14,21 +14,35 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
-from ...model import XMLiquidationSummary
-from ...utils import Pagination
+from ...model import ListXMLiquidationsRequest as _ListXMLiquidationsRequest
+from ...model import ListXMLiquidationsResponse as _ListXMLiquidationsResponse
+
+
+@dataclass(kw_only=True)
+class ListXMLiquidationsRequest(BasePaginatedRequest, _ListXMLiquidationsRequest):
+    """
+    List Cross Margin Liquidations
+
+    Attributes:
+        entity_id: XM customer Prime Entity ID
+        status: Filter results by liquidation status -
+            XM_LIQUIDATION_STATUS_PRE_LIQUIDATION: Liquidation is in the pre-liquidation
+            phase - XM_LIQUIDATION_STATUS_LIQUIDATING: Liquidation is actively in progress -
+            XM_LIQUIDATION_STATUS_LIQUIDATED: Liquidation has completed successfully -
+            XM_LIQUIDATION_STATUS_CANCELED: Liquidation was canceled -
+            XM_LIQUIDATION_STATUS_FAILED: Liquidation failed
+        start_time: Filter results to liquidations created at or after this time
+        end_time: Filter results to liquidations created at or before this time
+    """
 
 
 @dataclass
-class ListXMLiquidationsRequest:
-    entity_id: str
-    cursor: str | None = None
-    limit: int | None = None
-    sort_direction: str | None = None
-    allowed_status_codes: list[int] | None = None
+class ListXMLiquidationsResponse(BaseResponse, _ListXMLiquidationsResponse):
+    """
+    ListXMLiquidationsResponse contains a paginated list of XM liquidation summaries
 
-
-@dataclass
-class ListXMLiquidationsResponse(BaseResponse):
-    liquidations: list[XMLiquidationSummary] = None
-    pagination: Pagination = None
+    Attributes:
+        liquidations: List of XM liquidation summaries
+    """

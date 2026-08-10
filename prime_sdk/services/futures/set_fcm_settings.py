@@ -14,16 +14,27 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
+from ...model import GetFcmSettingsResponse as _GetFcmSettingsResponse
+from ...model import SetFcmSettingsRequest as _SetFcmSettingsRequest
+
+
+@dataclass(kw_only=True)
+class SetFcmSettingsRequest(BaseRequest, _SetFcmSettingsRequest):
+    """
+    Set FCM Settings
+
+    Attributes:
+        entity_id: Entity ID
+        target_derivatives_excess: Target CFM Excess amount to set. Only non-negative number
+            is allowed
+    """
 
 
 @dataclass
-class SetFcmSettingsRequest:
-    entity_id: str
-    target_derivatives_excess: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class SetFcmSettingsResponse(BaseResponse):
-    target_derivatives_excess: str = None
+class SetFcmSettingsResponse(BaseResponse, _GetFcmSettingsResponse):
+    """
+    Attributes:
+        target_derivatives_excess: Target derivatives excess in the FCM
+    """

@@ -14,19 +14,25 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
-from ...model import PortfolioUser
-from ...utils import Pagination, PaginationParams
+from ...model import GetPortfolioUsersRequest as _GetPortfolioUsersRequest
+from ...model import GetPortfolioUsersResponse as _GetPortfolioUsersResponse
+
+
+@dataclass(kw_only=True)
+class ListPortfolioUsersRequest(BasePaginatedRequest, _GetPortfolioUsersRequest):
+    """
+    List Portfolio Users
+
+    Attributes:
+        portfolio_id: The portfolio ID.
+    """
 
 
 @dataclass
-class ListPortfolioUsersRequest:
-    portfolio_id: str
-    pagination: PaginationParams | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class ListPortfolioUsersResponse(BaseResponse):
-    users: list[PortfolioUser] = None
-    pagination: Pagination = None
+class ListPortfolioUsersResponse(BaseResponse, _GetPortfolioUsersResponse):
+    """
+    Attributes:
+        users: The portfolio users.
+    """

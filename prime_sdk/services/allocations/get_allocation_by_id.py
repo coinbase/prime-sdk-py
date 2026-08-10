@@ -14,17 +14,47 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import Allocation
+from ...model import GetAllocationRequest as _GetAllocationRequest
+from ...model import GetAllocationResponse as _GetAllocationResponse
+
+
+@dataclass(kw_only=True)
+class GetAllocationByIdRequest(BaseRequest, _GetAllocationRequest):
+    """
+    Get Allocation by ID
+
+    Attributes:
+        portfolio_id: The portfolio ID of the allocation
+        allocation_id: The ID of the allocation
+    """
 
 
 @dataclass
-class GetAllocationByIdRequest:
-    portfolio_id: str
-    allocation_id: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class GetAllocationByIdResponse(BaseResponse):
-    allocation: Allocation = None
+class GetAllocationByIdResponse(BaseResponse, _GetAllocationResponse):
+    """
+    Attributes:
+        allocation.root_id: The ID that ties together an allocation and all of its legs.
+        allocation.reversal_id: The ID of the allocation if this allocation is a reversal.
+            In this case, the root_id would be the original allocation ID.
+        allocation.allocation_completed_at: Time the final leg of the root allocation was
+            completed.
+        allocation.user_id: The ID of the user that created the allocation.
+        allocation.product_id: The ID of the product of the orders allocated.
+        allocation.avg_price: Price the allocation was done at.
+        allocation.base_quantity: Amount allocated in base asset units.
+        allocation.quote_value: Amount allocated in quote asset units.
+        allocation.fees_allocated: Fees from original trade execution allocated in quote
+            asset units.
+        allocation.source: Portfolio ID of the source portfolio.
+        allocation.order_ids: All order IDs that were aggregated to calculate the avg_price,
+            quantity to allocate in each leg. Each order_id should tie back to the single
+            allocation root_id.
+        allocation.destinations: Array of objects, each containing the leg ID, destination
+            portfolio ID and amount in chosen units allocated to each portfolio: [{leg_id,
+            portfolio_id, allocation_base, allocation_quote}, {leg_id, portfolio_id,
+            allocation_base, allocation_quote}...]
+        allocation.netting_id: The netting ID of the allocation, not empty if the allocation
+            was submitted as part of a net allocation
+    """

@@ -14,16 +14,25 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import FcmMarginCall
+from ...model import GetFcmMarginCallDetailsRequest as _GetFcmMarginCallDetailsRequest
+from ...model import GetFcmMarginCallDetailsResponse as _GetFcmMarginCallDetailsResponse
+
+
+@dataclass(kw_only=True)
+class GetFcmMarginCallDetailsRequest(BaseRequest, _GetFcmMarginCallDetailsRequest):
+    """
+    Get FCM Margin Call Details
+
+    Attributes:
+        entity_id: Entity ID
+    """
 
 
 @dataclass
-class GetFcmMarginCallDetailsRequest:
-    entity_id: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class GetFcmMarginCallDetailsResponse(BaseResponse):
-    margin_calls: list[FcmMarginCall] = None
+class GetFcmMarginCallDetailsResponse(BaseResponse, _GetFcmMarginCallDetailsResponse):
+    """
+    Attributes:
+        margin_calls: List of margin calls
+    """

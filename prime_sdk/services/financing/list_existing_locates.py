@@ -14,18 +14,25 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import Locate
+from ...model import GetExistingLocatesRequest as _GetExistingLocatesRequest
+from ...model import GetExistingLocatesResponse as _GetExistingLocatesResponse
+
+
+@dataclass(kw_only=True)
+class ListExistingLocatesRequest(BaseRequest, _GetExistingLocatesRequest):
+    """
+    List Existing Locates
+
+    Attributes:
+        portfolio_id: The unique ID of the portfolio
+        locate_ids: The IDs of specific locates to filter for
+        conversion_date: Deprecated: Use locate_date instead
+        locate_date: The date of the locates in YYYY-MM-DD format
+    """
 
 
 @dataclass
-class ListExistingLocatesRequest:
-    portfolio_id: str
-    locate_ids: list[str] | None = None
-    locate_date: str | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class ListExistingLocatesResponse(BaseResponse):
-    locates: list[Locate] = None
+class ListExistingLocatesResponse(BaseResponse, _GetExistingLocatesResponse):
+    """ListExistingLocatesResponse(locates: 'list[ExistingLocate]' = None)"""

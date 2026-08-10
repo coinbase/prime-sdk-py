@@ -52,9 +52,13 @@ export PRIME_CREDENTIALS='{
 
 export PRIME_PORTFOLIO_ID="your-portfolio-id"
 export PRIME_ENTITY_ID="your-entity-id"
+export PRIME_WALLET_ID="your-custody-wallet-id"
+export PRIME_ONCHAIN_WALLET_ID="your-web3-onchain-wallet-id"
 ```
 
 Optional fields: `svcAccountId` in JSON; `PRIME_PORTFOLIO_ID` and `PRIME_ENTITY_ID` for portfolio/entity context.
+
+`PRIME_WALLET_ID` and `PRIME_ONCHAIN_WALLET_ID` are convenience variables for the [example scripts](prime_sdk/examples/). They are not read by the SDK itself. Use `PRIME_WALLET_ID` for standard custody wallet examples (balances, deposits, transfers, staking). Use `PRIME_ONCHAIN_WALLET_ID` for web3/onchain wallet examples (`list_web3_wallet_balances`, `create_onchain_transaction`). Example scripts fall back to these env vars when `--wallet-id` is omitted.
 
 ##### Legacy Format (Backwards Compatible)
 
@@ -249,14 +253,35 @@ This installs the SDK in "editable" mode, meaning changes to the source code wil
 #### 3. Running Tests
 
 ```bash
-# Install test dependencies
-pip install pytest
+# Install development dependencies
+make dev-deps
 
 # Run tests
 pytest tests/
 ```
 
-#### 4. Code Structure
+#### 4. Formatting and linting
+
+```bash
+make dev-deps
+make format      # auto-format all Python code with ruff
+make format-check # verify formatting (CI)
+make lint        # run ruff check (CI)
+make check       # format-check + lint
+```
+
+#### 5. Updating the OpenAPI Spec
+
+Models are generated from the Prime OpenAPI specification. To fetch the latest spec and regenerate models:
+
+```bash
+make dev-deps
+make update-spec
+```
+
+Use `make gen-models` to regenerate models from the committed spec without re-fetching from the network. CI uses `make check-models` to verify committed generated output matches the spec.
+
+#### 6. Code Structure
 
 The SDK follows this structure:
 
@@ -266,18 +291,28 @@ prime_sdk/
 ├── client.py              # HTTP client
 ├── base_response.py       # Base response classes
 ├── utils.py               # Utility functions
-├── enums.py               # Common enumerations
+├── enums.py               # Hand-curated enumerations
+├── model.py               # Public model re-exports (backward-compatible)
+├── model_manual.py        # Hand-maintained model extensions
+├── generated/
+│   └── models.py          # Generated dataclasses from OpenAPI (schemas + request bodies; do not edit)
 └── services/              # Service modules
     ├── portfolios/        # Portfolio operations
     ├── orders/            # Order management
     ├── transactions/      # Transaction operations
     ├── wallets/           # Wallet management
     └── ...                # Other services
+
+apiSpec/
+├── prime-public-api-spec.yaml
+├── promote_titles.py      # Promotes spec titles to descriptions
+├── generate_models.py     # Generates prime_sdk/generated/models.py
+└── model_config.py        # Backward-compatibility aliases and field rules
 ```
 
 Each service directory contains:
 - `service.py` - The main service class with API methods
-- Individual request/response modules (e.g., `list_portfolios.py`)
+- Individual request/response modules (e.g., `list_portfolios.py`) whose dataclasses inherit generated model fields and docstrings
 - `__init__.py` - Exports for the service
 
 ## 🚨 Security and Bug Reports

@@ -14,16 +14,29 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import Commission
+from ...model import GetPortfolioCommissionRequest as _GetPortfolioCommissionRequest
+from ...model import GetPortfolioCommissionResponse as _GetPortfolioCommissionResponse
+
+
+@dataclass(kw_only=True)
+class GetPortfolioCommissionRequest(BaseRequest, _GetPortfolioCommissionRequest):
+    """
+    Get Portfolio Commission
+
+    Attributes:
+        product_id: Specific trading pair to check commission (e.g BTC-USD)
+    """
 
 
 @dataclass
-class GetPortfolioCommissionRequest:
-    portfolio_id: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class GetPortfolioCommissionResponse(BaseResponse):
-    commission: Commission = None
+class GetPortfolioCommissionResponse(BaseResponse, _GetPortfolioCommissionResponse):
+    """
+    Attributes:
+        commission.type: Fee model (all_in or cost_plus)
+        commission.rate: Commission rate (in whole percentage. Commission of 15bps is
+            "0.0015")
+        commission.trading_volume: Average 30 days over past 3 months (e.g. 90 days divided
+            by 3)
+    """

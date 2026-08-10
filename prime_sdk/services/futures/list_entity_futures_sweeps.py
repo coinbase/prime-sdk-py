@@ -14,17 +14,22 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import Sweep
+from ...model import GetFuturesSweepsRequest as _GetFuturesSweepsRequest
+from ...model import GetFuturesSweepsResponse as _GetFuturesSweepsResponse
+
+
+@dataclass(kw_only=True)
+class ListEntityFuturesSweepsRequest(BaseRequest, _GetFuturesSweepsRequest):
+    """
+    List Entity Futures Sweeps
+
+    Attributes:
+        entity_id: Entity ID
+    """
 
 
 @dataclass
-class ListEntityFuturesSweepsRequest:
-    entity_id: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class ListEntityFuturesSweepsResponse(BaseResponse):
-    sweeps: list[Sweep] = None
-    auto_sweep: bool = None
+class ListEntityFuturesSweepsResponse(BaseResponse, _GetFuturesSweepsResponse):
+    """ListEntityFuturesSweepsResponse(sweeps: 'list[FcmFuturesSweep]' = None, auto_sweep: 'bool' = None)"""

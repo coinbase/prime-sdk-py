@@ -14,21 +14,27 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
-from ...model import Fill
-from ...utils import Pagination, PaginationParams
+from ...model import GetPortfolioFillsRequest as _GetPortfolioFillsRequest
+from ...model import GetPortfolioFillsResponse as _GetPortfolioFillsResponse
+
+
+@dataclass(kw_only=True)
+class ListPortfolioFillsRequest(BasePaginatedRequest, _GetPortfolioFillsRequest):
+    """
+    List Portfolio Fills
+
+    Attributes:
+        portfolio_id: The portfolio ID associated with the order
+        start_date: A start date for the fills to be queried from
+        end_date: An end date for the fills to be queried until
+    """
 
 
 @dataclass
-class ListPortfolioFillsRequest:
-    portfolio_id: str
-    start_date: str
-    end_date: str | None = None
-    pagination: PaginationParams | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class ListPortfolioFillsResponse(BaseResponse):
-    fills: list[Fill] = None
-    pagination: Pagination = None
+class ListPortfolioFillsResponse(BaseResponse, _GetPortfolioFillsResponse):
+    """
+    Attributes:
+        fills: Fills associated with the portfolio
+    """

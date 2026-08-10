@@ -14,7 +14,10 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
+from ...model import StakingClaimRewardsRequest as _StakingClaimRewardsRequest
+from ...model import StakingClaimRewardsResponse as _StakingClaimRewardsResponse
 
 
 @dataclass
@@ -22,17 +25,25 @@ class ClaimRewardsInputs:
     amount: str | None = None
 
 
-@dataclass
-class ClaimWalletStakingRewardsRequest:
-    portfolio_id: str
-    wallet_id: str
-    idempotency_key: str
-    inputs: ClaimRewardsInputs | None = None
-    allowed_status_codes: list[int] | None = None
+@dataclass(kw_only=True)
+class ClaimWalletStakingRewardsRequest(BaseRequest, _StakingClaimRewardsRequest):
+    """
+    Claim Wallet Staking Rewards (Alpha)
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        wallet_id: The wallet ID
+        idempotency_key: The client generated idempotency key for requested execution. Any
+            subsequent requests with the same key will return the original response
+    """
 
 
 @dataclass
-class ClaimWalletStakingRewardsResponse(BaseResponse):
-    wallet_id: str = None
-    transaction_id: str = None
-    activity_id: str = None
+class ClaimWalletStakingRewardsResponse(BaseResponse, _StakingClaimRewardsResponse):
+    """
+    Attributes:
+        wallet_id: The wallet ID
+        transaction_id: ID of the newly created transaction, can be used to fetch details of
+            the current state of execution
+        activity_id: The ID for the activity generated for this request
+    """

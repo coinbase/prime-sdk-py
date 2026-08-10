@@ -14,15 +14,32 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import TFAsset
+from ...model import (
+    ListFinancingEligibleAssetsRequest as _ListFinancingEligibleAssetsRequest,
+)
+from ...model import (
+    ListFinancingEligibleAssetsResponse as _ListFinancingEligibleAssetsResponse,
+)
 
 
 @dataclass
-class ListFinancingEligibleAssetsRequest:
-    allowed_status_codes: list[int] | None = None
+class ListFinancingEligibleAssetsRequest(
+    BaseRequest, _ListFinancingEligibleAssetsRequest
+):
+    """
+    List Financing Eligible Assets
+    """
 
 
 @dataclass
-class ListFinancingEligibleAssetsResponse(BaseResponse):
-    assets: list[TFAsset] = None
+class ListFinancingEligibleAssetsResponse(
+    BaseResponse, _ListFinancingEligibleAssetsResponse
+):
+    """
+    ListFinancingEligibleAssetsResponse contains the list of financing eligible assets with their details
+
+    Attributes:
+        assets: List of assets eligible for Trade Finance
+    """

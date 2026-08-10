@@ -14,8 +14,10 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...enums import SizeType
+from ...model import CreateNetAllocationRequest as _CreateNetAllocationRequest
+from ...model import CreateNetAllocationResponse as _CreateNetAllocationResponse
 
 
 @dataclass
@@ -25,22 +27,27 @@ class NetAllocationLeg:
     amount: str
 
 
-@dataclass
-class CreatePortfolioNetAllocationsRequest:
-    allocation_id: str
-    source_portfolio_id: str
-    product_id: str
-    order_ids: list[str]
-    allocation_legs: list[NetAllocationLeg]
-    size_type: SizeType
-    remainder_destination_portfolio_id: str
-    allowed_status_codes: list[int] | None = None
+@dataclass(kw_only=True)
+class CreatePortfolioNetAllocationsRequest(BaseRequest, _CreateNetAllocationRequest):
+    """
+    Attributes:
+        source_portfolio_id: The source portfolio id for the allocation
+        product_id: The product for the allocation
+        order_ids: The list of order ids in the allocation
+        allocation_legs: The list of allocation_legs for the allocation
+        remainder_destination_portfolio: The portfolio where to allocate the remainder of
+            the size
+        netting_id: The ID to identify an in-flight net allocation.
+    """
 
 
 @dataclass
-class CreatePortfolioNetAllocationsResponse(BaseResponse):
-    success: bool = None
-    netting_id: str = None
-    buy_allocation_id: str = None
-    sell_allocation_id: str = None
-    failure_reason: str = None
+class CreatePortfolioNetAllocationsResponse(BaseResponse, _CreateNetAllocationResponse):
+    """
+    Attributes:
+        body.success: The success boolean for the post net allocation
+        body.netting_id: The netting_id for the post net allocation
+        body.buy_allocation_id: The allocation id of the buy allocation in net allocation
+        body.sell_allocation_id: The allocation id of the sell allocation in net allocation
+        body.failure_reason: The failure reason for the post net allocation
+    """

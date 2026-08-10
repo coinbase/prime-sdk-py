@@ -14,15 +14,22 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import Portfolio
+from ...model import GetPortfoliosRequest as _GetPortfoliosRequest
+from ...model import GetPortfoliosResponse as _GetPortfoliosResponse
 
 
 @dataclass
-class ListPortfoliosRequest:
-    allowed_status_codes: list[int] | None = None
+class ListPortfoliosRequest(BaseRequest, _GetPortfoliosRequest):
+    """
+    List Portfolios
+    """
 
 
 @dataclass
-class ListPortfoliosResponse(BaseResponse):
-    portfolios: list[Portfolio] = None
+class ListPortfoliosResponse(BaseResponse, _GetPortfoliosResponse):
+    """
+    Attributes:
+        portfolios: A list of portfolios.
+    """

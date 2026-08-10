@@ -14,15 +14,25 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
+from ...model import GetFcmSettingsRequest as _GetFcmSettingsRequest
+from ...model import GetFcmSettingsResponse as _GetFcmSettingsResponse
+
+
+@dataclass(kw_only=True)
+class GetFcmSettingsRequest(BaseRequest, _GetFcmSettingsRequest):
+    """
+    Get FCM Settings
+
+    Attributes:
+        entity_id: Entity ID
+    """
 
 
 @dataclass
-class GetFcmSettingsRequest:
-    entity_id: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class GetFcmSettingsResponse(BaseResponse):
-    target_derivatives_excess: str = None
+class GetFcmSettingsResponse(BaseResponse, _GetFcmSettingsResponse):
+    """
+    Attributes:
+        target_derivatives_excess: Target derivatives excess in the FCM
+    """

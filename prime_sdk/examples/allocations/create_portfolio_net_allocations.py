@@ -67,13 +67,12 @@ def main():
     )
 
     request = CreatePortfolioNetAllocationsRequest(
-        allocation_id=str(uuid.uuid4()),
         source_portfolio_id=args.source_portfolio_id,
         product_id=args.product_id,
         order_ids=order_ids,
         allocation_legs=[net_allocation_leg],
         size_type=SizeType(args.size_type),
-        remainder_destination_portfolio_id=args.remainder_destination_portfolio_id,
+        remainder_destination_portfolio=args.remainder_destination_portfolio_id,
     )
 
     try:

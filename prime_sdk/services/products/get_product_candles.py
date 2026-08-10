@@ -14,20 +14,28 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import Candle
+from ...model import GetCandlesRequest as _GetCandlesRequest
+from ...model import GetCandlesResponse as _GetCandlesResponse
+
+
+@dataclass(kw_only=True)
+class GetProductCandlesRequest(BaseRequest, _GetCandlesRequest):
+    """
+    Get Public Product Candles (Beta)
+
+    Attributes:
+        portfolio_id: The portfolio id requesting market data.
+        product_id: The trading pair.
+        start_time: Timestamp for starting range of aggregations
+        end_time: Timestamp for ending range of aggregations
+        granularity: The timeframe each candle represents.
+    """
 
 
 @dataclass
-class GetProductCandlesRequest:
-    portfolio_id: str
-    product_id: str
-    granularity: str
-    start_time: str
-    end_time: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class GetProductCandlesResponse(BaseResponse):
-    candles: list[Candle] = None
+class GetProductCandlesResponse(BaseResponse, _GetCandlesResponse):
+    """
+    Candle response structure
+    """

@@ -14,21 +14,28 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
-from ...model import Address
-from ...utils import Pagination, PaginationParams
+from ...model import GetPortfolioAddressBookRequest as _GetPortfolioAddressBookRequest
+from ...model import GetPortfolioAddressBookResponse as _GetPortfolioAddressBookResponse
+
+
+@dataclass(kw_only=True)
+class GetAddressBookRequest(BasePaginatedRequest, _GetPortfolioAddressBookRequest):
+    """
+    Get Address Book
+
+    Attributes:
+        portfolio_id: Portfolio ID
+        currency_symbol: Cryptocurrency symbol -- if nothing is passed, all addresses are
+            returned
+        search: Query string that matches the address name
+    """
 
 
 @dataclass
-class GetAddressBookRequest:
-    portfolio_id: str
-    currency_symbol: str | None = None
-    search: str | None = None
-    pagination: PaginationParams | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class GetAddressBookResponse(BaseResponse):
-    addresses: list[Address] = None
-    pagination: Pagination = None
+class GetAddressBookResponse(BaseResponse, _GetPortfolioAddressBookResponse):
+    """
+    Attributes:
+        addresses: List of addresses added to Address Book
+    """

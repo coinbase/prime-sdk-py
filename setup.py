@@ -16,9 +16,15 @@ from pathlib import Path
 
 from setuptools import find_packages, setup
 
+VERSION = (
+    (Path(__file__).parent / "prime_sdk" / "version.py")
+    .read_text(encoding="utf-8")
+    .split('"')[1]
+)
+
 setup(
     name="prime-sdk-py",
-    version="1.9.0",
+    version=VERSION,
     long_description=Path("README.md").read_text(encoding="utf-8"),
     long_description_content_type="text/markdown",
     packages=find_packages(exclude=["prime_sdk.examples", "prime_sdk.examples.*"]),

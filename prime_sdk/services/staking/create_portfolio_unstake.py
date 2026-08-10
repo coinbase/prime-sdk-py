@@ -14,7 +14,10 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
+from ...model import PortfolioStakingUnstakeRequest as _PortfolioStakingUnstakeRequest
+from ...model import PortfolioStakingUnstakeResponse as _PortfolioStakingUnstakeResponse
 
 
 @dataclass
@@ -22,18 +25,25 @@ class UnstakeMetadata:
     external_id: str | None = None
 
 
-@dataclass
-class CreatePortfolioUnstakeRequest:
-    portfolio_id: str
-    idempotency_key: str
-    currency_symbol: str
-    amount: str
-    metadata: UnstakeMetadata | None = None
-    validator_provider: str | None = None
-    allowed_status_codes: list[int] | None = None
+@dataclass(kw_only=True)
+class CreatePortfolioUnstakeRequest(BaseRequest, _PortfolioStakingUnstakeRequest):
+    """
+    Request to unstake currency across a portfolio
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        idempotency_key: The client generated idempotency key (uuid required) for requested
+            execution. Subsequent requests using the same key will not create new
+            transactions.
+        currency_symbol: The currency symbol to unstake
+        amount: The quantity of the chosen currency to unstake
+    """
 
 
 @dataclass
-class CreatePortfolioUnstakeResponse(BaseResponse):
-    activity_id: str = None
-    transaction_id: str = None
+class CreatePortfolioUnstakeResponse(BaseResponse, _PortfolioStakingUnstakeResponse):
+    """
+    Attributes:
+        activity_id: The ID for the created activity
+        transaction_id: The ID for the created transaction
+    """

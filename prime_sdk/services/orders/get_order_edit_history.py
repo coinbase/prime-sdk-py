@@ -14,17 +14,31 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import OrderEditHistory
+from ...model import GetOrderEditHistoryRequest as _GetOrderEditHistoryRequest
+from ...model import GetOrderEditHistoryResponse as _GetOrderEditHistoryResponse
+
+
+@dataclass(kw_only=True)
+class GetOrderEditHistoryRequest(BaseRequest, _GetOrderEditHistoryRequest):
+    """
+    List Order Edit History
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        order_id: The order ID
+    """
 
 
 @dataclass
-class GetOrderEditHistoryRequest:
-    portfolio_id: str
-    order_id: str
-    allowed_status_codes: list[int] | None = None
+class GetOrderEditHistoryResponse(BaseResponse, _GetOrderEditHistoryResponse):
+    """
+    Order Edit History by Order ID and Portfolio ID
 
-
-@dataclass
-class GetOrderEditHistoryResponse(BaseResponse):
-    edits: list[OrderEditHistory] = None
+    Attributes:
+        order_id: The order ID
+        order_edit_history: The history of order edits (deprecated: use edit_history
+            instead)
+        edit_history: The history of order edits
+    """

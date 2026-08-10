@@ -14,29 +14,46 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...enums import OrderSide
+from ...model import CreateQuoteRequest as _CreateQuoteRequest
+from ...model import QuoteResponse as _QuoteResponse
+
+
+@dataclass(kw_only=True)
+class CreateQuoteRequest(BaseRequest, _CreateQuoteRequest):
+    """
+    Create Quote Request
+
+    Attributes:
+        portfolio_id: The ID of the portfolio that owns the order
+        product_id: The ID of the product being traded for the order (e.g. `BTC-USD`)
+        client_quote_id: A client-generated order ID used for reference purposes (note:
+            order will be rejected if this ID is not unique among all currently active
+            orders)
+        base_quantity: Order size in base asset units (either `base_quantity` or
+            `quote_value` is required)
+        quote_value: Order size in quote asset units, i.e. the amount the user wants to
+            spend (when buying) or receive (when selling); the quantity in base units will
+            be determined based on the market liquidity and indicated `quote_value` (either
+            `base_quantity` or `quote_value` is required)
+        limit_price: The limit price
+        settl_currency: The currency in which the settlement will be made
+        quote_duration_ms: Optional quote timeout in milliseconds. Defaults to 3000 ms (3
+            seconds) if not specified. Maximum allowed value is 30000 ms (30 seconds);
+            requests with a larger value are rejected. Mirrors FIX tag 8090
+            (QuoteRequestGoodForMs).
+    """
 
 
 @dataclass
-class CreateQuoteRequest:
-    portfolio_id: str
-    product_id: str
-    side: OrderSide
-    client_quote_id: str
-    limit_price: str
-    base_quantity: str | None = None
-    quote_value: str | None = None
-    settl_currency: str | None = None
-    quote_duration_ms: str | None = None
-    allowed_status_codes: list[int] | None = None
+class CreateQuoteResponse(BaseResponse, _QuoteResponse):
+    """
+    Copied from https://github.cbhq.net/institutional/trading/blob/3e6da61aceb64c7cbe6f0c0f8fbdb98fd3e868dc/proxy/trading/protos/coinbase/brokerage/proxy/trading/api/orderentry.proto#L366-L370
 
-
-@dataclass
-class CreateQuoteResponse(BaseResponse):
-    quote_id: str = None
-    expiration_time: str = None
-    best_price: str = None
-    order_total: str = None
-    price_inclusive_of_fees: str = None
-    quote_duration_ms: str = None
+    Attributes:
+        order_total: total quote amount for previewing
+        quote_duration_ms: Echo of the quote_duration_ms supplied in the request. 0 if the
+            client did not supply a value, in which case the server applies the default of
+            3000 ms (3 seconds).
+    """

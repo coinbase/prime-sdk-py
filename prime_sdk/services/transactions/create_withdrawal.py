@@ -14,8 +14,10 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import Blockchain
+from ...model import CreateWalletWithdrawalRequest as _CreateWalletWithdrawalRequest
+from ...model import CreateWalletWithdrawalResponse as _CreateWalletWithdrawalResponse
 
 
 @dataclass
@@ -41,29 +43,30 @@ class Counterparty:
     counterparty_id: str
 
 
-@dataclass
-class CreateWithdrawalRequest:
-    portfolio_id: str
-    wallet_id: str
-    amount: str
-    destination_type: str
-    idempotency_key: str
-    currency_symbol: str
-    payment_method: PaymentMethod | None = None
-    blockchain_address: BlockchainAddress | None = None
-    counterparty: Counterparty | None = None
-    allowed_status_codes: list[int] | None = None
+@dataclass(kw_only=True)
+class CreateWithdrawalRequest(BaseRequest, _CreateWalletWithdrawalRequest):
+    """
+    Create Withdrawal
+
+    Attributes:
+        portfolio_id: The portfolio ID
+        wallet_id: The wallet ID
+        amount: The amount in whole units of the withdrawal
+        idempotency_key: The idempotency key associated with the withdrawal
+        currency_symbol: The currency symbol for the withdrawal
+    """
 
 
 @dataclass
-class CreateWithdrawalResponse(BaseResponse):
-    activity_id: str = None
-    approval_url: str = None
-    symbol: str = None
-    amount: str = None
-    fee: str = None
-    destination_type: str = None
-    source_type: str = None
-    blockchain_destination: Blockchain = None
-    blockchain_source: Blockchain = None
-    transaction_id: str = None
+class CreateWithdrawalResponse(BaseResponse, _CreateWalletWithdrawalResponse):
+    """
+    Attributes:
+        activity_id: The activity ID associated with the withdrawal
+        approval_url: A URL to the activity in the Prime application
+        symbol: The currency symbol associated with the withdrawal
+        amount: The amount of the withdrawal
+        fee: The network fee associated with the withdrawal
+        destination_type: The destination type used for the withdrawal
+        source_type: The source type used for the withdrawal
+        transaction_id: The id of the just created transaction
+    """

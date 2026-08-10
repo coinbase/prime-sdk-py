@@ -15,8 +15,9 @@
 import dataclasses
 import json
 import sys
+import types
 from dataclasses import asdict, dataclass, fields
-from typing import Any, TypeVar, get_type_hints
+from typing import Any, TypeVar, Union, get_args, get_origin, get_type_hints
 
 if sys.version_info >= (3, 11):
     from typing import Self
@@ -24,6 +25,24 @@ else:
     from typing_extensions import Self
 
 T = TypeVar("T")
+
+
+def _unwrap_optional(expected_type: Any) -> Any:
+    origin = get_origin(expected_type)
+    if origin is Union or origin is types.UnionType:
+        args = [arg for arg in get_args(expected_type) if arg is not type(None)]
+        if len(args) == 1:
+            return _unwrap_optional(args[0])
+    return expected_type
+
+
+def _get_list_inner_type(expected_type: Any) -> Any | None:
+    expected_type = _unwrap_optional(expected_type)
+    origin = get_origin(expected_type)
+    if origin is list:
+        args = get_args(expected_type)
+        return args[0] if args else None
+    return None
 
 
 def filter_known_fields(cls: type[T], data: dict[str, Any]) -> dict[str, Any]:
@@ -53,24 +72,25 @@ class BaseResponse:
             if value is None:
                 continue
             expected_type = type_hints.get(f.name)
-            if (
-                hasattr(expected_type, "__origin__")
-                and expected_type.__origin__ is list
-            ):
-                inner_type = expected_type.__args__[0]
-                if dataclasses.is_dataclass(inner_type) and isinstance(value, list):
+            list_inner_type = _get_list_inner_type(expected_type)
+            if list_inner_type is not None:
+                if dataclasses.is_dataclass(list_inner_type) and isinstance(
+                    value, list
+                ):
                     setattr(
                         self,
                         f.name,
                         [
-                            safe_instantiate(inner_type, v)
+                            safe_instantiate(list_inner_type, v)
                             if isinstance(v, dict)
                             else v
                             for v in value
                         ],
                     )
-            elif dataclasses.is_dataclass(expected_type) and isinstance(value, dict):
-                setattr(self, f.name, safe_instantiate(expected_type, value))
+            else:
+                expected_type = _unwrap_optional(expected_type)
+                if dataclasses.is_dataclass(expected_type) and isinstance(value, dict):
+                    setattr(self, f.name, safe_instantiate(expected_type, value))
 
     @classmethod
     def from_response(cls, data: dict[str, Any]) -> Self:

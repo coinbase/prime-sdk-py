@@ -14,16 +14,25 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import Asset
+from ...model import GetEntityAssetsRequest as _GetEntityAssetsRequest
+from ...model import GetEntityAssetsResponse as _GetEntityAssetsResponse
+
+
+@dataclass(kw_only=True)
+class ListAssetsRequest(BaseRequest, _GetEntityAssetsRequest):
+    """
+    List Assets
+
+    Attributes:
+        entity_id: The entity ID
+    """
 
 
 @dataclass
-class ListAssetsRequest:
-    entity_id: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class ListAssetsResponse(BaseResponse):
-    assets: list[Asset] = None
+class ListAssetsResponse(BaseResponse, _GetEntityAssetsResponse):
+    """
+    Attributes:
+        assets: List of assets
+    """

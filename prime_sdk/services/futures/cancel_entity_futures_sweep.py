@@ -14,16 +14,26 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
+from ...model import CancelFuturesSweepRequest as _CancelFuturesSweepRequest
+from ...model import CancelFuturesSweepResponse as _CancelFuturesSweepResponse
+
+
+@dataclass(kw_only=True)
+class CancelEntityFuturesSweepRequest(BaseRequest, _CancelFuturesSweepRequest):
+    """
+    Cancel Entity Futures Sweep
+
+    Attributes:
+        entity_id: Entity ID
+    """
 
 
 @dataclass
-class CancelEntityFuturesSweepRequest:
-    entity_id: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class CancelEntityFuturesSweepResponse(BaseResponse):
-    success: bool = None
-    request_id: str = None
+class CancelEntityFuturesSweepResponse(BaseResponse, _CancelFuturesSweepResponse):
+    """
+    Attributes:
+        success: Success
+        request_id: Request ID
+    """

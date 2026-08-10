@@ -14,20 +14,25 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import Accrual
+from ...model import GetInterestAccrualsRequest as _GetInterestAccrualsRequest
+from ...model import GetInterestAccrualsResponse as _GetInterestAccrualsResponse
+
+
+@dataclass(kw_only=True)
+class ListInterestAccrualsRequest(BaseRequest, _GetInterestAccrualsRequest):
+    """
+    List Interest Accruals
+
+    Attributes:
+        entity_id: The unique ID of the entity
+        portfolio_id: The unique ID of the portfolio
+        start_date: The start date of the range to query for in RFC3339 format
+        end_date: The end date of the range to query for in RFC3339 format
+    """
 
 
 @dataclass
-class ListInterestAccrualsRequest:
-    entity_id: str
-    portfolio_id: str | None = None
-    start_date: str | None = None
-    end_date: str | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class ListInterestAccrualsResponse(BaseResponse):
-    accruals: list[Accrual] = None
-    total_notional_accrual: str = None
+class ListInterestAccrualsResponse(BaseResponse, _GetInterestAccrualsResponse):
+    """ListInterestAccrualsResponse(total_notional_accrual: 'str' = None, accruals: 'list[Accrual]' = None)"""

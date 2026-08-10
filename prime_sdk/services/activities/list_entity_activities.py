@@ -13,28 +13,37 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from datetime import datetime
 
+from ...base_request import BasePaginatedRequest
 from ...base_response import BaseResponse
-from ...enums import ActivityLevel
-from ...model import Activity
-from ...utils import Pagination, PaginationParams
+from ...model import GetEntityActivitiesRequest as _GetEntityActivitiesRequest
+from ...model import GetEntityActivitiesResponse as _GetEntityActivitiesResponse
+
+
+@dataclass(kw_only=True)
+class ListEntityActivitiesRequest(BasePaginatedRequest, _GetEntityActivitiesRequest):
+    """
+    List Entity Activities
+
+    Attributes:
+        entity_id: Entity to retrieve activities for
+        activity_level: Activity level to retrieve activities for
+        symbols: Filter by list of currencies
+        categories: Filter by list of activity categories [order, transaction, account,
+            allocation, lending]
+        statuses: Filter by list of statuses
+        start_time: Filter created time by start date (RFC3339 format)
+        end_time: Filter created time by end date (RFC3339 format)
+        get_network_unified_activities: Flag to request retrieval of all activities across
+            all networks for a given symbol
+    """
 
 
 @dataclass
-class ListEntityActivitiesRequest:
-    entity_id: str
-    activity_level: ActivityLevel | None = None
-    symbols: str | None = None
-    categories: str | None = None
-    statuses: str | None = None
-    start_time: datetime | None = None
-    end_time: datetime | None = None
-    pagination: PaginationParams | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class ListEntityActivitiesResponse(BaseResponse):
-    activities: list[Activity] = None
-    pagination: Pagination = None
+class ListEntityActivitiesResponse(BaseResponse, _GetEntityActivitiesResponse):
+    """
+    Attributes:
+        pagination.next_cursor: Cursor to navigate to next page
+        pagination.has_next: A boolean value indicating whether there are more items to
+            paginate through
+    """

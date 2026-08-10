@@ -14,17 +14,27 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import Fee
+from ...model import GetTFTieredPricingFeesRequest as _GetTFTieredPricingFeesRequest
+from ...model import GetTFTieredPricingFeesResponse as _GetTFTieredPricingFeesResponse
+
+
+@dataclass(kw_only=True)
+class GetTradeFinanceTieredPricingFeesRequest(
+    BaseRequest, _GetTFTieredPricingFeesRequest
+):
+    """
+    Get Trade Finance Tiered Pricing Fees
+
+    Attributes:
+        entity_id: The unique ID of the entity
+        effective_at: The fees on a specific effective date in RFC3339 format
+    """
 
 
 @dataclass
-class GetTradeFinanceTieredPricingFeesRequest:
-    entity_id: str
-    effective_at: str | None = None
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class GetTradeFinanceTieredPricingFeesResponse(BaseResponse):
-    fees: list[Fee] = None
+class GetTradeFinanceTieredPricingFeesResponse(
+    BaseResponse, _GetTFTieredPricingFeesResponse
+):
+    """GetTradeFinanceTieredPricingFeesResponse(fees: 'list[TieredPricingFee]' = None)"""

@@ -14,17 +14,31 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from ...model import Allocation
+from ...model import (
+    GetAllocationsByClientNettingIdRequest as _GetAllocationsByClientNettingIdRequest,
+)
+from ...model import (
+    GetAllocationsByClientNettingIdResponse as _GetAllocationsByClientNettingIdResponse,
+)
+
+
+@dataclass(kw_only=True)
+class GetNetAllocationsByNettingIdRequest(
+    BaseRequest, _GetAllocationsByClientNettingIdRequest
+):
+    """
+    Get Net Allocations by Netting ID
+
+    Attributes:
+        portfolio_id: The portfolio ID of the allocation
+        netting_id: The allocation netting ID
+    """
 
 
 @dataclass
-class GetNetAllocationsByNettingIdRequest:
-    portfolio_id: str
-    netting_id: str
-    allowed_status_codes: list[int] | None = None
-
-
-@dataclass
-class GetNetAllocationsByNettingIdResponse(BaseResponse):
-    allocations: list[Allocation] = None
+class GetNetAllocationsByNettingIdResponse(
+    BaseResponse, _GetAllocationsByClientNettingIdResponse
+):
+    """GetNetAllocationsByNettingIdResponse(allocations: 'list[Allocation]' = None)"""

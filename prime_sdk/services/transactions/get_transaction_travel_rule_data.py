@@ -14,25 +14,42 @@
 
 from dataclasses import dataclass
 
+from ...base_request import BaseRequest
 from ...base_response import BaseResponse
-from .submit_deposit_travel_rule_data import TravelRuleParty
+from ...model import (
+    GetTransactionTravelRuleDataRequest as _GetTransactionTravelRuleDataRequest,
+)
+from ...model import (
+    GetTransactionTravelRuleDataResponse as _GetTransactionTravelRuleDataResponse,
+)
+
+
+@dataclass(kw_only=True)
+class GetTransactionTravelRuleDataRequest(
+    BaseRequest, _GetTransactionTravelRuleDataRequest
+):
+    """
+    Get Transaction Travel Rule Data
+
+    Attributes:
+        portfolio_id: The portfolio ID that owns the transaction
+        transaction_id: The transaction ID to look up travel rule data for
+    """
 
 
 @dataclass
-class GetTransactionTravelRuleDataRequest:
-    portfolio_id: str
-    transaction_id: str
-    allowed_status_codes: list[int] | None = None
+class GetTransactionTravelRuleDataResponse(
+    BaseResponse, _GetTransactionTravelRuleDataResponse
+):
+    """
+    Response containing fulfilled travel rule data for a transaction
 
-
-@dataclass
-class GetTransactionTravelRuleDataResponse(BaseResponse):
-    fulfilled: bool = None
-    is_self: bool = None
-    originator: TravelRuleParty = None
-    beneficiary: TravelRuleParty = None
-    amount: str = None
-    amount_currency: str = None
-    fiat_amount: str = None
-    fiat_amount_currency: str = None
-    blockchain_network: str = None
+    Attributes:
+        fulfilled: Whether data requirements are fulfilled
+        is_self: Whether the transfer is to/from a self-owned wallet
+        amount: The crypto amount of the transaction (e.g. "1.23 BTC")
+        amount_currency: The currency of the crypto amount
+        fiat_amount: The fiat amount of the transaction (e.g. "123.45 USD")
+        fiat_amount_currency: The currency of the fiat amount
+        blockchain_network: The blockchain network for the transaction
+    """
