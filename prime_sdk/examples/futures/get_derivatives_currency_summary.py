@@ -1,4 +1,4 @@
-# Copyright 2025-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,27 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_GetPortfolioProducts
-# #docs operationName: List Products
+# #docs operationId: PrimeRESTAPI_GetDerivativesCurrencySummary
+# #docs operationName: Get Portfolio Derivatives Currency Summary
 
 import argparse
 import os
 
 from prime_sdk.client_services import PrimeServicesClient
-from prime_sdk.services.products import ListProductsRequest
-from prime_sdk.utils import PaginationParams
+from prime_sdk.services.futures import GetDerivativesCurrencySummaryRequest
 
 
 def main():
-    parser = argparse.ArgumentParser(description="List products for a portfolio")
+    parser = argparse.ArgumentParser(
+        description="Get portfolio derivatives currency summary"
+    )
     parser.add_argument(
         "--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)"
-    )
-    parser.add_argument("--limit", type=int, help="Number of results to return")
-    parser.add_argument("--cursor", help="Pagination cursor")
-    parser.add_argument(
-        "--product-type",
-        help="Filter by product type (SPOT, FUTURE, OPTION)",
     )
     args = parser.parse_args()
 
@@ -45,22 +40,13 @@ def main():
         )
         return
 
-    # Set up pagination if provided
-    pagination = None
-    if args.limit or args.cursor:
-        pagination = PaginationParams(limit=args.limit, cursor=args.cursor)
-
-    request = ListProductsRequest(
-        portfolio_id=portfolio_id,
-        product_type=args.product_type,
-        pagination=pagination,
-    )
+    request = GetDerivativesCurrencySummaryRequest(portfolio_id=portfolio_id)
 
     try:
-        response = client.products.list_products(request)
+        response = client.futures.get_derivatives_currency_summary(request)
         print(response)
     except Exception as e:
-        print(f"failed to list products: {e}")
+        print(f"failed to get derivatives currency summary: {e}")
 
 
 if __name__ == "__main__":

@@ -13,10 +13,18 @@
 # limitations under the License.
 
 from ...client import Client
-from ...utils import append_pagination_params, to_body_dict
+from ...utils import append_pagination_params, append_query_param, to_body_dict
 from .cancel_entity_futures_sweep import (
     CancelEntityFuturesSweepRequest,
     CancelEntityFuturesSweepResponse,
+)
+from .get_derivative_positions import (
+    GetDerivativePositionsRequest,
+    GetDerivativePositionsResponse,
+)
+from .get_derivatives_currency_summary import (
+    GetDerivativesCurrencySummaryRequest,
+    GetDerivativesCurrencySummaryResponse,
 )
 from .get_entity_fcm_balance import (
     GetEntityFcmBalanceRequest,
@@ -150,3 +158,25 @@ class FuturesService:
             "GET", path, allowed_status_codes=request.allowed_status_codes
         )
         return GetFcmEquityResponse.from_response(response.json())
+
+    def get_derivatives_currency_summary(
+        self, request: GetDerivativesCurrencySummaryRequest
+    ) -> GetDerivativesCurrencySummaryResponse:
+        path = f"/portfolios/{request.portfolio_id}/derivatives/currency_summary"
+        response = self.client.request(
+            "GET", path, allowed_status_codes=request.allowed_status_codes
+        )
+        return GetDerivativesCurrencySummaryResponse.from_response(response.json())
+
+    def get_derivative_positions(
+        self, request: GetDerivativePositionsRequest
+    ) -> GetDerivativePositionsResponse:
+        path = f"/portfolios/{request.portfolio_id}/derivatives/positions"
+        query_params = append_query_param("", "product_id", request.product_id)
+        response = self.client.request(
+            "GET",
+            path,
+            query=query_params,
+            allowed_status_codes=request.allowed_status_codes,
+        )
+        return GetDerivativePositionsResponse.from_response(response.json())

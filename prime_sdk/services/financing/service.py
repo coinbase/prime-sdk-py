@@ -15,6 +15,7 @@
 from ...client import Client
 from ...utils import append_pagination_params, append_query_param, to_body_dict
 from .create_new_locate import CreateNewLocateRequest, CreateNewLocateResponse
+from .get_conversion_fees import GetConversionFeesRequest, GetConversionFeesResponse
 from .get_cross_margin_overview import (
     GetCrossMarginOverviewRequest,
     GetCrossMarginOverviewResponse,
@@ -214,6 +215,15 @@ class FinancingService:
         return GetPortfolioCreditInformationResponse.from_response(response.json())
 
     # Fees
+    def get_conversion_fees(
+        self, request: GetConversionFeesRequest
+    ) -> GetConversionFeesResponse:
+        path = "/conversion/fees"
+        response = self.client.request(
+            "GET", path, allowed_status_codes=request.allowed_status_codes
+        )
+        return GetConversionFeesResponse.from_response(response.json())
+
     def get_trade_finance_tiered_pricing_fees(
         self, request: GetTradeFinanceTieredPricingFeesRequest
     ) -> GetTradeFinanceTieredPricingFeesResponse:

@@ -12,6 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""SDK version, used by the client's User-Agent header. Keep in sync with VERSION in setup.py."""
+from dataclasses import dataclass
 
-VERSION = "1.11.0"
+from ...base_request import BaseRequest
+from ...base_response import BaseResponse
+from ...model import GetConversionFeesRequest as _GetConversionFeesRequest
+from ...model import GetConversionFeesResponse as _GetConversionFeesResponse
+
+
+@dataclass(kw_only=True)
+class GetConversionFeesRequest(BaseRequest, _GetConversionFeesRequest):
+    """
+    Get Conversion Fees
+    """
+
+
+@dataclass
+class GetConversionFeesResponse(BaseResponse, _GetConversionFeesResponse):
+    """
+    Response for GetConversionFees: one ConversionFee row per supported pair.
+    """
