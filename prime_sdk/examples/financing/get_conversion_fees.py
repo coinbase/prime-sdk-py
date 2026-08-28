@@ -12,6 +12,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""SDK version, used by the client's User-Agent header. Keep in sync with VERSION in setup.py."""
+# #docs operationId: PrimeRESTAPI_GetConversionFees
+# #docs operationName: Get Conversion Fees
 
-VERSION = "1.11.0"
+from prime_sdk.client_services import PrimeServicesClient
+from prime_sdk.services.financing import GetConversionFeesRequest
+
+
+def main():
+    client = PrimeServicesClient.from_env()
+
+    request = GetConversionFeesRequest()
+
+    try:
+        response = client.financing.get_conversion_fees(request)
+        print(response)
+    except Exception as e:
+        print(f"failed to get conversion fees: {e}")
+
+
+if __name__ == "__main__":
+    main()

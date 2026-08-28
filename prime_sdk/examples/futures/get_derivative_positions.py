@@ -1,4 +1,4 @@
-# Copyright 2025-present Coinbase Global, Inc.
+# Copyright 2026-present Coinbase Global, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,28 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# #docs operationId: PrimeRESTAPI_GetPortfolioProducts
-# #docs operationName: List Products
+# #docs operationId: PrimeRESTAPI_GetDerivativePositions
+# #docs operationName: List Portfolio Derivative Positions
 
 import argparse
 import os
 
 from prime_sdk.client_services import PrimeServicesClient
-from prime_sdk.services.products import ListProductsRequest
-from prime_sdk.utils import PaginationParams
+from prime_sdk.services.futures import GetDerivativePositionsRequest
 
 
 def main():
-    parser = argparse.ArgumentParser(description="List products for a portfolio")
+    parser = argparse.ArgumentParser(description="List portfolio derivative positions")
     parser.add_argument(
         "--portfolio-id", help="Portfolio ID (overrides PRIME_PORTFOLIO_ID env var)"
     )
-    parser.add_argument("--limit", type=int, help="Number of results to return")
-    parser.add_argument("--cursor", help="Pagination cursor")
-    parser.add_argument(
-        "--product-type",
-        help="Filter by product type (SPOT, FUTURE, OPTION)",
-    )
+    parser.add_argument("--product-id", help="Optional product ID filter")
     args = parser.parse_args()
 
     client = PrimeServicesClient.from_env()
@@ -45,22 +39,15 @@ def main():
         )
         return
 
-    # Set up pagination if provided
-    pagination = None
-    if args.limit or args.cursor:
-        pagination = PaginationParams(limit=args.limit, cursor=args.cursor)
-
-    request = ListProductsRequest(
-        portfolio_id=portfolio_id,
-        product_type=args.product_type,
-        pagination=pagination,
+    request = GetDerivativePositionsRequest(
+        portfolio_id=portfolio_id, product_id=args.product_id
     )
 
     try:
-        response = client.products.list_products(request)
+        response = client.futures.get_derivative_positions(request)
         print(response)
     except Exception as e:
-        print(f"failed to list products: {e}")
+        print(f"failed to get derivative positions: {e}")
 
 
 if __name__ == "__main__":

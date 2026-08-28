@@ -1,5 +1,34 @@
 # Changelog
 
+## [1.11.0] - 2026-AUG-28
+
+### Added
+
+#### New API Endpoints
+
+**Financing Service**
+- **`get_conversion_fees()`**: Get organization stablecoin conversion fee tiers and month-to-date net conversion volume (`GET /v1/conversion/fees`)
+
+**Futures Service**
+- **`get_derivatives_currency_summary()`**: Get per-currency international derivatives balances for a portfolio (`GET /v1/portfolios/{portfolio_id}/derivatives/currency_summary`)
+- **`get_derivative_positions()`**: List active derivative positions for a portfolio (`GET /v1/portfolios/{portfolio_id}/derivatives/positions`)
+
+#### New & Updated Models
+- **`ConversionFee`**, **`ConversionFeeTier`**: Stablecoin conversion fee rows and progressive tiers
+- **`DerivativePosition`**, **`DerivativesCurrencyBalance`**, **`OptionsDetails`**: International derivatives positions, per-currency balances, and option greeks/strike metadata
+- **`Product`**: `product_type` now includes `OPTION`; list products accepts `product_type`, `contract_expiry_type`, and `expiring_contract_status` query filters
+
+#### New Enums
+- **`ProductType`** (includes `OPTION`)
+- **`DerivativeProductType`**
+- **`OptionType`**
+- **`FcmMarginHealthState`**
+
+### Changed
+
+- **`list_products()`**: Forwards `product_type`, `contract_expiry_type`, and `expiring_contract_status` query parameters to the API.
+
+
 ## [1.10.0] - 2026-AUG-07
 
 ### Breaking Changes

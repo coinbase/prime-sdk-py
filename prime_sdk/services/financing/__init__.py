@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from .create_new_locate import CreateNewLocateRequest, CreateNewLocateResponse
+from .get_conversion_fees import GetConversionFeesRequest, GetConversionFeesResponse
 from .get_cross_margin_overview import (
     GetCrossMarginOverviewRequest,
     GetCrossMarginOverviewResponse,
@@ -86,6 +87,8 @@ __all__ = [
     "FinancingService",
     "GetBuyingPowerRequest",
     "GetBuyingPowerResponse",
+    "GetConversionFeesRequest",
+    "GetConversionFeesResponse",
     "GetCrossMarginOverviewRequest",
     "GetCrossMarginOverviewResponse",
     "GetCrossMarginPrimeOverviewRequest",

@@ -36,6 +36,7 @@ python prime_sdk/examples/commission/get_portfolio_commission.py
 
 # Financing
 python prime_sdk/examples/financing/create_new_locate.py --symbol BTC --amount 100 --locate-date "2025-01-01"
+python prime_sdk/examples/financing/get_conversion_fees.py
 python prime_sdk/examples/financing/get_cross_margin_overview.py
 python prime_sdk/examples/financing/get_entity_locate_availabilities.py --locate-date "2025-01-01"
 python prime_sdk/examples/financing/get_margin_information.py
@@ -53,6 +54,8 @@ python prime_sdk/examples/financing/list_trade_finance_obligations.py
 
 # Futures
 python prime_sdk/examples/futures/cancel_entity_futures_sweep.py
+python prime_sdk/examples/futures/get_derivative_positions.py
+python prime_sdk/examples/futures/get_derivatives_currency_summary.py
 python prime_sdk/examples/futures/get_entity_fcm_balance.py
 python prime_sdk/examples/futures/get_entity_positions.py
 python prime_sdk/examples/futures/get_fcm_margin_call_details.py
@@ -100,6 +103,7 @@ python prime_sdk/examples/positions/list_entity_positions.py
 # Products
 python prime_sdk/examples/products/get_product_candles.py --product-id BTC-USD --granularity ONE_HOUR --start "2025-01-01T00:00:00Z" --end "2025-01-02T00:00:00Z"
 python prime_sdk/examples/products/list_products.py
+python prime_sdk/examples/products/list_products.py --product-type OPTION
 
 # Staking
 python prime_sdk/examples/staking/claim_wallet_staking_rewards.py --wallet-id abc123

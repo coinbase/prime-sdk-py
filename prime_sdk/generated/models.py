@@ -372,6 +372,23 @@ class ConversionDetail:
 
 
 @dataclass
+class ConversionFeeTier:
+    """
+    A single fee tier in the progressive stablecoin conversion schedule.
+
+    Attributes:
+        min_threshold: Inclusive lower bound for the tier in USD.
+        max_threshold: Exclusive upper bound for the tier in USD. Empty string for the
+            highest, unbounded tier.
+        rate_bps: Tier rate in basis points.
+    """
+
+    min_threshold: str = None
+    max_threshold: str = None
+    rate_bps: str = None
+
+
+@dataclass
 class Counterparty:
     """
     Attributes:
@@ -1945,6 +1962,27 @@ class Conversion:
 
 
 @dataclass
+class ConversionFee:
+    """
+    Per-pair conversion fee row: month-to-date net conversion volume and the applicable progressive fee tiers for an organization.
+
+    Attributes:
+        from_currency: Source currency ticker.
+        to_currency: Destination currency ticker.
+        net_conversion_volume_mtd: Month-to-date net conversion volume denominated in
+            from_currency, aggregated at the owning organization level. Positive = net
+            from->to, negative = net to->from.
+        fee_tiers: Progressive fee tiers applicable to this organization for this pair.
+            Tiers are ordered from lowest to highest threshold.
+    """
+
+    from_currency: str = None
+    to_currency: str = None
+    net_conversion_volume_mtd: str = None
+    fee_tiers: list[ConversionFeeTier] = None
+
+
+@dataclass
 class CreateAllocationResponse:
     """
     Attributes:
@@ -2025,6 +2063,15 @@ class CrossMarginPrimeRiskNettingInfo:
     portfolio_margin_offset_credit_breakdown: PrimeXMOffsetCreditBreakdown = None
     integrated_portfolio_margin_offset_credit_breakdown: PrimeXMOffsetCreditBreakdown = None
     xm_positions: list[CrossMarginPrimeXMPosition] = None
+
+
+@dataclass
+class GetConversionFeesResponse:
+    """
+    Response for GetConversionFees: one ConversionFee row per supported pair.
+    """
+
+    fees: list[ConversionFee] = None
 
 
 @dataclass
@@ -2539,6 +2586,68 @@ class CrossMarginPrimeMarginSummary:
 
 
 @dataclass
+class DerivativePosition:
+    """
+    A single derivative position across all derivative product types.
+
+    Attributes:
+        product_id: Product ID
+        number_of_contracts: Number of contracts
+        daily_realized_pnl: Daily realized PNL
+        unrealized_pnl: Unrealized PNL
+        current_price: Current price of position
+        avg_entry_price: Average entry price
+        expiration_time: Expiration time of position
+        currency: Settlement currency
+        venue_id: Venue ID of the position
+    """
+
+    product_id: str = None
+    side: str = None
+    number_of_contracts: str = None
+    daily_realized_pnl: str = None
+    unrealized_pnl: str = None
+    current_price: str = None
+    avg_entry_price: str = None
+    expiration_time: str = None
+    product_type: str = None
+    currency: str = None
+    options_details: OptionsDetails = None
+    venue_id: str = None
+
+
+@dataclass
+class DerivativesCurrencyBalance:
+    """
+    Balances for a single settlement currency within an international derivatives portfolio.
+
+    Attributes:
+        currency: Settlement currency
+        balance: Cash balance for the currency
+        unrealized_pnl: Unrealized PNL
+        realized_pnl: Realized PNL
+        initial_margin: Initial margin
+        maintenance_margin: Maintenance margin
+        margin_balance: Margin balance for the currency
+        option_value: Option value for the currency
+        margin_excess: Margin excess for the currency (negative indicates a margin deficit)
+        margin_utilization: Margin utilization for the currency, as a percentage
+    """
+
+    currency: str = None
+    balance: str = None
+    unrealized_pnl: str = None
+    realized_pnl: str = None
+    initial_margin: str = None
+    maintenance_margin: str = None
+    margin_balance: str = None
+    option_value: str = None
+    margin_excess: str = None
+    margin_utilization: str = None
+    margin_health_state: str = None
+
+
+@dataclass
 class EntityUser:
     """
     Attributes:
@@ -2800,6 +2909,28 @@ class GetCrossMarginPrimeOverviewResponse:
     margin_level: str = None
     evaluated_at: str = None
     margin_summary: CrossMarginPrimeMarginSummary = None
+
+
+@dataclass
+class GetDerivativePositionsResponse:
+    """
+    Response containing the portfolio's active derivative positions.
+    """
+
+    positions: list[DerivativePosition] = None
+
+
+@dataclass
+class GetDerivativesCurrencySummaryResponse:
+    """
+    Response containing the portfolio's international derivatives balances, broken out per settlement currency.
+
+    Attributes:
+        portfolio_id: Portfolio ID
+    """
+
+    portfolio_id: str = None
+    balances: list[DerivativesCurrencyBalance] = None
 
 
 @dataclass
@@ -3602,6 +3733,27 @@ class OnchainTransactionDetails:
     skip_broadcast: bool = None
     failure_reason: str = None
     signing_status: str = None
+
+
+@dataclass
+class OptionsDetails:
+    """
+    Options-specific details for a derivative position, including greeks.
+
+    Attributes:
+        delta: Delta greek
+        gamma: Gamma greek
+        theta: Theta greek
+        vega: Vega greek
+        strike: Strike price
+    """
+
+    delta: str = None
+    gamma: str = None
+    theta: str = None
+    vega: str = None
+    strike: str = None
+    option_type: str = None
 
 
 @dataclass
@@ -4427,6 +4579,3870 @@ class XMSummary:
 
 
 @dataclass
+class AcceptQuoteBadRequestErrorResponse:
+    """
+    AcceptQuoteBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class AcceptQuoteForbiddenErrorResponse:
+    """
+    AcceptQuoteForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class AcceptQuoteNotFoundErrorResponse:
+    """
+    AcceptQuoteNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CancelAdvancedTransferBadRequestErrorResponse:
+    """
+    CancelAdvancedTransferBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CancelAdvancedTransferForbiddenErrorResponse:
+    """
+    CancelAdvancedTransferForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CancelAdvancedTransferNotFoundErrorResponse:
+    """
+    CancelAdvancedTransferNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CancelFuturesSweepBadRequestErrorResponse:
+    """
+    CancelFuturesSweepBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CancelFuturesSweepForbiddenErrorResponse:
+    """
+    CancelFuturesSweepForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CancelFuturesSweepNotFoundErrorResponse:
+    """
+    CancelFuturesSweepNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CancelOrderBadRequestErrorResponse:
+    """
+    CancelOrderBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CancelOrderForbiddenErrorResponse:
+    """
+    CancelOrderForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CancelOrderNotFoundErrorResponse:
+    """
+    CancelOrderNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateAdvancedTransferBadRequestErrorResponse:
+    """
+    CreateAdvancedTransferBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateAdvancedTransferForbiddenErrorResponse:
+    """
+    CreateAdvancedTransferForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateAdvancedTransferNotFoundErrorResponse:
+    """
+    CreateAdvancedTransferNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateAllocationBadRequestErrorResponse:
+    """
+    CreateAllocationBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateAllocationForbiddenErrorResponse:
+    """
+    CreateAllocationForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateAllocationNotFoundErrorResponse:
+    """
+    CreateAllocationNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateConversionBadRequestErrorResponse:
+    """
+    CreateConversionBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateConversionForbiddenErrorResponse:
+    """
+    CreateConversionForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateConversionNotFoundErrorResponse:
+    """
+    CreateConversionNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateNetAllocationBadRequestErrorResponse:
+    """
+    CreateNetAllocationBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateNetAllocationForbiddenErrorResponse:
+    """
+    CreateNetAllocationForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateNetAllocationNotFoundErrorResponse:
+    """
+    CreateNetAllocationNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateNewLocatesBadRequestErrorResponse:
+    """
+    CreateNewLocatesBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateNewLocatesForbiddenErrorResponse:
+    """
+    CreateNewLocatesForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateNewLocatesNotFoundErrorResponse:
+    """
+    CreateNewLocatesNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateOnchainAddressGroupBadRequestErrorResponse:
+    """
+    CreateOnchainAddressGroupBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateOnchainAddressGroupForbiddenErrorResponse:
+    """
+    CreateOnchainAddressGroupForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateOnchainAddressGroupNotFoundErrorResponse:
+    """
+    CreateOnchainAddressGroupNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateOnchainTransactionBadRequestErrorResponse:
+    """
+    CreateOnchainTransactionBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateOnchainTransactionForbiddenErrorResponse:
+    """
+    CreateOnchainTransactionForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateOnchainTransactionNotFoundErrorResponse:
+    """
+    CreateOnchainTransactionNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateOrderBadRequestErrorResponse:
+    """
+    CreateOrderBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateOrderForbiddenErrorResponse:
+    """
+    CreateOrderForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateOrderNotFoundErrorResponse:
+    """
+    CreateOrderNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreatePortfolioAddressBookEntryBadRequestErrorResponse:
+    """
+    CreatePortfolioAddressBookEntryBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreatePortfolioAddressBookEntryForbiddenErrorResponse:
+    """
+    CreatePortfolioAddressBookEntryForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreatePortfolioAddressBookEntryNotFoundErrorResponse:
+    """
+    CreatePortfolioAddressBookEntryNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateQuoteRequestBadRequestErrorResponse:
+    """
+    CreateQuoteRequestBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateQuoteRequestForbiddenErrorResponse:
+    """
+    CreateQuoteRequestForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateQuoteRequestNotFoundErrorResponse:
+    """
+    CreateQuoteRequestNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateWalletBadRequestErrorResponse:
+    """
+    CreateWalletBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateWalletDepositAddressBadRequestErrorResponse:
+    """
+    CreateWalletDepositAddressBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateWalletDepositAddressForbiddenErrorResponse:
+    """
+    CreateWalletDepositAddressForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateWalletDepositAddressNotFoundErrorResponse:
+    """
+    CreateWalletDepositAddressNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateWalletForbiddenErrorResponse:
+    """
+    CreateWalletForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateWalletNotFoundErrorResponse:
+    """
+    CreateWalletNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateWalletTransferBadRequestErrorResponse:
+    """
+    CreateWalletTransferBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateWalletTransferForbiddenErrorResponse:
+    """
+    CreateWalletTransferForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateWalletTransferNotFoundErrorResponse:
+    """
+    CreateWalletTransferNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateWalletWithdrawalBadRequestErrorResponse:
+    """
+    CreateWalletWithdrawalBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateWalletWithdrawalForbiddenErrorResponse:
+    """
+    CreateWalletWithdrawalForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class CreateWalletWithdrawalNotFoundErrorResponse:
+    """
+    CreateWalletWithdrawalNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class DeleteOnchainAddressGroupBadRequestErrorResponse:
+    """
+    DeleteOnchainAddressGroupBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class DeleteOnchainAddressGroupForbiddenErrorResponse:
+    """
+    DeleteOnchainAddressGroupForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class DeleteOnchainAddressGroupNotFoundErrorResponse:
+    """
+    DeleteOnchainAddressGroupNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class EditOrderBadRequestErrorResponse:
+    """
+    EditOrderBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class EditOrderForbiddenErrorResponse:
+    """
+    EditOrderForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class EditOrderNotFoundErrorResponse:
+    """
+    EditOrderNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetActivityForbiddenErrorResponse:
+    """
+    GetActivityForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetActivityNotFoundErrorResponse:
+    """
+    GetActivityNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetAllocationBadRequestErrorResponse:
+    """
+    GetAllocationBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetAllocationForbiddenErrorResponse:
+    """
+    GetAllocationForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetAllocationNotFoundErrorResponse:
+    """
+    GetAllocationNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetAllocationsByClientNettingIdBadRequestErrorResponse:
+    """
+    GetAllocationsByClientNettingIdBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetAllocationsByClientNettingIdForbiddenErrorResponse:
+    """
+    GetAllocationsByClientNettingIdForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetAllocationsByClientNettingIdNotFoundErrorResponse:
+    """
+    GetAllocationsByClientNettingIdNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetBuyingPowerBadRequestErrorResponse:
+    """
+    GetBuyingPowerBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetBuyingPowerForbiddenErrorResponse:
+    """
+    GetBuyingPowerForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetBuyingPowerNotFoundErrorResponse:
+    """
+    GetBuyingPowerNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetCandlesBadRequestErrorResponse:
+    """
+    GetCandlesBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetCandlesForbiddenErrorResponse:
+    """
+    GetCandlesForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetCandlesNotFoundErrorResponse:
+    """
+    GetCandlesNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetConversionFeesForbiddenErrorResponse:
+    """
+    GetConversionFeesForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetCrossMarginOverviewBadRequestErrorResponse:
+    """
+    GetCrossMarginOverviewBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetCrossMarginOverviewForbiddenErrorResponse:
+    """
+    GetCrossMarginOverviewForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetCrossMarginOverviewNotFoundErrorResponse:
+    """
+    GetCrossMarginOverviewNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetCrossMarginPrimeOverviewBadRequestErrorResponse:
+    """
+    GetCrossMarginPrimeOverviewBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetCrossMarginPrimeOverviewForbiddenErrorResponse:
+    """
+    GetCrossMarginPrimeOverviewForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetCrossMarginPrimeOverviewNotFoundErrorResponse:
+    """
+    GetCrossMarginPrimeOverviewNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetCrossMarginRiskParametersBadRequestErrorResponse:
+    """
+    GetCrossMarginRiskParametersBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetCrossMarginRiskParametersForbiddenErrorResponse:
+    """
+    GetCrossMarginRiskParametersForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetCrossMarginRiskParametersNotFoundErrorResponse:
+    """
+    GetCrossMarginRiskParametersNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetDerivativePositionsBadRequestErrorResponse:
+    """
+    GetDerivativePositionsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetDerivativePositionsForbiddenErrorResponse:
+    """
+    GetDerivativePositionsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetDerivativePositionsNotFoundErrorResponse:
+    """
+    GetDerivativePositionsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetDerivativesCurrencySummaryBadRequestErrorResponse:
+    """
+    GetDerivativesCurrencySummaryBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetDerivativesCurrencySummaryForbiddenErrorResponse:
+    """
+    GetDerivativesCurrencySummaryForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetDerivativesCurrencySummaryNotFoundErrorResponse:
+    """
+    GetDerivativesCurrencySummaryNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetEntityActivitiesBadRequestErrorResponse:
+    """
+    GetEntityActivitiesBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetEntityActivitiesForbiddenErrorResponse:
+    """
+    GetEntityActivitiesForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetEntityActivitiesNotFoundErrorResponse:
+    """
+    GetEntityActivitiesNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetEntityAssetsBadRequestErrorResponse:
+    """
+    GetEntityAssetsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetEntityAssetsForbiddenErrorResponse:
+    """
+    GetEntityAssetsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetEntityAssetsNotFoundErrorResponse:
+    """
+    GetEntityAssetsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetEntityPaymentMethodDetailsBadRequestErrorResponse:
+    """
+    GetEntityPaymentMethodDetailsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetEntityPaymentMethodDetailsForbiddenErrorResponse:
+    """
+    GetEntityPaymentMethodDetailsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetEntityPaymentMethodDetailsNotFoundErrorResponse:
+    """
+    GetEntityPaymentMethodDetailsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetEntityPaymentMethodsBadRequestErrorResponse:
+    """
+    GetEntityPaymentMethodsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetEntityPaymentMethodsForbiddenErrorResponse:
+    """
+    GetEntityPaymentMethodsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetEntityPaymentMethodsNotFoundErrorResponse:
+    """
+    GetEntityPaymentMethodsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetEntityUsersBadRequestErrorResponse:
+    """
+    GetEntityUsersBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetEntityUsersForbiddenErrorResponse:
+    """
+    GetEntityUsersForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetEntityUsersNotFoundErrorResponse:
+    """
+    GetEntityUsersNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetExistingLocatesBadRequestErrorResponse:
+    """
+    GetExistingLocatesBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetExistingLocatesForbiddenErrorResponse:
+    """
+    GetExistingLocatesForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetExistingLocatesNotFoundErrorResponse:
+    """
+    GetExistingLocatesNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetFcmBalanceBadRequestErrorResponse:
+    """
+    GetFcmBalanceBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetFcmBalanceForbiddenErrorResponse:
+    """
+    GetFcmBalanceForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetFcmBalanceNotFoundErrorResponse:
+    """
+    GetFcmBalanceNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetFcmEquityBadRequestErrorResponse:
+    """
+    GetFcmEquityBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetFcmEquityForbiddenErrorResponse:
+    """
+    GetFcmEquityForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetFcmEquityNotFoundErrorResponse:
+    """
+    GetFcmEquityNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetFcmMarginCallDetailsBadRequestErrorResponse:
+    """
+    GetFcmMarginCallDetailsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetFcmMarginCallDetailsForbiddenErrorResponse:
+    """
+    GetFcmMarginCallDetailsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetFcmMarginCallDetailsNotFoundErrorResponse:
+    """
+    GetFcmMarginCallDetailsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetFcmRiskLimitsBadRequestErrorResponse:
+    """
+    GetFcmRiskLimitsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetFcmRiskLimitsForbiddenErrorResponse:
+    """
+    GetFcmRiskLimitsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetFcmRiskLimitsNotFoundErrorResponse:
+    """
+    GetFcmRiskLimitsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetFcmSettingsBadRequestErrorResponse:
+    """
+    GetFcmSettingsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetFcmSettingsForbiddenErrorResponse:
+    """
+    GetFcmSettingsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetFcmSettingsNotFoundErrorResponse:
+    """
+    GetFcmSettingsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetFuturesSweepsBadRequestErrorResponse:
+    """
+    GetFuturesSweepsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetFuturesSweepsForbiddenErrorResponse:
+    """
+    GetFuturesSweepsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetFuturesSweepsNotFoundErrorResponse:
+    """
+    GetFuturesSweepsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetInterestAccrualsBadRequestErrorResponse:
+    """
+    GetInterestAccrualsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetInterestAccrualsForbiddenErrorResponse:
+    """
+    GetInterestAccrualsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetInterestAccrualsNotFoundErrorResponse:
+    """
+    GetInterestAccrualsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetInvoicesBadRequestErrorResponse:
+    """
+    GetInvoicesBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetInvoicesForbiddenErrorResponse:
+    """
+    GetInvoicesForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetInvoicesNotFoundErrorResponse:
+    """
+    GetInvoicesNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetLocateAvailabilitiesBadRequestErrorResponse:
+    """
+    GetLocateAvailabilitiesBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetLocateAvailabilitiesForbiddenErrorResponse:
+    """
+    GetLocateAvailabilitiesForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetLocateAvailabilitiesNotFoundErrorResponse:
+    """
+    GetLocateAvailabilitiesNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetMarginConversionsBadRequestErrorResponse:
+    """
+    GetMarginConversionsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetMarginConversionsForbiddenErrorResponse:
+    """
+    GetMarginConversionsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetMarginConversionsNotFoundErrorResponse:
+    """
+    GetMarginConversionsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetMarginInformationBadRequestErrorResponse:
+    """
+    GetMarginInformationBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetMarginInformationForbiddenErrorResponse:
+    """
+    GetMarginInformationForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetMarginInformationNotFoundErrorResponse:
+    """
+    GetMarginInformationNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetMarginSummariesBadRequestErrorResponse:
+    """
+    GetMarginSummariesBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetMarginSummariesForbiddenErrorResponse:
+    """
+    GetMarginSummariesForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetMarginSummariesNotFoundErrorResponse:
+    """
+    GetMarginSummariesNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetMarketDataBadRequestErrorResponse:
+    """
+    GetMarketDataBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetMarketDataForbiddenErrorResponse:
+    """
+    GetMarketDataForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetMarketDataNotFoundErrorResponse:
+    """
+    GetMarketDataNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetOpenOrdersBadRequestErrorResponse:
+    """
+    GetOpenOrdersBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetOpenOrdersForbiddenErrorResponse:
+    """
+    GetOpenOrdersForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetOpenOrdersNotFoundErrorResponse:
+    """
+    GetOpenOrdersNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetOrderBadRequestErrorResponse:
+    """
+    GetOrderBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetOrderEditHistoryBadRequestErrorResponse:
+    """
+    GetOrderEditHistoryBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetOrderEditHistoryForbiddenErrorResponse:
+    """
+    GetOrderEditHistoryForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetOrderEditHistoryNotFoundErrorResponse:
+    """
+    GetOrderEditHistoryNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetOrderFillsBadRequestErrorResponse:
+    """
+    GetOrderFillsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetOrderFillsForbiddenErrorResponse:
+    """
+    GetOrderFillsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetOrderFillsNotFoundErrorResponse:
+    """
+    GetOrderFillsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetOrderForbiddenErrorResponse:
+    """
+    GetOrderForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetOrderNotFoundErrorResponse:
+    """
+    GetOrderNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetOrdersBadRequestErrorResponse:
+    """
+    GetOrdersBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetOrdersForbiddenErrorResponse:
+    """
+    GetOrdersForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetOrdersNotFoundErrorResponse:
+    """
+    GetOrdersNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioActivitiesBadRequestErrorResponse:
+    """
+    GetPortfolioActivitiesBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioActivitiesForbiddenErrorResponse:
+    """
+    GetPortfolioActivitiesForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioActivitiesNotFoundErrorResponse:
+    """
+    GetPortfolioActivitiesNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioActivityBadRequestErrorResponse:
+    """
+    GetPortfolioActivityBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioActivityForbiddenErrorResponse:
+    """
+    GetPortfolioActivityForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioActivityNotFoundErrorResponse:
+    """
+    GetPortfolioActivityNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioAddressBookBadRequestErrorResponse:
+    """
+    GetPortfolioAddressBookBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioAddressBookForbiddenErrorResponse:
+    """
+    GetPortfolioAddressBookForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioAddressBookNotFoundErrorResponse:
+    """
+    GetPortfolioAddressBookNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioAllocationsBadRequestErrorResponse:
+    """
+    GetPortfolioAllocationsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioAllocationsForbiddenErrorResponse:
+    """
+    GetPortfolioAllocationsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioAllocationsNotFoundErrorResponse:
+    """
+    GetPortfolioAllocationsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioBadRequestErrorResponse:
+    """
+    GetPortfolioBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioBalancesBadRequestErrorResponse:
+    """
+    GetPortfolioBalancesBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioBalancesForbiddenErrorResponse:
+    """
+    GetPortfolioBalancesForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioBalancesNotFoundErrorResponse:
+    """
+    GetPortfolioBalancesNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioCommissionBadRequestErrorResponse:
+    """
+    GetPortfolioCommissionBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioCommissionForbiddenErrorResponse:
+    """
+    GetPortfolioCommissionForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioCommissionNotFoundErrorResponse:
+    """
+    GetPortfolioCommissionNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioCounterpartyIDBadRequestErrorResponse:
+    """
+    GetPortfolioCounterpartyIDBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioCounterpartyIDForbiddenErrorResponse:
+    """
+    GetPortfolioCounterpartyIDForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioCounterpartyIDNotFoundErrorResponse:
+    """
+    GetPortfolioCounterpartyIDNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioFillsBadRequestErrorResponse:
+    """
+    GetPortfolioFillsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioFillsForbiddenErrorResponse:
+    """
+    GetPortfolioFillsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioFillsNotFoundErrorResponse:
+    """
+    GetPortfolioFillsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioForbiddenErrorResponse:
+    """
+    GetPortfolioForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioInterestAccrualsBadRequestErrorResponse:
+    """
+    GetPortfolioInterestAccrualsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioInterestAccrualsForbiddenErrorResponse:
+    """
+    GetPortfolioInterestAccrualsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioInterestAccrualsNotFoundErrorResponse:
+    """
+    GetPortfolioInterestAccrualsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioNotFoundErrorResponse:
+    """
+    GetPortfolioNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioProductsBadRequestErrorResponse:
+    """
+    GetPortfolioProductsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioProductsForbiddenErrorResponse:
+    """
+    GetPortfolioProductsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioProductsNotFoundErrorResponse:
+    """
+    GetPortfolioProductsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioTransactionsBadRequestErrorResponse:
+    """
+    GetPortfolioTransactionsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioTransactionsForbiddenErrorResponse:
+    """
+    GetPortfolioTransactionsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioTransactionsNotFoundErrorResponse:
+    """
+    GetPortfolioTransactionsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioUsersBadRequestErrorResponse:
+    """
+    GetPortfolioUsersBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioUsersForbiddenErrorResponse:
+    """
+    GetPortfolioUsersForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfolioUsersNotFoundErrorResponse:
+    """
+    GetPortfolioUsersNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfoliosForbiddenErrorResponse:
+    """
+    GetPortfoliosForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPortfoliosNotFoundErrorResponse:
+    """
+    GetPortfoliosNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPositionsBadRequestErrorResponse:
+    """
+    GetPositionsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPositionsForbiddenErrorResponse:
+    """
+    GetPositionsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPositionsNotFoundErrorResponse:
+    """
+    GetPositionsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPostTradeCreditBadRequestErrorResponse:
+    """
+    GetPostTradeCreditBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPostTradeCreditForbiddenErrorResponse:
+    """
+    GetPostTradeCreditForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetPostTradeCreditNotFoundErrorResponse:
+    """
+    GetPostTradeCreditNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetStakingStatusBadRequestErrorResponse:
+    """
+    GetStakingStatusBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetStakingStatusForbiddenErrorResponse:
+    """
+    GetStakingStatusForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetStakingStatusNotFoundErrorResponse:
+    """
+    GetStakingStatusNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetTFTieredPricingFeesBadRequestErrorResponse:
+    """
+    GetTFTieredPricingFeesBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetTFTieredPricingFeesForbiddenErrorResponse:
+    """
+    GetTFTieredPricingFeesForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetTFTieredPricingFeesNotFoundErrorResponse:
+    """
+    GetTFTieredPricingFeesNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetTransactionBadRequestErrorResponse:
+    """
+    GetTransactionBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetTransactionForbiddenErrorResponse:
+    """
+    GetTransactionForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetTransactionNotFoundErrorResponse:
+    """
+    GetTransactionNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetTransactionTravelRuleDataBadRequestErrorResponse:
+    """
+    GetTransactionTravelRuleDataBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetTransactionTravelRuleDataForbiddenErrorResponse:
+    """
+    GetTransactionTravelRuleDataForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetTransactionTravelRuleDataNotFoundErrorResponse:
+    """
+    GetTransactionTravelRuleDataNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetUnstakingStatusBadRequestErrorResponse:
+    """
+    GetUnstakingStatusBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetUnstakingStatusForbiddenErrorResponse:
+    """
+    GetUnstakingStatusForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetUnstakingStatusNotFoundErrorResponse:
+    """
+    GetUnstakingStatusNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetWalletBadRequestErrorResponse:
+    """
+    GetWalletBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetWalletBalanceBadRequestErrorResponse:
+    """
+    GetWalletBalanceBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetWalletBalanceForbiddenErrorResponse:
+    """
+    GetWalletBalanceForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetWalletBalanceNotFoundErrorResponse:
+    """
+    GetWalletBalanceNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetWalletDepositInstructionsBadRequestErrorResponse:
+    """
+    GetWalletDepositInstructionsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetWalletDepositInstructionsForbiddenErrorResponse:
+    """
+    GetWalletDepositInstructionsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetWalletDepositInstructionsNotFoundErrorResponse:
+    """
+    GetWalletDepositInstructionsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetWalletForbiddenErrorResponse:
+    """
+    GetWalletForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetWalletNotFoundErrorResponse:
+    """
+    GetWalletNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetWalletTransactionsBadRequestErrorResponse:
+    """
+    GetWalletTransactionsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetWalletTransactionsForbiddenErrorResponse:
+    """
+    GetWalletTransactionsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetWalletTransactionsNotFoundErrorResponse:
+    """
+    GetWalletTransactionsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetWalletsBadRequestErrorResponse:
+    """
+    GetWalletsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetWalletsForbiddenErrorResponse:
+    """
+    GetWalletsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetWalletsNotFoundErrorResponse:
+    """
+    GetWalletsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetWithdrawalPowerBadRequestErrorResponse:
+    """
+    GetWithdrawalPowerBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetWithdrawalPowerForbiddenErrorResponse:
+    """
+    GetWithdrawalPowerForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetWithdrawalPowerNotFoundErrorResponse:
+    """
+    GetWithdrawalPowerNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetXMLiquidationBadRequestErrorResponse:
+    """
+    GetXMLiquidationBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetXMLiquidationForbiddenErrorResponse:
+    """
+    GetXMLiquidationForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class GetXMLiquidationNotFoundErrorResponse:
+    """
+    GetXMLiquidationNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class InternalServerErrorResponse:
+    """
+    InternalServerErrorResponse documents the HTTP 500 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListAdvancedTransferTransactionsForbiddenErrorResponse:
+    """
+    ListAdvancedTransferTransactionsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListAdvancedTransferTransactionsNotFoundErrorResponse:
+    """
+    ListAdvancedTransferTransactionsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListAdvancedTransfersBadRequestErrorResponse:
+    """
+    ListAdvancedTransfersBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListAdvancedTransfersForbiddenErrorResponse:
+    """
+    ListAdvancedTransfersForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListAdvancedTransfersNotFoundErrorResponse:
+    """
+    ListAdvancedTransfersNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListAggregateEntityPositionsBadRequestErrorResponse:
+    """
+    ListAggregateEntityPositionsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListAggregateEntityPositionsForbiddenErrorResponse:
+    """
+    ListAggregateEntityPositionsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListAggregateEntityPositionsNotFoundErrorResponse:
+    """
+    ListAggregateEntityPositionsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListEntityBalancesBadRequestErrorResponse:
+    """
+    ListEntityBalancesBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListEntityBalancesForbiddenErrorResponse:
+    """
+    ListEntityBalancesForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListEntityBalancesNotFoundErrorResponse:
+    """
+    ListEntityBalancesNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListEntityPositionsBadRequestErrorResponse:
+    """
+    ListEntityPositionsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListEntityPositionsForbiddenErrorResponse:
+    """
+    ListEntityPositionsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListEntityPositionsNotFoundErrorResponse:
+    """
+    ListEntityPositionsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListOnchainAddressGroupsBadRequestErrorResponse:
+    """
+    ListOnchainAddressGroupsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListOnchainAddressGroupsForbiddenErrorResponse:
+    """
+    ListOnchainAddressGroupsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListOnchainAddressGroupsNotFoundErrorResponse:
+    """
+    ListOnchainAddressGroupsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListTFObligationsBadRequestErrorResponse:
+    """
+    ListTFObligationsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListTFObligationsForbiddenErrorResponse:
+    """
+    ListTFObligationsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListTFObligationsNotFoundErrorResponse:
+    """
+    ListTFObligationsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListTransactionValidatorsBadRequestErrorResponse:
+    """
+    ListTransactionValidatorsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListTransactionValidatorsForbiddenErrorResponse:
+    """
+    ListTransactionValidatorsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListTransactionValidatorsNotFoundErrorResponse:
+    """
+    ListTransactionValidatorsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListWalletAddressesBadRequestErrorResponse:
+    """
+    ListWalletAddressesBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListWalletAddressesForbiddenErrorResponse:
+    """
+    ListWalletAddressesForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListWalletAddressesNotFoundErrorResponse:
+    """
+    ListWalletAddressesNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListWeb3WalletBalancesBadRequestErrorResponse:
+    """
+    ListWeb3WalletBalancesBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListWeb3WalletBalancesForbiddenErrorResponse:
+    """
+    ListWeb3WalletBalancesForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListWeb3WalletBalancesNotFoundErrorResponse:
+    """
+    ListWeb3WalletBalancesNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListXMLiquidationsBadRequestErrorResponse:
+    """
+    ListXMLiquidationsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListXMLiquidationsForbiddenErrorResponse:
+    """
+    ListXMLiquidationsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ListXMLiquidationsNotFoundErrorResponse:
+    """
+    ListXMLiquidationsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class NotImplementedErrorResponse:
+    """
+    NotImplementedErrorResponse documents the HTTP 501 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class OrderPreviewBadRequestErrorResponse:
+    """
+    OrderPreviewBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class OrderPreviewForbiddenErrorResponse:
+    """
+    OrderPreviewForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class OrderPreviewNotFoundErrorResponse:
+    """
+    OrderPreviewNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class PortfolioStakingInitiateBadRequestErrorResponse:
+    """
+    PortfolioStakingInitiateBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class PortfolioStakingInitiateForbiddenErrorResponse:
+    """
+    PortfolioStakingInitiateForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class PortfolioStakingInitiateNotFoundErrorResponse:
+    """
+    PortfolioStakingInitiateNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class PortfolioStakingUnstakeBadRequestErrorResponse:
+    """
+    PortfolioStakingUnstakeBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class PortfolioStakingUnstakeForbiddenErrorResponse:
+    """
+    PortfolioStakingUnstakeForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class PortfolioStakingUnstakeNotFoundErrorResponse:
+    """
+    PortfolioStakingUnstakeNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class PreviewUnstakeBadRequestErrorResponse:
+    """
+    PreviewUnstakeBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class PreviewUnstakeForbiddenErrorResponse:
+    """
+    PreviewUnstakeForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class RotateAPIKeyBadRequestErrorResponse:
+    """
+    RotateAPIKeyBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class RotateAPIKeyForbiddenErrorResponse:
+    """
+    RotateAPIKeyForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ScheduleFuturesSweepBadRequestErrorResponse:
+    """
+    ScheduleFuturesSweepBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ScheduleFuturesSweepForbiddenErrorResponse:
+    """
+    ScheduleFuturesSweepForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ScheduleFuturesSweepNotFoundErrorResponse:
+    """
+    ScheduleFuturesSweepNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class ServiceUnavailableErrorResponse:
+    """
+    ServiceUnavailableErrorResponse documents the HTTP 503 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class SetAutoSweepBadRequestErrorResponse:
+    """
+    SetAutoSweepBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class SetAutoSweepForbiddenErrorResponse:
+    """
+    SetAutoSweepForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class SetAutoSweepNotFoundErrorResponse:
+    """
+    SetAutoSweepNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class SetFcmSettingsBadRequestErrorResponse:
+    """
+    SetFcmSettingsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class SetFcmSettingsForbiddenErrorResponse:
+    """
+    SetFcmSettingsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class SetFcmSettingsNotFoundErrorResponse:
+    """
+    SetFcmSettingsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class StakingClaimRewardsBadRequestErrorResponse:
+    """
+    StakingClaimRewardsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class StakingClaimRewardsForbiddenErrorResponse:
+    """
+    StakingClaimRewardsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class StakingClaimRewardsNotFoundErrorResponse:
+    """
+    StakingClaimRewardsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class StakingInitiateBadRequestErrorResponse:
+    """
+    StakingInitiateBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class StakingInitiateForbiddenErrorResponse:
+    """
+    StakingInitiateForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class StakingInitiateNotFoundErrorResponse:
+    """
+    StakingInitiateNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class StakingUnstakeBadRequestErrorResponse:
+    """
+    StakingUnstakeBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class StakingUnstakeForbiddenErrorResponse:
+    """
+    StakingUnstakeForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class StakingUnstakeNotFoundErrorResponse:
+    """
+    StakingUnstakeNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class SubmitDepositTravelRuleDataBadRequestErrorResponse:
+    """
+    SubmitDepositTravelRuleDataBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class SubmitDepositTravelRuleDataForbiddenErrorResponse:
+    """
+    SubmitDepositTravelRuleDataForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class SubmitDepositTravelRuleDataNotFoundErrorResponse:
+    """
+    SubmitDepositTravelRuleDataNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class TooManyRequestsErrorResponse:
+    """
+    TooManyRequestsErrorResponse documents the HTTP 429 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class UnauthorizedErrorResponse:
+    """
+    UnauthorizedErrorResponse documents the HTTP 401 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class UpdateFundingSettingsBadRequestErrorResponse:
+    """
+    UpdateFundingSettingsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class UpdateFundingSettingsForbiddenErrorResponse:
+    """
+    UpdateFundingSettingsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class UpdateFundingSettingsNotFoundErrorResponse:
+    """
+    UpdateFundingSettingsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class UpdateOnchainAddressGroupBadRequestErrorResponse:
+    """
+    UpdateOnchainAddressGroupBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class UpdateOnchainAddressGroupForbiddenErrorResponse:
+    """
+    UpdateOnchainAddressGroupForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
+class UpdateOnchainAddressGroupNotFoundErrorResponse:
+    """
+    UpdateOnchainAddressGroupNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+    code: str = None
+    message: str = None
+    subcode: str = None
+    trace_id: str = None
+
+
+@dataclass
 class CreateNetAllocationRequest:
     """
     Attributes:
@@ -4822,7 +8838,7 @@ class DeleteOnchainAddressGroupRequest:
 @dataclass(kw_only=True)
 class EditOrderRequest:
     """
-    Edit Order (Beta)
+    Edit Order
 
     Attributes:
         portfolio_id: The ID of the portfolio that owns the order
@@ -4931,7 +8947,7 @@ class GetBuyingPowerRequest:
 @dataclass(kw_only=True)
 class GetCandlesRequest:
     """
-    Get Public Product Candles (Beta)
+    Get Public Product Candles
 
     Attributes:
         portfolio_id: The portfolio id requesting market data.
@@ -4946,6 +8962,13 @@ class GetCandlesRequest:
     start_time: str = None
     end_time: str = None
     granularity: str = None
+
+
+@dataclass(kw_only=True)
+class GetConversionFeesRequest:
+    """
+    Get Conversion Fees
+    """
 
 
 @dataclass(kw_only=True)
@@ -4982,6 +9005,32 @@ class GetCrossMarginRiskParametersRequest:
     """
 
     entity_id: str = None
+
+
+@dataclass(kw_only=True)
+class GetDerivativePositionsRequest:
+    """
+    List Portfolio Derivative Positions
+
+    Attributes:
+        portfolio_id: Portfolio ID
+        product_id: Product ID. Optional
+    """
+
+    portfolio_id: str = None
+    product_id: str = None
+
+
+@dataclass(kw_only=True)
+class GetDerivativesCurrencySummaryRequest:
+    """
+    Get Portfolio Derivatives Currency Summary
+
+    Attributes:
+        portfolio_id: Portfolio ID
+    """
+
+    portfolio_id: str = None
 
 
 @dataclass(kw_only=True)

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from prime_sdk.client import Client
-from prime_sdk.utils import append_pagination_params
+from prime_sdk.utils import append_pagination_params, append_query_param
 
 from .get_product_candles import GetProductCandlesRequest, GetProductCandlesResponse
 from .list_products import ListProductsRequest, ListProductsResponse
@@ -26,6 +26,17 @@ class ProductsService:
     def list_products(self, request: ListProductsRequest) -> ListProductsResponse:
         path = f"/portfolios/{request.portfolio_id}/products"
         query_params = append_pagination_params("", request.pagination)
+        query_params = append_query_param(
+            query_params, "product_type", request.product_type
+        )
+        query_params = append_query_param(
+            query_params, "contract_expiry_type", request.contract_expiry_type
+        )
+        query_params = append_query_param(
+            query_params,
+            "expiring_contract_status",
+            request.expiring_contract_status,
+        )
         response = self.client.request(
             "GET",
             path,

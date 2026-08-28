@@ -16,6 +16,14 @@ from .cancel_entity_futures_sweep import (
     CancelEntityFuturesSweepRequest,
     CancelEntityFuturesSweepResponse,
 )
+from .get_derivative_positions import (
+    GetDerivativePositionsRequest,
+    GetDerivativePositionsResponse,
+)
+from .get_derivatives_currency_summary import (
+    GetDerivativesCurrencySummaryRequest,
+    GetDerivativesCurrencySummaryResponse,
+)
 from .get_entity_fcm_balance import (
     GetEntityFcmBalanceRequest,
     GetEntityFcmBalanceResponse,
@@ -44,6 +52,10 @@ __all__ = [
     "CancelEntityFuturesSweepRequest",
     "CancelEntityFuturesSweepResponse",
     "FuturesService",
+    "GetDerivativePositionsRequest",
+    "GetDerivativePositionsResponse",
+    "GetDerivativesCurrencySummaryRequest",
+    "GetDerivativesCurrencySummaryResponse",
     "GetEntityFcmBalanceRequest",
     "GetEntityFcmBalanceResponse",
     "GetEntityPositionsRequest",
