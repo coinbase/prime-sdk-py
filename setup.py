@@ -17,7 +17,7 @@ from pathlib import Path
 from setuptools import find_packages, setup
 
 # Keep in sync with VERSION in prime_sdk/version.py.
-VERSION = "1.11.0"
+VERSION = "1.12.0"
 
 setup(
     name="prime-sdk-py",

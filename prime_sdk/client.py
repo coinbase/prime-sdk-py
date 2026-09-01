@@ -20,8 +20,10 @@ import time
 
 import requests
 
+from prime_sdk.base_response import safe_instantiate
 from prime_sdk.credentials import Credentials
 from prime_sdk.exceptions import PrimeAPIError
+from prime_sdk.generated.errors import resolve_error_class
 from prime_sdk.version import VERSION
 
 DEFAULT_V1_API_BASE_URL = "https://api.prime.coinbase.com/v1"
@@ -86,10 +88,28 @@ class Client:
         response = self.http_client.request(method, url, headers=headers, json=body)
 
         if response.status_code not in allowed_status_codes:
+            error_details: dict | None = None
             try:
-                error_details = response.json()
-                error_message = error_details.get("message", response.text)
+                parsed = response.json()
+                if isinstance(parsed, dict):
+                    error_details = parsed
             except ValueError:
-                error_message = response.text
-            raise PrimeAPIError(response.status_code, error_message)
+                pass
+
+            if error_details is not None:
+                body = safe_instantiate(
+                    resolve_error_class(method, path, response.status_code),
+                    error_details,
+                )
+                error_message = body.message or response.text
+                raise PrimeAPIError.from_status(
+                    response.status_code,
+                    error_message,
+                    code=body.code,
+                    subcode=body.subcode,
+                    trace_id=body.trace_id,
+                    body=body,
+                )
+
+            raise PrimeAPIError.from_status(response.status_code, response.text)
         return response

@@ -38,8 +38,19 @@ from model_config import (
 ROOT = Path(__file__).resolve().parents[1]
 AUGMENTED_SPEC_PATH = Path(__file__).parent / ".prime-public-api-spec.augmented.yaml"
 OUTPUT_PATH = ROOT / "prime_sdk" / "generated" / "models.py"
+ERRORS_OUTPUT_PATH = ROOT / "prime_sdk" / "generated" / "errors.py"
 SURFACE_PATH = ROOT / "tests" / "fixtures" / "model_surface.json"
 TYPES_PATH = ROOT / "tests" / "fixtures" / "model_types.json"
+
+ERROR_RESPONSE_BASE_FIELDS = ("code", "message", "subcode", "trace_id")
+SHARED_ERROR_STATUS_BY_CLASS = {
+    "UnauthorizedErrorResponse": 401,
+    "TooManyRequestsErrorResponse": 429,
+    "InternalServerErrorResponse": 500,
+    "NotImplementedErrorResponse": 501,
+    "ServiceUnavailableErrorResponse": 503,
+}
+HTTP_METHODS = frozenset({"get", "post", "put", "patch", "delete"})
 
 FILE_HEADER = """\
 # Copyright 2026-present Coinbase Global, Inc.
@@ -111,6 +122,10 @@ def class_name_for_schema(schema_key: str) -> str:
     if schema_key in SCHEMA_CLASS_OVERRIDES:
         return SCHEMA_CLASS_OVERRIDES[schema_key]
     return short_name(schema_key)
+
+
+def is_error_response_name(class_short: str) -> bool:
+    return class_short.endswith("ErrorResponse")
 
 
 def load_compat() -> tuple[dict[str, list[str]], dict[str, dict[str, str]]]:
@@ -584,6 +599,7 @@ def render_class(
     field_order: list[str] | None = None,
     field_locations: dict[str, str] | None = None,
     schemas: dict[str, Any] | None = None,
+    base_class: str | None = None,
 ) -> str:
     renames = FIELD_RENAMES.get(class_short, {})
     if class_summary is None:
@@ -605,7 +621,10 @@ def render_class(
     )
 
     decorator = "@dataclass(kw_only=True)" if kw_only else "@dataclass"
-    lines = [decorator, f"class {class_short}:"]
+    class_decl = (
+        f"class {class_short}({base_class}):" if base_class else f"class {class_short}:"
+    )
+    lines = [decorator, class_decl]
     if docstring_lines:
         lines.append('    """')
         for line in docstring_lines:
@@ -629,12 +648,14 @@ def render_class(
     return "\n".join(lines)
 
 
-def generate_models() -> str:
+def load_spec() -> dict[str, Any]:
     with AUGMENTED_SPEC_PATH.open(encoding="utf-8") as handle:
-        spec = yaml.safe_load(handle)
+        return yaml.safe_load(handle)
 
+
+def collect_object_schemas(spec: dict[str, Any]) -> dict[str, dict[str, Any]]:
     schemas: dict[str, Any] = spec["components"]["schemas"]
-    object_schemas = {
+    return {
         key: value
         for key, value in schemas.items()
         if isinstance(value, dict)
@@ -642,11 +663,167 @@ def generate_models() -> str:
         and not key.startswith("google.")
     }
 
-    compat_surface, compat_types = load_compat()
-    order = topological_sort(object_schemas, schemas)
+
+def openapi_path_to_pattern(path: str) -> str:
+    stripped = re.sub(r"^/v\d+", "", path)
+    pieces: list[str] = []
+    last = 0
+    for match in re.finditer(r"\{[^}/]+\}", stripped):
+        pieces.append(re.escape(stripped[last : match.start()]))
+        pieces.append(r"[^/]+")
+        last = match.end()
+    pieces.append(re.escape(stripped[last:]))
+    return "^" + "".join(pieces) + "$"
+
+
+def collect_error_routes(
+    spec: dict[str, Any], schemas: dict[str, Any]
+) -> list[tuple[str, str, dict[int, str]]]:
+    routes: list[tuple[str, str, dict[int, str]]] = []
+    for path, methods in (spec.get("paths") or {}).items():
+        if not isinstance(methods, dict):
+            continue
+        for method, operation in methods.items():
+            if method.lower() not in HTTP_METHODS or not isinstance(operation, dict):
+                continue
+            status_map: dict[int, str] = {}
+            for status, response in (operation.get("responses") or {}).items():
+                if not str(status).isdigit() or not isinstance(response, dict):
+                    continue
+                status_code = int(status)
+                if status_code < 400:
+                    continue
+                schema = (
+                    response.get("content", {})
+                    .get("application/json", {})
+                    .get("schema")
+                )
+                if not isinstance(schema, dict):
+                    continue
+                ref = schema.get("$ref")
+                if not isinstance(ref, str):
+                    continue
+                class_name = resolve_ref(ref, schemas)
+                if class_name and is_error_response_name(class_name):
+                    status_map[status_code] = class_name
+            if status_map:
+                routes.append((method.upper(), path, status_map))
+    return routes
+
+
+def generate_errors(
+    spec: dict[str, Any],
+    schemas: dict[str, Any],
+    error_schemas: dict[str, dict[str, Any]],
+    compat_surface: dict[str, list[str]],
+    compat_types: dict[str, dict[str, str]],
+) -> str:
+    schema_by_short: dict[str, tuple[str, dict[str, Any]]] = {}
+    for schema_key, schema in error_schemas.items():
+        schema_by_short[class_name_for_schema(schema_key)] = (schema_key, schema)
+
+    body_parts: list[str] = [
+        "@dataclass",
+        "class ErrorResponse:",
+        '    """Shared Prime API error body fields."""',
+        "",
+        "    code: str = None",
+        "    message: str = None",
+        "    subcode: str = None",
+        "    trace_id: str = None",
+        "",
+        "",
+    ]
+
+    for class_short in sorted(schema_by_short):
+        schema_key, schema = schema_by_short[class_short]
+        fields = [
+            (name, field_type)
+            for name, field_type in collect_fields(
+                schema_key, schema, schemas, compat_surface, compat_types
+            )
+            if name not in ERROR_RESPONSE_BASE_FIELDS
+        ]
+        body_parts.append(
+            render_class(
+                class_short,
+                fields,
+                schema,
+                schemas=schemas,
+                base_class="ErrorResponse",
+            )
+        )
+        body_parts.append("")
+
+    routes = collect_error_routes(spec, schemas)
+    body_parts.append(
+        "ERROR_ROUTE_TABLE: list[tuple[str, re.Pattern[str], dict[int, type[ErrorResponse]]]] = ["
+    )
+    for method, path, status_map in routes:
+        pattern = openapi_path_to_pattern(path)
+        items = ", ".join(
+            f"{status}: {cls}" for status, cls in sorted(status_map.items())
+        )
+        body_parts.append(f"    ({method!r}, re.compile({pattern!r}), {{{items}}}),")
+    body_parts.append("]")
+    body_parts.append("")
+
+    shared_items = ", ".join(
+        f"{status}: {cls}"
+        for cls, status in sorted(
+            SHARED_ERROR_STATUS_BY_CLASS.items(), key=lambda item: item[1]
+        )
+        if cls in schema_by_short
+    )
+    body_parts.append(
+        f"SHARED_ERROR_BY_STATUS: dict[int, type[ErrorResponse]] = {{{shared_items}}}"
+    )
+    body_parts.append("")
+    body_parts.extend(
+        [
+            "def resolve_error_class(",
+            "    method: str, path: str, status_code: int",
+            ") -> type[ErrorResponse]:",
+            '    """Return the generated error body class for a request."""',
+            "    method_upper = method.upper()",
+            "    for http_method, pattern, statuses in ERROR_ROUTE_TABLE:",
+            "        if http_method != method_upper:",
+            "            continue",
+            "        if pattern.match(path):",
+            "            matched = statuses.get(status_code)",
+            "            if matched is not None:",
+            "                return matched",
+            "            break",
+            "    return SHARED_ERROR_BY_STATUS.get(status_code, ErrorResponse)",
+            "",
+        ]
+    )
+
+    exported = sorted(["ErrorResponse", "resolve_error_class", *schema_by_short])
+    body_parts.append("__all__ = [")
+    for name in exported:
+        body_parts.append(f"    {name!r},")
+    body_parts.append("]")
+    body_parts.append("")
+
+    header = FILE_HEADER.replace(
+        "from dataclasses import dataclass\n",
+        "import re\nfrom dataclasses import dataclass\n",
+    )
+    return header + "\n".join(body_parts) + "\n"
+
+
+def generate_models(
+    spec: dict[str, Any],
+    schemas: dict[str, Any],
+    model_schemas: dict[str, dict[str, Any]],
+    compat_surface: dict[str, list[str]],
+    compat_types: dict[str, dict[str, str]],
+) -> str:
+    order = topological_sort(model_schemas, schemas)
 
     schema_by_short: dict[str, tuple[str, dict[str, Any]]] = {}
-    for schema_key, schema in object_schemas.items():
+    for schema_key, schema in model_schemas.items():
         schema_by_short[class_name_for_schema(schema_key)] = (schema_key, schema)
 
     enum_imports = {
@@ -725,6 +902,8 @@ def generate_models() -> str:
 
     alias_lines = ["", "# Backward-compatible public aliases"]
     for public_name, generated_name in sorted(CLASS_ALIASES.items()):
+        if is_error_response_name(generated_name):
+            continue
         alias_lines.append(f"{public_name} = {generated_name}")
 
     body_text = "\n".join(body_parts)
@@ -747,10 +926,30 @@ def main() -> None:
             f"Augmented spec not found at {AUGMENTED_SPEC_PATH}. Run `make promote-titles` first."
         )
 
+    spec = load_spec()
+    object_schemas = collect_object_schemas(spec)
+    schemas: dict[str, Any] = spec["components"]["schemas"]
+    error_schemas = {
+        key: value
+        for key, value in object_schemas.items()
+        if is_error_response_name(class_name_for_schema(key))
+    }
+    model_schemas = {
+        key: value for key, value in object_schemas.items() if key not in error_schemas
+    }
+    compat_surface, compat_types = load_compat()
+
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    content = generate_models()
-    OUTPUT_PATH.write_text(content, encoding="utf-8")
+    models_content = generate_models(
+        spec, schemas, model_schemas, compat_surface, compat_types
+    )
+    errors_content = generate_errors(
+        spec, schemas, error_schemas, compat_surface, compat_types
+    )
+    OUTPUT_PATH.write_text(models_content, encoding="utf-8")
+    ERRORS_OUTPUT_PATH.write_text(errors_content, encoding="utf-8")
     print(f"Generated {OUTPUT_PATH}")
+    print(f"Generated {ERRORS_OUTPUT_PATH}")
 
 
 if __name__ == "__main__":

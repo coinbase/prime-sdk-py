@@ -92,6 +92,7 @@ The SDK uses a service-based architecture where each domain (portfolios, orders,
 ```python
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
+from prime_sdk.exceptions import PrimeAPIError
 from prime_sdk.services.portfolios import PortfoliosService, ListPortfoliosRequest
 
 # Initialize credentials and client
@@ -106,8 +107,29 @@ request = ListPortfoliosRequest()
 try:
     response = portfolios_service.list_portfolios(request)
     print(response)
-except Exception as e:
+except PrimeAPIError as e:
     print(f"Failed to list portfolios: {e}")
+    print(f"code={e.code} subcode={e.subcode} trace_id={e.trace_id}")
+```
+
+API failures raise `PrimeAPIError` (or an HTTP-status subclass such as `PrimeNotFoundError`). The exception includes `status_code`, `message`, and when the API returns a JSON error body, `code`, `subcode`, `trace_id`, and a generated `body` dataclass.
+
+```python
+from prime_sdk import PrimeAPIError, PrimeNotFoundError
+
+try:
+    response = portfolios_service.list_portfolios(request)
+except PrimeNotFoundError as e:
+    print(e.trace_id)
+except PrimeAPIError as e:
+    print(e.status_code, e.message, e.code)
+```
+
+A full walkthrough that looks up a missing order (HTTP 404) and optionally submits an invalid create-order request (HTTP 400) lives in [`prime_sdk/examples/advanced/handle_api_errors.py`](prime_sdk/examples/advanced/handle_api_errors.py):
+
+```bash
+python prime_sdk/examples/advanced/handle_api_errors.py
+python prime_sdk/examples/advanced/handle_api_errors.py --demo-validation
 ```
 
 #### Available Services
@@ -295,7 +317,8 @@ prime_sdk/
 ├── model.py               # Public model re-exports (backward-compatible)
 ├── model_manual.py        # Hand-maintained model extensions
 ├── generated/
-│   └── models.py          # Generated dataclasses from OpenAPI (schemas + request bodies; do not edit)
+│   ├── models.py          # Generated dataclasses from OpenAPI (schemas + request bodies; do not edit)
+│   └── errors.py          # Generated API error bodies and route lookup (do not edit)
 └── services/              # Service modules
     ├── portfolios/        # Portfolio operations
     ├── orders/            # Order management
@@ -306,7 +329,7 @@ prime_sdk/
 apiSpec/
 ├── prime-public-api-spec.yaml
 ├── promote_titles.py      # Promotes spec titles to descriptions
-├── generate_models.py     # Generates prime_sdk/generated/models.py
+├── generate_models.py     # Generates prime_sdk/generated/models.py and errors.py
 └── model_config.py        # Backward-compatibility aliases and field rules
 ```
 

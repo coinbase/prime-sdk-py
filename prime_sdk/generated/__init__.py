@@ -12,4 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Generated models from the Prime OpenAPI specification."""
+"""Generated models and error bodies from the Prime OpenAPI specification.
+
+Do not edit these modules manually. Run `make gen-models` to regenerate
+`models.py` (domain and request dataclasses) and `errors.py` (API error bodies).
+"""
