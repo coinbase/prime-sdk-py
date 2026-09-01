@@ -92,7 +92,7 @@ The SDK uses a service-based architecture where each domain (portfolios, orders,
 ```python
 from prime_sdk.credentials import Credentials
 from prime_sdk.client import Client
-from prime_sdk.exceptions import PrimeAPIError
+from prime_sdk.exceptions import PrimeApiError
 from prime_sdk.services.portfolios import PortfoliosService, ListPortfoliosRequest
 
 # Initialize credentials and client
@@ -107,21 +107,21 @@ request = ListPortfoliosRequest()
 try:
     response = portfolios_service.list_portfolios(request)
     print(response)
-except PrimeAPIError as e:
+except PrimeApiError as e:
     print(f"Failed to list portfolios: {e}")
     print(f"code={e.code} subcode={e.subcode} trace_id={e.trace_id}")
 ```
 
-API failures raise `PrimeAPIError` (or an HTTP-status subclass such as `PrimeNotFoundError`). The exception includes `status_code`, `message`, and when the API returns a JSON error body, `code`, `subcode`, `trace_id`, and a generated `body` dataclass.
+API failures raise `PrimeApiError` (or an HTTP-status subclass such as `PrimeNotFoundError`). The exception includes `status_code`, `message`, and when the API returns a JSON error body, `code`, `subcode`, `trace_id`, and a generated `body` dataclass.
 
 ```python
-from prime_sdk import PrimeAPIError, PrimeNotFoundError
+from prime_sdk import PrimeApiError, PrimeNotFoundError
 
 try:
     response = portfolios_service.list_portfolios(request)
 except PrimeNotFoundError as e:
     print(e.trace_id)
-except PrimeAPIError as e:
+except PrimeApiError as e:
     print(e.status_code, e.message, e.code)
 ```
 

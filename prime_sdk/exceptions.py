@@ -15,11 +15,11 @@
 from typing import Any
 
 
-class PrimeSDKError(Exception):
+class PrimeSdkError(Exception):
     """Base class for all errors raised by the Prime SDK."""
 
 
-class PrimeAPIError(PrimeSDKError):
+class PrimeApiError(PrimeSdkError):
     """Raised when a Prime API request returns a non-allowed status code."""
 
     def __init__(
@@ -50,7 +50,7 @@ class PrimeAPIError(PrimeSDKError):
         subcode: str | None = None,
         trace_id: str | None = None,
         body: Any | None = None,
-    ) -> "PrimeAPIError":
+    ) -> "PrimeApiError":
         error_cls = _STATUS_EXCEPTIONS.get(status_code, cls)
         return error_cls(
             status_code,
@@ -62,39 +62,39 @@ class PrimeAPIError(PrimeSDKError):
         )
 
 
-class PrimeBadRequestError(PrimeAPIError):
+class PrimeBadRequestError(PrimeApiError):
     """Raised when the Prime API returns HTTP 400."""
 
 
-class PrimeUnauthorizedError(PrimeAPIError):
+class PrimeUnauthorizedError(PrimeApiError):
     """Raised when the Prime API returns HTTP 401."""
 
 
-class PrimeForbiddenError(PrimeAPIError):
+class PrimeForbiddenError(PrimeApiError):
     """Raised when the Prime API returns HTTP 403."""
 
 
-class PrimeNotFoundError(PrimeAPIError):
+class PrimeNotFoundError(PrimeApiError):
     """Raised when the Prime API returns HTTP 404."""
 
 
-class PrimeTooManyRequestsError(PrimeAPIError):
+class PrimeTooManyRequestsError(PrimeApiError):
     """Raised when the Prime API returns HTTP 429."""
 
 
-class PrimeInternalServerError(PrimeAPIError):
+class PrimeInternalServerError(PrimeApiError):
     """Raised when the Prime API returns HTTP 500."""
 
 
-class PrimeNotImplementedError(PrimeAPIError):
+class PrimeNotImplementedError(PrimeApiError):
     """Raised when the Prime API returns HTTP 501."""
 
 
-class PrimeServiceUnavailableError(PrimeAPIError):
+class PrimeServiceUnavailableError(PrimeApiError):
     """Raised when the Prime API returns HTTP 503."""
 
 
-_STATUS_EXCEPTIONS: dict[int, type[PrimeAPIError]] = {
+_STATUS_EXCEPTIONS: dict[int, type[PrimeApiError]] = {
     400: PrimeBadRequestError,
     401: PrimeUnauthorizedError,
     403: PrimeForbiddenError,
@@ -104,3 +104,7 @@ _STATUS_EXCEPTIONS: dict[int, type[PrimeAPIError]] = {
     501: PrimeNotImplementedError,
     503: PrimeServiceUnavailableError,
 }
+
+# Backward-compatible aliases for the pre-1.12.0 names.
+PrimeSDKError = PrimeSdkError
+PrimeAPIError = PrimeApiError

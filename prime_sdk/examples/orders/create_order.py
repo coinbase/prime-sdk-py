@@ -21,7 +21,7 @@ import uuid
 
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.enums import OrderSide, OrderType
-from prime_sdk.exceptions import PrimeAPIError
+from prime_sdk.exceptions import PrimeApiError
 from prime_sdk.services.orders import CreateOrderRequest
 
 
@@ -83,7 +83,7 @@ def main():
     try:
         response = client.orders.create_order(request)
         print(response)
-    except PrimeAPIError as e:
+    except PrimeApiError as e:
         print(f"failed to create order: {e}")
         if e.code or e.subcode or e.trace_id:
             print(f"code={e.code} subcode={e.subcode} trace_id={e.trace_id}")

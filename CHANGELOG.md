@@ -5,9 +5,13 @@
 ### Added
 
 - Generated API error bodies now live in `prime_sdk/generated/errors.py`, including a shared `ErrorResponse` base class. Domain models remain in `prime_sdk/generated/models.py`.
-- `Client.request` parses JSON error bodies (`code`, `message`, `subcode`, `trace_id`) and raises HTTP-status subclasses of `PrimeAPIError`: `PrimeBadRequestError`, `PrimeUnauthorizedError`, `PrimeForbiddenError`, `PrimeNotFoundError`, `PrimeTooManyRequestsError`, `PrimeInternalServerError`, `PrimeNotImplementedError`, and `PrimeServiceUnavailableError`.
-- `PrimeAPIError` exposes `code`, `subcode`, `trace_id`, and a generated `body` dataclass when the API returns JSON.
+- `Client.request` parses JSON error bodies (`code`, `message`, `subcode`, `trace_id`) and raises HTTP-status subclasses of `PrimeApiError`: `PrimeBadRequestError`, `PrimeUnauthorizedError`, `PrimeForbiddenError`, `PrimeNotFoundError`, `PrimeTooManyRequestsError`, `PrimeInternalServerError`, `PrimeNotImplementedError`, and `PrimeServiceUnavailableError`.
+- `PrimeApiError` exposes `code`, `subcode`, `trace_id`, and a generated `body` dataclass when the API returns JSON.
 - Advanced example `prime_sdk/examples/advanced/handle_api_errors.py` shows catching HTTP-status subclasses and printing structured error fields.
+
+### Changed
+
+- Renamed `PrimeSDKError` to `PrimeSdkError` and `PrimeAPIError` to `PrimeApiError`. The previous names remain as aliases.
 
 ## [1.11.0] - 2026-AUG-28
 

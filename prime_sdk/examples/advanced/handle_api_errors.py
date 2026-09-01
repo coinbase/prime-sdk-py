@@ -30,7 +30,7 @@ import uuid
 from prime_sdk.client_services import PrimeServicesClient
 from prime_sdk.enums import OrderSide, OrderType
 from prime_sdk.exceptions import (
-    PrimeAPIError,
+    PrimeApiError,
     PrimeBadRequestError,
     PrimeForbiddenError,
     PrimeInternalServerError,
@@ -44,7 +44,7 @@ from prime_sdk.services.orders import CreateOrderRequest, GetOrderRequest
 MISSING_ORDER_ID = "00000000-0000-0000-0000-000000000000"
 
 
-def print_api_error(error: PrimeAPIError) -> None:
+def print_api_error(error: PrimeApiError) -> None:
     print(f"  exception: {type(error).__name__}")
     print(f"  status_code: {error.status_code}")
     print(f"  message: {error.message}")
@@ -83,8 +83,8 @@ def handle_order_lookup(
     except (PrimeInternalServerError, PrimeServiceUnavailableError) as error:
         print("caught a server-side error — retry after a short delay")
         print_api_error(error)
-    except PrimeAPIError as error:
-        print("caught PrimeAPIError")
+    except PrimeApiError as error:
+        print("caught PrimeApiError")
         print_api_error(error)
 
 
@@ -107,8 +107,8 @@ def handle_invalid_create_order(client: PrimeServicesClient, portfolio_id: str) 
             "caught PrimeBadRequestError (HTTP 400) — inspect subcode for the field that failed"
         )
         print_api_error(error)
-    except PrimeAPIError as error:
-        print("caught PrimeAPIError")
+    except PrimeApiError as error:
+        print("caught PrimeApiError")
         print_api_error(error)
 
 

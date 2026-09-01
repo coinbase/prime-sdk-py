@@ -5,6 +5,7 @@ from prime_sdk.client import Client
 from prime_sdk.credentials import Credentials
 from prime_sdk.exceptions import (
     PrimeAPIError,
+    PrimeApiError,
     PrimeBadRequestError,
     PrimeForbiddenError,
     PrimeInternalServerError,
@@ -61,7 +62,9 @@ def test_create_order_bad_request_raises_typed_error():
         assert exc.subcode == "ORDER_SIZE_INVALID"
         assert exc.trace_id == "trace-1"
         assert isinstance(exc.body, CreateOrderBadRequestErrorResponse)
+        assert isinstance(exc, PrimeApiError)
         assert isinstance(exc, PrimeAPIError)
+        assert PrimeAPIError is PrimeApiError
 
 
 def test_forbidden_and_not_found_use_status_subclasses():

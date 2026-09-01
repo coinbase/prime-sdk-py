@@ -22,7 +22,7 @@ import requests
 
 from prime_sdk.base_response import safe_instantiate
 from prime_sdk.credentials import Credentials
-from prime_sdk.exceptions import PrimeAPIError
+from prime_sdk.exceptions import PrimeApiError
 from prime_sdk.generated.errors import resolve_error_class
 from prime_sdk.version import VERSION
 
@@ -102,7 +102,7 @@ class Client:
                     error_details,
                 )
                 error_message = body.message or response.text
-                raise PrimeAPIError.from_status(
+                raise PrimeApiError.from_status(
                     response.status_code,
                     error_message,
                     code=body.code,
@@ -111,5 +111,5 @@ class Client:
                     body=body,
                 )
 
-            raise PrimeAPIError.from_status(response.status_code, response.text)
+            raise PrimeApiError.from_status(response.status_code, response.text)
         return response
