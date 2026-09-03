@@ -16,7 +16,20 @@
 from .client import Client
 from .client_services import PrimeServicesClient
 from .credentials import Credentials
-from .exceptions import PrimeAPIError, PrimeSDKError
+from .exceptions import (
+    PrimeAPIError,
+    PrimeApiError,
+    PrimeBadRequestError,
+    PrimeForbiddenError,
+    PrimeInternalServerError,
+    PrimeNotFoundError,
+    PrimeNotImplementedError,
+    PrimeSDKError,
+    PrimeSdkError,
+    PrimeServiceUnavailableError,
+    PrimeTooManyRequestsError,
+    PrimeUnauthorizedError,
+)
 
 # Service classes - primary interface
 from .services.activities import ActivitiesService
@@ -59,8 +72,18 @@ __all__ = [
     "PortfoliosService",
     "PositionsService",
     "PrimeAPIError",
+    "PrimeApiError",
+    "PrimeBadRequestError",
+    "PrimeForbiddenError",
+    "PrimeInternalServerError",
+    "PrimeNotFoundError",
+    "PrimeNotImplementedError",
     "PrimeSDKError",
+    "PrimeSdkError",
+    "PrimeServiceUnavailableError",
     "PrimeServicesClient",
+    "PrimeTooManyRequestsError",
+    "PrimeUnauthorizedError",
     "ProductsService",
     "StakingService",
     "TransactionsService",

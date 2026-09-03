@@ -19,5 +19,6 @@ refresh them. This module re-exports generated models and backward-compatible
 aliases so existing imports continue to work.
 """
 
+from prime_sdk.generated.errors import *  # noqa: F403, RUF100
 from prime_sdk.generated.models import *  # noqa: F403, RUF100
 from prime_sdk.model_manual import *  # noqa: F403, RUF100

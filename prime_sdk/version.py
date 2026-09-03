@@ -14,4 +14,4 @@
 
 """SDK version, used by the client's User-Agent header. Keep in sync with VERSION in setup.py."""
 
-VERSION = "1.11.0"
+VERSION = "1.12.0"

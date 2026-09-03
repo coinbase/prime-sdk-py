@@ -13,12 +13,12 @@ promote-titles:
 
 gen-models: promote-titles
 	cd apiSpec && python3 generate_models.py
-	ruff format prime_sdk/generated/models.py
+	ruff format prime_sdk/generated/models.py prime_sdk/generated/errors.py
 
 update-spec: fetch-spec gen-models
 
 check-models: gen-models
-	@git diff --exit-code prime_sdk/generated/models.py
+	@git diff --exit-code prime_sdk/generated/models.py prime_sdk/generated/errors.py
 
 # Format and lint all Python code (matches CI)
 format:
