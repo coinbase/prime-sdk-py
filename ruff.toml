@@ -1,3 +1,8 @@
+# The SDK still runs on Python 3.10 (see the typing.Self fallback in
+# prime_sdk/base_response.py). Pin the target so newer Ruff releases, which
+# default to the interpreter version, do not rewrite that compatibility code.
+target-version = "py310"
+
 [lint.per-file-ignores]
 # Example scripts intentionally catch broad exceptions to print a friendly
 # message and exit; blind-except is acceptable in these demonstrative files.
