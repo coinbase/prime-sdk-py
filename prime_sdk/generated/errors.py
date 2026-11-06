@@ -411,6 +411,20 @@ class CreateWalletWithdrawalNotFoundErrorResponse(ErrorResponse):
 
 
 @dataclass
+class CreateWebhookSubscriptionBadRequestErrorResponse(ErrorResponse):
+    """
+    CreateWebhookSubscriptionBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+
+@dataclass
+class CreateWebhookSubscriptionForbiddenErrorResponse(ErrorResponse):
+    """
+    CreateWebhookSubscriptionForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+
+@dataclass
 class DeleteOnchainAddressGroupBadRequestErrorResponse(ErrorResponse):
     """
     DeleteOnchainAddressGroupBadRequestErrorResponse documents the HTTP 400 error body.
@@ -428,6 +442,27 @@ class DeleteOnchainAddressGroupForbiddenErrorResponse(ErrorResponse):
 class DeleteOnchainAddressGroupNotFoundErrorResponse(ErrorResponse):
     """
     DeleteOnchainAddressGroupNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+
+@dataclass
+class DeleteWebhookSubscriptionBadRequestErrorResponse(ErrorResponse):
+    """
+    DeleteWebhookSubscriptionBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+
+@dataclass
+class DeleteWebhookSubscriptionForbiddenErrorResponse(ErrorResponse):
+    """
+    DeleteWebhookSubscriptionForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+
+@dataclass
+class DeleteWebhookSubscriptionNotFoundErrorResponse(ErrorResponse):
+    """
+    DeleteWebhookSubscriptionNotFoundErrorResponse documents the HTTP 404 error body.
     """
 
 
@@ -743,6 +778,27 @@ class GetEntityPaymentMethodsForbiddenErrorResponse(ErrorResponse):
 class GetEntityPaymentMethodsNotFoundErrorResponse(ErrorResponse):
     """
     GetEntityPaymentMethodsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+
+@dataclass
+class GetEntityRewardsRateBadRequestErrorResponse(ErrorResponse):
+    """
+    GetEntityRewardsRateBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+
+@dataclass
+class GetEntityRewardsRateForbiddenErrorResponse(ErrorResponse):
+    """
+    GetEntityRewardsRateForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+
+@dataclass
+class GetEntityRewardsRateNotFoundErrorResponse(ErrorResponse):
+    """
+    GetEntityRewardsRateNotFoundErrorResponse documents the HTTP 404 error body.
     """
 
 
@@ -1398,6 +1454,27 @@ class GetPortfolioProductsNotFoundErrorResponse(ErrorResponse):
 
 
 @dataclass
+class GetPortfolioRewardsRateBadRequestErrorResponse(ErrorResponse):
+    """
+    GetPortfolioRewardsRateBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+
+@dataclass
+class GetPortfolioRewardsRateForbiddenErrorResponse(ErrorResponse):
+    """
+    GetPortfolioRewardsRateForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+
+@dataclass
+class GetPortfolioRewardsRateNotFoundErrorResponse(ErrorResponse):
+    """
+    GetPortfolioRewardsRateNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+
+@dataclass
 class GetPortfolioTransactionsBadRequestErrorResponse(ErrorResponse):
     """
     GetPortfolioTransactionsBadRequestErrorResponse documents the HTTP 400 error body.
@@ -1706,6 +1783,111 @@ class GetWalletsNotFoundErrorResponse(ErrorResponse):
 
 
 @dataclass
+class GetWebhookDeliveryAttemptsBadRequestErrorResponse(ErrorResponse):
+    """
+    GetWebhookDeliveryAttemptsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+
+@dataclass
+class GetWebhookDeliveryAttemptsForbiddenErrorResponse(ErrorResponse):
+    """
+    GetWebhookDeliveryAttemptsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+
+@dataclass
+class GetWebhookDeliveryAttemptsNotFoundErrorResponse(ErrorResponse):
+    """
+    GetWebhookDeliveryAttemptsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+
+@dataclass
+class GetWebhookDeliveryLogsBadRequestErrorResponse(ErrorResponse):
+    """
+    GetWebhookDeliveryLogsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+
+@dataclass
+class GetWebhookDeliveryLogsForbiddenErrorResponse(ErrorResponse):
+    """
+    GetWebhookDeliveryLogsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+
+@dataclass
+class GetWebhookDeliveryLogsNotFoundErrorResponse(ErrorResponse):
+    """
+    GetWebhookDeliveryLogsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+
+@dataclass
+class GetWebhookEventTypesForbiddenErrorResponse(ErrorResponse):
+    """
+    GetWebhookEventTypesForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+
+@dataclass
+class GetWebhookOwnerStatsBadRequestErrorResponse(ErrorResponse):
+    """
+    GetWebhookOwnerStatsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+
+@dataclass
+class GetWebhookOwnerStatsForbiddenErrorResponse(ErrorResponse):
+    """
+    GetWebhookOwnerStatsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+
+@dataclass
+class GetWebhookSubscriptionBadRequestErrorResponse(ErrorResponse):
+    """
+    GetWebhookSubscriptionBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+
+@dataclass
+class GetWebhookSubscriptionForbiddenErrorResponse(ErrorResponse):
+    """
+    GetWebhookSubscriptionForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+
+@dataclass
+class GetWebhookSubscriptionNotFoundErrorResponse(ErrorResponse):
+    """
+    GetWebhookSubscriptionNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+
+@dataclass
+class GetWebhookSubscriptionStatsBadRequestErrorResponse(ErrorResponse):
+    """
+    GetWebhookSubscriptionStatsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+
+@dataclass
+class GetWebhookSubscriptionStatsForbiddenErrorResponse(ErrorResponse):
+    """
+    GetWebhookSubscriptionStatsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+
+@dataclass
+class GetWebhookSubscriptionStatsNotFoundErrorResponse(ErrorResponse):
+    """
+    GetWebhookSubscriptionStatsNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+
+@dataclass
 class GetWithdrawalPowerBadRequestErrorResponse(ErrorResponse):
     """
     GetWithdrawalPowerBadRequestErrorResponse documents the HTTP 400 error body.
@@ -1958,6 +2140,20 @@ class ListWeb3WalletBalancesNotFoundErrorResponse(ErrorResponse):
 
 
 @dataclass
+class ListWebhookSubscriptionsBadRequestErrorResponse(ErrorResponse):
+    """
+    ListWebhookSubscriptionsBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+
+@dataclass
+class ListWebhookSubscriptionsForbiddenErrorResponse(ErrorResponse):
+    """
+    ListWebhookSubscriptionsForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+
+@dataclass
 class ListXMLiquidationsBadRequestErrorResponse(ErrorResponse):
     """
     ListXMLiquidationsBadRequestErrorResponse documents the HTTP 400 error body.
@@ -2063,6 +2259,27 @@ class PreviewUnstakeForbiddenErrorResponse(ErrorResponse):
 
 
 @dataclass
+class ReplayWebhookEventBadRequestErrorResponse(ErrorResponse):
+    """
+    ReplayWebhookEventBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+
+@dataclass
+class ReplayWebhookEventForbiddenErrorResponse(ErrorResponse):
+    """
+    ReplayWebhookEventForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+
+@dataclass
+class ReplayWebhookEventNotFoundErrorResponse(ErrorResponse):
+    """
+    ReplayWebhookEventNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+
+@dataclass
 class RotateAPIKeyBadRequestErrorResponse(ErrorResponse):
     """
     RotateAPIKeyBadRequestErrorResponse documents the HTTP 400 error body.
@@ -2073,6 +2290,27 @@ class RotateAPIKeyBadRequestErrorResponse(ErrorResponse):
 class RotateAPIKeyForbiddenErrorResponse(ErrorResponse):
     """
     RotateAPIKeyForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+
+@dataclass
+class RotateWebhookHMACSecretBadRequestErrorResponse(ErrorResponse):
+    """
+    RotateWebhookHMACSecretBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+
+@dataclass
+class RotateWebhookHMACSecretForbiddenErrorResponse(ErrorResponse):
+    """
+    RotateWebhookHMACSecretForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+
+@dataclass
+class RotateWebhookHMACSecretNotFoundErrorResponse(ErrorResponse):
+    """
+    RotateWebhookHMACSecretNotFoundErrorResponse documents the HTTP 404 error body.
     """
 
 
@@ -2094,6 +2332,27 @@ class ScheduleFuturesSweepForbiddenErrorResponse(ErrorResponse):
 class ScheduleFuturesSweepNotFoundErrorResponse(ErrorResponse):
     """
     ScheduleFuturesSweepNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+
+@dataclass
+class SendWebhookSimulationBadRequestErrorResponse(ErrorResponse):
+    """
+    SendWebhookSimulationBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+
+@dataclass
+class SendWebhookSimulationForbiddenErrorResponse(ErrorResponse):
+    """
+    SendWebhookSimulationForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+
+@dataclass
+class SendWebhookSimulationNotFoundErrorResponse(ErrorResponse):
+    """
+    SendWebhookSimulationNotFoundErrorResponse documents the HTTP 404 error body.
     """
 
 
@@ -2283,6 +2542,27 @@ class UpdateOnchainAddressGroupForbiddenErrorResponse(ErrorResponse):
 class UpdateOnchainAddressGroupNotFoundErrorResponse(ErrorResponse):
     """
     UpdateOnchainAddressGroupNotFoundErrorResponse documents the HTTP 404 error body.
+    """
+
+
+@dataclass
+class UpdateWebhookSubscriptionBadRequestErrorResponse(ErrorResponse):
+    """
+    UpdateWebhookSubscriptionBadRequestErrorResponse documents the HTTP 400 error body.
+    """
+
+
+@dataclass
+class UpdateWebhookSubscriptionForbiddenErrorResponse(ErrorResponse):
+    """
+    UpdateWebhookSubscriptionForbiddenErrorResponse documents the HTTP 403 error body.
+    """
+
+
+@dataclass
+class UpdateWebhookSubscriptionNotFoundErrorResponse(ErrorResponse):
+    """
+    UpdateWebhookSubscriptionNotFoundErrorResponse documents the HTTP 404 error body.
     """
 
 
@@ -3517,6 +3797,183 @@ ERROR_ROUTE_TABLE: list[tuple[str, re.Pattern[str], dict[int, type[ErrorResponse
             503: ServiceUnavailableErrorResponse,
         },
     ),
+    (
+        "GET",
+        re.compile("^/portfolios/[^/]+/webhooks/subscriptions$"),
+        {
+            400: ListWebhookSubscriptionsBadRequestErrorResponse,
+            403: ListWebhookSubscriptionsForbiddenErrorResponse,
+            429: TooManyRequestsErrorResponse,
+            500: InternalServerErrorResponse,
+            503: ServiceUnavailableErrorResponse,
+        },
+    ),
+    (
+        "POST",
+        re.compile("^/portfolios/[^/]+/webhooks/subscriptions$"),
+        {
+            400: CreateWebhookSubscriptionBadRequestErrorResponse,
+            403: CreateWebhookSubscriptionForbiddenErrorResponse,
+            429: TooManyRequestsErrorResponse,
+            500: InternalServerErrorResponse,
+            503: ServiceUnavailableErrorResponse,
+        },
+    ),
+    (
+        "GET",
+        re.compile("^/portfolios/[^/]+/webhooks/subscriptions/[^/]+$"),
+        {
+            400: GetWebhookSubscriptionBadRequestErrorResponse,
+            403: GetWebhookSubscriptionForbiddenErrorResponse,
+            404: GetWebhookSubscriptionNotFoundErrorResponse,
+            429: TooManyRequestsErrorResponse,
+            500: InternalServerErrorResponse,
+            503: ServiceUnavailableErrorResponse,
+        },
+    ),
+    (
+        "DELETE",
+        re.compile("^/portfolios/[^/]+/webhooks/subscriptions/[^/]+$"),
+        {
+            400: DeleteWebhookSubscriptionBadRequestErrorResponse,
+            403: DeleteWebhookSubscriptionForbiddenErrorResponse,
+            404: DeleteWebhookSubscriptionNotFoundErrorResponse,
+            429: TooManyRequestsErrorResponse,
+            500: InternalServerErrorResponse,
+            503: ServiceUnavailableErrorResponse,
+        },
+    ),
+    (
+        "PATCH",
+        re.compile("^/portfolios/[^/]+/webhooks/subscriptions/[^/]+$"),
+        {
+            400: UpdateWebhookSubscriptionBadRequestErrorResponse,
+            403: UpdateWebhookSubscriptionForbiddenErrorResponse,
+            404: UpdateWebhookSubscriptionNotFoundErrorResponse,
+            429: TooManyRequestsErrorResponse,
+            500: InternalServerErrorResponse,
+            503: ServiceUnavailableErrorResponse,
+        },
+    ),
+    (
+        "POST",
+        re.compile(
+            "^/portfolios/[^/]+/webhooks/subscriptions/[^/]+/rotate\\-hmac\\-secret$"
+        ),
+        {
+            400: RotateWebhookHMACSecretBadRequestErrorResponse,
+            403: RotateWebhookHMACSecretForbiddenErrorResponse,
+            404: RotateWebhookHMACSecretNotFoundErrorResponse,
+            429: TooManyRequestsErrorResponse,
+            500: InternalServerErrorResponse,
+            503: ServiceUnavailableErrorResponse,
+        },
+    ),
+    (
+        "POST",
+        re.compile("^/portfolios/[^/]+/webhooks/subscriptions/[^/]+/simulate$"),
+        {
+            400: SendWebhookSimulationBadRequestErrorResponse,
+            403: SendWebhookSimulationForbiddenErrorResponse,
+            404: SendWebhookSimulationNotFoundErrorResponse,
+            429: TooManyRequestsErrorResponse,
+            500: InternalServerErrorResponse,
+            503: ServiceUnavailableErrorResponse,
+        },
+    ),
+    (
+        "GET",
+        re.compile("^/webhooks/event\\-types$"),
+        {
+            403: GetWebhookEventTypesForbiddenErrorResponse,
+            429: TooManyRequestsErrorResponse,
+            500: InternalServerErrorResponse,
+            503: ServiceUnavailableErrorResponse,
+        },
+    ),
+    (
+        "GET",
+        re.compile("^/portfolios/[^/]+/webhooks/subscriptions/[^/]+/deliveries$"),
+        {
+            400: GetWebhookDeliveryLogsBadRequestErrorResponse,
+            403: GetWebhookDeliveryLogsForbiddenErrorResponse,
+            404: GetWebhookDeliveryLogsNotFoundErrorResponse,
+            429: TooManyRequestsErrorResponse,
+            500: InternalServerErrorResponse,
+            503: ServiceUnavailableErrorResponse,
+        },
+    ),
+    (
+        "GET",
+        re.compile(
+            "^/portfolios/[^/]+/webhooks/subscriptions/[^/]+/deliveries/[^/]+/attempts$"
+        ),
+        {
+            400: GetWebhookDeliveryAttemptsBadRequestErrorResponse,
+            403: GetWebhookDeliveryAttemptsForbiddenErrorResponse,
+            404: GetWebhookDeliveryAttemptsNotFoundErrorResponse,
+            429: TooManyRequestsErrorResponse,
+            500: InternalServerErrorResponse,
+            503: ServiceUnavailableErrorResponse,
+        },
+    ),
+    (
+        "GET",
+        re.compile("^/portfolios/[^/]+/webhooks/subscriptions/[^/]+/stats$"),
+        {
+            400: GetWebhookSubscriptionStatsBadRequestErrorResponse,
+            403: GetWebhookSubscriptionStatsForbiddenErrorResponse,
+            404: GetWebhookSubscriptionStatsNotFoundErrorResponse,
+            429: TooManyRequestsErrorResponse,
+            500: InternalServerErrorResponse,
+            503: ServiceUnavailableErrorResponse,
+        },
+    ),
+    (
+        "GET",
+        re.compile("^/portfolios/[^/]+/webhooks/stats$"),
+        {
+            400: GetWebhookOwnerStatsBadRequestErrorResponse,
+            403: GetWebhookOwnerStatsForbiddenErrorResponse,
+            429: TooManyRequestsErrorResponse,
+            500: InternalServerErrorResponse,
+            503: ServiceUnavailableErrorResponse,
+        },
+    ),
+    (
+        "POST",
+        re.compile("^/portfolios/[^/]+/webhooks/events/[^/]+/replay$"),
+        {
+            400: ReplayWebhookEventBadRequestErrorResponse,
+            403: ReplayWebhookEventForbiddenErrorResponse,
+            404: ReplayWebhookEventNotFoundErrorResponse,
+            429: TooManyRequestsErrorResponse,
+            500: InternalServerErrorResponse,
+            503: ServiceUnavailableErrorResponse,
+        },
+    ),
+    (
+        "GET",
+        re.compile("^/entities/[^/]+/rewards/rate$"),
+        {
+            400: GetEntityRewardsRateBadRequestErrorResponse,
+            403: GetEntityRewardsRateForbiddenErrorResponse,
+            404: GetEntityRewardsRateNotFoundErrorResponse,
+            429: TooManyRequestsErrorResponse,
+            503: ServiceUnavailableErrorResponse,
+        },
+    ),
+    (
+        "GET",
+        re.compile("^/portfolios/[^/]+/rewards/rate$"),
+        {
+            400: GetPortfolioRewardsRateBadRequestErrorResponse,
+            403: GetPortfolioRewardsRateForbiddenErrorResponse,
+            404: GetPortfolioRewardsRateNotFoundErrorResponse,
+            429: TooManyRequestsErrorResponse,
+            503: ServiceUnavailableErrorResponse,
+        },
+    ),
 ]
 
 SHARED_ERROR_BY_STATUS: dict[int, type[ErrorResponse]] = {
@@ -3599,9 +4056,14 @@ __all__ = [
     "CreateWalletWithdrawalBadRequestErrorResponse",
     "CreateWalletWithdrawalForbiddenErrorResponse",
     "CreateWalletWithdrawalNotFoundErrorResponse",
+    "CreateWebhookSubscriptionBadRequestErrorResponse",
+    "CreateWebhookSubscriptionForbiddenErrorResponse",
     "DeleteOnchainAddressGroupBadRequestErrorResponse",
     "DeleteOnchainAddressGroupForbiddenErrorResponse",
     "DeleteOnchainAddressGroupNotFoundErrorResponse",
+    "DeleteWebhookSubscriptionBadRequestErrorResponse",
+    "DeleteWebhookSubscriptionForbiddenErrorResponse",
+    "DeleteWebhookSubscriptionNotFoundErrorResponse",
     "EditOrderBadRequestErrorResponse",
     "EditOrderForbiddenErrorResponse",
     "EditOrderNotFoundErrorResponse",
@@ -3648,6 +4110,9 @@ __all__ = [
     "GetEntityPaymentMethodsBadRequestErrorResponse",
     "GetEntityPaymentMethodsForbiddenErrorResponse",
     "GetEntityPaymentMethodsNotFoundErrorResponse",
+    "GetEntityRewardsRateBadRequestErrorResponse",
+    "GetEntityRewardsRateForbiddenErrorResponse",
+    "GetEntityRewardsRateNotFoundErrorResponse",
     "GetEntityUsersBadRequestErrorResponse",
     "GetEntityUsersForbiddenErrorResponse",
     "GetEntityUsersNotFoundErrorResponse",
@@ -3741,6 +4206,9 @@ __all__ = [
     "GetPortfolioProductsBadRequestErrorResponse",
     "GetPortfolioProductsForbiddenErrorResponse",
     "GetPortfolioProductsNotFoundErrorResponse",
+    "GetPortfolioRewardsRateBadRequestErrorResponse",
+    "GetPortfolioRewardsRateForbiddenErrorResponse",
+    "GetPortfolioRewardsRateNotFoundErrorResponse",
     "GetPortfolioTransactionsBadRequestErrorResponse",
     "GetPortfolioTransactionsForbiddenErrorResponse",
     "GetPortfolioTransactionsNotFoundErrorResponse",
@@ -3785,6 +4253,21 @@ __all__ = [
     "GetWalletsBadRequestErrorResponse",
     "GetWalletsForbiddenErrorResponse",
     "GetWalletsNotFoundErrorResponse",
+    "GetWebhookDeliveryAttemptsBadRequestErrorResponse",
+    "GetWebhookDeliveryAttemptsForbiddenErrorResponse",
+    "GetWebhookDeliveryAttemptsNotFoundErrorResponse",
+    "GetWebhookDeliveryLogsBadRequestErrorResponse",
+    "GetWebhookDeliveryLogsForbiddenErrorResponse",
+    "GetWebhookDeliveryLogsNotFoundErrorResponse",
+    "GetWebhookEventTypesForbiddenErrorResponse",
+    "GetWebhookOwnerStatsBadRequestErrorResponse",
+    "GetWebhookOwnerStatsForbiddenErrorResponse",
+    "GetWebhookSubscriptionBadRequestErrorResponse",
+    "GetWebhookSubscriptionForbiddenErrorResponse",
+    "GetWebhookSubscriptionNotFoundErrorResponse",
+    "GetWebhookSubscriptionStatsBadRequestErrorResponse",
+    "GetWebhookSubscriptionStatsForbiddenErrorResponse",
+    "GetWebhookSubscriptionStatsNotFoundErrorResponse",
     "GetWithdrawalPowerBadRequestErrorResponse",
     "GetWithdrawalPowerForbiddenErrorResponse",
     "GetWithdrawalPowerNotFoundErrorResponse",
@@ -3821,6 +4304,8 @@ __all__ = [
     "ListWeb3WalletBalancesBadRequestErrorResponse",
     "ListWeb3WalletBalancesForbiddenErrorResponse",
     "ListWeb3WalletBalancesNotFoundErrorResponse",
+    "ListWebhookSubscriptionsBadRequestErrorResponse",
+    "ListWebhookSubscriptionsForbiddenErrorResponse",
     "ListXMLiquidationsBadRequestErrorResponse",
     "ListXMLiquidationsForbiddenErrorResponse",
     "ListXMLiquidationsNotFoundErrorResponse",
@@ -3836,11 +4321,20 @@ __all__ = [
     "PortfolioStakingUnstakeNotFoundErrorResponse",
     "PreviewUnstakeBadRequestErrorResponse",
     "PreviewUnstakeForbiddenErrorResponse",
+    "ReplayWebhookEventBadRequestErrorResponse",
+    "ReplayWebhookEventForbiddenErrorResponse",
+    "ReplayWebhookEventNotFoundErrorResponse",
     "RotateAPIKeyBadRequestErrorResponse",
     "RotateAPIKeyForbiddenErrorResponse",
+    "RotateWebhookHMACSecretBadRequestErrorResponse",
+    "RotateWebhookHMACSecretForbiddenErrorResponse",
+    "RotateWebhookHMACSecretNotFoundErrorResponse",
     "ScheduleFuturesSweepBadRequestErrorResponse",
     "ScheduleFuturesSweepForbiddenErrorResponse",
     "ScheduleFuturesSweepNotFoundErrorResponse",
+    "SendWebhookSimulationBadRequestErrorResponse",
+    "SendWebhookSimulationForbiddenErrorResponse",
+    "SendWebhookSimulationNotFoundErrorResponse",
     "ServiceUnavailableErrorResponse",
     "SetAutoSweepBadRequestErrorResponse",
     "SetAutoSweepForbiddenErrorResponse",
@@ -3868,5 +4362,8 @@ __all__ = [
     "UpdateOnchainAddressGroupBadRequestErrorResponse",
     "UpdateOnchainAddressGroupForbiddenErrorResponse",
     "UpdateOnchainAddressGroupNotFoundErrorResponse",
+    "UpdateWebhookSubscriptionBadRequestErrorResponse",
+    "UpdateWebhookSubscriptionForbiddenErrorResponse",
+    "UpdateWebhookSubscriptionNotFoundErrorResponse",
     "resolve_error_class",
 ]

@@ -121,7 +121,7 @@ SCHEMA_CLASS_OVERRIDES: dict[str, str] = {
     "coinbase.public_rest_api.Locate": "LocateAvailability",
 }
 
-# operationId -> generated request class name (defaults strip PrimeRESTAPI_ prefix).
+# operationId -> generated request class name (defaults strip PrimeRESTAPI_ and PrimeBeta_ prefixes).
 REQUEST_CLASS_NAME_OVERRIDES: dict[str, str] = {
     "PrimeRESTAPI_CreateQuoteRequest": "CreateQuoteRequest",
     "PrimeRESTAPI_ListTransactionValidators": "ListTransactionValidatorsRequest",
