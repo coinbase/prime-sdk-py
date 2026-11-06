@@ -29,11 +29,12 @@ class CreateOrderPreviewRequest(BaseRequest, _OrderPreviewRequest):
         portfolio_id: The ID of the portfolio that owns the order
         product_id: The ID of the product being traded for the order (e.g. `BTC-USD`)
         base_quantity: Order size in base asset units (either `base_quantity` or
-            `quote_value` is required)
+            `quote_value` is required). For SPREAD orders, required and in the primary leg's
+            units: a whole number of contracts when it is a futures product
         quote_value: Order size in quote asset units, i.e. the amount the user wants to
             spend (when buying) or receive (when selling); the quantity in base units will
             be determined based on the market liquidity and indicated `quote_value` (either
-            `base_quantity` or `quote_value` is required)
+            `base_quantity` or `quote_value` is required). Not supported for SPREAD orders
         limit_price: The limit price (required for TWAP, VWAP, LIMIT and STOP_LIMIT orders)
         start_time: The start time of the order in UTC (TWAP, VWAP only)
         expiry_time: The expiry time of the order in UTC (TWAP, VWAP, LIMIT and STOP_LIMIT
@@ -95,4 +96,17 @@ class CreateOrderPreviewResponse(BaseResponse, _PostOrderPreviewResponse):
         display_base_size: The maximum order size that will show up on venue order books (in
             base currency).
         is_buy_exact: Buy Exact order flag
+        current_margin_utilization: Futures and SPREAD orders only: amount of the
+            portfolio's derivatives margin limit used before this order. For cross-margin
+            portfolios, the cross-margin limit consumed.
+        current_margin_utilization_ratio: Futures and SPREAD orders only:
+            `current_margin_utilization` as a percentage of the margin limit (0-100, e.g.
+            "1.2" means 1.2%, not a 0-1 decimal)
+        projected_margin_utilization: Futures and SPREAD orders only: amount of the
+            portfolio's derivatives margin limit used if this order fills. For cross-margin
+            portfolios, the cross-margin limit consumed.
+        projected_margin_utilization_ratio: Futures and SPREAD orders only:
+            `projected_margin_utilization` as a percentage of the margin limit (0-100, e.g.
+            "3.6" means 3.6%, not a 0-1 decimal)
+        settl_currency: The requested `settl_currency`, echoed
     """

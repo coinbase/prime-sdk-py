@@ -42,7 +42,8 @@
     "symbols",
     "created_at",
     "updated_at",
-    "hierarchy_type"
+    "hierarchy_type",
+    "orders_metadata"
   ],
   "ActivityResponse": [
     "activity"
@@ -79,7 +80,8 @@
     "type",
     "state",
     "fund_movements",
-    "blind_match_metadata"
+    "blind_match_metadata",
+    "coinbase_fees"
   ],
   "Allocation": [
     "root_id",
@@ -290,7 +292,9 @@
     "equity_ratio",
     "deficit_ratio",
     "margin_thresholds",
-    "fcm_excess_available_to_return"
+    "fcm_excess_available_to_return",
+    "raw_account_equity",
+    "pre_haircut_account_equity"
   ],
   "CrossMarginPrimeRiskNettingInfo": [
     "dco_margin_requirement",
@@ -308,7 +312,9 @@
     "long_market_value",
     "short_market_value",
     "short_collateral",
-    "pending_transfers"
+    "pending_transfers",
+    "fx_balance",
+    "stablecoin_balance"
   ],
   "CrossMarginPrimeXMPosition": [
     "currency",
@@ -325,7 +331,9 @@
     "long_amount",
     "short_amount",
     "volatility_addon",
-    "liquidity_addon"
+    "liquidity_addon",
+    "asset_class",
+    "spot_margin_contribution"
   ],
   "CrossMarginRiskParameters": [
     "asset_tier",
@@ -428,7 +436,9 @@
     "cfm_total_margin",
     "cfm_delta_ote",
     "cfm_unsettled_realized_pnl",
-    "cfm_unsettled_accrued_funding_pnl"
+    "cfm_unsettled_accrued_funding_pnl",
+    "margin_utilization_percent",
+    "margin_health_state"
   ],
   "Fee": [
     "symbol",
@@ -455,7 +465,9 @@
     "commission",
     "venue",
     "venue_fees",
-    "ces_commission"
+    "ces_commission",
+    "product_type",
+    "commission_detail_total"
   ],
   "FundMovement": [
     "id",
@@ -476,7 +488,8 @@
     "symbol",
     "long",
     "short",
-    "position_reference"
+    "position_reference",
+    "funding_pnl"
   ],
   "Instructions": [
     "crypto_instructions",
@@ -574,7 +587,15 @@
     "pm_asset_info",
     "pm_credit_limit",
     "pm_margin_limit",
-    "pm_margin_consumed"
+    "pm_margin_consumed",
+    "short_collateral_transfer",
+    "health_status",
+    "margin_level",
+    "margin_thresholds",
+    "control_status",
+    "equity_ratio",
+    "deficit_ratio",
+    "call_status"
   ],
   "MarginSummaryRecord": [
     "conversion_datetime",
@@ -620,7 +641,8 @@
     "destination_address",
     "skip_broadcast",
     "failure_reason",
-    "signing_status"
+    "signing_status",
+    "original_unsigned_transaction"
   ],
   "Order": [
     "id",
@@ -659,7 +681,10 @@
     "offset",
     "wig_level",
     "product_type",
-    "commission_detail_total"
+    "commission_detail_total",
+    "is_buy_exact",
+    "limit_price_type",
+    "spread_details"
   ],
   "OrderEditHistory": [
     "price",
@@ -668,7 +693,8 @@
     "stop_price",
     "stop_limit_price",
     "end_time",
-    "accept_time"
+    "accept_time",
+    "client_order_id"
   ],
   "PmAssetInfo": [
     "symbol",
@@ -713,7 +739,9 @@
     "email",
     "portfolio_id",
     "entity_id",
-    "role"
+    "role",
+    "roles",
+    "secondary_permissions"
   ],
   "Position": [
     "symbol",
@@ -774,7 +802,11 @@
     "quote_max_size",
     "permissions",
     "price_increment",
-    "rfq_product_details"
+    "rfq_product_details",
+    "product_type",
+    "fcm_trading_session_details",
+    "future_product_details",
+    "option_product_details"
   ],
   "Reference": [
     "id",
@@ -782,7 +814,8 @@
   ],
   "RequestedAmount": [
     "currency",
-    "amount"
+    "amount",
+    "due_date"
   ],
   "RewardMetadata": [
     "subtype",
@@ -883,7 +916,8 @@
     "idempotency_key",
     "onchain_details",
     "network_info",
-    "process_requirements"
+    "process_requirements",
+    "coinbase_fees"
   ],
   "TransactionMetadata": [
     "match_metadata",
@@ -909,7 +943,9 @@
     "name",
     "email",
     "entity_id",
-    "role"
+    "role",
+    "roles",
+    "secondary_permissions"
   ],
   "UserAction": [
     "action",

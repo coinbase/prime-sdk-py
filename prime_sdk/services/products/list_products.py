@@ -30,7 +30,9 @@ class ListProductsRequest(BasePaginatedRequest, _GetPortfolioProductsRequest):
         product_type: Filter by product type (SPOT, FUTURE). If unset, returns all types
             available for your portfolio. Futures products require additional entitlements.
             - UNKNOWN_PRODUCT_TYPE: Unknown product type - SPOT: Spot product - FUTURE:
-            Future product - OPTION: Option product
+            Future product - OPTION: Option product - BASIS: Basis product: a futures
+            contract traded against its spot underlying, or against another futures contract
+            of the same underlying (calendar spread); the product of SPREAD orders
         contract_expiry_type: Filter by contract expiry type (EXPIRING or PERPETUAL). Only
             applicable when product_type = FUTURE. If unset, returns all futures kinds. -
             CONTRACT_EXPIRY_TYPE_UNSPECIFIED: Unspecified contract expiry type -

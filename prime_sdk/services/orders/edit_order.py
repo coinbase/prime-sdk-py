@@ -23,7 +23,7 @@ from ...model import EditOrderResponse as _EditOrderResponse
 @dataclass(kw_only=True)
 class EditOrderRequest(BaseRequest, _EditOrderRequest):
     """
-    Edit Order (Beta)
+    Edit Order
 
     Attributes:
         portfolio_id: The ID of the portfolio that owns the order

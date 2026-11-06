@@ -67,9 +67,11 @@ class ListWalletTransactionsRequest(
             MERGE_STAKE: On-chain transaction consolidating funds from different addresses
             belonging to the same wallet.
         start_time: UTC timestamp from which to filter the response (inclusive, ISO-8601
-            format)
+            format). This filter is only sensitive to the second; fractional seconds are
+            truncated.
         end_time: UTC timestamp until which to filter the response (exclusive, ISO-8601
-            format)
+            format). This filter is only sensitive to the second; fractional seconds are
+            truncated.
     """
 
 

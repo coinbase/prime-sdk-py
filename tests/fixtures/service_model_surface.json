@@ -76,6 +76,7 @@
   "CreateAdvancedTransferRequest": [
     "portfolio_id",
     "advanced_transfer",
+    "idempotency_key",
     "allowed_status_codes"
   ],
   "CreateAdvancedTransferResponse": [
@@ -154,6 +155,8 @@
     "offset",
     "wig_level",
     "is_buy_exact",
+    "limit_price_type",
+    "spread_config",
     "allowed_status_codes"
   ],
   "CreateOrderPreviewResponse": [
@@ -179,7 +182,14 @@
     "display_size",
     "display_quote_size",
     "display_base_size",
-    "is_buy_exact"
+    "is_buy_exact",
+    "option_greeks",
+    "spread_preview",
+    "current_margin_utilization",
+    "current_margin_utilization_ratio",
+    "projected_margin_utilization",
+    "projected_margin_utilization_ratio",
+    "settl_currency"
   ],
   "CreateOrderRequest": [
     "portfolio_id",
@@ -205,6 +215,8 @@
     "offset",
     "wig_level",
     "is_buy_exact",
+    "limit_price_type",
+    "spread_config",
     "allowed_status_codes"
   ],
   "CreateOrderResponse": [
@@ -271,6 +283,7 @@
     "limit_price",
     "settl_currency",
     "quote_duration_ms",
+    "is_buy_exact",
     "allowed_status_codes"
   ],
   "CreateQuoteResponse": [
@@ -279,7 +292,8 @@
     "best_price",
     "order_total",
     "price_inclusive_of_fees",
-    "quote_duration_ms"
+    "quote_duration_ms",
+    "is_buy_exact"
   ],
   "CreateStakeRequest": [
     "portfolio_id",
@@ -356,6 +370,21 @@
     "wallet_type",
     "network_family"
   ],
+  "CreateWebhookSubscriptionRequest": [
+    "portfolio_id",
+    "event_types",
+    "target_url",
+    "auth_type",
+    "oauth_config",
+    "custom_headers",
+    "description",
+    "idempotency_key",
+    "allowed_status_codes"
+  ],
+  "CreateWebhookSubscriptionResponse": [
+    "subscription",
+    "hmac_secret"
+  ],
   "CreateWithdrawalRequest": [
     "portfolio_id",
     "wallet_id",
@@ -392,6 +421,12 @@
     "num_approvals_remaining",
     "activity_id"
   ],
+  "DeleteWebhookSubscriptionRequest": [
+    "portfolio_id",
+    "subscription_id",
+    "allowed_status_codes"
+  ],
+  "DeleteWebhookSubscriptionResponse": [],
   "EditOrderRequest": [
     "portfolio_id",
     "order_id",
@@ -448,6 +483,12 @@
   "GetBuyingPowerResponse": [
     "buying_power"
   ],
+  "GetConversionFeesRequest": [
+    "allowed_status_codes"
+  ],
+  "GetConversionFeesResponse": [
+    "fees"
+  ],
   "GetCounterpartyIdRequest": [
     "portfolio_id",
     "allowed_status_codes"
@@ -482,6 +523,22 @@
     "offset_credit_matrix_long_long",
     "offset_credit_matrix_short_short",
     "margin_period_of_risk"
+  ],
+  "GetDerivativePositionsRequest": [
+    "portfolio_id",
+    "product_id",
+    "allowed_status_codes"
+  ],
+  "GetDerivativePositionsResponse": [
+    "positions"
+  ],
+  "GetDerivativesCurrencySummaryRequest": [
+    "portfolio_id",
+    "allowed_status_codes"
+  ],
+  "GetDerivativesCurrencySummaryResponse": [
+    "portfolio_id",
+    "balances"
   ],
   "GetEntityActivityRequest": [
     "activity_id",
@@ -533,6 +590,14 @@
     "positions",
     "pagination",
     "clearing_account_id"
+  ],
+  "GetEntityRewardsRateRequest": [
+    "entity_id",
+    "allowed_status_codes"
+  ],
+  "GetEntityRewardsRateResponse": [
+    "current_rate",
+    "available_rates"
   ],
   "GetFcmEquityRequest": [
     "entity_id",
@@ -636,6 +701,14 @@
   "GetPortfolioResponse": [
     "portfolio"
   ],
+  "GetPortfolioRewardsRateRequest": [
+    "portfolio_id",
+    "allowed_status_codes"
+  ],
+  "GetPortfolioRewardsRateResponse": [
+    "current_rate",
+    "available_rates"
+  ],
   "GetPortfolioWithdrawalPowerRequest": [
     "portfolio_id",
     "symbol",
@@ -736,6 +809,80 @@
   ],
   "GetWalletResponse": [
     "wallet"
+  ],
+  "GetWebhookDeliveryAttemptsRequest": [
+    "portfolio_id",
+    "subscription_id",
+    "event_id",
+    "allowed_status_codes"
+  ],
+  "GetWebhookDeliveryAttemptsResponse": [
+    "event_id",
+    "event_type",
+    "subscription_id",
+    "delivery_status",
+    "attempts",
+    "event_payload"
+  ],
+  "GetWebhookDeliveryLogsRequest": [
+    "portfolio_id",
+    "subscription_id",
+    "status_filter",
+    "event_type_filter",
+    "allowed_status_codes",
+    "pagination"
+  ],
+  "GetWebhookDeliveryLogsResponse": [
+    "entries",
+    "next_cursor",
+    "has_next"
+  ],
+  "GetWebhookEventTypesRequest": [
+    "allowed_status_codes"
+  ],
+  "GetWebhookEventTypesResponse": [
+    "event_types"
+  ],
+  "GetWebhookOwnerStatsRequest": [
+    "portfolio_id",
+    "period",
+    "allowed_status_codes"
+  ],
+  "GetWebhookOwnerStatsResponse": [
+    "total_subscriptions",
+    "active_subscriptions",
+    "total_events",
+    "overall_success_rate",
+    "avg_latency_ms",
+    "subscriptions",
+    "recent_failures"
+  ],
+  "GetWebhookSubscriptionRequest": [
+    "portfolio_id",
+    "subscription_id",
+    "allowed_status_codes"
+  ],
+  "GetWebhookSubscriptionResponse": [
+    "subscription"
+  ],
+  "GetWebhookSubscriptionStatsRequest": [
+    "portfolio_id",
+    "subscription_id",
+    "period",
+    "allowed_status_codes"
+  ],
+  "GetWebhookSubscriptionStatsResponse": [
+    "subscription_id",
+    "health_status",
+    "total_events",
+    "successful",
+    "failed",
+    "success_rate",
+    "avg_latency_ms",
+    "p95_latency_ms",
+    "p99_latency_ms",
+    "event_type_breakdown",
+    "recent_failures"
   ],
   "GetXMLiquidationRequest": [
     "entity_id",
@@ -1105,6 +1252,18 @@
     "pagination",
     "defi_balances"
   ],
+  "ListWebhookSubscriptionsRequest": [
+    "portfolio_id",
+    "include_disabled",
+    "event_type_filter",
+    "allowed_status_codes",
+    "pagination"
+  ],
+  "ListWebhookSubscriptionsResponse": [
+    "subscriptions",
+    "next_cursor",
+    "has_next"
+  ],
   "ListXMLiquidationsRequest": [
     "entity_id",
     "status",
@@ -1142,6 +1301,17 @@
     "transaction_validators",
     "pagination"
   ],
+  "ReplayWebhookEventRequest": [
+    "portfolio_id",
+    "event_id",
+    "subscription_id",
+    "allowed_status_codes"
+  ],
+  "ReplayWebhookEventResponse": [
+    "deliveries_queued",
+    "delivery_ids",
+    "delivery_ids_truncated"
+  ],
   "RotateApiKeyRequest": [
     "duration_seconds",
     "allowed_status_codes"
@@ -1149,6 +1319,17 @@
   "RotateApiKeyResponse": [
     "encrypted_credentials",
     "activity_id"
+  ],
+  "RotateWebhookHMACSecretRequest": [
+    "portfolio_id",
+    "subscription_id",
+    "revoke_previous_immediately",
+    "allowed_status_codes"
+  ],
+  "RotateWebhookHMACSecretResponse": [
+    "subscription",
+    "hmac_secret",
+    "previous_secret_expires_at"
   ],
   "ScheduleEntityFuturesSweepRequest": [
     "entity_id",
@@ -1159,6 +1340,15 @@
   "ScheduleEntityFuturesSweepResponse": [
     "success",
     "request_id"
+  ],
+  "SendWebhookSimulationRequest": [
+    "portfolio_id",
+    "subscription_id",
+    "event_type",
+    "allowed_status_codes"
+  ],
+  "SendWebhookSimulationResponse": [
+    "event_id"
   ],
   "SetAutoSweepRequest": [
     "entity_id",
@@ -1212,6 +1402,23 @@
     "num_approvals_remaining",
     "activity_id"
   ],
+  "UpdateWebhookSubscriptionRequest": [
+    "portfolio_id",
+    "subscription_id",
+    "event_types",
+    "target_url",
+    "auth_type",
+    "oauth_config",
+    "custom_headers",
+    "description",
+    "is_enabled",
+    "update_mask",
+    "expected_version",
+    "allowed_status_codes"
+  ],
+  "UpdateWebhookSubscriptionResponse": [
+    "subscription"
+  ],
   "_AcceptQuoteRequest": [
     "portfolio_id",
     "product_id",
@@ -1251,7 +1458,8 @@
   ],
   "_CreateAdvancedTransferRequest": [
     "portfolio_id",
-    "advanced_transfer"
+    "advanced_transfer",
+    "idempotency_key"
   ],
   "_CreateAdvancedTransferResponse": [
     "advanced_transfer"
@@ -1345,7 +1553,9 @@
     "peg_offset_type",
     "offset",
     "wig_level",
-    "is_buy_exact"
+    "is_buy_exact",
+    "limit_price_type",
+    "spread_config"
   ],
   "_CreateOrderResponse": [
     "order_id"
@@ -1372,7 +1582,8 @@
     "quote_value",
     "limit_price",
     "settl_currency",
-    "quote_duration_ms"
+    "quote_duration_ms",
+    "is_buy_exact"
   ],
   "_CreateWalletDepositAddressRequest": [
     "portfolio_id",
@@ -1440,10 +1651,29 @@
     "blockchain_source",
     "transaction_id"
   ],
+  "_CreateWebhookSubscriptionRequest": [
+    "portfolio_id",
+    "event_types",
+    "target_url",
+    "auth_type",
+    "oauth_config",
+    "custom_headers",
+    "description",
+    "idempotency_key"
+  ],
+  "_CreateWebhookSubscriptionResponse": [
+    "subscription",
+    "hmac_secret"
+  ],
   "_DeleteOnchainAddressGroupRequest": [
     "portfolio_id",
     "address_group_id"
   ],
+  "_DeleteWebhookSubscriptionRequest": [
+    "portfolio_id",
+    "subscription_id"
+  ],
+  "_DeleteWebhookSubscriptionResponse": [],
   "_EditOrderRequest": [
     "portfolio_id",
     "order_id",
@@ -1501,6 +1731,10 @@
   "_GetCandlesResponse": [
     "candles"
   ],
+  "_GetConversionFeesRequest": [],
+  "_GetConversionFeesResponse": [
+    "fees"
+  ],
   "_GetCrossMarginOverviewRequest": [
     "entity_id"
   ],
@@ -1525,6 +1759,20 @@
     "offset_credit_matrix_long_long",
     "offset_credit_matrix_short_short",
     "margin_period_of_risk"
+  ],
+  "_GetDerivativePositionsRequest": [
+    "portfolio_id",
+    "product_id"
+  ],
+  "_GetDerivativePositionsResponse": [
+    "positions"
+  ],
+  "_GetDerivativesCurrencySummaryRequest": [
+    "portfolio_id"
+  ],
+  "_GetDerivativesCurrencySummaryResponse": [
+    "portfolio_id",
+    "balances"
   ],
   "_GetEntityActivitiesRequest": [
     "entity_id",
@@ -1558,6 +1806,9 @@
   ],
   "_GetEntityPaymentMethodsResponse": [
     "payment_methods"
+  ],
+  "_GetEntityRewardsRateRequest": [
+    "entity_id"
   ],
   "_GetEntityUsersRequest": [
     "entity_id"
@@ -1835,6 +2086,9 @@
   "_GetPortfolioResponse": [
     "portfolio"
   ],
+  "_GetPortfolioRewardsRateRequest": [
+    "portfolio_id"
+  ],
   "_GetPortfolioTransactionsRequest": [
     "portfolio_id",
     "symbols",
@@ -1864,6 +2118,10 @@
   ],
   "_GetPostTradeCreditResponse": [
     "post_trade_credit"
+  ],
+  "_GetRewardsRateResponse": [
+    "current_rate",
+    "available_rates"
   ],
   "_GetStakingStatusRequest": [
     "portfolio_id",
@@ -1959,6 +2217,72 @@
   "_GetWalletsResponse": [
     "wallets",
     "pagination"
+  ],
+  "_GetWebhookDeliveryAttemptsRequest": [
+    "portfolio_id",
+    "subscription_id",
+    "event_id"
+  ],
+  "_GetWebhookDeliveryAttemptsResponse": [
+    "event_id",
+    "event_type",
+    "subscription_id",
+    "delivery_status",
+    "attempts",
+    "event_payload"
+  ],
+  "_GetWebhookDeliveryLogsRequest": [
+    "portfolio_id",
+    "subscription_id",
+    "status_filter",
+    "event_type_filter"
+  ],
+  "_GetWebhookDeliveryLogsResponse": [
+    "entries",
+    "next_cursor",
+    "has_next"
+  ],
+  "_GetWebhookEventTypesRequest": [],
+  "_GetWebhookEventTypesResponse": [
+    "event_types"
+  ],
+  "_GetWebhookOwnerStatsRequest": [
+    "portfolio_id",
+    "period"
+  ],
+  "_GetWebhookOwnerStatsResponse": [
+    "total_subscriptions",
+    "active_subscriptions",
+    "total_events",
+    "overall_success_rate",
+    "avg_latency_ms",
+    "subscriptions",
+    "recent_failures"
+  ],
+  "_GetWebhookSubscriptionRequest": [
+    "portfolio_id",
+    "subscription_id"
+  ],
+  "_GetWebhookSubscriptionResponse": [
+    "subscription"
+  ],
+  "_GetWebhookSubscriptionStatsRequest": [
+    "portfolio_id",
+    "subscription_id",
+    "period"
+  ],
+  "_GetWebhookSubscriptionStatsResponse": [
+    "subscription_id",
+    "health_status",
+    "total_events",
+    "successful",
+    "failed",
+    "success_rate",
+    "avg_latency_ms",
+    "p95_latency_ms",
+    "p99_latency_ms",
+    "event_type_breakdown",
+    "recent_failures"
   ],
   "_GetWithdrawalPowerRequest": [
     "portfolio_id",
@@ -2063,6 +2387,16 @@
     "pagination",
     "defi_balances"
   ],
+  "_ListWebhookSubscriptionsRequest": [
+    "portfolio_id",
+    "include_disabled",
+    "event_type_filter"
+  ],
+  "_ListWebhookSubscriptionsResponse": [
+    "subscriptions",
+    "next_cursor",
+    "has_next"
+  ],
   "_ListXMLiquidationsRequest": [
     "entity_id",
     "status",
@@ -2094,7 +2428,9 @@
     "peg_offset_type",
     "offset",
     "wig_level",
-    "is_buy_exact"
+    "is_buy_exact",
+    "limit_price_type",
+    "spread_config"
   ],
   "_PortfolioStakingInitiateRequest": [
     "portfolio_id",
@@ -2142,7 +2478,14 @@
     "display_size",
     "display_quote_size",
     "display_base_size",
-    "is_buy_exact"
+    "is_buy_exact",
+    "option_greeks",
+    "spread_preview",
+    "current_margin_utilization",
+    "current_margin_utilization_ratio",
+    "projected_margin_utilization",
+    "projected_margin_utilization_ratio",
+    "settl_currency"
   ],
   "_PreviewUnstakeRequest": [
     "portfolio_id",
@@ -2162,7 +2505,18 @@
     "best_price",
     "order_total",
     "price_inclusive_of_fees",
-    "quote_duration_ms"
+    "quote_duration_ms",
+    "is_buy_exact"
+  ],
+  "_ReplayWebhookEventRequest": [
+    "portfolio_id",
+    "event_id",
+    "subscription_id"
+  ],
+  "_ReplayWebhookEventResponse": [
+    "deliveries_queued",
+    "delivery_ids",
+    "delivery_ids_truncated"
   ],
   "_RotateAPIKeyRequest": [
     "duration_seconds"
@@ -2170,6 +2524,16 @@
   "_RotateAPIKeyResponse": [
     "encrypted_credentials",
     "activity_id"
+  ],
+  "_RotateWebhookHMACSecretRequest": [
+    "portfolio_id",
+    "subscription_id",
+    "revoke_previous_immediately"
+  ],
+  "_RotateWebhookHMACSecretResponse": [
+    "subscription",
+    "hmac_secret",
+    "previous_secret_expires_at"
   ],
   "_ScheduleFuturesSweepRequest": [
     "entity_id",
@@ -2179,6 +2543,14 @@
   "_ScheduleFuturesSweepResponse": [
     "success",
     "request_id"
+  ],
+  "_SendWebhookSimulationRequest": [
+    "portfolio_id",
+    "subscription_id",
+    "event_type"
+  ],
+  "_SendWebhookSimulationResponse": [
+    "event_id"
   ],
   "_SetAutoSweepRequest": [
     "entity_id",
@@ -2253,5 +2625,21 @@
   "_UpdateOnchainAddressGroupRequest": [
     "portfolio_id",
     "address_group"
+  ],
+  "_UpdateWebhookSubscriptionRequest": [
+    "portfolio_id",
+    "subscription_id",
+    "event_types",
+    "target_url",
+    "auth_type",
+    "oauth_config",
+    "custom_headers",
+    "description",
+    "is_enabled",
+    "update_mask",
+    "expected_version"
+  ],
+  "_UpdateWebhookSubscriptionResponse": [
+    "subscription"
   ]
 }

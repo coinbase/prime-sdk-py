@@ -23,7 +23,7 @@ from ...model import GetCandlesResponse as _GetCandlesResponse
 @dataclass(kw_only=True)
 class GetProductCandlesRequest(BaseRequest, _GetCandlesRequest):
     """
-    Get Public Product Candles (Beta)
+    Get Public Product Candles
 
     Attributes:
         portfolio_id: The portfolio id requesting market data.
