@@ -241,6 +241,13 @@ class PrimeServicesClient:
             ).UsersService
         )
     )
+    webhooks = lazy_service(
+        lambda: (
+            __import__(
+                "prime_sdk.services.webhooks.service", fromlist=["WebhooksService"]
+            ).WebhooksService
+        )
+    )
 
 
 # Even more advanced: Generic factory approach
@@ -293,6 +300,7 @@ class FactoryPrimeServicesClient:
             "transactions": "prime_sdk.services.transactions.service.TransactionsService",
             "users": "prime_sdk.services.users.service.UsersService",
             "wallets": "prime_sdk.services.wallets.service.WalletsService",
+            "webhooks": "prime_sdk.services.webhooks.service.WebhooksService",
         }
 
         for service_name, import_path in service_mappings.items():

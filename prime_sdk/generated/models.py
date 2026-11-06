@@ -313,6 +313,22 @@ class Candle:
 
 
 @dataclass
+class CoinbaseFee:
+    """
+    A Coinbase fee charged on an Advanced Transfer.
+
+    Attributes:
+        amount: The fee amount in whole units of the fee symbol
+        symbol: The asset symbol in which the fee was charged
+        wallet_id: The wallet that paid the fee
+    """
+
+    amount: str = None
+    symbol: str = None
+    wallet_id: str = None
+
+
+@dataclass
 class Commission:
     """
     Attributes:
@@ -431,7 +447,9 @@ class CreateConversionResponse:
         activity_id: The activity ID for the conversion
         source_symbol: The currency symbol to convert from
         destination_symbol: The currency symbol to convert to
-        amount: The amount in whole units to convert
+        amount: The amount in whole units to convert. For example, "1.50" represents 1.5 of
+            the source symbol. Examples: - "100" - "1.123456" (precision varies by asset;
+            USDC, for example, supports up to 6 decimal places) - "0.50"
         destination: The UUID of the destination wallet
         source: The UUID of the source wallet
         transaction_id: The UUID of the conversion transaction
@@ -583,6 +601,9 @@ class CrossMarginPrimeSpotEquityBreakdown:
         short_market_value: Short market value component of spot equity.
         short_collateral: Short collateral component of spot equity.
         pending_transfers: Pending transfers affecting spot equity.
+        fx_balance: Equity contribution from FX positions.
+        stablecoin_balance: Equity contribution from non-USDC stablecoins. USDC is included
+            in cash_balance.
     """
 
     cash_balance: str = None
@@ -590,46 +611,28 @@ class CrossMarginPrimeSpotEquityBreakdown:
     short_market_value: str = None
     short_collateral: str = None
     pending_transfers: str = None
+    fx_balance: str = None
+    stablecoin_balance: str = None
 
 
 @dataclass
-class CrossMarginPrimeXMPosition:
+class CrossMarginPrimeSpotMarginContribution:
     """
-    CrossMarginPrimeXMPosition is a single per-asset XM row (proto-backed fields from XMPositionDetails).
+    Breakdown of a position row's spot equity contribution. All values are zero when no contribution data is available. If the asset class is unknown, the contribution amounts are still returned.
 
     Attributes:
-        currency: Position currency
-        market_price: Current market price
-        spot_balance: XM spot balance nominal
-        spot_balance_notional: XM spot balance notional
-        futures_balance: XM futures balance nominal
-        futures_balance_notional: XM futures balance notional
-        base_requirement: Base margin requirement notional
-        total_position_margin: Total margin required
-        basis_credit: Basis offset credit applied to this asset row.
-        futures_netted_notional: Post-netting USD notional for futures on this asset
-        futures_netting_margin: Margin attributed to futures netting for this asset row.
-        long_amount: Per-asset long amount from position_summary.
-        short_amount: Per-asset short amount from position_summary.
-        volatility_addon: Volatility margin add-on for this asset.
-        liquidity_addon: Liquidity margin add-on for this asset.
+        raw_notional: Signed spot value in USD after pending withdrawals, before collateral
+            caps and cash-equivalent haircuts.
+        ineligible_notional: Long notional excluded above the collateral cap.
+        haircut_notional: Amount removed by the cash-equivalent long haircut.
+        equity_contribution: Final spot equity contribution. Positive values are eligible
+            collateral; negative values are liabilities.
     """
 
-    currency: str = None
-    market_price: str = None
-    spot_balance: str = None
-    spot_balance_notional: str = None
-    futures_balance: str = None
-    futures_balance_notional: str = None
-    base_requirement: str = None
-    total_position_margin: str = None
-    basis_credit: str = None
-    futures_netted_notional: str = None
-    futures_netting_margin: str = None
-    long_amount: str = None
-    short_amount: str = None
-    volatility_addon: str = None
-    liquidity_addon: str = None
+    raw_notional: str = None
+    ineligible_notional: str = None
+    haircut_notional: str = None
+    equity_contribution: str = None
 
 
 @dataclass
@@ -1176,6 +1179,24 @@ class NetworkDetails:
 
 
 @dataclass
+class OptionGreeks:
+    """
+    Greeks of one option contract as quoted by the venue, not scaled by order size or side.
+
+    Attributes:
+        delta: Delta greek, in units of the underlying
+        gamma: Gamma greek
+        theta: Theta greek, in USD per day
+        vega: Vega greek, in USD per 1% change in implied volatility
+    """
+
+    delta: str = None
+    gamma: str = None
+    theta: str = None
+    vega: str = None
+
+
+@dataclass
 class OrderEdit:
     """
     Attributes:
@@ -1313,7 +1334,7 @@ class PortfolioStakingInitiateResponse:
 class PortfolioStakingMetadata:
     """
     Attributes:
-        external_id: An optional custom identifier (up to 255 characters) to attach to the
+        external_id: An optional custom identifier (up to 255 bytes) to attach to the
             transaction. This is not a searchable transaction field.
     """
 
@@ -1360,6 +1381,21 @@ class PostTradeCreditInformation:
     enabled: bool = None
     adjusted_credit_utilized: str = None
     adjusted_portfolio_equity: str = None
+
+
+@dataclass
+class PriceIncrementStep:
+    """
+    PriceIncrementStep overrides the product's price_increment for prices above a threshold. A price takes the increment of the highest step whose threshold it strictly exceeds, and the product's price_increment when it exceeds none.
+
+    Attributes:
+        price_threshold: Prices strictly greater than this threshold use this step's price
+            increment; a price equal to it takes the next lower step
+        price_increment: Minimum price increment applied to prices above the threshold
+    """
+
+    price_threshold: str = None
+    price_increment: str = None
 
 
 @dataclass
@@ -1411,6 +1447,7 @@ class QuoteResponse:
         quote_duration_ms: Echo of the quote_duration_ms supplied in the request. 0 if the
             client did not supply a value, in which case the server applies the default of
             3000 ms (3 seconds).
+        is_buy_exact: Buy Exact order flag
     """
 
     quote_id: str = None
@@ -1419,6 +1456,7 @@ class QuoteResponse:
     order_total: str = None
     price_inclusive_of_fees: str = None
     quote_duration_ms: str = None
+    is_buy_exact: bool = None
 
 
 @dataclass
@@ -1757,7 +1795,7 @@ class WalletStakeInputs:
 @dataclass
 class WalletStakingMetadata:
     """
-    WalletStakingMetadata contains optional metadata for wallet staking requests. external_id tags the discrete TWS transaction stake/unstake create; automatic reward crediting (e.g. SOL inflation) does not produce one. StakingClaimRewardsRequest intentionally omits this field; add metadata to claim rewards only if a supported network's claim flow creates a discrete TWS transaction clients need to tag.
+    WalletStakingMetadata contains optional metadata for wallet staking requests. Optional metadata to attach to this staking or delegation request. Automatic reward crediting (such as SOL inflation) does not produce a taggable transaction and therefore does not support metadata; see the field descriptions below for details.
 
     Attributes:
         external_id: An optional custom identifier (up to 255 bytes) to attach to the
@@ -1902,6 +1940,80 @@ class XMPosition:
 
 
 @dataclass
+class WebhookOAuthConfigInput:
+    """
+    WebhookOAuthConfigInput supplies OAuth credentials and scopes for a subscription.
+    """
+
+    token_url: str = None
+    client_id: str = None
+    client_secret: str = None
+    scopes: list[str] = None
+
+
+@dataclass
+class DeleteWebhookSubscriptionResponse:
+    """
+    DeleteWebhookSubscriptionResponse confirms that the subscription was soft-deleted.
+    """
+
+
+@dataclass
+class SendWebhookSimulationResponse:
+    """
+    SendWebhookSimulationResponse identifies the synthetic event created for the test delivery.
+    """
+
+    event_id: str = None
+
+
+@dataclass
+class ReplayWebhookEventResponse:
+    """
+    ReplayWebhookEventResponse reports the number and identifiers of queued replay deliveries.
+    """
+
+    deliveries_queued: str = None
+    delivery_ids: list[str] = None
+    delivery_ids_truncated: bool = None
+
+
+@dataclass
+class WebhookEventType:
+    """
+    WebhookEventType describes a registered webhook event customers can subscribe to.
+    """
+
+    name: str = None
+    domain_object: str = None
+    description: str = None
+
+
+@dataclass
+class WebhookEventTypeStats:
+    """
+    WebhookEventTypeStats contains aggregated delivery statistics for one event type.
+    """
+
+    event_type: str = None
+    total: str = None
+    successful: str = None
+    success_rate: str = None
+    avg_latency_ms: str = None
+
+
+@dataclass
+class WebhookOAuthConfig:
+    """
+    WebhookOAuthConfig describes a subscription's OAuth configuration without its client secret.
+    """
+
+    token_url: str = None
+    client_id: str = None
+    scopes: list[str] = None
+
+
+@dataclass
 class ActivityMetadataAccount:
     """
     Attributes:
@@ -2033,36 +2145,6 @@ class CreateWalletWithdrawalResponse:
     counterparty_destination: CounterpartyDestination = None
     blockchain_source: BlockchainAddress = None
     transaction_id: str = None
-
-
-@dataclass
-class CrossMarginPrimeRiskNettingInfo:
-    """
-    Groups XM margin requirement components, offset credits, and per-asset rows.
-
-    Attributes:
-        dco_margin_requirement: Derivatives Clearing Organization Margin Requirement (DMR)
-            is the margin requirement for all futures positions, derived from the
-            Derivatives Clearing Organization model
-        portfolio_margin_requirement: Portfolio Margin Requirement (PMR) is the margin
-            requirement for all spot positions, derived from the XM model
-        integrated_portfolio_margin_requirement: Integrated Portfolio Margin Requirement
-            (IPMR) is the margin requirement for all spot positions + futures positions with
-            underlying assets eligible in Portfolio Margin.
-        ineligible_futures_margin_requirement: Ineligible Futures Margin Requirement (IFMR)
-            is the margin requirement for IPMR-ineligible futures contracts
-        xm_positions: Netted positions used in the model calculation.
-    """
-
-    dco_margin_requirement: str = None
-    portfolio_margin_requirement: str = None
-    integrated_portfolio_margin_requirement: str = None
-    ineligible_futures_margin_requirement: str = None
-    pmr_breakdown: PrimeXMMarginRequirementBreakdown = None
-    ipmr_breakdown: PrimeXMMarginRequirementBreakdown = None
-    portfolio_margin_offset_credit_breakdown: PrimeXMOffsetCreditBreakdown = None
-    integrated_portfolio_margin_offset_credit_breakdown: PrimeXMOffsetCreditBreakdown = None
-    xm_positions: list[CrossMarginPrimeXMPosition] = None
 
 
 @dataclass
@@ -2237,6 +2319,15 @@ class PreviewUnstakeResponse:
 
 
 @dataclass
+class GetWebhookEventTypesResponse:
+    """
+    GetWebhookEventTypesResponse lists the webhook event types available for subscriptions.
+    """
+
+    event_types: list[WebhookEventType] = None
+
+
+@dataclass
 class AddressBookEntry:
     """
     Attributes:
@@ -2383,6 +2474,10 @@ class AddressGroup:
 class AdvancedTransfer:
     """
     AdvancedTransfer represents a complex transfer operation such as a blind match settlement.
+
+    Attributes:
+        coinbase_fees: Coinbase fees charged to this portfolio's wallets on this Advanced
+            Transfer. Empty on create and when no fee applies.
     """
 
     id: str = None
@@ -2390,6 +2485,7 @@ class AdvancedTransfer:
     state: str = None
     fund_movements: list[FundMovement] = None
     blind_match_metadata: BlindMatchMetadata = None
+    coinbase_fees: list[CoinbaseFee] = None
 
 
 @dataclass
@@ -2559,6 +2655,10 @@ class CrossMarginPrimeMarginSummary:
         equity_ratio: Equity ratio.
         deficit_ratio: Deficit ratio.
         fcm_excess_available_to_return: FCM excess available to return.
+        raw_account_equity: Total account equity in USD after pending withdrawals, before
+            collateral caps and cash-equivalent haircuts.
+        pre_haircut_account_equity: Total account equity in USD after pending withdrawals
+            and collateral caps, before cash-equivalent haircuts.
     """
 
     margin_requirement: str = None
@@ -2583,6 +2683,80 @@ class CrossMarginPrimeMarginSummary:
     deficit_ratio: str = None
     margin_thresholds: PrimeXMMarginCallThresholds = None
     fcm_excess_available_to_return: str = None
+    raw_account_equity: str = None
+    pre_haircut_account_equity: str = None
+
+
+@dataclass
+class CrossMarginPrimeRiskNettingInfo:
+    """
+    Groups XM margin requirement components, offset credits, and per-asset rows.
+
+    Attributes:
+        dco_margin_requirement: Derivatives Clearing Organization Margin Requirement (DMR)
+            is the margin requirement for all futures positions, derived from the
+            Derivatives Clearing Organization model
+        portfolio_margin_requirement: Portfolio Margin Requirement (PMR) is the margin
+            requirement for all spot positions, derived from the XM model
+        integrated_portfolio_margin_requirement: Integrated Portfolio Margin Requirement
+            (IPMR) is the margin requirement for all spot positions + futures positions with
+            underlying assets eligible in Portfolio Margin.
+        ineligible_futures_margin_requirement: Ineligible Futures Margin Requirement (IFMR)
+            is the margin requirement for IPMR-ineligible futures contracts
+        xm_positions: Netted positions used in the model calculation.
+    """
+
+    dco_margin_requirement: str = None
+    portfolio_margin_requirement: str = None
+    integrated_portfolio_margin_requirement: str = None
+    ineligible_futures_margin_requirement: str = None
+    pmr_breakdown: PrimeXMMarginRequirementBreakdown = None
+    ipmr_breakdown: PrimeXMMarginRequirementBreakdown = None
+    portfolio_margin_offset_credit_breakdown: PrimeXMOffsetCreditBreakdown = None
+    integrated_portfolio_margin_offset_credit_breakdown: PrimeXMOffsetCreditBreakdown = None
+    xm_positions: list[CrossMarginPrimeXMPosition] = None
+
+
+@dataclass
+class CrossMarginPrimeXMPosition:
+    """
+    CrossMarginPrimeXMPosition is a single per-asset XM row (proto-backed fields from XMPositionDetails).
+
+    Attributes:
+        currency: Position currency
+        market_price: Current market price
+        spot_balance: XM spot balance nominal
+        spot_balance_notional: XM spot balance notional
+        futures_balance: XM futures balance nominal
+        futures_balance_notional: XM futures balance notional
+        base_requirement: Base margin requirement notional
+        total_position_margin: Total margin required
+        basis_credit: Basis offset credit applied to this asset row.
+        futures_netted_notional: Post-netting USD notional for futures on this asset
+        futures_netting_margin: Margin attributed to futures netting for this asset row.
+        long_amount: Per-asset long amount from position_summary.
+        short_amount: Per-asset short amount from position_summary.
+        volatility_addon: Volatility margin add-on for this asset.
+        liquidity_addon: Liquidity margin add-on for this asset.
+    """
+
+    currency: str = None
+    market_price: str = None
+    spot_balance: str = None
+    spot_balance_notional: str = None
+    futures_balance: str = None
+    futures_balance_notional: str = None
+    base_requirement: str = None
+    total_position_margin: str = None
+    basis_credit: str = None
+    futures_netted_notional: str = None
+    futures_netting_margin: str = None
+    long_amount: str = None
+    short_amount: str = None
+    volatility_addon: str = None
+    liquidity_addon: str = None
+    asset_class: str = None
+    spot_margin_contribution: CrossMarginPrimeSpotMarginContribution = None
 
 
 @dataclass
@@ -2600,6 +2774,7 @@ class DerivativePosition:
         expiration_time: Expiration time of position
         currency: Settlement currency
         venue_id: Venue ID of the position
+        funding_pnl: Funding PNL, populated only for perpetual futures positions
     """
 
     product_id: str = None
@@ -2614,6 +2789,7 @@ class DerivativePosition:
     currency: str = None
     options_details: OptionsDetails = None
     venue_id: str = None
+    funding_pnl: str = None
 
 
 @dataclass
@@ -2713,6 +2889,7 @@ class FcmPosition:
         current_price: Current price of position
         avg_entry_price: Average entry price
         expiration_time: Expiration time of position
+        funding_pnl: Funding PNL, populated only for perpetual futures positions
     """
 
     product_id: str = None
@@ -2727,6 +2904,7 @@ class FcmPosition:
     long: str = None
     short: str = None
     position_reference: str = None
+    funding_pnl: str = None
 
 
 @dataclass
@@ -3080,31 +3258,43 @@ class GetOrderResponse:
             (note: order will be rejected if this ID is not unique among all currently
             active orders)
         order.base_quantity: Order size in base asset units (either `base_quantity` or
-            `quote_value` is required)
+            `quote_value` is required). For SPREAD orders, in the primary leg's units: a
+            whole number of contracts when it is a futures product
         order.quote_value: Order size in quote asset units, i.e. the amount the user wants
             to spend (when buying) or receive (when selling); the quantity in base units
             will be determined based on the market liquidity and indicated `quote_value`.
-            Either `base_quantity` or `quote_value` is required
+            Either `base_quantity` or `quote_value` is required. Not supported for SPREAD
+            orders
         order.limit_price: The limit price (required for TWAP, VWAP, LIMIT and STOP_LIMIT
-            orders)
+            orders). Empty for SPREAD orders, which carry a spread limit in `spread_details`
+            instead
         order.start_time: The start time of the order in UTC (only applies to TWAP, VWAP
             orders.)
         order.expiry_time: The expiry time of the order in UTC (applies to TWAP, VWAP,
             LIMIT, and STOP_LIMIT orders with `time_in_force` set to `GTD`)
         order.created_at: The order creation time as a UTC timestamp
-        order.filled_quantity: Size filled (in base asset units)
-        order.filled_value: Market value filled (in quote asset units)
-        order.average_filled_price: Indicates the average `filled_price`
+        order.filled_quantity: Size filled (in base asset units). Empty for SPREAD orders,
+            whose legs fill in different units; see `spread_details` for each leg's value
+        order.filled_value: Market value filled (in quote asset units). For SPREAD orders,
+            the sum of both legs' filled values
+        order.average_filled_price: Indicates the average `filled_price`. Empty for SPREAD
+            orders; see `spread_details` for each leg's value
         order.commission: Total commission paid on this order (in quote asset units) -- only
-            applicable for partially- or fully-filled orders
+            applicable for partially- or fully-filled orders. For SPREAD orders, the sum of
+            both legs' commissions; `commission_detail_total` is empty and each leg's
+            breakdown is in `spread_details`
         order.exchange_fee: Fee charged by the exchange for Cost Plus commission
-            configurations. Exchange fee will be 0 for All In commission configurations.
+            configurations. Exchange fee will be 0 for All In commission configurations. For
+            SPREAD orders, the sum of both legs' exchange fees
+            (`spread_details.primary_leg.exchange_fee` and
+            `spread_details.secondary_leg.exchange_fee`).
         order.historical_pov: historical pov for the order
         order.stop_price: Specifies the stop price at which the order activates. The order
             is activated if the last trade price on Coinbase Exchange crosses the stop price
             specified on the order
         order.net_average_filled_price: Indicates the average `filled_price` net of
-            commissions and fees
+            commissions and fees. Empty for SPREAD orders; see `spread_details` for each
+            leg's value
         order.user_context: Indicates a user friendly message for regarding various aspects
             of the order such as cancellation or rejection reasons
         order.client_product_id: The client product ID of the fill indictating the settlment
@@ -3305,21 +3495,37 @@ class GetTransactionResponse:
         transaction.symbol: The asset symbol
         transaction.created_at: The transaction creation time (as a UTC timestamp)
         transaction.completed_at: The transaction completion time (as a UTC timestamp)
-        transaction.amount: The transaction amount in whole units
+        transaction.amount: The transaction amount (in whole units). For example, "1.50"
+            represents 1.5 of the associated symbol. Examples: - "100" - "1.123456"
+            (precision varies by asset; USDC, for example, supports up to 6 decimal places)
+            - "0.50"
         transaction.network_fees: The blockchain network fees (in whole units) required in
-            order to broadcast the transaction
-        transaction.fees: The fees that the customer paid for the transaction (in whole
-            units)
-        transaction.fee_symbol: The asset in which fees will be paid
+            order to broadcast the transaction. Does not carry the Advanced Transfer
+            Coinbase fee.
+        transaction.fees: The charged fee (in whole units). On the transfer, coinbase_fees
+            is set and fees is 0. On the send, the same charge is on fees and fee_symbol,
+            and coinbase_fees is omitted. Crypto and fiat sends that belong to the transfer
+            use those transfer and send fields. A bank withdrawal that is not part of the
+            transfer is unchanged.
+        transaction.fee_symbol: The asset in which fees is denominated. On the send, the
+            same charge is on fees and fee_symbol, and coinbase_fees is omitted. On the
+            transfer, fee_symbol is empty.
         transaction.blockchain_ids: The cryptocurrency network transaction hashes/IDs
             generated upon broadcast
         transaction.transaction_id: The 8 character alphanumeric short form id for the
             transaction
         transaction.destination_symbol: The destination asset symbol
         transaction.network: The network name specific to web3/onchain wallet transactions
-        transaction.estimated_asset_changes: The estimated asset changes (web3)
+        transaction.estimated_asset_changes: The estimated asset changes (web3/onchain)
         transaction.idempotency_key: The idempotency key associated with the transaction
             creation request
+        transaction.coinbase_fees: Coinbase fees on the transfer (amount, symbol,
+            wallet_id), where fees is 0. On the send, the same charge is on fees and
+            fee_symbol, and coinbase_fees is omitted. When you total fees, do not add
+            coinbase_fees from the transfer to the send's fees, or you will count the charge
+            twice. A wallet transaction list includes the fees paid by that wallet. Get
+            Transaction and the portfolio transaction list include every fee paid in the
+            requesting portfolio. Fees paid in the counterparty's portfolio are omitted.
     """
 
     transaction: Transaction = None
@@ -3476,6 +3682,48 @@ class InvoiceItem:
 
 
 @dataclass
+class Leg:
+    """
+    One leg of a SPREAD order
+
+    Attributes:
+        product_id: Product ID of the leg, e.g. BTC-USD for spot or BIP-20DEC30-CDE for
+            futures
+        support_passive_order: Whether this leg may rest passively on the book. At least one
+            leg must be true.
+    """
+
+    product_id: str = None
+    side: str = None
+    support_passive_order: bool = None
+
+
+@dataclass
+class LegPreview:
+    """
+    Preview values for one leg of a SPREAD order
+
+    Attributes:
+        leg_commission: Estimated commission for this leg
+        quote_value: Estimated notional of this leg in quote currency
+        best_bid: Current best bid for this leg's order book
+        best_ask: Current best ask for this leg's order book
+        average_filled_price: Estimated average fill price for this leg
+        slippage: Expected slippage for this leg
+    """
+
+    product_id: str = None
+    side: str = None
+    support_passive_order: bool = None
+    leg_commission: str = None
+    quote_value: str = None
+    best_bid: str = None
+    best_ask: str = None
+    average_filled_price: str = None
+    slippage: str = None
+
+
+@dataclass
 class ListAdvancedTransferTransactionsResponse:
     """
     ListAdvancedTransferTransactionsResponse contains the transactions associated with an advanced transfer.
@@ -3603,6 +3851,18 @@ class MarginAddOn:
 
 
 @dataclass
+class MarginCallThresholds:
+    """
+    Configured thresholds used to determine `margin_level`. Each entry identifies a margin level, the ratio used to evaluate it, and its threshold value. Historical responses contain the thresholds recorded with the historical health evaluation. Equity at or above the margin requirement produces a healthy margin level. Otherwise, the evaluator selects the first matching rule in the configured order. A threshold comparison identifies a matching level; it doesn't by itself issue a margin call or change account permissions.
+
+    Attributes:
+        margin_thresholds: Ordered thresholds used to select a margin level.
+    """
+
+    margin_thresholds: list[MarginThreshold] = None
+
+
+@dataclass
 class MarginInformation:
     """
     Attributes:
@@ -3660,6 +3920,22 @@ class MarginSummary:
         pm_margin_limit: PM limit that monitors excess deficit
         pm_margin_consumed: The amount of the margin limit that is consumed by the excess
             deficit
+        short_collateral_transfer: Signed cash adjustment associated with the short
+            collateral balance in a historical margin summary. Negative amounts move cash
+            into short collateral; positive amounts return cash from short collateral. Add
+            this signed amount to the snapshot's cash balance to calculate cash after the
+            transfer. Live margin responses return an empty string for this field. For
+            example, a cash balance of 60000000 and a short collateral transfer of -20000000
+            produce a cash balance of 40000000 after the transfer. This calculation doesn't
+            determine the amount available to withdraw.
+        equity_ratio: Account equity divided by margin requirement, expressed as a decimal
+            ratio. For example, "1.2" represents equity equal to 120% of the margin
+            requirement. Returns an empty string when either input is unavailable or the
+            margin requirement is zero.
+        deficit_ratio: Margin deficit divided by the account's margin limit, calculated as
+            `max(0, (margin requirement - account equity) / pm_margin_limit)`. Expressed as
+            a decimal ratio, not a percentage. Returns an empty string when an input is
+            unavailable or the margin limit is zero.
     """
 
     entity_id: str = None
@@ -3694,6 +3970,14 @@ class MarginSummary:
     pm_credit_limit: str = None
     pm_margin_limit: str = None
     pm_margin_consumed: str = None
+    short_collateral_transfer: str = None
+    health_status: str = None
+    margin_level: str = None
+    margin_thresholds: MarginCallThresholds = None
+    control_status: str = None
+    equity_ratio: str = None
+    deficit_ratio: str = None
+    call_status: str = None
 
 
 @dataclass
@@ -3710,10 +3994,28 @@ class MarginSummaryHistorical:
 
 
 @dataclass
+class MarginThreshold:
+    """
+    A single margin level, the ratio used to evaluate its threshold, and the threshold value.
+
+    Attributes:
+        threshold_value: Threshold expressed as a decimal ratio, not a percentage. For
+            example, "0.8" represents 80%. Interpret this value together with
+            threshold_type.
+    """
+
+    margin_level: str = None
+    threshold_type: str = None
+    threshold_value: str = None
+
+
+@dataclass
 class OnchainTransactionDetails:
     """
     Attributes:
-        signed_transaction: The signed transaction data
+        signed_transaction: The hex-encoded signed transaction. Only returned for
+            transactions created with skip_broadcast set to true; empty for all other
+            transactions, including broadcast transactions that have been signed.
         chain_id: The blockchain network chain ID. Will be empty for Solana transactions.
         nonce: The transaction nonce. Only present for EVM-based blockchain transactions.
         replaced_transaction_id: The ID of the transaction that this transaction replaced
@@ -3722,6 +4024,14 @@ class OnchainTransactionDetails:
             network. You can still retrieve the signed transaction from the GetTransaction
             endpoint by transaction ID once the transaction is created.
         failure_reason: Reason for transaction failure if applicable
+        original_unsigned_transaction: The hex-encoded unsigned transaction exactly as
+            submitted when the transaction was created. This value is never updated. Before
+            signing, Prime may set the nonce, network fees, or gas limit on EVM
+            transactions, or refresh the recent blockhash on Solana transactions, so the
+            transaction that is signed and broadcast can differ from this payload. The
+            transfer amount is only changed for EVM transactions initiated as a maximum
+            transfer of the network's native asset, where Prime lowers it so that the amount
+            plus network fees does not exceed the wallet's current balance.
     """
 
     signed_transaction: str = None
@@ -3733,6 +4043,41 @@ class OnchainTransactionDetails:
     skip_broadcast: bool = None
     failure_reason: str = None
     signing_status: str = None
+    original_unsigned_transaction: str = None
+
+
+@dataclass
+class OptionProductDetails:
+    """
+    OptionProductDetails contains details specific to option products
+
+    Attributes:
+        strike: Strike price of the option
+        contract_root_unit: Contract root unit (underlying asset)
+        settlement_currency: Currency the option settles in
+        contract_code: Contract code identifier
+        group_description: Descriptive name for the product group
+        contract_size: Contract size
+        contract_expiry: Contract expiry timestamp
+        counter_currency: Currency the option is quoted against
+        lot_size: Smallest tradable quantity of the contract
+        price_increment_steps: Tiered price increments that override price_increment above a
+            threshold; empty when a single price_increment applies
+    """
+
+    option_type: str = None
+    strike: str = None
+    contract_root_unit: str = None
+    settlement_currency: str = None
+    contract_code: str = None
+    group_description: str = None
+    contract_size: str = None
+    contract_expiry: str = None
+    settlement_period: str = None
+    settlement_model: str = None
+    counter_currency: str = None
+    lot_size: str = None
+    price_increment_steps: list[PriceIncrementStep] = None
 
 
 @dataclass
@@ -3768,29 +4113,38 @@ class Order:
             order will be rejected if this ID is not unique among all currently active
             orders)
         base_quantity: Order size in base asset units (either `base_quantity` or
-            `quote_value` is required)
+            `quote_value` is required). For SPREAD orders, in the primary leg's units: a
+            whole number of contracts when it is a futures product
         quote_value: Order size in quote asset units, i.e. the amount the user wants to
             spend (when buying) or receive (when selling); the quantity in base units will
             be determined based on the market liquidity and indicated `quote_value`. Either
-            `base_quantity` or `quote_value` is required
-        limit_price: The limit price (required for TWAP, VWAP, LIMIT and STOP_LIMIT orders)
+            `base_quantity` or `quote_value` is required. Not supported for SPREAD orders
+        limit_price: The limit price (required for TWAP, VWAP, LIMIT and STOP_LIMIT orders).
+            Empty for SPREAD orders, which carry a spread limit in `spread_details` instead
         start_time: The start time of the order in UTC (only applies to TWAP, VWAP orders.)
         expiry_time: The expiry time of the order in UTC (applies to TWAP, VWAP, LIMIT, and
             STOP_LIMIT orders with `time_in_force` set to `GTD`)
         created_at: The order creation time as a UTC timestamp
-        filled_quantity: Size filled (in base asset units)
-        filled_value: Market value filled (in quote asset units)
-        average_filled_price: Indicates the average `filled_price`
+        filled_quantity: Size filled (in base asset units). Empty for SPREAD orders, whose
+            legs fill in different units; see `spread_details` for each leg's value
+        filled_value: Market value filled (in quote asset units). For SPREAD orders, the sum
+            of both legs' filled values
+        average_filled_price: Indicates the average `filled_price`. Empty for SPREAD orders;
+            see `spread_details` for each leg's value
         commission: Total commission paid on this order (in quote asset units) -- only
-            applicable for partially- or fully-filled orders
+            applicable for partially- or fully-filled orders. For SPREAD orders, the sum of
+            both legs' commissions; `commission_detail_total` is empty and each leg's
+            breakdown is in `spread_details`
         exchange_fee: Fee charged by the exchange for Cost Plus commission configurations.
-            Exchange fee will be 0 for All In commission configurations.
+            Exchange fee will be 0 for All In commission configurations. For SPREAD orders,
+            the sum of both legs' exchange fees (`spread_details.primary_leg.exchange_fee`
+            and `spread_details.secondary_leg.exchange_fee`).
         historical_pov: historical pov for the order
         stop_price: Specifies the stop price at which the order activates. The order is
             activated if the last trade price on Coinbase Exchange crosses the stop price
             specified on the order
         net_average_filled_price: Indicates the average `filled_price` net of commissions
-            and fees
+            and fees. Empty for SPREAD orders; see `spread_details` for each leg's value
         user_context: Indicates a user friendly message for regarding various aspects of the
             order such as cancellation or rejection reasons
         client_product_id: The client product ID of the fill indictating the settlment
@@ -3853,6 +4207,8 @@ class Order:
     product_type: str = None
     commission_detail_total: CommissionDetailTotal = None
     is_buy_exact: bool = None
+    limit_price_type: str = None
+    spread_details: SpreadDetails = None
 
 
 @dataclass
@@ -3976,6 +4332,19 @@ class PostOrderPreviewResponse:
         display_base_size: The maximum order size that will show up on venue order books (in
             base currency).
         is_buy_exact: Buy Exact order flag
+        current_margin_utilization: Futures and SPREAD orders only: amount of the
+            portfolio's derivatives margin limit used before this order. For cross-margin
+            portfolios, the cross-margin limit consumed.
+        current_margin_utilization_ratio: Futures and SPREAD orders only:
+            `current_margin_utilization` as a percentage of the margin limit (0-100, e.g.
+            "1.2" means 1.2%, not a 0-1 decimal)
+        projected_margin_utilization: Futures and SPREAD orders only: amount of the
+            portfolio's derivatives margin limit used if this order fills. For cross-margin
+            portfolios, the cross-margin limit consumed.
+        projected_margin_utilization_ratio: Futures and SPREAD orders only:
+            `projected_margin_utilization` as a percentage of the margin limit (0-100, e.g.
+            "3.6" means 3.6%, not a 0-1 decimal)
+        settl_currency: The requested `settl_currency`, echoed
     """
 
     portfolio_id: str = None
@@ -4001,6 +4370,13 @@ class PostOrderPreviewResponse:
     display_quote_size: str = None
     display_base_size: str = None
     is_buy_exact: bool = None
+    option_greeks: OptionGreeks = None
+    spread_preview: SpreadPreview = None
+    current_margin_utilization: str = None
+    current_margin_utilization_ratio: str = None
+    projected_margin_utilization: str = None
+    projected_margin_utilization_ratio: str = None
+    settl_currency: str = None
 
 
 @dataclass
@@ -4071,6 +4447,7 @@ class Product:
     product_type: str = None
     fcm_trading_session_details: FcmTradingSessionDetails = None
     future_product_details: FutureProductDetails = None
+    option_product_details: OptionProductDetails = None
 
 
 @dataclass
@@ -4085,6 +4462,104 @@ class RewardMetadata:
 
     subtype: str = None
     custom_stablecoin_reward_details: CustomStablecoinRewardDetails = None
+
+
+@dataclass
+class SpreadConfig:
+    """
+    `primary_leg`: its product_id must equal the order's `product_id`, and `base_quantity` is in its units. For a calendar spread (two futures) it must be the back month.
+
+    Attributes:
+        limit: Worst acceptable spread (futures - spot), signed decimal. A buy-futures
+            spread executes when the spread is at or below the limit, a sell-futures spread
+            when it is at or above.
+        max_delta_size: Maximum allowed difference between the filled sizes of the two legs,
+            in the unit given by `max_delta_type`
+    """
+
+    limit: str = None
+    limit_type: str = None
+    max_delta_size: str = None
+    max_delta_type: str = None
+    primary_leg: Leg = None
+    secondary_leg: Leg = None
+
+
+@dataclass
+class SpreadDetails:
+    """
+    A SPREAD order as placed and executed: the spread configuration, the spread product and each leg's fills
+
+    Attributes:
+        limit: The spread limit the order was placed with, see `SpreadConfig.limit`
+        max_delta_size: The max delta size the order was placed with, see
+            `SpreadConfig.max_delta_size`
+        group_product_id: Product ID of the spread product the order is placed on, in the
+            form <futures product_id>:<spot product_id> (back month:front month for a
+            futures-futures spread), e.g. BIP-20DEC30-CDE:BTC-USD
+        realized_spread: Realized spread of the fills so far, in the unit of `limit_type`:
+            for SPREAD_LIMIT_TYPE_USD the futures leg's average filled price minus the spot
+            leg's, in the quote currency; for SPREAD_LIMIT_TYPE_BPS that difference in basis
+            points of the spot leg's average filled price ((futures / spot - 1) x 10000).
+            For a futures-futures spread, back month in place of futures and front month in
+            place of spot. Empty until both legs have fills
+    """
+
+    limit: str = None
+    limit_type: str = None
+    max_delta_size: str = None
+    max_delta_type: str = None
+    group_product_id: str = None
+    realized_spread: str = None
+    primary_leg: SpreadLegDetails = None
+    secondary_leg: SpreadLegDetails = None
+
+
+@dataclass
+class SpreadLegDetails:
+    """
+    One leg of a SPREAD order as placed and executed
+
+    Attributes:
+        product_id: Product ID of the leg, e.g. BTC-USD or BIP-20DEC30-CDE
+        support_passive_order: Whether this leg may rest passively on the book
+        filled_quantity: Quantity filled on this leg, in its units: contracts for a futures
+            product, base units for spot
+        average_filled_price: Average price of this leg's fills, per unit of the underlying
+        commission: Commission charged on this leg so far
+        exchange_fee: Fee charged by the exchange on this leg for Cost Plus commission
+            configurations; 0 for All In
+        filled_value: Notional value of this leg's fills so far, in the quote currency
+    """
+
+    product_id: str = None
+    side: str = None
+    support_passive_order: bool = None
+    filled_quantity: str = None
+    average_filled_price: str = None
+    commission: str = None
+    commission_detail_total: CommissionDetailTotal = None
+    exchange_fee: str = None
+    filled_value: str = None
+
+
+@dataclass
+class SpreadPreview:
+    """
+    SPREAD order preview: the submitted configuration plus per-leg values
+
+    Attributes:
+        group_product_id: Product ID of the spread product, in the form <futures
+            product_id>:<spot product_id>
+    """
+
+    limit: str = None
+    limit_type: str = None
+    max_delta_size: str = None
+    max_delta_type: str = None
+    group_product_id: str = None
+    primary_leg: LegPreview = None
+    secondary_leg: LegPreview = None
 
 
 @dataclass
@@ -4114,19 +4589,34 @@ class Transaction:
         symbol: The asset symbol
         created_at: The transaction creation time (as a UTC timestamp)
         completed_at: The transaction completion time (as a UTC timestamp)
-        amount: The transaction amount in whole units
+        amount: The transaction amount (in whole units). For example, "1.50" represents 1.5
+            of the associated symbol. Examples: - "100" - "1.123456" (precision varies by
+            asset; USDC, for example, supports up to 6 decimal places) - "0.50"
         network_fees: The blockchain network fees (in whole units) required in order to
-            broadcast the transaction
-        fees: The fees that the customer paid for the transaction (in whole units)
-        fee_symbol: The asset in which fees will be paid
+            broadcast the transaction. Does not carry the Advanced Transfer Coinbase fee.
+        fees: The charged fee (in whole units). On the transfer, coinbase_fees is set and
+            fees is 0. On the send, the same charge is on fees and fee_symbol, and
+            coinbase_fees is omitted. Crypto and fiat sends that belong to the transfer use
+            those transfer and send fields. A bank withdrawal that is not part of the
+            transfer is unchanged.
+        fee_symbol: The asset in which fees is denominated. On the send, the same charge is
+            on fees and fee_symbol, and coinbase_fees is omitted. On the transfer,
+            fee_symbol is empty.
         blockchain_ids: The cryptocurrency network transaction hashes/IDs generated upon
             broadcast
         transaction_id: The 8 character alphanumeric short form id for the transaction
         destination_symbol: The destination asset symbol
         network: The network name specific to web3/onchain wallet transactions
-        estimated_asset_changes: The estimated asset changes (web3)
+        estimated_asset_changes: The estimated asset changes (web3/onchain)
         idempotency_key: The idempotency key associated with the transaction creation
             request
+        coinbase_fees: Coinbase fees on the transfer (amount, symbol, wallet_id), where fees
+            is 0. On the send, the same charge is on fees and fee_symbol, and coinbase_fees
+            is omitted. When you total fees, do not add coinbase_fees from the transfer to
+            the send's fees, or you will count the charge twice. A wallet transaction list
+            includes the fees paid by that wallet. Get Transaction and the portfolio
+            transaction list include every fee paid in the requesting portfolio. Fees paid
+            in the counterparty's portfolio are omitted.
     """
 
     id: str = None
@@ -4154,6 +4644,7 @@ class Transaction:
     onchain_details: OnchainDetails = None
     network_info: Network = None
     process_requirements: ProcessRequirements = None
+    coinbase_fees: list[CoinbaseFee] = None
 
 
 @dataclass
@@ -4579,6 +5070,248 @@ class XMSummary:
 
 
 @dataclass
+class CreateWebhookSubscriptionResponse:
+    """
+    CreateWebhookSubscriptionResponse returns the created subscription and its one-time HMAC secret.
+
+    Attributes:
+        hmac_secret: hmac_secret is the plaintext HMAC signing secret. Returned exactly once
+            on creation; store it securely — it is never surfaced again.
+    """
+
+    subscription: WebhookSubscription = None
+    hmac_secret: str = None
+
+
+@dataclass
+class ListWebhookSubscriptionsResponse:
+    """
+    ListWebhookSubscriptionsResponse returns a page of subscriptions and pagination metadata.
+    """
+
+    subscriptions: list[WebhookSubscription] = None
+    next_cursor: str = None
+    has_next: bool = None
+
+
+@dataclass
+class GetWebhookSubscriptionResponse:
+    """
+    GetWebhookSubscriptionResponse returns the requested subscription without authentication secrets.
+    """
+
+    subscription: WebhookSubscription = None
+
+
+@dataclass
+class UpdateWebhookSubscriptionResponse:
+    """
+    UpdateWebhookSubscriptionResponse returns the updated subscription without authentication secrets.
+    """
+
+    subscription: WebhookSubscription = None
+
+
+@dataclass
+class RotateWebhookHMACSecretResponse:
+    """
+    RotateWebhookHMACSecretResponse is the response message for rotating a webhook HMAC signing secret.
+
+    Attributes:
+        hmac_secret: hmac_secret is the new plaintext HMAC signing secret. Returned exactly
+            once; store it securely — it is never surfaced again.
+        previous_secret_expires_at: previous_secret_expires_at is when the prior secret
+            stops being accepted. Unset when revoke_previous_immediately was true.
+    """
+
+    subscription: WebhookSubscription = None
+    hmac_secret: str = None
+    previous_secret_expires_at: str = None
+
+
+@dataclass
+class GetWebhookDeliveryLogsResponse:
+    """
+    GetWebhookDeliveryLogsResponse returns a page of delivery logs and pagination metadata.
+    """
+
+    entries: list[WebhookDeliveryLogEntry] = None
+    next_cursor: str = None
+    has_next: bool = None
+
+
+@dataclass
+class GetWebhookDeliveryAttemptsResponse:
+    """
+    GetWebhookDeliveryAttemptsResponse returns an event's payload, delivery state, and attempts for a subscription.
+
+    Attributes:
+        event_payload: event_payload is the raw JSON bytes delivered to the subscriber.
+    """
+
+    event_id: str = None
+    event_type: str = None
+    subscription_id: str = None
+    delivery_status: str = None
+    attempts: list[WebhookDeliveryAttempt] = None
+    event_payload: str = None
+
+
+@dataclass
+class GetWebhookSubscriptionStatsResponse:
+    """
+    GetWebhookSubscriptionStatsResponse returns subscription health, delivery statistics, and recent failures.
+    """
+
+    subscription_id: str = None
+    health_status: str = None
+    total_events: str = None
+    successful: str = None
+    failed: str = None
+    success_rate: str = None
+    avg_latency_ms: str = None
+    p95_latency_ms: str = None
+    p99_latency_ms: str = None
+    event_type_breakdown: list[WebhookEventTypeStats] = None
+    recent_failures: list[WebhookRecentFailure] = None
+
+
+@dataclass
+class GetWebhookOwnerStatsResponse:
+    """
+    GetWebhookOwnerStatsResponse summarizes delivery statistics across a portfolio's subscriptions.
+    """
+
+    total_subscriptions: str = None
+    active_subscriptions: str = None
+    total_events: str = None
+    overall_success_rate: str = None
+    avg_latency_ms: str = None
+    subscriptions: list[WebhookSubscriptionSummary] = None
+    recent_failures: list[WebhookRecentFailure] = None
+
+
+@dataclass
+class GetRewardsRateResponse:
+    """
+    GetRewardsRateResponse returns the current rewards rate and the available rates.
+
+    Attributes:
+        current_rate: The current effective rewards rate.
+        available_rates: All available rewards rates, including qualifying bounds for each
+            rate.
+    """
+
+    current_rate: str = None
+    available_rates: list[RewardsRateTier] = None
+
+
+@dataclass
+class WebhookSubscription:
+    """
+    WebhookSubscription is the customer-facing representation of a webhook subscription. auth secrets (hmac_secret, oauth client_secret) are never included; hmac_secret is returned exactly once in CreateWebhookSubscriptionResponse.
+    """
+
+    subscription_id: str = None
+    event_types: list[str] = None
+    target_url: str = None
+    auth_type: str = None
+    oauth_config: WebhookOAuthConfig = None
+    custom_headers: dict[str, Any] = None
+    is_enabled: bool = None
+    description: str = None
+    created_by: str = None
+    updated_by: str = None
+    created_at: str = None
+    updated_at: str = None
+    health_status: str = None
+    version: str = None
+
+
+@dataclass
+class WebhookDeliveryLogEntry:
+    """
+    WebhookDeliveryLogEntry summarizes a webhook event delivery and its latest attempt.
+    """
+
+    delivery_id: str = None
+    event_id: str = None
+    event_type: str = None
+    delivery_status: str = None
+    status_code: str = None
+    latency_ms: str = None
+    attempt_number: str = None
+    max_retries: str = None
+    error_type: str = None
+    error_message: str = None
+    is_test: bool = None
+    is_replay: bool = None
+    occurred_at: str = None
+    attempted_at: str = None
+
+
+@dataclass
+class WebhookDeliveryAttempt:
+    """
+    WebhookDeliveryAttempt records the outcome and timing of an individual delivery attempt.
+    """
+
+    delivery_attempt_id: str = None
+    delivery_id: str = None
+    attempt_number: str = None
+    status_code: str = None
+    latency_ms: str = None
+    error_type: str = None
+    error_message: str = None
+    attempted_at: str = None
+
+
+@dataclass
+class WebhookRecentFailure:
+    """
+    WebhookRecentFailure identifies a recent failed delivery attempt.
+    """
+
+    delivery_id: str = None
+    subscription_id: str = None
+    event_id: str = None
+    event_type: str = None
+    error_type: str = None
+    attempt_number: str = None
+    attempted_at: str = None
+
+
+@dataclass
+class WebhookSubscriptionSummary:
+    """
+    WebhookSubscriptionSummary summarizes a subscription's health and delivery statistics.
+    """
+
+    subscription_id: str = None
+    description: str = None
+    health_status: str = None
+    events_in_period: str = None
+    success_rate: str = None
+
+
+@dataclass
+class RewardsRateTier:
+    """
+    RewardsRateTier is a single tier in the rewards rate card.
+
+    Attributes:
+        rate: Rate for this tier.
+        lower_limit: Lower bound of the tier's qualifying criteria (e.g. balance floor).
+        upper_limit: Upper bound of the tier's qualifying criteria.
+    """
+
+    rate: str = None
+    lower_limit: str = None
+    upper_limit: str = None
+    criteria_type: str = None
+
+
+@dataclass
 class CreateNetAllocationRequest:
     """
     Attributes:
@@ -4671,10 +5404,14 @@ class CreateAdvancedTransferRequest:
 
     Attributes:
         portfolio_id: The portfolio ID
+        idempotency_key: Optional client-generated idempotency key. A request with the same
+            key returns the stored transaction ID and reports CREATED; the request body is
+            not compared. Omit the field to create a new transfer.
     """
 
     portfolio_id: str = field(default=None, metadata={"location": "path"})
     advanced_transfer: AdvancedTransfer = None
+    idempotency_key: str = None
 
 
 @dataclass(kw_only=True)
@@ -4685,7 +5422,9 @@ class CreateConversionRequest:
     Attributes:
         portfolio_id: The ID of the portfolio
         wallet_id: The wallet ID that the conversion will originate from
-        amount: The amount in whole units to convert
+        amount: The amount in whole units to convert. For example, "1.50" represents 1.5 of
+            the source symbol. Examples: - "100" - "1.123456" (precision varies by asset;
+            USDC, for example, supports up to 6 decimal places) - "0.50"
         destination: The UUID of the destination wallet
         idempotency_key: The idempotency key associated with this conversion
         source_symbol: The currency symbol to convert from
@@ -4759,11 +5498,12 @@ class CreateOrderRequest:
         product_id: The ID of the product being traded for the order (e.g. `BTC-USD`)
         client_order_id: A client-generated order ID used for reference purposes
         base_quantity: Order size in base asset units (either `base_quantity` or
-            `quote_value` is required)
+            `quote_value` is required). For SPREAD orders, required and in the primary leg's
+            units: a whole number of contracts when it is a futures product
         quote_value: Order size in quote asset units, i.e. the amount the user wants to
             spend (when buying) or receive (when selling); the quantity in base units will
             be determined based on the market liquidity and indicated `quote_value` (either
-            `base_quantity` or `quote_value` is required)
+            `base_quantity` or `quote_value` is required). Not supported for SPREAD orders
         limit_price: The limit price (required for TWAP, VWAP, LIMIT, and STOP_LIMIT orders)
         start_time: The start time of the order in UTC (TWAP only)
         expiry_time: The expiry time of the order in UTC (TWAP, VWAP, LIMIT, and STOP_LIMIT
@@ -4816,6 +5556,8 @@ class CreateOrderRequest:
     offset: str = None
     wig_level: str = None
     is_buy_exact: bool = None
+    limit_price_type: str = None
+    spread_config: SpreadConfig = None
 
 
 @dataclass(kw_only=True)
@@ -4863,6 +5605,9 @@ class CreateQuoteRequest:
             seconds) if not specified. Maximum allowed value is 30000 ms (30 seconds);
             requests with a larger value are rejected. Mirrors FIX tag 8090
             (QuoteRequestGoodForMs).
+        is_buy_exact: Buy Exact order flag. When true, fees for a BUY RFQ sized in
+            quote_value are charged on top of the requested quote_value instead of being
+            carved out of it. Only valid for BUY RFQs sized in quote_value on SPOT products.
     """
 
     portfolio_id: str = field(default=None, metadata={"location": "path"})
@@ -4874,6 +5619,7 @@ class CreateQuoteRequest:
     limit_price: str = None
     settl_currency: str = None
     quote_duration_ms: str = None
+    is_buy_exact: bool = None
 
 
 @dataclass(kw_only=True)
@@ -4922,7 +5668,9 @@ class CreateWalletTransferRequest:
     Attributes:
         portfolio_id: The portfolio ID
         wallet_id: The wallet ID that the transfer will originate from
-        amount: The amount in whole units to send
+        amount: The amount in whole units to transfer. For example, "1.50" represents 1.5 of
+            the wallet's asset. Examples: - "100" - "1.123456" (precision varies by asset;
+            USDC, for example, supports up to 6 decimal places) - "0.50"
         destination: The UUID of the destination wallet
         idempotency_key: The idempotency key associated with this transfer
         currency_symbol: The currency symbol to transfer
@@ -4944,7 +5692,9 @@ class CreateWalletWithdrawalRequest:
     Attributes:
         portfolio_id: The portfolio ID
         wallet_id: The wallet ID
-        amount: The amount in whole units of the withdrawal
+        amount: The amount in whole units to withdraw. For example, "1.50" represents 1.5 of
+            the wallet's asset. Examples: - "100" - "1.123456" (precision varies by asset;
+            USDC, for example, supports up to 6 decimal places) - "0.50"
         idempotency_key: The idempotency key associated with the withdrawal
         currency_symbol: The currency symbol for the withdrawal
     """
@@ -4962,6 +5712,25 @@ class CreateWalletWithdrawalRequest:
 
 
 @dataclass(kw_only=True)
+class CreateWebhookSubscriptionRequest:
+    """
+    Create Webhook Subscription
+
+    Attributes:
+        portfolio_id: Populated from the URL path.
+    """
+
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
+    event_types: list[str] = None
+    target_url: str = None
+    auth_type: str = None
+    oauth_config: WebhookOAuthConfigInput = None
+    custom_headers: dict[str, Any] = None
+    description: str = None
+    idempotency_key: str = None
+
+
+@dataclass(kw_only=True)
 class DeleteOnchainAddressGroupRequest:
     """
     Delete Onchain Address Group
@@ -4969,6 +5738,16 @@ class DeleteOnchainAddressGroupRequest:
 
     portfolio_id: str = None
     address_group_id: str = None
+
+
+@dataclass(kw_only=True)
+class DeleteWebhookSubscriptionRequest:
+    """
+    Delete Webhook Subscription
+    """
+
+    portfolio_id: str = None
+    subscription_id: str = None
 
 
 @dataclass(kw_only=True)
@@ -5229,6 +6008,18 @@ class GetEntityPaymentMethodsRequest:
 
 
 @dataclass(kw_only=True)
+class GetEntityRewardsRateRequest:
+    """
+    Get Entity Rewards Rate (Beta)
+
+    Attributes:
+        entity_id: The ID of the Prime entity whose rewards rate information is requested.
+    """
+
+    entity_id: str = None
+
+
+@dataclass(kw_only=True)
 class GetEntityUsersRequest:
     """
     List Users
@@ -5461,10 +6252,14 @@ class GetOpenOrdersRequest:
             limit_order) - RFQ: A [request for
             quote](https://en.wikipedia.org/wiki/Request_for_quote) - PEG: A pegged order
             that dynamically adjust based on market conditions while maintaining execution
-            discretion and avoiding adverse selection
+            discretion and avoiding adverse selection - SPREAD: A spread order that trades a
+            futures contract against its spot underlying, or against another futures
+            contract of the same underlying (calendar spread), to capture a target spread
+            (futures price - spot price, or back month - front month)
         start_date: A start date for the orders to be queried from
         order_side: An order side to filter on. - UNKNOWN_ORDER_SIDE: nil value - BUY: Buy
-            order - SELL: Sell order
+            order - SELL: Sell order - MULTIPLE: Response only: a SPREAD order, whose legs
+            carry their own sides (see `spread_details`); not accepted in requests
         end_date: An end date for the orders to be queried from
     """
 
@@ -5544,9 +6339,13 @@ class GetOrdersRequest:
             limit_order) - RFQ: A [request for
             quote](https://en.wikipedia.org/wiki/Request_for_quote) - PEG: A pegged order
             that dynamically adjust based on market conditions while maintaining execution
-            discretion and avoiding adverse selection
+            discretion and avoiding adverse selection - SPREAD: A spread order that trades a
+            futures contract against its spot underlying, or against another futures
+            contract of the same underlying (calendar spread), to capture a target spread
+            (futures price - spot price, or back month - front month)
         order_side: An order side to filter on. - UNKNOWN_ORDER_SIDE: nil value - BUY: Buy
-            order - SELL: Sell order
+            order - SELL: Sell order - MULTIPLE: Response only: a SPREAD order, whose legs
+            carry their own sides (see `spread_details`); not accepted in requests
         start_date: A start date for the orders to be queried from
         end_date: An end date for the orders to be queried from
     """
@@ -5626,7 +6425,9 @@ class GetPortfolioAllocationsRequest:
         portfolio_id: Portfolio to retrieve allocations for.
         product_ids: List of products by which to filter the response.
         order_side: An order side to filter allocations on. - UNKNOWN_ORDER_SIDE: nil value
-            - BUY: Buy order - SELL: Sell order
+            - BUY: Buy order - SELL: Sell order - MULTIPLE: Response only: a SPREAD order,
+            whose legs carry their own sides (see `spread_details`); not accepted in
+            requests
         start_date: A start date for the allocations to be queried from.
         end_date: An end date for the orders to be queried from.
     """
@@ -5725,7 +6526,9 @@ class GetPortfolioProductsRequest:
         product_type: Filter by product type (SPOT, FUTURE). If unset, returns all types
             available for your portfolio. Futures products require additional entitlements.
             - UNKNOWN_PRODUCT_TYPE: Unknown product type - SPOT: Spot product - FUTURE:
-            Future product - OPTION: Option product
+            Future product - OPTION: Option product - BASIS: Basis product: a futures
+            contract traded against its spot underlying, or against another futures contract
+            of the same underlying (calendar spread); the product of SPREAD orders
         contract_expiry_type: Filter by contract expiry type (EXPIRING or PERPETUAL). Only
             applicable when product_type = FUTURE. If unset, returns all futures kinds. -
             CONTRACT_EXPIRY_TYPE_UNSPECIFIED: Unspecified contract expiry type -
@@ -5753,6 +6556,19 @@ class GetPortfolioRequest:
 
     Attributes:
         portfolio_id: The portfolio ID
+    """
+
+    portfolio_id: str = None
+
+
+@dataclass(kw_only=True)
+class GetPortfolioRewardsRateRequest:
+    """
+    Get Portfolio Rewards Rate (Beta)
+
+    Attributes:
+        portfolio_id: The ID of the Prime portfolio whose rewards rate information is
+            requested.
     """
 
     portfolio_id: str = None
@@ -5803,9 +6619,11 @@ class GetPortfolioTransactionsRequest:
             MERGE_STAKE: On-chain transaction consolidating funds from different addresses
             belonging to the same wallet.
         start_time: UTC timestamp from which to filter the response (inclusive, ISO-8601
-            format)
+            format). This filter is only sensitive to the second; fractional seconds are
+            truncated.
         end_time: UTC timestamp until which to filter the response (exclusive, ISO-8601
-            format)
+            format). This filter is only sensitive to the second; fractional seconds are
+            truncated.
         get_network_unified_transactions: Flag to request retrieval of all transactions
             across all networks for a given symbol
         travel_rule_status: (Alpha) Filter for status of returned transactions' travel rule
@@ -5961,7 +6779,7 @@ class GetWalletDepositInstructionsRequest:
         deposit_type: The deposit type - UNKNOWN_WALLET_DEPOSIT_TYPE: nil value - CRYPTO: A
             cryptocurrency deposit - WIRE: A wire deposit - SEN: DEPRECATED. A Silvergate
             Exchange Network deposit - SWIFT: A SWIFT deposit - SEPA: A SEPA deposit (Single
-            Euro Payments Area)
+            Euro Payments Area) - KINEXYS: A JPM Kinexys deposit
     """
 
     portfolio_id: str = None
@@ -6028,9 +6846,11 @@ class GetWalletTransactionsRequest:
             MERGE_STAKE: On-chain transaction consolidating funds from different addresses
             belonging to the same wallet.
         start_time: UTC timestamp from which to filter the response (inclusive, ISO-8601
-            format)
+            format). This filter is only sensitive to the second; fractional seconds are
+            truncated.
         end_time: UTC timestamp until which to filter the response (exclusive, ISO-8601
-            format)
+            format). This filter is only sensitive to the second; fractional seconds are
+            truncated.
     """
 
     portfolio_id: str = None
@@ -6059,6 +6879,67 @@ class GetWalletsRequest:
     type: WalletType = None
     symbols: list[str] = None
     get_network_unified_wallets: bool = None
+
+
+@dataclass(kw_only=True)
+class GetWebhookDeliveryAttemptsRequest:
+    """
+    Get Webhook Delivery Attempts
+    """
+
+    portfolio_id: str = None
+    subscription_id: str = None
+    event_id: str = None
+
+
+@dataclass(kw_only=True)
+class GetWebhookDeliveryLogsRequest:
+    """
+    Get Webhook Delivery Logs
+    """
+
+    portfolio_id: str = None
+    subscription_id: str = None
+    status_filter: str = None
+    event_type_filter: str = None
+
+
+@dataclass(kw_only=True)
+class GetWebhookEventTypesRequest:
+    """
+    Get Webhook Event Types
+    """
+
+
+@dataclass(kw_only=True)
+class GetWebhookOwnerStatsRequest:
+    """
+    Get Webhook Owner Stats
+    """
+
+    portfolio_id: str = None
+    period: str = None
+
+
+@dataclass(kw_only=True)
+class GetWebhookSubscriptionRequest:
+    """
+    Get Webhook Subscription
+    """
+
+    portfolio_id: str = None
+    subscription_id: str = None
+
+
+@dataclass(kw_only=True)
+class GetWebhookSubscriptionStatsRequest:
+    """
+    Get Webhook Subscription Stats
+    """
+
+    portfolio_id: str = None
+    subscription_id: str = None
+    period: str = None
 
 
 @dataclass(kw_only=True)
@@ -6262,6 +7143,17 @@ class ListWeb3WalletBalancesRequest:
 
 
 @dataclass(kw_only=True)
+class ListWebhookSubscriptionsRequest:
+    """
+    List Webhook Subscriptions
+    """
+
+    portfolio_id: str = None
+    include_disabled: bool = None
+    event_type_filter: str = None
+
+
+@dataclass(kw_only=True)
 class ListXMLiquidationsRequest:
     """
     List Cross Margin Liquidations
@@ -6293,11 +7185,12 @@ class OrderPreviewRequest:
         portfolio_id: The ID of the portfolio that owns the order
         product_id: The ID of the product being traded for the order (e.g. `BTC-USD`)
         base_quantity: Order size in base asset units (either `base_quantity` or
-            `quote_value` is required)
+            `quote_value` is required). For SPREAD orders, required and in the primary leg's
+            units: a whole number of contracts when it is a futures product
         quote_value: Order size in quote asset units, i.e. the amount the user wants to
             spend (when buying) or receive (when selling); the quantity in base units will
             be determined based on the market liquidity and indicated `quote_value` (either
-            `base_quantity` or `quote_value` is required)
+            `base_quantity` or `quote_value` is required). Not supported for SPREAD orders
         limit_price: The limit price (required for TWAP, VWAP, LIMIT and STOP_LIMIT orders)
         start_time: The start time of the order in UTC (TWAP, VWAP only)
         expiry_time: The expiry time of the order in UTC (TWAP, VWAP, LIMIT and STOP_LIMIT
@@ -6344,6 +7237,8 @@ class OrderPreviewRequest:
     offset: str = None
     wig_level: str = None
     is_buy_exact: bool = None
+    limit_price_type: str = None
+    spread_config: SpreadConfig = None
 
 
 @dataclass(kw_only=True)
@@ -6406,6 +7301,33 @@ class PreviewUnstakeRequest:
 
 
 @dataclass(kw_only=True)
+class ReplayWebhookEventRequest:
+    """
+    Replay Webhook Event
+    """
+
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
+    event_id: str = field(default=None, metadata={"location": "path"})
+    subscription_id: str = None
+
+
+@dataclass(kw_only=True)
+class RotateWebhookHMACSecretRequest:
+    """
+    Rotate Webhook HMAC Secret
+
+    Attributes:
+        revoke_previous_immediately: revoke_previous_immediately invalidates the old secret
+            immediately instead of keeping it valid for the server grace window. Use when
+            the secret may be compromised.
+    """
+
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
+    subscription_id: str = field(default=None, metadata={"location": "path"})
+    revoke_previous_immediately: bool = None
+
+
+@dataclass(kw_only=True)
 class ScheduleFuturesSweepRequest:
     """
     Schedule Entity Futures Sweep
@@ -6419,6 +7341,17 @@ class ScheduleFuturesSweepRequest:
     entity_id: str = field(default=None, metadata={"location": "path"})
     amount: str = None
     currency: str = None
+
+
+@dataclass(kw_only=True)
+class SendWebhookSimulationRequest:
+    """
+    Send Webhook Simulation
+    """
+
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
+    subscription_id: str = field(default=None, metadata={"location": "path"})
+    event_type: str = None
 
 
 @dataclass(kw_only=True)
@@ -6565,6 +7498,25 @@ class UpdateOnchainAddressGroupRequest:
 
     portfolio_id: str = field(default=None, metadata={"location": "path"})
     address_group: AddressGroup = None
+
+
+@dataclass(kw_only=True)
+class UpdateWebhookSubscriptionRequest:
+    """
+    Update Webhook Subscription
+    """
+
+    portfolio_id: str = field(default=None, metadata={"location": "path"})
+    subscription_id: str = field(default=None, metadata={"location": "path"})
+    event_types: list[str] = None
+    target_url: str = None
+    auth_type: str = None
+    oauth_config: WebhookOAuthConfigInput = None
+    custom_headers: dict[str, Any] = None
+    description: str = None
+    is_enabled: bool = None
+    update_mask: str = None
+    expected_version: str = None
 
 
 # Backward-compatible public aliases

@@ -32,6 +32,10 @@ from .get_entity_locate_availabilities import (
     GetEntityLocateAvailabilitiesRequest,
     GetEntityLocateAvailabilitiesResponse,
 )
+from .get_entity_rewards_rate import (
+    GetEntityRewardsRateRequest,
+    GetEntityRewardsRateResponse,
+)
 from .get_margin_information import (
     GetMarginInformationRequest,
     GetMarginInformationResponse,
@@ -41,6 +45,10 @@ from .get_portfolio_buying_power import GetBuyingPowerRequest, GetBuyingPowerRes
 from .get_portfolio_credit_information import (
     GetPortfolioCreditInformationRequest,
     GetPortfolioCreditInformationResponse,
+)
+from .get_portfolio_rewards_rate import (
+    GetPortfolioRewardsRateRequest,
+    GetPortfolioRewardsRateResponse,
 )
 from .get_portfolio_withdrawal_power import (
     GetPortfolioWithdrawalPowerRequest,
@@ -353,3 +361,21 @@ class FinancingService:
             allowed_status_codes=request.allowed_status_codes,
         )
         return ListXMLiquidationsResponse.from_response(response.json())
+
+    def get_entity_rewards_rate(
+        self, request: GetEntityRewardsRateRequest
+    ) -> GetEntityRewardsRateResponse:
+        path = f"/entities/{request.entity_id}/rewards/rate"
+        response = self.client.request(
+            "GET", path, allowed_status_codes=request.allowed_status_codes
+        )
+        return GetEntityRewardsRateResponse.from_response(response.json())
+
+    def get_portfolio_rewards_rate(
+        self, request: GetPortfolioRewardsRateRequest
+    ) -> GetPortfolioRewardsRateResponse:
+        path = f"/portfolios/{request.portfolio_id}/rewards/rate"
+        response = self.client.request(
+            "GET", path, allowed_status_codes=request.allowed_status_codes
+        )
+        return GetPortfolioRewardsRateResponse.from_response(response.json())

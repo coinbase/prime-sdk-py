@@ -30,11 +30,12 @@ class CreateOrderRequest(BaseRequest, _CreateOrderRequest):
         product_id: The ID of the product being traded for the order (e.g. `BTC-USD`)
         client_order_id: A client-generated order ID used for reference purposes
         base_quantity: Order size in base asset units (either `base_quantity` or
-            `quote_value` is required)
+            `quote_value` is required). For SPREAD orders, required and in the primary leg's
+            units: a whole number of contracts when it is a futures product
         quote_value: Order size in quote asset units, i.e. the amount the user wants to
             spend (when buying) or receive (when selling); the quantity in base units will
             be determined based on the market liquidity and indicated `quote_value` (either
-            `base_quantity` or `quote_value` is required)
+            `base_quantity` or `quote_value` is required). Not supported for SPREAD orders
         limit_price: The limit price (required for TWAP, VWAP, LIMIT, and STOP_LIMIT orders)
         start_time: The start time of the order in UTC (TWAP only)
         expiry_time: The expiry time of the order in UTC (TWAP, VWAP, LIMIT, and STOP_LIMIT

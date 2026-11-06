@@ -1,5 +1,66 @@
 # Changelog
 
+## [1.13.0] - 2026-NOV-06
+
+### Added
+
+#### New API Endpoints
+
+**Webhooks Service** (new, beta; `client.webhooks`)
+- **`list_webhook_subscriptions()`**: List webhook subscriptions for a portfolio (`GET /v1/portfolios/{portfolio_id}/webhooks/subscriptions`)
+- **`create_webhook_subscription()`**: Create a webhook subscription; returns the one-time HMAC secret (`POST /v1/portfolios/{portfolio_id}/webhooks/subscriptions`)
+- **`get_webhook_subscription()`**: Get a webhook subscription (`GET /v1/portfolios/{portfolio_id}/webhooks/subscriptions/{subscription_id}`)
+- **`update_webhook_subscription()`**: Update a webhook subscription (`PATCH /v1/portfolios/{portfolio_id}/webhooks/subscriptions/{subscription_id}`)
+- **`delete_webhook_subscription()`**: Delete a webhook subscription (`DELETE /v1/portfolios/{portfolio_id}/webhooks/subscriptions/{subscription_id}`)
+- **`rotate_webhook_hmac_secret()`**: Rotate a subscription's HMAC signing secret (`POST /v1/portfolios/{portfolio_id}/webhooks/subscriptions/{subscription_id}/rotate-hmac-secret`)
+- **`send_webhook_simulation()`**: Send a simulated event to a subscription (`POST /v1/portfolios/{portfolio_id}/webhooks/subscriptions/{subscription_id}/simulate`)
+- **`get_webhook_delivery_logs()`**: List delivery logs for a subscription (`GET /v1/portfolios/{portfolio_id}/webhooks/subscriptions/{subscription_id}/deliveries`)
+- **`get_webhook_delivery_attempts()`**: List delivery attempts for an event (`GET /v1/portfolios/{portfolio_id}/webhooks/subscriptions/{subscription_id}/deliveries/{event_id}/attempts`)
+- **`get_webhook_subscription_stats()`**: Get delivery stats for a subscription (`GET /v1/portfolios/{portfolio_id}/webhooks/subscriptions/{subscription_id}/stats`)
+- **`get_webhook_owner_stats()`**: Get aggregate webhook stats for a portfolio (`GET /v1/portfolios/{portfolio_id}/webhooks/stats`)
+- **`replay_webhook_event()`**: Replay a webhook event (`POST /v1/portfolios/{portfolio_id}/webhooks/events/{event_id}/replay`)
+- **`get_webhook_event_types()`**: List available webhook event types (`GET /v1/webhooks/event-types`)
+
+**Financing Service**
+- **`get_entity_rewards_rate()`**: Get the current and available rewards rates for an entity (beta) (`GET /v1/entities/{entity_id}/rewards/rate`)
+- **`get_portfolio_rewards_rate()`**: Get the current and available rewards rates for a portfolio (beta) (`GET /v1/portfolios/{portfolio_id}/rewards/rate`)
+
+#### New & Updated Models
+- **`WebhookSubscription`**, **`WebhookSubscriptionSummary`**, **`WebhookOAuthConfig`**, **`WebhookOAuthConfigInput`**, **`WebhookEventType`**, **`WebhookEventTypeStats`**, **`WebhookDeliveryLogEntry`**, **`WebhookDeliveryAttempt`**, **`WebhookRecentFailure`**: Webhook subscription, delivery, and stats models
+- **`GetRewardsRateResponse`**, **`RewardsRateTier`**: Rewards rate card
+- **`SpreadConfig`**, **`SpreadDetails`**, **`SpreadLegDetails`**, **`SpreadPreview`**, **`Leg`**, **`LegPreview`**: Spread order support
+- **`CreateOrderRequest`** / **`CreateOrderPreviewRequest`**: Added `limit_price_type` and `spread_config`
+- **`CreateQuoteRequest`** / **`CreateQuoteResponse`**: Added `is_buy_exact`
+- **`CreateAdvancedTransferRequest`**: Added `idempotency_key`
+- **`CreateOrderPreviewResponse`**: Added `option_greeks`, `spread_preview`, `current_margin_utilization`, `current_margin_utilization_ratio`, `projected_margin_utilization`, `projected_margin_utilization_ratio`, and `settl_currency`
+- **`Order`**: Added `limit_price_type` and `spread_details`
+- **`Product`**: Added `option_product_details` (`OptionProductDetails`, `PriceIncrementStep`)
+- **`MarginSummary`**: Added `health_status`, `margin_level`, `margin_thresholds`, `control_status`, `equity_ratio`, `deficit_ratio`, `call_status`, and `short_collateral_transfer`
+- **`CrossMarginPrimeMarginSummary`**: Added `raw_account_equity` and `pre_haircut_account_equity`
+- **`CrossMarginPrimeSpotEquityBreakdown`**: Added `fx_balance` and `stablecoin_balance`
+- **`CrossMarginPrimeXMPosition`**: Added `asset_class` and `spot_margin_contribution` (`CrossMarginPrimeSpotMarginContribution`)
+- **`FcmPosition`** / **`DerivativePosition`**: Added `funding_pnl`
+- **`AdvancedTransfer`** / **`Transaction`**: Added `coinbase_fees` (`CoinbaseFee`)
+- **`OnchainTransactionDetails`**: Added `original_unsigned_transaction`
+- Generated error bodies for every new webhook and rewards-rate endpoint in `prime_sdk/generated/errors.py`
+
+#### New Enums
+- **`WebhookAuthType`**, **`WebhookDeliveryStatus`**, **`WebhookHealthStatus`**, **`WebhookErrorType`**, **`WebhookStatsPeriod`**, **`RewardsRateTierType`**
+- **`OrderSide`**: Added `MULTIPLE`
+- **`OrderType`**: Added `PEG` and `SPREAD`
+- **`ProductType`**: Added `BASIS`
+- **`WalletType`**: Added `INTERNATIONAL_DERIVATIVES`
+- **`WalletDepositType`**: Added `SEN` and `KINEXYS`
+- **`RewardSubtype`**: Added `TRADING_FEE_REBATE_REWARD`
+
+#### Examples
+- `prime_sdk/examples/webhooks/` (one per webhook endpoint) and `prime_sdk/examples/financing/get_{entity,portfolio}_rewards_rate.py`. The create and rotate examples never print the HMAC secret; pass `--secret-file` to save it with `0600` permissions.
+
+### Changed
+
+- Model generation now strips the `PrimeBeta_` operation ID prefix, so beta request models use plain names (e.g. `CreateWebhookSubscriptionRequest` instead of `PrimeBeta_CreateWebhookSubscriptionRequest`).
+- Service request/response docstrings refreshed from the latest spec (orders, quotes, advanced transfers, transactions, products, and wallets).
+
 ## [1.12.0] - 2026-SEP-01
 
 ### Added

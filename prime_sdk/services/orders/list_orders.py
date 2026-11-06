@@ -46,9 +46,13 @@ class ListOrdersRequest(BasePaginatedRequest, _GetOrdersRequest):
             limit_order) - RFQ: A [request for
             quote](https://en.wikipedia.org/wiki/Request_for_quote) - PEG: A pegged order
             that dynamically adjust based on market conditions while maintaining execution
-            discretion and avoiding adverse selection
+            discretion and avoiding adverse selection - SPREAD: A spread order that trades a
+            futures contract against its spot underlying, or against another futures
+            contract of the same underlying (calendar spread), to capture a target spread
+            (futures price - spot price, or back month - front month)
         order_side: An order side to filter on. - UNKNOWN_ORDER_SIDE: nil value - BUY: Buy
-            order - SELL: Sell order
+            order - SELL: Sell order - MULTIPLE: Response only: a SPREAD order, whose legs
+            carry their own sides (see `spread_details`); not accepted in requests
         start_date: A start date for the orders to be queried from
         end_date: An end date for the orders to be queried from
     """

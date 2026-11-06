@@ -43,6 +43,9 @@ class CreateQuoteRequest(BaseRequest, _CreateQuoteRequest):
             seconds) if not specified. Maximum allowed value is 30000 ms (30 seconds);
             requests with a larger value are rejected. Mirrors FIX tag 8090
             (QuoteRequestGoodForMs).
+        is_buy_exact: Buy Exact order flag. When true, fees for a BUY RFQ sized in
+            quote_value are charged on top of the requested quote_value instead of being
+            carved out of it. Only valid for BUY RFQs sized in quote_value on SPOT products.
     """
 
 
@@ -56,4 +59,5 @@ class CreateQuoteResponse(BaseResponse, _QuoteResponse):
         quote_duration_ms: Echo of the quote_duration_ms supplied in the request. 0 if the
             client did not supply a value, in which case the server applies the default of
             3000 ms (3 seconds).
+        is_buy_exact: Buy Exact order flag
     """

@@ -207,7 +207,7 @@ def operation_id_to_class_name(operation_id: str) -> str:
     if operation_id in REQUEST_CLASS_NAME_OVERRIDES:
         return REQUEST_CLASS_NAME_OVERRIDES[operation_id]
     name = operation_id
-    for prefix in ("PrimeRESTAPI_", "primeRESTAPI_"):
+    for prefix in ("PrimeRESTAPI_", "primeRESTAPI_", "PrimeBeta_", "primeBeta_"):
         name = name.removeprefix(prefix)
     if not name.endswith("Request"):
         name = f"{name}Request"
