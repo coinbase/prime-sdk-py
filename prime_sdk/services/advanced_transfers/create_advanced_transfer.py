@@ -27,6 +27,9 @@ class CreateAdvancedTransferRequest(BaseRequest, _CreateAdvancedTransferRequest)
 
     Attributes:
         portfolio_id: The portfolio ID
+        idempotency_key: Optional client-generated UUID. A request with the same key returns
+            the stored transfer (ID, legs, and state) without comparing request bodies.
+            Omit the field to create a new transfer.
     """
 
 

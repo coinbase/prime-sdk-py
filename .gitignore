@@ -2,6 +2,9 @@
 .env
 .env.local
 
+# Webhook HMAC secrets written by the webhook examples
+webhook_hmac_secret
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

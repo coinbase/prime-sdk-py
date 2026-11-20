@@ -28,7 +28,9 @@ class CreateConversionRequest(BaseRequest, _CreateConversionRequest):
     Attributes:
         portfolio_id: The ID of the portfolio
         wallet_id: The wallet ID that the conversion will originate from
-        amount: The amount in whole units to convert
+        amount: The amount in whole units to convert. For example, "1.50" represents 1.5 of
+            the source symbol. Examples: - "100" - "1.123456" (precision varies by asset;
+            USDC, for example, supports up to 6 decimal places) - "0.50"
         destination: The UUID of the destination wallet
         idempotency_key: The idempotency key associated with this conversion
         source_symbol: The currency symbol to convert from
@@ -43,7 +45,9 @@ class CreateConversionResponse(BaseResponse, _CreateConversionResponse):
         activity_id: The activity ID for the conversion
         source_symbol: The currency symbol to convert from
         destination_symbol: The currency symbol to convert to
-        amount: The amount in whole units to convert
+        amount: The amount in whole units to convert. For example, "1.50" represents 1.5 of
+            the source symbol. Examples: - "100" - "1.123456" (precision varies by asset;
+            USDC, for example, supports up to 6 decimal places) - "0.50"
         destination: The UUID of the destination wallet
         source: The UUID of the source wallet
         transaction_id: The UUID of the conversion transaction

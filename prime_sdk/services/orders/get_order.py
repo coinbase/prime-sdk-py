@@ -43,31 +43,43 @@ class GetOrderResponse(BaseResponse, _GetOrderResponse):
             (note: order will be rejected if this ID is not unique among all currently
             active orders)
         order.base_quantity: Order size in base asset units (either `base_quantity` or
-            `quote_value` is required)
+            `quote_value` is required). For SPREAD orders, in the primary leg's units: a
+            whole number of contracts when it is a futures product
         order.quote_value: Order size in quote asset units, i.e. the amount the user wants
             to spend (when buying) or receive (when selling); the quantity in base units
             will be determined based on the market liquidity and indicated `quote_value`.
-            Either `base_quantity` or `quote_value` is required
+            Either `base_quantity` or `quote_value` is required. Not supported for SPREAD
+            orders
         order.limit_price: The limit price (required for TWAP, VWAP, LIMIT and STOP_LIMIT
-            orders)
+            orders). Empty for SPREAD orders, which carry a spread limit in `spread_details`
+            instead
         order.start_time: The start time of the order in UTC (only applies to TWAP, VWAP
             orders.)
         order.expiry_time: The expiry time of the order in UTC (applies to TWAP, VWAP,
             LIMIT, and STOP_LIMIT orders with `time_in_force` set to `GTD`)
         order.created_at: The order creation time as a UTC timestamp
-        order.filled_quantity: Size filled (in base asset units)
-        order.filled_value: Market value filled (in quote asset units)
-        order.average_filled_price: Indicates the average `filled_price`
+        order.filled_quantity: Size filled (in base asset units). Empty for SPREAD orders,
+            whose legs fill in different units; see `spread_details` for each leg's value
+        order.filled_value: Market value filled (in quote asset units). For SPREAD orders,
+            the sum of both legs' filled values
+        order.average_filled_price: Indicates the average `filled_price`. Empty for SPREAD
+            orders; see `spread_details` for each leg's value
         order.commission: Total commission paid on this order (in quote asset units) -- only
-            applicable for partially- or fully-filled orders
+            applicable for partially- or fully-filled orders. For SPREAD orders, the sum of
+            both legs' commissions; `commission_detail_total` is empty and each leg's
+            breakdown is in `spread_details`
         order.exchange_fee: Fee charged by the exchange for Cost Plus commission
-            configurations. Exchange fee will be 0 for All In commission configurations.
+            configurations. Exchange fee will be 0 for All In commission configurations. For
+            SPREAD orders, the sum of both legs' exchange fees
+            (`spread_details.primary_leg.exchange_fee` and
+            `spread_details.secondary_leg.exchange_fee`).
         order.historical_pov: historical pov for the order
         order.stop_price: Specifies the stop price at which the order activates. The order
             is activated if the last trade price on Coinbase Exchange crosses the stop price
             specified on the order
         order.net_average_filled_price: Indicates the average `filled_price` net of
-            commissions and fees
+            commissions and fees. Empty for SPREAD orders; see `spread_details` for each
+            leg's value
         order.user_context: Indicates a user friendly message for regarding various aspects
             of the order such as cancellation or rejection reasons
         order.client_product_id: The client product ID of the fill indictating the settlment

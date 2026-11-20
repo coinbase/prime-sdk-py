@@ -31,7 +31,9 @@ class ListPortfolioAllocationsRequest(
         portfolio_id: Portfolio to retrieve allocations for.
         product_ids: List of products by which to filter the response.
         order_side: An order side to filter allocations on. - UNKNOWN_ORDER_SIDE: nil value
-            - BUY: Buy order - SELL: Sell order
+            - BUY: Buy order - SELL: Sell order - MULTIPLE: Response only: a SPREAD order,
+            whose legs carry their own sides (see `spread_details`); not accepted in
+            requests
         start_date: A start date for the allocations to be queried from.
         end_date: An end date for the orders to be queried from.
     """

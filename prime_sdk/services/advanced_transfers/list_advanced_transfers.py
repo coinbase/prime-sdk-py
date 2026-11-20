@@ -27,7 +27,9 @@ class ListAdvancedTransfersRequest(BasePaginatedRequest, _ListAdvancedTransfersR
 
     Attributes:
         portfolio_id: The portfolio ID
-        state: The state of the Advanced Transfer to filter by
+        state: The state of the Advanced Transfer to filter by.
+            ADVANCED_TRANSFER_STATE_MATCHED means the counterparties have matched
+            but settlement has not started.
         type: The type of the Advanced Transfer to filter by
         start_time: UTC timestamp of creation from which to filter the response (inclusive,
             ISO-8601 format)
