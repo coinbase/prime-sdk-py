@@ -30,6 +30,10 @@ from .get_entity_locate_availabilities import (
     GetEntityLocateAvailabilitiesRequest,
     GetEntityLocateAvailabilitiesResponse,
 )
+from .get_entity_rewards_rate import (
+    GetEntityRewardsRateRequest,
+    GetEntityRewardsRateResponse,
+)
 from .get_margin_information import (
     GetMarginInformationRequest,
     GetMarginInformationResponse,
@@ -39,6 +43,10 @@ from .get_portfolio_buying_power import GetBuyingPowerRequest, GetBuyingPowerRes
 from .get_portfolio_credit_information import (
     GetPortfolioCreditInformationRequest,
     GetPortfolioCreditInformationResponse,
+)
+from .get_portfolio_rewards_rate import (
+    GetPortfolioRewardsRateRequest,
+    GetPortfolioRewardsRateResponse,
 )
 from .get_portfolio_withdrawal_power import (
     GetPortfolioWithdrawalPowerRequest,
@@ -97,12 +105,16 @@ __all__ = [
     "GetCrossMarginRiskParametersResponse",
     "GetEntityLocateAvailabilitiesRequest",
     "GetEntityLocateAvailabilitiesResponse",
+    "GetEntityRewardsRateRequest",
+    "GetEntityRewardsRateResponse",
     "GetMarginInformationRequest",
     "GetMarginInformationResponse",
     "GetMarketDataRequest",
     "GetMarketDataResponse",
     "GetPortfolioCreditInformationRequest",
     "GetPortfolioCreditInformationResponse",
+    "GetPortfolioRewardsRateRequest",
+    "GetPortfolioRewardsRateResponse",
     "GetPortfolioWithdrawalPowerRequest",
     "GetPortfolioWithdrawalPowerResponse",
     "GetTradeFinanceTieredPricingFeesRequest",

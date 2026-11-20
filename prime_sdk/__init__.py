@@ -52,6 +52,7 @@ from .services.staking import StakingService
 from .services.transactions import TransactionsService
 from .services.users import UsersService
 from .services.wallets import WalletsService
+from .services.webhooks import WebhooksService
 
 __all__ = [
     "ActivitiesService",
@@ -89,6 +90,7 @@ __all__ = [
     "TransactionsService",
     "UsersService",
     "WalletsService",
+    "WebhooksService",
 ]
 
 # For request/response classes, users should import directly from services:

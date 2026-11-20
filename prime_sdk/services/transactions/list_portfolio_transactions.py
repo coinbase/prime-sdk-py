@@ -68,10 +68,15 @@ class ListPortfolioTransactionsRequest(
             operation - PORTFOLIO_UNSTAKE: Portfolio-level unstaking operation -
             MERGE_STAKE: On-chain transaction consolidating funds from different addresses
             belonging to the same wallet.
+            ONCHAIN_DEPOSIT: Deposit into a Prime Onchain Wallet.
+            ONCHAIN_REWARD: Automated on-chain reward payout.
+            ONCHAIN_MESSAGE: Message signing with a Prime Onchain Wallet without moving funds.
         start_time: UTC timestamp from which to filter the response (inclusive, ISO-8601
-            format)
+            format). This filter is only sensitive to the second; fractional seconds are
+            truncated.
         end_time: UTC timestamp until which to filter the response (exclusive, ISO-8601
-            format)
+            format). This filter is only sensitive to the second; fractional seconds are
+            truncated.
         get_network_unified_transactions: Flag to request retrieval of all transactions
             across all networks for a given symbol
         travel_rule_status: (Alpha) Filter for status of returned transactions' travel rule

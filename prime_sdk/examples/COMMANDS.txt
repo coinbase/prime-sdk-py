@@ -39,9 +39,11 @@ python prime_sdk/examples/financing/create_new_locate.py --symbol BTC --amount 1
 python prime_sdk/examples/financing/get_conversion_fees.py
 python prime_sdk/examples/financing/get_cross_margin_overview.py
 python prime_sdk/examples/financing/get_entity_locate_availabilities.py --locate-date "2025-01-01"
+python prime_sdk/examples/financing/get_entity_rewards_rate.py
 python prime_sdk/examples/financing/get_margin_information.py
 python prime_sdk/examples/financing/get_portfolio_buying_power.py --base-currency BTC --quote-currency USD
 python prime_sdk/examples/financing/get_portfolio_credit_information.py
+python prime_sdk/examples/financing/get_portfolio_rewards_rate.py
 python prime_sdk/examples/financing/get_portfolio_withdrawal_power.py --symbol USDC
 python prime_sdk/examples/financing/get_trade_finance_tiered_pricing_fees.py --effective-at 2025-01-01T00:00:00Z
 python prime_sdk/examples/financing/list_existing_locates.py --locate-date "2026-01-01"
@@ -136,6 +138,21 @@ python prime_sdk/examples/wallets/get_wallet.py
 python prime_sdk/examples/wallets/get_wallet_deposit_instructions.py --deposit-type CRYPTO
 python prime_sdk/examples/wallets/list_wallet_addresses.py --network-id bitcoin-mainnet
 python prime_sdk/examples/wallets/list_wallets.py --limit 1000
+
+# Webhooks
+python prime_sdk/examples/webhooks/get_webhook_event_types.py
+python prime_sdk/examples/webhooks/list_webhook_subscriptions.py --include-disabled
+python prime_sdk/examples/webhooks/create_webhook_subscription.py --target-url https://example.com/webhooks --event-types ORDER_FILLED --secret-file ./webhook_hmac_secret
+python prime_sdk/examples/webhooks/get_webhook_subscription.py --subscription-id abc123
+python prime_sdk/examples/webhooks/update_webhook_subscription.py --subscription-id abc123 --description "Updated description"
+python prime_sdk/examples/webhooks/rotate_webhook_hmac_secret.py --subscription-id abc123 --secret-file ./webhook_hmac_secret
+python prime_sdk/examples/webhooks/send_webhook_simulation.py --subscription-id abc123 --event-type ORDER_FILLED
+python prime_sdk/examples/webhooks/get_webhook_delivery_logs.py --subscription-id abc123 --status-filter WEBHOOK_DELIVERY_STATUS_FAILED
+python prime_sdk/examples/webhooks/get_webhook_delivery_attempts.py --subscription-id abc123 --event-id def456
+python prime_sdk/examples/webhooks/get_webhook_subscription_stats.py --subscription-id abc123 --period WEBHOOK_STATS_PERIOD_24H
+python prime_sdk/examples/webhooks/get_webhook_owner_stats.py --period WEBHOOK_STATS_PERIOD_7D
+python prime_sdk/examples/webhooks/replay_webhook_event.py --event-id def456 --subscription-id abc123
+python prime_sdk/examples/webhooks/delete_webhook_subscription.py --subscription-id abc123
 
 # Utility/Helper Scripts
 python prime_sdk/examples/calculate_24h_change.py --product-id BTC-USD

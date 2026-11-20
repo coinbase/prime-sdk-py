@@ -28,7 +28,9 @@ class CreateTransferRequest(BaseRequest, _CreateWalletTransferRequest):
     Attributes:
         portfolio_id: The portfolio ID
         wallet_id: The wallet ID that the transfer will originate from
-        amount: The amount in whole units to send
+        amount: The amount in whole units to transfer. For example, "1.50" represents 1.5 of
+            the wallet's asset. Examples: - "100" - "1.123456" (precision varies by asset;
+            USDC, for example, supports up to 6 decimal places) - "0.50"
         destination: The UUID of the destination wallet
         idempotency_key: The idempotency key associated with this transfer
         currency_symbol: The currency symbol to transfer

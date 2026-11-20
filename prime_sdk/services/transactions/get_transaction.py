@@ -41,19 +41,35 @@ class GetTransactionResponse(BaseResponse, _GetTransactionResponse):
         transaction.symbol: The asset symbol
         transaction.created_at: The transaction creation time (as a UTC timestamp)
         transaction.completed_at: The transaction completion time (as a UTC timestamp)
-        transaction.amount: The transaction amount in whole units
+        transaction.amount: The transaction amount (in whole units). For example, "1.50"
+            represents 1.5 of the associated symbol. Examples: - "100" - "1.123456"
+            (precision varies by asset; USDC, for example, supports up to 6 decimal places)
+            - "0.50"
         transaction.network_fees: The blockchain network fees (in whole units) required in
-            order to broadcast the transaction
-        transaction.fees: The fees that the customer paid for the transaction (in whole
-            units)
-        transaction.fee_symbol: The asset in which fees will be paid
+            order to broadcast the transaction. Does not carry the Advanced Transfer
+            Coinbase fee.
+        transaction.fees: The charged fee (in whole units). On the transfer, coinbase_fees
+            is set and fees is 0. On the send, the same charge is on fees and fee_symbol,
+            and coinbase_fees is omitted. Crypto and fiat sends that belong to the transfer
+            use those transfer and send fields. A bank withdrawal that is not part of the
+            transfer is unchanged.
+        transaction.fee_symbol: The asset in which fees is denominated. On the send, the
+            same charge is on fees and fee_symbol, and coinbase_fees is omitted. On the
+            transfer, fee_symbol is empty.
         transaction.blockchain_ids: The cryptocurrency network transaction hashes/IDs
             generated upon broadcast
         transaction.transaction_id: The 8 character alphanumeric short form id for the
             transaction
         transaction.destination_symbol: The destination asset symbol
         transaction.network: The network name specific to web3/onchain wallet transactions
-        transaction.estimated_asset_changes: The estimated asset changes (web3)
+        transaction.estimated_asset_changes: The estimated asset changes (web3/onchain)
         transaction.idempotency_key: The idempotency key associated with the transaction
             creation request
+        transaction.coinbase_fees: Coinbase fees on the transfer (amount, symbol,
+            wallet_id), where fees is 0. On the send, the same charge is on fees and
+            fee_symbol, and coinbase_fees is omitted. When you total fees, do not add
+            coinbase_fees from the transfer to the send's fees, or you will count the charge
+            twice. A wallet transaction list includes the fees paid by that wallet. Get
+            Transaction and the portfolio transaction list include every fee paid in the
+            requesting portfolio. Fees paid in the counterparty's portfolio are omitted.
     """
